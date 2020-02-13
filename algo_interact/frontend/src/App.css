@@ -1,0 +1,18 @@
+.App {
+  text-align: center;
+}
+
+.Container {
+  position: relative;
+  background: white;
+}
+
+.Side1 {
+  position: absolute;
+  left: 990px;
+}
+
+.Side2 {
+  position: absolute;
+  left: 10px
+}
