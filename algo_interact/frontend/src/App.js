@@ -1,27 +1,37 @@
-import React, {Component} from 'react';
-import './App.css';
-import Main from './Components/Main/Main'
-import Header from './Components/Header/Header'
-import Sidebar from './Components/Sidebar/Sidebar'
-import Footer from './Components/Footer/Footer'
+import React, { Component } from "react";
+import "./App.css";
 
+// Used for routing different pages
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  Redirect
+} from "react-router-dom";
+
+// Pages
+import HomePage from "./pages/home";
+import VisualizerPage from "./pages/visualizer";
+import NotFoundPage from "./pages/404";
+
+// Main App class to be rendered by the React DOM
+// in the index.js file.
 class App extends Component {
   render() {
-    return(
-      <div className='Container'>
-        <Header/>
-        <Main/>
-        <div className='Side1'>
-          <Sidebar/>
-        </div>
-        <div className='Side2'>
-          <Sidebar/>
-        </div>
-        <Footer/>
-      </div>
-    )
+    return (
+      // Uses Router class to be able to switch
+      // around different paths with its corresponding components.
+      <Router>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/visualizer" component={VisualizerPage} />
+          <Route path="/404" component={NotFoundPage} />
+          <Redirect to="/404" />
+        </Switch>
+      </Router>
+    );
   }
 }
-
 
 export default App;

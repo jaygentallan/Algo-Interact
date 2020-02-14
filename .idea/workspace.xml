@@ -2,8 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c110eb0-512a-42ea-b1b7-df7f2511dc2e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/algo_interact/frontendTest/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/algo_interact/frontendTest/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/algo_interact/frontendTest/packagecopy.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algo_interact/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/algo_interact/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algo_interact/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/algo_interact/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algo_interact/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/algo_interact/frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algo_interact/frontend/src/Components/Footer/Footer.css" beforeDir="false" afterPath="$PROJECT_DIR$/algo_interact/frontend/src/components/Footer/Footer.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algo_interact/frontend/src/Components/Footer/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/algo_interact/frontend/src/components/Footer/Footer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algo_interact/frontend/src/Components/Header/Header.css" beforeDir="false" afterPath="$PROJECT_DIR$/algo_interact/frontend/src/components/Header/Header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algo_interact/frontend/src/Components/Header/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/algo_interact/frontend/src/components/Header/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algo_interact/frontend/src/Components/Main/Main.css" beforeDir="false" afterPath="$PROJECT_DIR$/algo_interact/frontend/src/components/Main/Main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algo_interact/frontend/src/Components/Main/Main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/algo_interact/frontend/src/components/Main/Main.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algo_interact/frontend/src/Components/Sidebar/Sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/algo_interact/frontend/src/components/Sidebar/Sidebar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algo_interact/frontend/src/Components/Sidebar/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/algo_interact/frontend/src/components/Sidebar/Sidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algo_interact/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/algo_interact/frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algo_interact/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/algo_interact/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,14 +34,17 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/algo_interact/frontendTest" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1Xdm3cIWYJx2h8upPqmg4c4jeSu" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/algo_interact/frontend/src" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jayiv\Desktop\Projects\algo_interact\algo_interact\frontend\src" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\jayiv\Desktop\Projects\algo_interact\algo_interact" />
     </key>
@@ -51,7 +69,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
