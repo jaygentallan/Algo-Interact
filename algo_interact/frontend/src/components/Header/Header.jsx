@@ -1,4 +1,4 @@
-import React from "react";
+import React from "../../../node_modules/react";
 import "./Header.css";
 
 const Header = () => {
@@ -9,14 +9,19 @@ const Header = () => {
       </a>
       <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+          <li class="nav-item px-3">
             <a class="nav-link" href="#">
               Home
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item px-2">
             <a class="nav-link" href="#">
               Visualizer
+            </a>
+          </li>
+          <li class="nav-item px-3">
+            <a class="nav-link" href="#">
+              Learn
             </a>
           </li>
         </ul>

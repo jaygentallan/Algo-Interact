@@ -1,5 +1,6 @@
-import React from "react";
+import React from "../../../node_modules/react";
 import Footer from "../Footer/Footer";
+import "./Home.css";
 
 const Home = () => {
   return (
@@ -7,15 +8,23 @@ const Home = () => {
       <div class="d-flex p-5 bd-highlight">
         <div class="d-flex p-5 bd-highlight">
           <h5 class="display-4 text-center">
-            Algo-Interact is a website made with the intent of making it easier
-            to visualize data structures and algorithms for computer science
-            students and anyone curious to learn. Try it out!
+            Algo-Interact was created to visualize data structures and
+            algorithms for computer science students and anyone curious to
+            learn.{" "}
+            <a href="#" class="try">
+              {" "}
+              Try it out!{" "}
+            </a>
           </h5>
         </div>
       </div>
 
+      <hr></hr>
+
       <div class="d-flex p-2 bd-highlight">
-        <h2 class="pl-5 pb-2"> Data Structures </h2>
+        <div class="pl-5 pb-2">
+          <h2> Data Structures </h2>
+        </div>
       </div>
 
       <div class="d-flex pl-5 pr-5 bd-highlight">
@@ -95,8 +104,13 @@ const Home = () => {
         </div>
       </div>
 
-      <div class="d-flex p-2 bd-highlight">
-        <h2 class="pl-5 pt-5 pb-2"> Algorithms </h2>
+      <br></br>
+      <br></br>
+      <hr></hr>
+      <div class="d-flex pl-2 bd-highlight">
+        <div class="pl-5 pt-3 pb-4">
+          <h2> Algorithms </h2>
+        </div>
       </div>
 
       <div class="d-flex pl-5 pr-5 pb-5 bd-highlight">

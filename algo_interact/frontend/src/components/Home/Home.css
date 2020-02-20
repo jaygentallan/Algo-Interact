@@ -17,7 +17,31 @@ body {
   flex: 1 1 auto;
 }
 
-h5 {
-  font-size: 10;
-  font-family: "Roboto", sans-serif;
+.h5.display-4.text-center {
+  color: #c34f6b;
+}
+
+h2 {
+  padding-bottom: 5px;
+  border-bottom: 3px solid #c34f6b;
+  border-radius: 2px 2px 2px 2px;
+  line-height: 10px;
+}
+
+hr {
+  opacity: 0.8;
+  border-radius: 5px;
+  width: 100%;
+}
+
+a.try,
+a.try:hover {
+  padding-bottom: 1px;
+  border-bottom: 3px solid #c34f6b;
+  border-radius: 2px 2px 2px 2px;
+  line-height: 10px;
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: white;
 }
