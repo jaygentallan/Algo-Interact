@@ -13,7 +13,7 @@ const Footer = () => {
         </a>
       </div>
 
-      <div class="container text-center">
+      <div className="container text-center">
         <small>Copyright &copy; 2020 Algo Interact</small>
       </div>
     </footer>
