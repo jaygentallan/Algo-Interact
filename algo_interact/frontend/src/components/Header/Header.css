@@ -6,13 +6,21 @@
   position: relative;
 }
 
-a,
-a:hover,
-a:click,
-a:visited {
+a.nav-link,
+a.nav-link:click,
+a.nav-link:visited {
   border: none;
   outline: none;
   text-decoration: none;
   color: inherit;
   -webkit-tap-highlight-color: white;
+}
+
+a.nav-link:hover {
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+.navbar.navbar-expand.navbar-dark.bg-dark {
+  background-color: #c34f6b !important;
 }

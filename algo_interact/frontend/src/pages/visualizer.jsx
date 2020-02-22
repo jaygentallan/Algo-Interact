@@ -1,6 +1,7 @@
 import React from "react";
 import Main from "../components/Main/Main";
 import Header from "../components/Header/Header";
+import GraphVisualizer from "../components/Visualizer/Graph/GraphVisualizer";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Footer from "../components/Footer/Footer";
 import Node from '../components/Node/Node.jsx'
@@ -9,8 +10,9 @@ import Node from '../components/Node/Node.jsx'
 // user when it is called using the Router in the App.js file.
 const VisualizerPage = () => {
   return (
-    <div className="Container">
+    <div>
       <Header />
+      <GraphVisualizer />
       <Footer />
       
     </div>

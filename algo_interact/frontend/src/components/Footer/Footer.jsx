@@ -1,12 +1,16 @@
-import React from "react";
+import React from "../../../node_modules/react";
 import "./Footer.css";
 
 const Footer = () => {
   return (
-    <footer id="sticky-footer" className="py-3 bg-dark text-white-50">
-      <div className="d-flex flex-row-reverse bd-highlight">
-        <div className="col-auto">Donate</div>
-        <div className="col-auto">Team</div>
+    <footer id="sticky-footer" class="py-3 bg-dark text-white-50">
+      <div class="d-flex flex-row-reverse bd-highlight">
+        <a class="nav-link" href="#">
+          Support
+        </a>
+        <a class="nav-link" href="#">
+          Team
+        </a>
       </div>
 
       <div className="container text-center">
