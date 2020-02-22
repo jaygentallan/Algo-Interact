@@ -1,10 +1,16 @@
 import React from "../../../node_modules/react";
 import Footer from "../Footer/Footer";
 import "./Home.css";
+import { ScrollRotate } from 'react-scroll-rotate';
 
 const Home = () => {
   return (
     <div class="box">
+      <div class="logo">
+      <ScrollRotate animationDuration={0.3}>
+          <img src="/project_logo1.png" alt="logo" />
+        </ScrollRotate>
+      </div>
       <div class="d-flex p-5 bd-highlight">
         <div class="d-flex p-5 bd-highlight">
           <h5 class="display-4 text-center">
