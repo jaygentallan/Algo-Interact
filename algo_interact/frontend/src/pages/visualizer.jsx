@@ -12,7 +12,6 @@ const VisualizerPage = () => {
     <div className="Container">
       <Header />
       <Footer />
-      <Node/>
       
     </div>
   );
