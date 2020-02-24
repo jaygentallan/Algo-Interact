@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div class="box">
       <div class="logo">
-      <ScrollRotate animationDuration={0.3}>
+      <ScrollRotate animationDuration={0.4}>
           <img src="/project_logo1.png" alt="logo" />
         </ScrollRotate>
       </div>
