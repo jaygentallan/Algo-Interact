@@ -6,9 +6,9 @@ import { ScrollRotate } from 'react-scroll-rotate';
 const Home = () => {
   return (
     <div class="box">
-      <div class="logo">
+      <div class="logo text-center">
       <ScrollRotate animationDuration={0.4}>
-          <img src="/project_logo1.png" alt="logo" />
+          <img src="/project_logo1.png" alt="logo" class="pt-5"/>
         </ScrollRotate>
       </div>
       <div class="d-flex p-5 bd-highlight">
