@@ -3,7 +3,7 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <footer id="sticky-footer" class="py-3 bg-dark text-white-50">
+    <footer id="sticky-footer" class="py-2 bg-dark text-white-50">
       <div class="d-flex flex-row-reverse bd-highlight">
         <a class="nav-link" href="#">
           Support

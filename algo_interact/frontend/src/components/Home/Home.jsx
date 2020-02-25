@@ -12,8 +12,7 @@ const Home = () => {
             algorithms for computer science students and anyone curious to
             learn.{" "}
             <a href="#" class="try">
-              {" "}
-              Try it out!{" "}
+              Try it out!
             </a>
           </h5>
         </div>
