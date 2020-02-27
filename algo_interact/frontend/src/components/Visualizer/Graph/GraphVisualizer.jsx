@@ -1,5 +1,5 @@
 import React from "../../../../node_modules/react";
-import { Graph } from "react-d3-graph";
+import { Graph } from "../../Node";
 import "./GraphVisualizer.css";
 
 // Graph Visualizer component to be called in visualizer page.
@@ -28,6 +28,7 @@ export default class GraphVisualizer extends React.Component {
     // Default configurations used by the Graph component
     const config = {
       nodeHighlightBehavior: true,
+      automaticRearrangeAfterDropNode: true,
       height: window.innerHeight * 0.811,
       width: window.innerWidth,
       node: {
@@ -48,8 +49,11 @@ export default class GraphVisualizer extends React.Component {
       nodeIdToBeRemoved: null,
       addNodeName: "",
       removeNodeName: "",
+      addLink: "",
       addNodePlaceholder: "Enter node to add",
-      removeNodePlaceholder: "Enter node to remove"
+      removeNodePlaceholder: "Enter node to remove",
+      addLinkPlaceholder: "Enter as: source, target",
+      removeLinkPlaceholder: "Enter as: source, target"
     };
   }
 
@@ -66,28 +70,9 @@ export default class GraphVisualizer extends React.Component {
       return;
     }
     if (this.state.data.nodes && this.state.data.nodes.length) {
-      const maxIndex = this.state.data.nodes.length - 1;
-      const minIndex = 0;
-
-      let i = Math.floor(Math.random() * (maxIndex - minIndex + 1) + minIndex),
-        nLinks = Math.floor(Math.random() * (5 - minIndex + 1) + minIndex);
       const newNode = `${this.state.addNodeName}`;
 
       this.state.data.nodes.push({ id: newNode });
-
-      while (
-        this.state.data.nodes[i] &&
-        this.state.data.nodes[i].id &&
-        nLinks
-      ) {
-        this.state.data.links.push({
-          source: newNode,
-          target: this.state.data.nodes[i].id
-        });
-
-        i++;
-        nLinks--;
-      }
 
       this.setState({
         data: this.state.data
@@ -139,16 +124,130 @@ export default class GraphVisualizer extends React.Component {
     }
   };
 
+  onClickAddLink = () => {
+    if (this.state.addLink === "") {
+      return;
+    }
+    if (this.state.data.nodes && this.state.data.nodes.length) {
+      let source, target;
+      [source, target] = this.state.addLink.split(/[ ,]+/).filter(function(e) {
+        return e.trim().length > 0;
+      });
+
+      var sourceExists, targetExists;
+      sourceExists = targetExists = false;
+
+      for (var i = 0; i < this.state.data.nodes.length; i++) {
+        if (this.state.data.nodes[i].id === source) {
+          sourceExists = true;
+        }
+        if (this.state.data.nodes[i].id === target) {
+          targetExists = true;
+        }
+      }
+
+      if (!sourceExists || !targetExists) {
+        console.log("NODE DOES NOT EXIST!");
+        this.setState({
+          addLink: "",
+          addLinkPlaceholder: "Enter as: source, target"
+        });
+        return;
+      }
+
+      for (var j = 0; j < this.state.data.links.length; j++) {
+        if (
+          this.state.data.links[j].source === source &&
+          this.state.data.links[j].target === target
+        ) {
+          console.log("ALREADY EXISTS!");
+          this.setState({
+            addLink: "",
+            addLinkPlaceholder: "Enter as: source, target"
+          });
+          return;
+        }
+      }
+
+      this.state.data.links.push({
+        source: source,
+        target: target
+      });
+
+      this.setState({
+        addLink: "",
+        addLinkPlaceholder: "Enter as: source, target"
+      });
+    }
+  };
+
+  onClickRemoveLink = () => {
+    if (this.state.removeLink === "") {
+      return;
+    }
+    if (this.state.data.nodes && this.state.data.nodes.length) {
+      let source, target;
+      [source, target] = this.state.removeLink
+        .split(/[ ,]+/)
+        .filter(function(e) {
+          return e.trim().length > 0;
+        });
+
+      var sourceExists, targetExists;
+      sourceExists = targetExists = false;
+
+      for (var i = 0; i < this.state.data.nodes.length; i++) {
+        if (this.state.data.nodes[i].id === source) {
+          sourceExists = true;
+        }
+        if (this.state.data.nodes[i].id === target) {
+          targetExists = true;
+        }
+      }
+
+      console.log(source, target);
+
+      if (!sourceExists || !targetExists) {
+        console.log("NODE DOES NOT EXIST!");
+        this.setState({
+          removeLink: "",
+          removeLinkPlaceholder: "Enter as: source, target"
+        });
+        return;
+      }
+
+      const links = this.state.data.links.filter(
+        l => l.source !== source && l.target !== target
+      );
+
+      const data = { nodes: this.state.data.nodes, links };
+
+      this.setState({
+        data: data,
+        removeLink: "",
+        removeLinkPlaceholder: "Enter as: source, target"
+      });
+    }
+  };
+
   // Handler function that is used by the addNode input box, keeps track of the changes
   // and then updates the addNodeName of the state accordingly.
-  _addHandleChange = event => {
+  _addNodeHandleChange = event => {
     this.setState({ addNodeName: event.target.value });
   };
 
   // Handler function that is used by the removeNode input box, keeps track of the changes
   // and then updates the removeNodeName of the state accordingly.
-  _removeHandleChange = event => {
+  _removeNodeHandleChange = event => {
     this.setState({ removeNodeName: event.target.value });
+  };
+
+  _addLinkHandleChange = event => {
+    this.setState({ addLink: event.target.value });
+  };
+
+  _removeLinkHandleChange = event => {
+    this.setState({ removeLink: event.target.value });
   };
 
   // Handler function that listens to the Remove key press
@@ -165,6 +264,22 @@ export default class GraphVisualizer extends React.Component {
     if (e.key === "Enter") {
       this.onClickRemoveNode();
     }
+  };
+
+  _handleLinkKeyEnter = e => {
+    if (e.key === "Enter") {
+      this.onClickAddLink();
+    }
+  };
+
+  _handleRemoveLinkKeyEnter = e => {
+    if (e.key === "Enter") {
+      this.onClickRemoveLink();
+    }
+  };
+
+  _onRightClickNode = () => {
+    console.log("RIGHT CLICK");
   };
 
   // Main function of the React component. Returns what is displayed to the user. This includes
@@ -195,7 +310,7 @@ export default class GraphVisualizer extends React.Component {
               name="addNodeName"
               placeholder={this.state.addNodePlaceholder}
               value={this.state.addNodeName}
-              onChange={this._addHandleChange}
+              onChange={this._addNodeHandleChange}
               onKeyPress={this._handleAddKeyEnter}
             />
           </div>
@@ -217,16 +332,39 @@ export default class GraphVisualizer extends React.Component {
               name="removeNodeName"
               placeholder={this.state.removeNodePlaceholder}
               value={this.state.removeNodeName}
-              onChange={this._removeHandleChange}
+              onChange={this._removeNodeHandleChange}
               onKeyPress={this._handleRemoveKeyEnter}
             />
           </div>
+
+          <h5 class="font-weight-light"> Add a link </h5>
+          <input
+            class="linkInput"
+            type="text"
+            name="addLink"
+            placeholder={this.state.addLinkPlaceholder}
+            value={this.state.addLink}
+            onChange={this._addLinkHandleChange}
+            onKeyPress={this._handleLinkKeyEnter}
+          />
+
+          <h5 class="font-weight-light"> Remove a link </h5>
+          <input
+            class="linkInput"
+            type="text"
+            name="removeLink"
+            placeholder={this.state.removeLinkPlaceholder}
+            value={this.state.removeLink}
+            onChange={this._removeLinkHandleChange}
+            onKeyPress={this._handleRemoveLinkKeyEnter}
+          />
         </div>
 
         <Graph
           id="graph-id"
           data={this.state.data}
           config={this.state.config}
+          onRightClickNode={this._onRightClickNode}
         />
       </div>
     );
