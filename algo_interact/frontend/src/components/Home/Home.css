@@ -20,6 +20,11 @@ body {
 .h5.display-4.text-center {
   color: #c34f6b;
 }
+.card.border.border-danger {
+  border-color: #c34f6b !important; 
+  border-radius: 20px;
+  border-width: 0.8em; 
+}
 
 h2 {
   padding-bottom: 5px;
@@ -32,6 +37,12 @@ hr {
   opacity: 0.8;
   border-radius: 5px;
   width: 100%;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 a.try,

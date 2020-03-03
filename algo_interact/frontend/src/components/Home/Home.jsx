@@ -8,7 +8,13 @@ const Home = () => {
     <div class="box">
       <div class="logo text-center">
       <ScrollRotate animationDuration={0.5}>
-          <img src="/project_logo1.png" alt="logo" class="pt-5"/>
+          <img 
+            src={"/project_logo3.png"} 
+            width={300} 
+            height={300} 
+            alt="logo" 
+            class="pt-5"
+          />
         </ScrollRotate>
       </div>
       <div class="d-flex p-5 bd-highlight">
@@ -28,31 +34,31 @@ const Home = () => {
 
       <div class="d-flex p-2 bd-highlight">
         <div class="pl-5 pb-2">
-          <h2> Data Structures </h2>
+          <h2> <em>Data Structures</em> </h2>
         </div>
       </div>
 
       <div class="d-flex pl-5 pr-5 bd-highlight">
-        <div class="card-deck">
-          <div class="card">
+        <div class="card-deck ">
+          <div class="card border border-danger shadow>Regular shadow">
             <img
               class="card-img-top"
               src=".../100px200/"
               alt="Card image cap"
             />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+            <div class="card-body">              
+              <h5 class="card-title">Trees</h5>
               <p class="card-text">
                 This is a longer card with supporting text below as a natural
                 lead-in to additional content. This content is a little bit
                 longer.
               </p>
+              <a class="card-block stretched-link" href="/visualizer"></a>
               <p class="card-text">
-                <small class="text-muted">Last updated 3 mins ago</small>
-              </p>
+                <small class="text-muted">Last updated 3 mins ago</small>                </p>
             </div>
           </div>
-          <div class="card">
+          <div class="card border border-danger shadow>Regular shadow">
             <img
               class="card-img-top"
               src=".../100px200/"
@@ -64,12 +70,13 @@ const Home = () => {
                 This card has supporting text below as a natural lead-in to
                 additional content.
               </p>
+              <a class="card-block stretched-link" href="/visualizer"></a>
               <p class="card-text">
                 <small class="text-muted">Last updated 3 mins ago</small>
               </p>
             </div>
           </div>
-          <div class="card">
+          <div class="card border border-danger shadow>Regular shadow">
             <img
               class="card-img-top"
               src=".../100px200/"
@@ -82,13 +89,14 @@ const Home = () => {
                 lead-in to additional content. This card has even longer content
                 than the first to show that equal height action.
               </p>
+              <a class="card-block stretched-link" href="/visualizer"></a>
               <p class="card-text">
                 <small class="text-muted">Last updated 3 mins ago</small>
               </p>
             </div>
           </div>
 
-          <div class="card">
+          <div class="card border border-danger shadow>Regular shadow">
             <img
               class="card-img-top"
               src=".../100px200/"
@@ -101,6 +109,7 @@ const Home = () => {
                 lead-in to additional content. This card has even longer content
                 than the first to show that equal height action.
               </p>
+              <a class="card-block stretched-link" href="/visualizer"></a>
               <p class="card-text">
                 <small class="text-muted">Last updated 3 mins ago</small>
               </p>
@@ -114,13 +123,13 @@ const Home = () => {
       <hr></hr>
       <div class="d-flex pl-2 bd-highlight">
         <div class="pl-5 pt-3 pb-4">
-          <h2> Algorithms </h2>
+          <h2> <em>Algorithms</em> </h2>
         </div>
       </div>
 
       <div class="d-flex pl-5 pr-5 pb-5 bd-highlight">
         <div class="card-deck">
-          <div class="card">
+          <div class="card border border-danger shadow>Regular shadow">
             <img
               class="card-img-top"
               src=".../100px200/"
@@ -138,7 +147,7 @@ const Home = () => {
               </p>
             </div>
           </div>
-          <div class="card">
+          <div class="card border border-danger shadow>Regular shadow">
             <img
               class="card-img-top"
               src=".../100px200/"
@@ -155,7 +164,7 @@ const Home = () => {
               </p>
             </div>
           </div>
-          <div class="card">
+          <div class="card border border-danger shadow>Regular shadow">
             <img
               class="card-img-top"
               src=".../100px200/"
@@ -174,7 +183,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div class="card">
+          <div class="card border border-danger shadow>Regular shadow">
             <img
               class="card-img-top"
               src=".../100px200/"
