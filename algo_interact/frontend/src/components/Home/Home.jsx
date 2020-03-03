@@ -17,9 +17,8 @@ const Home = () => {
             Algo-Interact was created to visualize data structures and
             algorithms for computer science students and anyone curious to
             learn.{" "}
-            <a href="#" class="try">
-              {" "}
-              Try it out!{" "}
+            <a href="/visualizer" class="try">
+              Try it out!
             </a>
           </h5>
         </div>

@@ -4,7 +4,7 @@ import "./Header.css";
 const Header = () => {
   return (
     <nav className="navbar navbar-expand navbar-dark bg-dark">
-      <a className="navbar-brand" href="#">
+      <a className="navbar-brand" href="/">
         Algo-Interact
       </a>
       <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
