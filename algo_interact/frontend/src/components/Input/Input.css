@@ -1,0 +1,43 @@
+.form {
+    background-color: cadetblue;
+    width: 100%;
+    height: 60%;
+    text-align: center;
+}
+
+.nameL {
+    margin: 5px;
+    font-weight: bold;
+}
+
+.name {
+    margin: 5px;
+    width: 12%;
+}
+
+.color {
+    margin: 5px;
+}
+
+.shape {
+    margin: 5px;
+}
+
+.submit {
+    text-align: center;
+    margin: 5px;
+    font: inherit;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #07bb1f;
+    border-radius: 5px;
+    background: #07bb1f;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.connect {
+    margin: 5px;
+}
+
