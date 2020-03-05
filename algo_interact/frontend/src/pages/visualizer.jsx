@@ -4,8 +4,6 @@ import Header from "../components/Header/Header";
 import GraphVisualizer from "../components/Visualizer/Graph/GraphVisualizer";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Footer from "../components/Footer/Footer";
-import D3Node from '../components/d3Node/D3Node'
-
 
 // React function that returns what is displayed to the
 // user when it is called using the Router in the App.js file.
@@ -13,9 +11,8 @@ const VisualizerPage = () => {
   return (
     <div>
       <Header />
-      <D3Node/>
+      <GraphVisualizer />
       <Footer />
-      
     </div>
   );
 };
