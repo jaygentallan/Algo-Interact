@@ -18,6 +18,20 @@ input {
   padding: 8px;
 }
 
+input.nodeInput {
+  border-top-style: solid;
+  border-right-style: solid;
+  border-top-right-radius: 0.3em;
+  border-bottom-right-radius: 0.3em;
+  border-top-left-radius: 0em;
+  border-bottom-left-radius: 0em;
+  border-width: 0.08em;
+  height: 2em;
+  width: 13.8em;
+  border-color: #c34f6b !important;
+  padding: 8px;
+}
+
 input.linkInput {
   width: 16em;
   border-top-style: solid;
@@ -69,7 +83,7 @@ h1.name.text-center {
   height: 36.6em;
   width: 17em;
   position: absolute;
-  margin-left: 40px;
+  margin-left: 0.5em;
 }
 
 .rightWindow {

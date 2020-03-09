@@ -2,6 +2,7 @@ import React from "../../../../node_modules/react";
 import { Graph } from "../../Node";
 import TreeView from "../../../../node_modules/react-treeview";
 import "./GraphVisualizer.css";
+import LeftWindow from "../../LeftWindow/LeftWindow";
 
 // Graph Visualizer component to be called in visualizer page.
 export default class GraphVisualizer extends React.Component {
@@ -310,7 +311,7 @@ export default class GraphVisualizer extends React.Component {
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
         <div class="leftWindow">
-          <h1 class="name text-center font-weight-light pt-2"> Graph </h1>
+          <LeftWindow />
         </div>
 
         <div class="rightWindow">
@@ -328,6 +329,7 @@ export default class GraphVisualizer extends React.Component {
             </div>
             <input
               type="text"
+              class="nodeInput"
               name="addNodeName"
               placeholder={this.state.addNodePlaceholder}
               value={this.state.addNodeName}
@@ -350,6 +352,7 @@ export default class GraphVisualizer extends React.Component {
             </div>
             <input
               type="text"
+              class="nodeInput"
               name="removeNodeName"
               placeholder={this.state.removeNodePlaceholder}
               value={this.state.removeNodeName}
