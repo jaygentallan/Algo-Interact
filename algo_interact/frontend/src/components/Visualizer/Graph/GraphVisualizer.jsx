@@ -1,7 +1,8 @@
-import React from "../../../../node_modules/react";
+import React from "react";
 import { Graph } from "../../Node";
 import TreeView from "../../../../node_modules/react-treeview";
 import "./GraphVisualizer.css";
+import LeftWindow from '../../LeftWindow/LeftWindow'
 
 // Graph Visualizer component to be called in visualizer page.
 export default class GraphVisualizer extends React.Component {
@@ -36,7 +37,7 @@ export default class GraphVisualizer extends React.Component {
     const config = {
       nodeHighlightBehavior: true,
       automaticRearrangeAfterDropNode: true,
-      height: window.innerHeight * 0.811,
+      height: 610,
       width: window.innerWidth,
       node: {
         color: "#c34f6b",
@@ -65,6 +66,7 @@ export default class GraphVisualizer extends React.Component {
     };
   }
 
+<<<<<<< HEAD
   /**
    * Before removing elements (nodes, links)
    * from the graph data, this function is executed.
@@ -112,6 +114,39 @@ export default class GraphVisualizer extends React.Component {
       }
     });
   };
+=======
+  //Functions for state handling 
+  nSizeHandler = (nSize) => {
+    const config = this.state.config
+
+    config.node.size = nSize
+
+    this.setState({
+      config : config
+    })
+  }
+
+  nColorHandler = (nColor) => {
+    const config = this.state.config
+
+    config.node.color = nColor
+
+    this.setState({
+      config : config
+    })
+  }
+
+  lColorHandler = (lColor) => {
+    const config = this.state.config
+
+    config.link.color = lColor
+
+    this.setState({
+      config : config
+    })
+  }
+
+>>>>>>> master
 
   // Function called by the addButton. Makes sure the addNodeName state is not an
   // empty string. Then checks that the data.nodes array in the state is NOT empty and
@@ -354,12 +389,18 @@ export default class GraphVisualizer extends React.Component {
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, and the main graph visualizer component.
   render() {
+
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
+      
       <div class="box">
-        <div class="leftWindow">
-          <h1 class="name text-center font-weight-light pt-2"> Graph </h1>
-        </div>
+       
+        <LeftWindow  
+        //Retrieves state change from LeftWindow Component 
+        nSize={this.nSizeHandler} 
+        nColor={this.nColorHandler} 
+        lColor={this.lColorHandler}
+        /> 
 
         <div class="rightWindow">
           <h5 class="font-weight-light pt-2"> Add node: </h5>
@@ -457,6 +498,7 @@ export default class GraphVisualizer extends React.Component {
           onRightClickNode={this._onRightClickNode}
         />
       </div>
+      
     );
   }
 }
