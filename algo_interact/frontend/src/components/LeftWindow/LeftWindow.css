@@ -35,6 +35,7 @@ button.dropdown-toggle.btn.btn-outline-info {
 
 .L {
     width: 60%;
+    padding: 5px;
 }
 
 a.dropdown-item.active {
