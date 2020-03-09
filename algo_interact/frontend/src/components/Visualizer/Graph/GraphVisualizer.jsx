@@ -1,5 +1,6 @@
 import React from "../../../../node_modules/react";
 import { Graph } from "../../Node";
+import TreeView from "../../../../node_modules/react-treeview";
 import "./GraphVisualizer.css";
 
 // Graph Visualizer component to be called in visualizer page.
@@ -25,6 +26,12 @@ export default class GraphVisualizer extends React.Component {
       ]
     };
 
+    const neighbors = {
+      Harry: ["Sally", "Alice"],
+      Sally: [],
+      Alice: []
+    };
+
     // Default configurations used by the Graph component
     const config = {
       nodeHighlightBehavior: true,
@@ -46,6 +53,7 @@ export default class GraphVisualizer extends React.Component {
       config,
       generatedConfig: {},
       data,
+      neighbors: neighbors,
       nodeIdToBeRemoved: null,
       addNodeName: "",
       removeNodeName: "",
@@ -56,6 +64,54 @@ export default class GraphVisualizer extends React.Component {
       removeLinkPlaceholder: "Enter as: source, target"
     };
   }
+
+  /**
+   * Before removing elements (nodes, links)
+   * from the graph data, this function is executed.
+   * https://github.com/oxyno-zeta/react-editable-json-tree#beforeremoveaction
+   */
+  onBeforeRemoveGraphData = (key, keyPath, deep, oldValue) => {
+    if (
+      keyPath &&
+      keyPath[0] &&
+      keyPath[0] === "nodes" &&
+      oldValue &&
+      oldValue.id
+    ) {
+      this.setState({
+        nodeIdToBeRemoved: oldValue.id
+      });
+    }
+
+    return Promise.resolve();
+  };
+
+  /**
+   * Update graph data each time an update is triggered
+   * by JsonTree
+   * @param {Object} data update graph data (nodes and links)
+   */
+  onGraphDataUpdate = data => {
+    const removedNodeIndex = data.nodes.findIndex(n => !n);
+
+    let removedNodeId = null;
+
+    if (removedNodeIndex !== -1 && this.state.nodeIdToBeRemoved) {
+      removedNodeId = this.state.nodeIdToBeRemoved;
+    }
+
+    const nodes = data.nodes.filter(Boolean);
+    const isValidLink = link =>
+      link && link.source !== removedNodeId && link.target !== removedNodeId;
+    const links = data.links.filter(isValidLink);
+
+    this.setState({
+      data: {
+        links,
+        nodes
+      }
+    });
+  };
 
   // Function called by the addButton. Makes sure the addNodeName state is not an
   // empty string. Then checks that the data.nodes array in the state is NOT empty and
@@ -174,6 +230,13 @@ export default class GraphVisualizer extends React.Component {
         target: target
       });
 
+      if (source in this.state.neighbors) {
+        this.state.neighbors[source].push(target);
+      } else {
+        this.state.neighbors[source] = [];
+        this.state.neighbors[source].push(target);
+      }
+
       this.setState({
         addLink: "",
         addLinkPlaceholder: "Enter as: source, target"
@@ -205,8 +268,6 @@ export default class GraphVisualizer extends React.Component {
         }
       }
 
-      console.log(source, target);
-
       if (!sourceExists || !targetExists) {
         console.log("NODE DOES NOT EXIST!");
         this.setState({
@@ -216,11 +277,19 @@ export default class GraphVisualizer extends React.Component {
         return;
       }
 
+      console.log(source, target);
+
       const links = this.state.data.links.filter(
-        l => l.source !== source && l.target !== target
+        l => l["source"] !== source && l["target"] !== target
       );
 
       const data = { nodes: this.state.data.nodes, links };
+
+      if (source in this.state.neighbors) {
+        this.state.neighbors[source] = this.state.neighbors[source].filter(
+          l => l !== target
+        );
+      }
 
       this.setState({
         data: data,
@@ -293,7 +362,7 @@ export default class GraphVisualizer extends React.Component {
         </div>
 
         <div class="rightWindow">
-          <h5 class="font-weight-light pt-3"> Add a node </h5>
+          <h5 class="font-weight-light pt-2"> Add node: </h5>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <button
@@ -302,7 +371,7 @@ export default class GraphVisualizer extends React.Component {
                 class="btn btn-outline-danger"
                 id="button-addon1"
               >
-                +
+                <h6 class="align-middle"> + </h6>
               </button>
             </div>
             <input
@@ -315,7 +384,7 @@ export default class GraphVisualizer extends React.Component {
             />
           </div>
 
-          <h5 class="font-weight-light"> Remove a node </h5>
+          <h5 class="font-weight-light"> Remove node: </h5>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <button
@@ -324,7 +393,7 @@ export default class GraphVisualizer extends React.Component {
                 class="btn btn-outline-danger pl-3 pr-2.5"
                 id="button-addon1"
               >
-                -
+                <h6 class="align-middle"> - </h6>
               </button>
             </div>
             <input
@@ -337,7 +406,7 @@ export default class GraphVisualizer extends React.Component {
             />
           </div>
 
-          <h5 class="font-weight-light"> Add a link </h5>
+          <h5 class="font-weight-light"> Add link: </h5>
           <input
             class="linkInput"
             type="text"
@@ -348,7 +417,7 @@ export default class GraphVisualizer extends React.Component {
             onKeyPress={this._handleLinkKeyEnter}
           />
 
-          <h5 class="font-weight-light"> Remove a link </h5>
+          <h5 class="font-weight-light pt-3"> Remove link: </h5>
           <input
             class="linkInput"
             type="text"
@@ -358,6 +427,27 @@ export default class GraphVisualizer extends React.Component {
             onChange={this._removeLinkHandleChange}
             onKeyPress={this._handleRemoveLinkKeyEnter}
           />
+
+          <h5 class="font-weight-light pt-3"> Node list: </h5>
+          <div className="json-data-container">
+            <TreeView class="nodes" key="nodes" nodeLabel="Nodes">
+              {this.state.data.nodes.map((node, i) => {
+                const type = node.type;
+                const name = node.id;
+                if (name in this.state.neighbors) {
+                  return (
+                    <TreeView key={type + "|" + i} nodeLabel={name}>
+                      <TreeView key={type + "|" + i} nodeLabel="neighbors: ">
+                        {this.state.neighbors[name].map((neighbor, i) => {
+                          return <div className="info"> {neighbor}</div>;
+                        })}
+                      </TreeView>
+                    </TreeView>
+                  );
+                }
+              })}
+            </TreeView>
+          </div>
         </div>
 
         <Graph

@@ -18,24 +18,25 @@ import { getMarkerId } from "../marker/marker.helper";
  * @memberof Graph/builder
  */
 function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
-    const highlight =
-        node.highlighted ||
-        node.id === (highlightedLink && highlightedLink.source) ||
-        node.id === (highlightedLink && highlightedLink.target);
-    const someLinkHighlighted = highlightedLink && highlightedLink.source && highlightedLink.target;
-    const someNodeHighlighted = !!(highlightedNode || someLinkHighlighted);
+  const highlight =
+    node.highlighted ||
+    node.id === (highlightedLink && highlightedLink.source) ||
+    node.id === (highlightedLink && highlightedLink.target);
+  const someLinkHighlighted =
+    highlightedLink && highlightedLink.source && highlightedLink.target;
+  const someNodeHighlighted = !!(highlightedNode || someLinkHighlighted);
 
-    let opacity;
+  let opacity;
 
-    if (someNodeHighlighted && config.highlightDegree === 0) {
-        opacity = highlight ? config.node.opacity : config.highlightOpacity;
-    } else if (someNodeHighlighted) {
-        opacity = highlight ? config.node.opacity : config.highlightOpacity;
-    } else {
-        opacity = node.opacity || config.node.opacity;
-    }
+  if (someNodeHighlighted && config.highlightDegree === 0) {
+    opacity = highlight ? config.node.opacity : config.highlightOpacity;
+  } else if (someNodeHighlighted) {
+    opacity = highlight ? config.node.opacity : config.highlightOpacity;
+  } else {
+    opacity = node.opacity || config.node.opacity;
+  }
 
-    return opacity;
+  return opacity;
 }
 
 /**
@@ -51,95 +52,119 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
  * @returns {Object} returns an object that aggregates all props for creating respective Link component instance.
  * @memberof Graph/builder
  */
-function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
-    const { source, target } = link;
-    const x1 = nodes?.[source]?.x || 0;
-    const y1 = nodes?.[source]?.y || 0;
-    const x2 = nodes?.[target]?.x || 0;
-    const y2 = nodes?.[target]?.y || 0;
-    const type = link.type || config.link.type;
-    const d = buildLinkPathDefinition({ source: { x: x1, y: y1 }, target: { x: x2, y: y2 } }, type);
+function buildLinkProps(
+  link,
+  nodes,
+  links,
+  config,
+  linkCallbacks,
+  highlightedNode,
+  highlightedLink,
+  transform
+) {
+  const { source, target } = link;
+  const x1 = nodes?.[source]?.x || 0;
+  const y1 = nodes?.[source]?.y || 0;
+  const x2 = nodes?.[target]?.x || 0;
+  const y2 = nodes?.[target]?.y || 0;
+  const type = link.type || config.link.type;
+  const d = buildLinkPathDefinition(
+    { source: { x: x1, y: y1 }, target: { x: x2, y: y2 } },
+    type
+  );
 
-    let mainNodeParticipates = false;
+  let mainNodeParticipates = false;
 
-    switch (config.highlightDegree) {
-        case 0:
-            break;
-        case 2:
-            mainNodeParticipates = true;
-            break;
-        default:
-            // 1st degree is the fallback behavior
-            mainNodeParticipates = source === highlightedNode || target === highlightedNode;
-            break;
+  switch (config.highlightDegree) {
+    case 0:
+      break;
+    case 2:
+      mainNodeParticipates = true;
+      break;
+    default:
+      // 1st degree is the fallback behavior
+      mainNodeParticipates =
+        source === highlightedNode || target === highlightedNode;
+      break;
+  }
+
+  const guiltyNode =
+    mainNodeParticipates &&
+    nodes[source].highlighted &&
+    nodes[target].highlighted;
+  const guiltyLink =
+    source === (highlightedLink && highlightedLink.source) &&
+    target === (highlightedLink && highlightedLink.target);
+  const highlight = guiltyNode || guiltyLink;
+
+  let opacity = link.opacity || config.link.opacity;
+
+  if (highlightedNode || (highlightedLink && highlightedLink.source)) {
+    opacity = highlight ? config.link.opacity : config.highlightOpacity;
+  }
+
+  let stroke = link.color || config.link.color;
+
+  if (highlight) {
+    stroke =
+      config.link.highlightColor === CONST.KEYWORDS.SAME
+        ? config.link.color
+        : config.link.highlightColor;
+  }
+
+  let strokeWidth =
+    (link.strokeWidth || config.link.strokeWidth) * (1 / transform);
+
+  if (config.link.semanticStrokeWidth) {
+    const linkValue = links[source][target] || links[target][source] || 1;
+
+    strokeWidth += (linkValue * strokeWidth) / 10;
+  }
+
+  const markerId = config.directed
+    ? getMarkerId(highlight, transform, config)
+    : null;
+
+  const t = 1 / transform;
+
+  let fontSize = null,
+    fontColor = null,
+    fontWeight = null,
+    label = null;
+
+  if (config.link.renderLabel) {
+    if (typeof config.link.labelProperty === "function") {
+      label = config.link.labelProperty(link);
+    } else {
+      label = link[config.link.labelProperty];
     }
 
-    const guiltyNode = mainNodeParticipates && nodes[source].highlighted && nodes[target].highlighted;
-    const guiltyLink =
-        source === (highlightedLink && highlightedLink.source) &&
-        target === (highlightedLink && highlightedLink.target);
-    const highlight = guiltyNode || guiltyLink;
+    fontSize = link.fontSize || config.link.fontSize;
+    fontColor = link.fontColor || config.link.fontColor;
+    fontWeight = highlight
+      ? config.link.highlightFontWeight
+      : config.link.fontWeight;
+  }
 
-    let opacity = link.opacity || config.link.opacity;
-
-    if (highlightedNode || (highlightedLink && highlightedLink.source)) {
-        opacity = highlight ? config.link.opacity : config.highlightOpacity;
-    }
-
-    let stroke = link.color || config.link.color;
-
-    if (highlight) {
-        stroke = config.link.highlightColor === CONST.KEYWORDS.SAME ? config.link.color : config.link.highlightColor;
-    }
-
-    let strokeWidth = (link.strokeWidth || config.link.strokeWidth) * (1 / transform);
-
-    if (config.link.semanticStrokeWidth) {
-        const linkValue = links[source][target] || links[target][source] || 1;
-
-        strokeWidth += (linkValue * strokeWidth) / 10;
-    }
-
-    const markerId = config.directed ? getMarkerId(highlight, transform, config) : null;
-
-    const t = 1 / transform;
-
-    let fontSize = null,
-        fontColor = null,
-        fontWeight = null,
-        label = null;
-
-    if (config.link.renderLabel) {
-        if (typeof config.link.labelProperty === "function") {
-            label = config.link.labelProperty(link);
-        } else {
-            label = link[config.link.labelProperty];
-        }
-
-        fontSize = link.fontSize || config.link.fontSize;
-        fontColor = link.fontColor || config.link.fontColor;
-        fontWeight = highlight ? config.link.highlightFontWeight : config.link.fontWeight;
-    }
-
-    return {
-        className: CONST.LINK_CLASS_NAME,
-        d,
-        fontColor,
-        fontSize: fontSize * t,
-        fontWeight,
-        label,
-        markerId,
-        mouseCursor: config.link.mouseCursor,
-        opacity,
-        source,
-        stroke,
-        strokeWidth,
-        target,
-        onClickLink: linkCallbacks.onClickLink,
-        onMouseOutLink: linkCallbacks.onMouseOutLink,
-        onMouseOverLink: linkCallbacks.onMouseOverLink,
-        onRightClickLink: linkCallbacks.onRightClickLink,
-    };
+  return {
+    className: CONST.LINK_CLASS_NAME,
+    d,
+    fontColor,
+    fontSize: fontSize * t,
+    fontWeight,
+    label,
+    markerId,
+    mouseCursor: config.link.mouseCursor,
+    opacity,
+    source,
+    stroke,
+    strokeWidth,
+    target,
+    onClickLink: linkCallbacks.onClickLink,
+    onMouseOutLink: linkCallbacks.onMouseOutLink,
+    onMouseOverLink: linkCallbacks.onMouseOverLink,
+    onRightClickLink: linkCallbacks.onRightClickLink
+  };
 }
 
 /**
@@ -153,71 +178,89 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
  * @returns {Object} returns object that contain Link props ready to be feeded to the Link component.
  * @memberof Graph/builder
  */
-function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highlightedLink, transform) {
-    const highlight =
-        node.highlighted ||
-        (node.id === (highlightedLink && highlightedLink.source) ||
-            node.id === (highlightedLink && highlightedLink.target));
-    const opacity = _getNodeOpacity(node, highlightedNode, highlightedLink, config);
+function buildNodeProps(
+  node,
+  config,
+  nodeCallbacks = {},
+  highlightedNode,
+  highlightedLink,
+  transform
+) {
+  const highlight =
+    node.highlighted ||
+    node.id === (highlightedLink && highlightedLink.source) ||
+    node.id === (highlightedLink && highlightedLink.target);
+  const opacity = _getNodeOpacity(
+    node,
+    highlightedNode,
+    highlightedLink,
+    config
+  );
 
-    let fill = node.color || config.node.color;
+  let fill = node.color || config.node.color;
 
-    if (highlight && config.node.highlightColor !== CONST.KEYWORDS.SAME) {
-        fill = config.node.highlightColor;
-    }
+  if (highlight && config.node.highlightColor !== CONST.KEYWORDS.SAME) {
+    fill = config.node.highlightColor;
+  }
 
-    let stroke = node.strokeColor || config.node.strokeColor;
+  let stroke = node.strokeColor || config.node.strokeColor;
 
-    if (highlight && config.node.highlightStrokeColor !== CONST.KEYWORDS.SAME) {
-        stroke = config.node.highlightStrokeColor;
-    }
+  if (highlight && config.node.highlightStrokeColor !== CONST.KEYWORDS.SAME) {
+    stroke = config.node.highlightStrokeColor;
+  }
 
-    let label = node[config.node.labelProperty] || node.id;
+  let label = node[config.node.labelProperty] || node.id;
 
-    if (typeof config.node.labelProperty === "function") {
-        label = config.node.labelProperty(node);
-    }
+  if (typeof config.node.labelProperty === "function") {
+    label = config.node.labelProperty(node);
+  }
 
-    let strokeWidth = node.strokeWidth || config.node.strokeWidth;
+  let strokeWidth = node.strokeWidth || config.node.strokeWidth;
 
-    if (highlight && config.node.highlightStrokeWidth !== CONST.KEYWORDS.SAME) {
-        strokeWidth = config.node.highlightStrokeWidth;
-    }
+  if (highlight && config.node.highlightStrokeWidth !== CONST.KEYWORDS.SAME) {
+    strokeWidth = config.node.highlightStrokeWidth;
+  }
 
-    const t = 1 / transform;
-    const nodeSize = node.size || config.node.size;
-    const fontSize = highlight ? config.node.highlightFontSize : config.node.fontSize;
-    const dx = fontSize * t + nodeSize / 100 + 1.5;
-    const svg = node.svg || config.node.svg;
-    const fontColor = node.fontColor || config.node.fontColor;
+  const t = 1 / transform;
+  const nodeSize = node.size || config.node.size;
+  const fontSize = highlight
+    ? config.node.highlightFontSize
+    : config.node.fontSize;
+  const dx = fontSize * t + nodeSize / 100 + 1.5;
+  const svg = node.svg || config.node.svg;
+  const fontColor = node.fontColor || config.node.fontColor;
 
-    return {
-        ...node,
-        className: CONST.NODE_CLASS_NAME,
-        cursor: config.node.mouseCursor,
-        cx: node?.x || "0",
-        cy: node?.y || "0",
-        dx,
-        fill,
-        fontColor,
-        fontSize: fontSize * t,
-        fontWeight: highlight ? config.node.highlightFontWeight : config.node.fontWeight,
-        id: node.id,
-        label,
-        opacity,
-        overrideGlobalViewGenerator: !node.viewGenerator && node.svg,
-        renderLabel: node.renderLabel || config.node.renderLabel,
-        size: nodeSize * t,
-        stroke,
-        strokeWidth: strokeWidth * t,
-        svg,
-        type: node.symbolType || config.node.symbolType,
-        viewGenerator: node.viewGenerator || config.node.viewGenerator,
-        onClickNode: nodeCallbacks.onClickNode,
-        onMouseOut: nodeCallbacks.onMouseOut,
-        onMouseOverNode: nodeCallbacks.onMouseOverNode,
-        onRightClickNode: nodeCallbacks.onRightClickNode,
-    };
+  return {
+    ...node,
+    className: CONST.NODE_CLASS_NAME,
+    cursor: config.node.mouseCursor,
+    // eslint-disable-next-line no-restricted-globals
+    cx: node?.x || screen.width / 2.5,
+    // eslint-disable-next-line no-restricted-globals
+    cy: node?.y || screen.height / 2.8,
+    dx,
+    fill,
+    fontColor,
+    fontSize: fontSize * t,
+    fontWeight: highlight
+      ? config.node.highlightFontWeight
+      : config.node.fontWeight,
+    id: node.id,
+    label,
+    opacity,
+    overrideGlobalViewGenerator: !node.viewGenerator && node.svg,
+    renderLabel: node.renderLabel || config.node.renderLabel,
+    size: nodeSize * t,
+    stroke,
+    strokeWidth: strokeWidth * t,
+    svg,
+    type: node.symbolType || config.node.symbolType,
+    viewGenerator: node.viewGenerator || config.node.viewGenerator,
+    onClickNode: nodeCallbacks.onClickNode,
+    onMouseOut: nodeCallbacks.onMouseOut,
+    onMouseOverNode: nodeCallbacks.onMouseOverNode,
+    onRightClickNode: nodeCallbacks.onRightClickNode
+  };
 }
 
 export { buildLinkProps, buildNodeProps };

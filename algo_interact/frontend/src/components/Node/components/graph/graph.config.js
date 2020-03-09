@@ -244,10 +244,10 @@ export default {
   node: {
     color: "#d3d3d3",
     fontColor: "black",
-    fontSize: 8,
+    fontSize: 15,
     fontWeight: "normal",
     highlightColor: "SAME",
-    highlightFontSize: 8,
+    highlightFontSize: 15,
     highlightFontWeight: "normal",
     highlightStrokeColor: "SAME",
     highlightStrokeWidth: "SAME",
@@ -276,7 +276,7 @@ export default {
     opacity: 1,
     renderLabel: false,
     semanticStrokeWidth: false,
-    strokeWidth: 1.5,
+    strokeWidth: 3,
     markerHeight: 6,
     markerWidth: 6,
     type: "STRAIGHT"
