@@ -5,24 +5,6 @@
     text-align: center;
 }
 
-.nameL {
-    margin: 5px;
-    font-weight: bold;
-}
-
-.name {
-    margin: 5px;
-    width: 12%;
-}
-
-.color {
-    margin: 5px;
-}
-
-.shape {
-    margin: 5px;
-}
-
 .submit {
     text-align: center;
     margin: 5px;
@@ -37,7 +19,28 @@
     font-weight: bold;
 }
 
-.connect {
-    margin: 5px;
+.dropdown {
+    padding-top: 10px;
 }
 
+button.btn.btn-outline-success {
+    margin-top: 5px;
+    width: 60%;
+}
+
+button.dropdown-toggle.btn.btn-outline-info {
+    margin-top: 8px;
+    width: 60%;
+}
+
+.L {
+    width: 60%;
+}
+
+a.dropdown-item.active {
+    background-color: #f1b709;
+}
+
+h5.font-weight-light {
+    font-size: 16px;
+}

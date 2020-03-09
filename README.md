@@ -1,24 +1,18 @@
 # S2020 DJ MA
 
-### App Dependencies 
 
-##### Must Install in your local environment to run app
+### Branch - ac2/frontend
 
-- Bootstrap
-- react-router-dom
-- styled-components
-
-
-### Branch - ac/frontend/node
-
-#### Debugging / fixed errors
-1. removed react default images logo.192 and logo.512 because they were causing errors
-2. changed all class attibutes to className => this is a must in react 
-https://reactjs.org/docs/faq-styling.html
 
 #### Updates/Add-ons
-1. added node_modules folder - to run npm start
-2. added url routes to header component 
-3. added node.jsx  and node.css
-4. added Draggable component - wraps around node for dragging interaction
+1. Created LeftWindow Component - includes inputs, states, and some css
+2. added LeftWindow Component and state handlers to Graphvisulaizer page 
+3. Modified Graphvisulaizer page with a larger height in order to fit all LeftWindow controls
+4. Modified size of LeftWindow inputs to be a bit smaller for space and presentation 
+5. added a link to index.html for some extra bootstrap support
+
+#### My Removals 
+- remove the node component that i created in the past.  
+- removed prototype components that i made in the past that weren't being used.  
+
 
