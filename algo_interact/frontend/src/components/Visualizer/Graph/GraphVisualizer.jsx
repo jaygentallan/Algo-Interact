@@ -304,6 +304,37 @@ export default class GraphVisualizer extends React.Component {
     console.log("RIGHT CLICK");
   };
 
+    //Functions for state handling 
+    nSizeHandler = (nSize) => {
+      const config = this.state.config
+  
+      config.node.size = nSize
+  
+      this.setState({
+        config : config
+      })
+    }
+  
+    nColorHandler = (nColor) => {
+      const config = this.state.config
+  
+      config.node.color = nColor
+  
+      this.setState({
+        config : config
+      })
+    }
+  
+    lColorHandler = (lColor) => {
+      const config = this.state.config
+  
+      config.link.color = lColor
+  
+      this.setState({
+        config : config
+      })
+    }
+
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, and the main graph visualizer component.
   render() {
