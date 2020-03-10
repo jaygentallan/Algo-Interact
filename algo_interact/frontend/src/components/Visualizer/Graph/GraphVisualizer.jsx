@@ -58,37 +58,6 @@ export default class GraphVisualizer extends React.Component {
     };
   }
 
-  //Functions for state handling 
-  nSizeHandler = (nSize) => {
-    const config = this.state.config
-
-    config.node.size = nSize
-
-    this.setState({
-      config : config
-    })
-  }
-
-  nColorHandler = (nColor) => {
-    const config = this.state.config
-
-    config.node.color = nColor
-
-    this.setState({
-      config : config
-    })
-  }
-
-  lColorHandler = (lColor) => {
-    const config = this.state.config
-
-    config.link.color = lColor
-
-    this.setState({
-      config : config
-    })
-  }
-
 
   // Function called by the addButton. Makes sure the addNodeName state is not an
   // empty string. Then checks that the data.nodes array in the state is NOT empty and
@@ -314,6 +283,37 @@ export default class GraphVisualizer extends React.Component {
   _onRightClickNode = () => {
     console.log("RIGHT CLICK");
   };
+
+    //Functions for state handling 
+    nSizeHandler = (nSize) => {
+      const config = this.state.config
+  
+      config.node.size = nSize
+  
+      this.setState({
+        config : config
+      })
+    }
+  
+    nColorHandler = (nColor) => {
+      const config = this.state.config
+  
+      config.node.color = nColor
+  
+      this.setState({
+        config : config
+      })
+    }
+  
+    lColorHandler = (lColor) => {
+      const config = this.state.config
+  
+      config.link.color = lColor
+  
+      this.setState({
+        config : config
+      })
+    }
 
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, and the main graph visualizer component.
