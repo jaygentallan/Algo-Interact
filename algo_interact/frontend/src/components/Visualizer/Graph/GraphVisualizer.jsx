@@ -342,7 +342,11 @@ export default class GraphVisualizer extends React.Component {
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
         <div class="leftWindow">
-          <LeftWindow />
+          <LeftWindow 
+            nSize={this.nSizeHandler}
+            nColor={this.nColorHandler}
+            lColor={this.lColorHandler}
+          />
         </div>
 
         <div class="rightWindow">
