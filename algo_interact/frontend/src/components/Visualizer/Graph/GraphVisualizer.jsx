@@ -1,7 +1,8 @@
-import React from "react";
+import React from "../../../../node_modules/react";
 import { Graph } from "../../Node";
+import TreeView from "../../../../node_modules/react-treeview";
 import "./GraphVisualizer.css";
-import LeftWindow from '../../LeftWindow/LeftWindow'
+import LeftWindow from "../../LeftWindow/LeftWindow";
 
 // Graph Visualizer component to be called in visualizer page.
 export default class GraphVisualizer extends React.Component {
@@ -26,11 +27,17 @@ export default class GraphVisualizer extends React.Component {
       ]
     };
 
+    const neighbors = {
+      Harry: ["Sally", "Alice"],
+      Sally: [],
+      Alice: []
+    };
+
     // Default configurations used by the Graph component
     const config = {
       nodeHighlightBehavior: true,
       automaticRearrangeAfterDropNode: true,
-      height: 610,
+      height: window.innerHeight * 0.811,
       width: window.innerWidth,
       node: {
         color: "#c34f6b",
@@ -47,6 +54,7 @@ export default class GraphVisualizer extends React.Component {
       config,
       generatedConfig: {},
       data,
+      neighbors: neighbors,
       nodeIdToBeRemoved: null,
       addNodeName: "",
       removeNodeName: "",
@@ -57,7 +65,6 @@ export default class GraphVisualizer extends React.Component {
       removeLinkPlaceholder: "Enter as: source, target"
     };
   }
-
 
   // Function called by the addButton. Makes sure the addNodeName state is not an
   // empty string. Then checks that the data.nodes array in the state is NOT empty and
@@ -176,6 +183,13 @@ export default class GraphVisualizer extends React.Component {
         target: target
       });
 
+      if (source in this.state.neighbors) {
+        this.state.neighbors[source].push(target);
+      } else {
+        this.state.neighbors[source] = [];
+        this.state.neighbors[source].push(target);
+      }
+
       this.setState({
         addLink: "",
         addLinkPlaceholder: "Enter as: source, target"
@@ -207,8 +221,6 @@ export default class GraphVisualizer extends React.Component {
         }
       }
 
-      console.log(source, target);
-
       if (!sourceExists || !targetExists) {
         console.log("NODE DOES NOT EXIST!");
         this.setState({
@@ -218,11 +230,19 @@ export default class GraphVisualizer extends React.Component {
         return;
       }
 
+      console.log(source, target);
+
       const links = this.state.data.links.filter(
         l => l.source !== source && l.target !== target
       );
 
       const data = { nodes: this.state.data.nodes, links };
+
+      if (source in this.state.neighbors) {
+        this.state.neighbors[source] = this.state.neighbors[source].filter(
+          l => l !== target
+        );
+      }
 
       this.setState({
         data: data,
@@ -318,21 +338,15 @@ export default class GraphVisualizer extends React.Component {
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, and the main graph visualizer component.
   render() {
-
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
-      
       <div class="box">
-       
-        <LeftWindow  
-        //Retrieves state change from LeftWindow Component 
-        nSize={this.nSizeHandler} 
-        nColor={this.nColorHandler} 
-        lColor={this.lColorHandler}
-        /> 
+        <div class="leftWindow">
+          <LeftWindow />
+        </div>
 
         <div class="rightWindow">
-          <h5 class="font-weight-light pt-3"> Add a node </h5>
+          <h5 class="font-weight-light pt-2"> Add node: </h5>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <button
@@ -341,11 +355,12 @@ export default class GraphVisualizer extends React.Component {
                 class="btn btn-outline-danger"
                 id="button-addon1"
               >
-                +
+                <h6 class="align-middle"> + </h6>
               </button>
             </div>
             <input
               type="text"
+              class="nodeInput"
               name="addNodeName"
               placeholder={this.state.addNodePlaceholder}
               value={this.state.addNodeName}
@@ -354,7 +369,7 @@ export default class GraphVisualizer extends React.Component {
             />
           </div>
 
-          <h5 class="font-weight-light"> Remove a node </h5>
+          <h5 class="font-weight-light"> Remove node: </h5>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <button
@@ -363,11 +378,12 @@ export default class GraphVisualizer extends React.Component {
                 class="btn btn-outline-danger pl-3 pr-2.5"
                 id="button-addon1"
               >
-                -
+                <h6 class="align-middle"> - </h6>
               </button>
             </div>
             <input
               type="text"
+              class="nodeInput"
               name="removeNodeName"
               placeholder={this.state.removeNodePlaceholder}
               value={this.state.removeNodeName}
@@ -376,7 +392,7 @@ export default class GraphVisualizer extends React.Component {
             />
           </div>
 
-          <h5 class="font-weight-light"> Add a link </h5>
+          <h5 class="font-weight-light"> Add link: </h5>
           <input
             class="linkInput"
             type="text"
@@ -387,7 +403,7 @@ export default class GraphVisualizer extends React.Component {
             onKeyPress={this._handleLinkKeyEnter}
           />
 
-          <h5 class="font-weight-light"> Remove a link </h5>
+          <h5 class="font-weight-light pt-3"> Remove link: </h5>
           <input
             class="linkInput"
             type="text"
@@ -397,6 +413,27 @@ export default class GraphVisualizer extends React.Component {
             onChange={this._removeLinkHandleChange}
             onKeyPress={this._handleRemoveLinkKeyEnter}
           />
+
+          <h5 class="font-weight-light pt-3"> Node list: </h5>
+          <div className="json-data-container">
+            <TreeView class="nodes" key="nodes" nodeLabel="Nodes">
+              {this.state.data.nodes.map((node, i) => {
+                const type = node.type;
+                const name = node.id;
+                if (name in this.state.neighbors) {
+                  return (
+                    <TreeView key={type + "|" + i} nodeLabel={name}>
+                      <TreeView key={type + "|" + i} nodeLabel="neighbors: ">
+                        {this.state.neighbors[name].map((neighbor, i) => {
+                          return <div className="info"> {neighbor}</div>;
+                        })}
+                      </TreeView>
+                    </TreeView>
+                  );
+                }
+              })}
+            </TreeView>
+          </div>
         </div>
 
         <Graph
@@ -406,7 +443,6 @@ export default class GraphVisualizer extends React.Component {
           onRightClickNode={this._onRightClickNode}
         />
       </div>
-      
     );
   }
 }
