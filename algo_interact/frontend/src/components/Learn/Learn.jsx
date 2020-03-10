@@ -1,10 +1,10 @@
 import React from "../../../node_modules/react";
 import Footer from "../Footer/Footer";
 import Card from "../Card/Card";
-import "./Home.css";
+import "./Learn.css";
 import { ScrollRotate } from "react-scroll-rotate";
 
-const Home = () => {
+const Learn = () => {
   return (
     <div class="box">
       <div class="logo text-center">
@@ -21,9 +21,7 @@ const Home = () => {
       <div class="d-flex p-5 bd-highlight">
         <div class="d-flex p-5 bd-highlight">
           <h5 class="display-4 text-center">
-            Algo-Interact was created to visualize data structures and
-            algorithms for computer science students and anyone curious to
-            learn. ASS{" "}
+            ASS
             <a href="/visualizer" class="try">
               Try it out!
             </a>
@@ -45,7 +43,7 @@ const Home = () => {
         <div class="card-deck">
           <Card
             title="Test Card – Nowitzki Stats"
-            text="Dirk Nowitzki is a retired NBA player.
+            text="Dirk Nowitzki is ass
               He spent his 21 years in the league playing for the
               Dallas Mavericks, and he has made over 30,000 points."
             image="/test-dirk.png"
@@ -115,4 +113,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Learn;

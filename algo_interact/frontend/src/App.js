@@ -13,6 +13,7 @@ import {
 // Pages
 import HomePage from "./pages/home";
 import VisualizerPage from "./pages/visualizer";
+import LearnPage from "./pages/learn";
 import NotFoundPage from "./pages/404";
 
 // Main App class to be rendered by the React DOM
@@ -26,6 +27,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/visualizer" component={VisualizerPage} />
+          <Route exact path="/learn" component={LearnPage} />
           <Route path="/404" component={NotFoundPage} />
           <Redirect to="/404" />
         </Switch>
