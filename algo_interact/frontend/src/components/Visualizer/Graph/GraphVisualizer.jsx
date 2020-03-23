@@ -3,6 +3,8 @@ import { Graph } from "../../Node";
 import TreeView from "../../../../node_modules/react-treeview";
 import "./GraphVisualizer.css";
 import LeftWindow from "../../LeftWindow/LeftWindow";
+import { Dropdown, Form, Button} from "react-bootstrap";
+
 
 // Graph Visualizer component to be called in visualizer page.
 export default class GraphVisualizer extends React.Component {
@@ -20,11 +22,15 @@ export default class GraphVisualizer extends React.Component {
 
     // Default data used by the Graph component
     const data = {
-      nodes: [{ id: "Harry" }, { id: "Sally" }, { id: "Alice" }],
+      nodes: [
+        { id: "Harry", color: '' }, 
+        { id: "Sally", color: '' }, 
+        { id: "Alice", color: '' }],
       links: [
         { source: "Harry", target: "Sally" },
         { source: "Harry", target: "Alice" }
-      ]
+      ],
+      weight: 2
     };
 
     const neighbors = {
@@ -62,15 +68,52 @@ export default class GraphVisualizer extends React.Component {
       addNodePlaceholder: "Enter node to add",
       removeNodePlaceholder: "Enter node to remove",
       addLinkPlaceholder: "Enter as: source, target",
-      removeLinkPlaceholder: "Enter as: source, target"
+      removeLinkPlaceholder: "Enter as: source, target",
     };
+    this.baseState = this.state.data
   }
+
 
   // Function called by the addButton. Makes sure the addNodeName state is not an
   // empty string. Then checks that the data.nodes array in the state is NOT empty and
   // that the length is greater than 0. Then it creates a new node with the value of the
   // addNoneName and links it to a target node if given. Then it updates the state of
   // data array of the class and resets the addNodeName and addNodePlaceholder.
+
+  resetState = () => {
+    console.log('HERE')
+    this.setState(this.baseState)
+  }
+  //Node Highlight Rotation 
+  rotateHandler = () => {
+    //provide index "i" to invoke a delay
+    this.state.data.nodes.forEach( (node, i) =>  {
+      setTimeout( () => this.highlightHandler(node.id), 1000 * (i + 1))
+      //setTimeout( () => this.resetState(), 2000 * (i + 1))
+    })
+  }
+  //Highlight Node
+  highlightHandler = (id) => {
+    
+    const nodeIndex = this.state.data.nodes.findIndex( node => {
+      return node.id === id
+    })
+    
+    const node = {
+      ...this.state.data.nodes[nodeIndex]
+    }
+
+    node.color = 'red'
+
+    const nodes = [...this.state.data.nodes]
+    nodes[nodeIndex] = node
+
+    this.setState({
+        ...this.state.data.nodes = nodes
+    })
+  
+  }
+  
   onClickAddNode = () => {
     if (this.state.addNodeName === "") {
       this.setState({
@@ -340,13 +383,93 @@ export default class GraphVisualizer extends React.Component {
   render() {
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
+      
       <div class="box">
         <div class="leftWindow">
-          <LeftWindow 
-            nSize={this.nSizeHandler}
-            nColor={this.nColorHandler}
-            lColor={this.lColorHandler}
-          />
+  
+          <Dropdown id='graphConfig' className='LeftWindow pt-3'>
+            <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
+              Graph Configurations
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+            <LeftWindow 
+              nSize={this.nSizeHandler}
+              nColor={this.nColorHandler}
+              lColor={this.lColorHandler}
+            />
+            </Dropdown.Menu>
+          </Dropdown>
+
+          <Dropdown id='algo'className='pt-3'>
+            <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
+              Algorithm Settings
+            </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+          <form onSubmit=''>
+
+            <Dropdown className="dropdown" drop="right">
+              <Dropdown.Toggle variant="outline-info" id="dropdown-basic">
+                Algorithm
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu id='algoSelection'>
+                <Dropdown.Item eventKey="1" active>
+                  Depth-First Search
+                </Dropdown.Item>
+                <Dropdown.Item evenyKey="2">
+                  Breadth-First Search
+                  </Dropdown.Item>
+                <Dropdown.Item eventKey="3">
+                  Dijkstra's
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+
+            <div className="mt-2 mb-2">
+              <Form.Check className='mr-3'type="checkbox" id="direct" label="Directed" />
+              <Form.Check type="checkbox" id="weight" label="Weighted" />
+            </div>
+
+            <h5 class="font-weight-light h6 pt-3"> Start Node </h5>
+            <div class="input-group mb-3">
+              <input
+                class="L"
+                id="sNode"
+                type="text"
+                name="startNode"
+                placeholder="Enter starting node"
+                onChange=''
+                //onKeyPress={this._handleLinkKeyEnter}
+              />
+            </div>
+
+            <h5 class="font-weight-light h6"> Target Node </h5>
+            <div class="input-group mb-3">
+              <input
+                class="L"
+                id="tNode"
+                type="text"
+                name="tarhetNode"
+                placeholder="Enter ending node"
+                onChange=''
+                //onKeyPress={this._handleLinkKeyEnter}
+              />
+            </div>
+
+            <Button class="submit mt-2" type="submit" variant="outline-success">
+              Start
+            </Button>
+          </form>
+          </Dropdown.Menu>
+         </Dropdown>
+          
+         <Button id='highTest' class="submit" type="submit" variant="outline-success" 
+          onClick={() => this.rotateHandler()}>
+              HighLight Test
+         </Button>
+
         </div>
 
         <div class="rightWindow">

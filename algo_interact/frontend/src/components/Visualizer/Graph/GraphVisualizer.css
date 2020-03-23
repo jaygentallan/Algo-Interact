@@ -154,3 +154,22 @@ h1.name.text-center {
   -ms-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
+
+/* Algo selector*/
+#algoSelection.show {
+  display: block;
+}
+
+/*All dropdowns*/
+div.dropdown-menu.show {
+  display: contents;
+}
+
+div.form-check {
+  display: inline-block;
+}
+
+/*Highlight Test button*/
+#highTest {
+  margin-top: 300px;
+}
