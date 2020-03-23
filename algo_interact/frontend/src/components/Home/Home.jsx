@@ -2,6 +2,11 @@ import React, { Component } from "../../../node_modules/react";
 import Footer from "../Footer/Footer";
 import Card from "../Card/Card";
 import "./Home.css";
+
+/* ScrollRotate:
+    This package rotates the logo on the main
+    page when scrolling up and down. 
+*/
 import { ScrollRotate } from "react-scroll-rotate";
 
 // THe carousel:
@@ -48,7 +53,11 @@ class Home extends Component {
         </div>
 
         <hr></hr>
-
+        {/** All the cards in the Data Structures and Algorithms
+         *    sections go to the Visualizer page when clicked.
+         *    Our intent is that for each respective structure,
+         *    a default one will be rendered. 
+        */}
         <div class="d-flex p-2 bd-highlight">
           <div class="pl-5 pb-2">
             <h2>
@@ -75,7 +84,7 @@ class Home extends Component {
           />
           <Card
             title="Tree"
-            text="Description for tree here."
+            text="Click on this card to lead try it out in the Visualizer Page!"
             link="/visualizer"
           />
 
