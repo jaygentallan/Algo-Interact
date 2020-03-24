@@ -154,3 +154,66 @@ h1.name.text-center {
   -ms-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
+
+/*   Left Window   */
+.submit {
+  text-align: center;
+  margin: 5px;
+  font: inherit;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #07bb1f;
+  border-radius: 5px;
+  background: #07bb1f;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.dropdown {
+  padding-top: 10px;
+}
+
+button.btn.btn-outline-success {
+  margin-top: 5px;
+  width: 80%;
+}
+
+button.dropdown-toggle.btn.btn-outline-info {
+  margin-top: 8px;
+  width: 80%;
+}
+
+.L {
+  width: 80%;
+  padding: 5px;
+}
+
+h5.font-weight-light {
+  font-size: 16px;
+}
+
+#node.input-group {
+  width: 70%
+}
+
+/* Algo selector*/
+#algoSelection.show {
+  display: block;
+}
+
+/*Algorithm selector dropdown*/
+a.dropdown-item.active {
+  background-color: #f1b709;
+}
+
+/*All dropdowns*/
+div.dropdown-menu.show {
+  display: contents;
+}
+
+/*check boxes*/
+div.form-check {
+  display: inline-block;
+}
+
