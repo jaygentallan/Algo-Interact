@@ -2,7 +2,6 @@ import React from "../../../../node_modules/react";
 import { Graph } from "../../Node";
 import TreeView from "../../../../node_modules/react-treeview";
 import "./GraphVisualizer.css";
-import LeftWindow from "../../LeftWindow/LeftWindow";
 import { Dropdown, Form, Button} from "react-bootstrap";
 
 
@@ -22,15 +21,15 @@ export default class GraphVisualizer extends React.Component {
 
     // Default data used by the Graph component
     const data = {
+      //apply characteristics for each node
       nodes: [
-        { id: "Harry", color: '' }, 
-        { id: "Sally", color: '' }, 
-        { id: "Alice", color: '' }],
+        { id: "Harry", color: '', strokeColor: '' }, 
+        { id: "Sally", color: '', strokeColor: '' }, 
+        { id: "Alice", color: '', strokeColor: ''}],
       links: [
         { source: "Harry", target: "Sally" },
         { source: "Harry", target: "Alice" }
-      ],
-      weight: 2
+      ]
     };
 
     const neighbors = {
@@ -70,7 +69,6 @@ export default class GraphVisualizer extends React.Component {
       addLinkPlaceholder: "Enter as: source, target",
       removeLinkPlaceholder: "Enter as: source, target",
     };
-    this.baseState = this.state.data
   }
 
 
@@ -80,40 +78,6 @@ export default class GraphVisualizer extends React.Component {
   // addNoneName and links it to a target node if given. Then it updates the state of
   // data array of the class and resets the addNodeName and addNodePlaceholder.
 
-  resetState = () => {
-    console.log('HERE')
-    this.setState(this.baseState)
-  }
-  //Node Highlight Rotation 
-  rotateHandler = () => {
-    //provide index "i" to invoke a delay
-    this.state.data.nodes.forEach( (node, i) =>  {
-      setTimeout( () => this.highlightHandler(node.id), 1000 * (i + 1))
-      //setTimeout( () => this.resetState(), 2000 * (i + 1))
-    })
-  }
-  //Highlight Node
-  highlightHandler = (id) => {
-    
-    const nodeIndex = this.state.data.nodes.findIndex( node => {
-      return node.id === id
-    })
-    
-    const node = {
-      ...this.state.data.nodes[nodeIndex]
-    }
-
-    node.color = 'red'
-
-    const nodes = [...this.state.data.nodes]
-    nodes[nodeIndex] = node
-
-    this.setState({
-        ...this.state.data.nodes = nodes
-    })
-  
-  }
-  
   onClickAddNode = () => {
     if (this.state.addNodeName === "") {
       this.setState({
@@ -348,35 +312,95 @@ export default class GraphVisualizer extends React.Component {
   };
 
     //Functions for state handling 
-    nSizeHandler = (nSize) => {
+    nodeSizeHandler = (size) => {
       const config = this.state.config
   
-      config.node.size = nSize
+      config.node.size = size
   
       this.setState({
         config : config
       })
     }
   
-    nColorHandler = (nColor) => {
+    nodeColorHandler = (color) => {
       const config = this.state.config
   
-      config.node.color = nColor
+      config.node.color = color
   
       this.setState({
         config : config
       })
     }
   
-    lColorHandler = (lColor) => {
+    linkColorHandler = (linkColor) => {
       const config = this.state.config
   
-      config.link.color = lColor
+      config.link.color = linkColor
   
       this.setState({
         config : config
       })
     }
+
+  //Node Highlight Rotation Test -- Use Algorithm functions in replace 
+  rotateHandler = () => {
+    //provide index "i" to invoke a delay
+    this.state.data.nodes.forEach( (node, i) =>  {
+      setTimeout( () => this.highlightHandler(node.id, i), 1500 * (i + 1))
+    })
+  }
+
+  //reset node color back to original 
+  resetState = (origColor, i) => {
+
+    const myP = new Promise(function(resolve, reject){ // promise for time delay 
+      setTimeout(()=>resolve("Successful Switch!"), 1100);
+    });
+    
+    this.sucessHandler = msg => { // If things go well
+        console.log(msg); //check console for msg from resolve 
+
+      //set state back to the original 
+        this.setState({
+          ...this.state.data.nodes[i] = origColor })
+    }
+    //calls when promise is resolved 
+    myP.then(this.sucessHandler);
+  }
+
+  //Highlight Node -> Parameter: Node id 
+  highlightHandler = (id) => {
+    //Get index of the node 
+    const nodeIndex = this.state.data.nodes.findIndex( node => {
+      //return node index that matches the passed id
+      return node.id === id
+    })
+
+    const origNode = {
+      ...this.state.data.nodes[nodeIndex]
+    }
+    
+    const newNode = {
+      ...this.state.data.nodes[nodeIndex]
+    }
+
+    //Set colors for new node 
+    newNode.color = 'gold'
+    newNode.strokeColor = 'orange'   //node outer color
+
+    //create a copy of the entire nodes state
+    const nodes = [...this.state.data.nodes]
+    //store newNode updates at the proper index of the copy 
+    nodes[nodeIndex] = newNode
+
+    //update original state with the new state
+    this.setState({
+        ...this.state.data.nodes = nodes
+    })
+    //call to reset back to original state
+    this.resetState(origNode, nodeIndex)
+  }
+  
 
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, and the main graph visualizer component.
@@ -386,28 +410,63 @@ export default class GraphVisualizer extends React.Component {
       
       <div class="box">
         <div class="leftWindow">
-  
-          <Dropdown id='graphConfig' className='LeftWindow pt-3'>
-            <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
-              Graph Configurations
-            </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-            <LeftWindow 
-              nSize={this.nSizeHandler}
-              nColor={this.nColorHandler}
-              lColor={this.lColorHandler}
-            />
+          <Dropdown id='graphConfig' className='LeftWindow pt-3 ml-2'>
+              <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
+                Graph Configurations
+              </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+
+            <h5 class="font-weight-light  pt-3 h6"> Node Size </h5>
+            <div id='node' class="input-group mb-3">
+              <input
+                class="L size"
+                id="size"
+                type="text"
+                name="nodeSize"
+                placeholder="Enter node size"
+                onKeyPress={e => { 
+                  if (e.key === "Enter") this.nodeSizeHandler(document.getElementById("size").value) }}
+              />
+            </div>
+
+            <h5 class="font-weight-light h6"> Node Color </h5>
+            <div id='node' class="input-group mb-3">
+              <input
+                class="L color"
+                id="color"
+                type="text"
+                name="nodeColor"
+                placeholder="Enter node color"
+                onKeyPress={e => { 
+                  if (e.key === "Enter") this.nodeColorHandler(document.getElementById("color").value) }}
+              />
+            </div>
+
+            <h5 class="font-weight-light h6"> Link Color </h5>
+            <div id='node' class="input-group mb-3">
+              <input
+                class="L linkColor"
+                id="linkColor"
+                type="text"
+                name="linkColor"
+                placeholder="Enter link color"
+                onKeyPress={e => { 
+                  if (e.key === "Enter") this.linkColorHandler(document.getElementById("linkColor").value) }}
+              />
+            </div>
+        
             </Dropdown.Menu>
-          </Dropdown>
+        </Dropdown>
+  
 
-          <Dropdown id='algo'className='pt-3'>
+          <Dropdown id='algo'className='pt-3 ml-2'>
             <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
               Algorithm Settings
             </Dropdown.Toggle>
 
           <Dropdown.Menu>
-          <form onSubmit=''>
 
             <Dropdown className="dropdown" drop="right">
               <Dropdown.Toggle variant="outline-info" id="dropdown-basic">
@@ -457,20 +516,17 @@ export default class GraphVisualizer extends React.Component {
                 //onKeyPress={this._handleLinkKeyEnter}
               />
             </div>
-
-            <Button class="submit mt-2" type="submit" variant="outline-success">
+            
+            <Button class="submit mt-2" type="submit"  //activate Algorithm
+              variant="outline-success"
+              onClick={() => this.rotateHandler()} //Should call selected algorithm
+            >
               Start
             </Button>
-          </form>
           </Dropdown.Menu>
          </Dropdown>
-          
-         <Button id='highTest' class="submit" type="submit" variant="outline-success" 
-          onClick={() => this.rotateHandler()}>
-              HighLight Test
-         </Button>
-
         </div>
+
 
         <div class="rightWindow">
           <h5 class="font-weight-light pt-2"> Add node: </h5>
@@ -562,8 +618,9 @@ export default class GraphVisualizer extends React.Component {
             </TreeView>
           </div>
         </div>
-
+        
         <Graph
+        //Entry point for passing data to library to be displayed
           id="graph-id"
           data={this.state.data}
           config={this.state.config}
