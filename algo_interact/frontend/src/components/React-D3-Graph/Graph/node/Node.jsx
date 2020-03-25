@@ -79,6 +79,8 @@ export default class Node extends React.Component {
   handleOnMouseOutNode = () =>
     this.props.onMouseOut && this.props.onMouseOut(this.props.id);
 
+  test = () => console.log("TEST");
+
   render() {
     const nodeProps = {
       cursor: this.props.cursor,
@@ -122,7 +124,7 @@ export default class Node extends React.Component {
       if (this.props.viewGenerator && !this.props.overrideGlobalViewGenerator) {
         node = (
           <svg {...nodeProps} width={width} height={height}>
-            <foreignObject x="100" y="100" width="100%" height="100%">
+            <foreignObject x="0" y="0" width="100%" height="100%">
               <section
                 style={{ height, width, backgroundColor: "transparent" }}
               >

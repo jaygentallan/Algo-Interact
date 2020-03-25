@@ -1,8 +1,10 @@
 import React from "../../../../node_modules/react";
-import { Graph } from "../../Node";
+import Graph from "../../React-D3-Graph/Graph/graph/Graph";
 import TreeView from "../../../../node_modules/react-treeview";
+import { Dropdown, Form, Button } from "react-bootstrap";
 import "./GraphVisualizer.css";
-import LeftWindow from "../../LeftWindow/LeftWindow";
+import { wait } from "@testing-library/react";
+//import LeftWindow from "../../LeftVdWindow/LeftWindow";
 
 // Graph Visualizer component to be called in visualizer page.
 export default class GraphVisualizer extends React.Component {
@@ -29,7 +31,7 @@ export default class GraphVisualizer extends React.Component {
 
     const neighbors = {
       Harry: ["Sally", "Alice"],
-      Sally: [],
+      Sally: ["Harry"],
       Alice: []
     };
 
@@ -49,12 +51,19 @@ export default class GraphVisualizer extends React.Component {
       }
     };
 
+    const algoData = {
+      startNode: "",
+      endNode: "",
+      neighbors: neighbors,
+      algorithm: "Depth-First Search"
+    };
+
     // Class states
     this.state = {
       config,
       generatedConfig: {},
       data,
-      neighbors: neighbors,
+      algoData,
       nodeIdToBeRemoved: null,
       addNodeName: "",
       removeNodeName: "",
@@ -186,8 +195,8 @@ export default class GraphVisualizer extends React.Component {
       if (source in this.state.neighbors) {
         this.state.neighbors[source].push(target);
       } else {
-        this.state.neighbors[source] = [];
-        this.state.neighbors[source].push(target);
+        this.state.algoData.neighbors[source] = [];
+        this.state.algoData.neighbors[source].push(target);
       }
 
       this.setState({
@@ -230,8 +239,6 @@ export default class GraphVisualizer extends React.Component {
         return;
       }
 
-      console.log(source, target);
-
       const links = this.state.data.links.filter(
         l => l.source !== source && l.target !== target
       );
@@ -239,9 +246,9 @@ export default class GraphVisualizer extends React.Component {
       const data = { nodes: this.state.data.nodes, links };
 
       if (source in this.state.neighbors) {
-        this.state.neighbors[source] = this.state.neighbors[source].filter(
-          l => l !== target
-        );
+        this.state.algoData.neighbors[source] = this.state.neighbors[
+          source
+        ].filter(l => l !== target);
       }
 
       this.setState({
@@ -272,6 +279,29 @@ export default class GraphVisualizer extends React.Component {
     this.setState({ removeLink: event.target.value });
   };
 
+  _addStartNodeHandleChange = event => {
+    const algoData = {
+      startNode: event.target.value,
+      endNode: this.state.algoData.endNode,
+      neighbors: this.state.algoData.neighbors,
+      algorithm: this.state.algoData.algorithm,
+      startAlgorithm: this.state.algoData.startAlgorithm
+    };
+
+    this.setState({ algoData });
+  };
+
+  _addEndNodeHandleChange = event => {
+    const algoData = {
+      startNode: this.state.algoData.startNode,
+      endNode: event.target.value,
+      neighbors: this.state.algoData.neighbors,
+      algorithm: this.state.algoData.algorithm,
+      startAlgorithm: this.state.algoData.startAlgorithm
+    };
+
+    this.setState({ algoData });
+  };
   // Handler function that listens to the Remove key press
   // and calls the onClickAddNode function.
   _handleAddKeyEnter = e => {
@@ -304,36 +334,42 @@ export default class GraphVisualizer extends React.Component {
     console.log("RIGHT CLICK");
   };
 
-    //Functions for state handling 
-    nSizeHandler = (nSize) => {
-      const config = this.state.config
-  
-      config.node.size = nSize
-  
-      this.setState({
-        config : config
-      })
-    }
-  
-    nColorHandler = (nColor) => {
-      const config = this.state.config
-  
-      config.node.color = nColor
-  
-      this.setState({
-        config : config
-      })
-    }
-  
-    lColorHandler = (lColor) => {
-      const config = this.state.config
-  
-      config.link.color = lColor
-  
-      this.setState({
-        config : config
-      })
-    }
+  //Functions for state handling
+  nSizeHandler = nSize => {
+    const config = this.state.config;
+
+    config.node.size = nSize;
+
+    this.setState({
+      config: config
+    });
+  };
+
+  nColorHandler = nColor => {
+    const config = this.state.config;
+
+    config.node.color = nColor;
+
+    this.setState({
+      config: config
+    });
+  };
+
+  lColorHandler = lColor => {
+    const config = this.state.config;
+
+    config.link.color = lColor;
+
+    this.setState({
+      config: config
+    });
+  };
+
+  //Event Handler
+  inputHandler = event => {
+    //prevent the forn submission from refreshing the page
+    event.preventDefault();
+  };
 
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, and the main graph visualizer component.
@@ -342,11 +378,109 @@ export default class GraphVisualizer extends React.Component {
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
         <div class="leftWindow">
-          <LeftWindow 
-            nSize={this.nSizeHandler}
-            nColor={this.nColorHandler}
-            lColor={this.lColorHandler}
-          />
+          <form onSubmit={this.inputHandler}>
+            <div className="mt-3">
+              <Form.Check type="checkbox" id="direct" label="Directed" />
+            </div>
+
+            <div className="">
+              <Form.Check type="checkbox" id="weight" label="Weighted" />
+            </div>
+
+            <h5 class="font-weight-light pt-3 h6"> Node Size </h5>
+            <div class="input-group mb-3">
+              <input
+                class="L nSize"
+                id="nSize"
+                type="text"
+                name="nodeSize"
+                placeholder="Enter node size"
+                onChange={e =>
+                  this.nSizeHandler(document.getElementById("nSize").value)
+                }
+                //onKeyPress={}
+              />
+            </div>
+
+            <h5 class="font-weight-light h6"> Node Color </h5>
+            <div class="input-group mb-3">
+              <input
+                class="L nColor"
+                id="nColor"
+                type="text"
+                name="nodeColor"
+                placeholder="Enter node color"
+                onChange={e =>
+                  this.nColorHandler(document.getElementById("nColor").value)
+                }
+                //onKeyPress={this._handleLinkKeyEnter}
+              />
+            </div>
+
+            <h5 class="font-weight-light h6"> Link Color </h5>
+            <div class="input-group mb-3">
+              <input
+                class="L lColor"
+                id="lColor"
+                type="text"
+                name="linkColor"
+                placeholder="Enter link color"
+                onChange={e =>
+                  this.lColorHandler(document.getElementById("lColor").value)
+                }
+                //onKeyPress={this._handleLinkKeyEnter}
+              />
+            </div>
+
+            <Dropdown class="dropdown" drop="right">
+              <Dropdown.Toggle variant="outline-info" id="dropdown-basic">
+                Algorithm
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item eventKey="1" active>
+                  Depth-First Search
+                </Dropdown.Item>
+                <Dropdown.Item evenyKey="2">Breadth-First Search</Dropdown.Item>
+                <Dropdown.Item eventKey="3">Dijkstra's</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+
+            <h5 class="font-weight-light h6 pt-3"> Start Node </h5>
+            <div class="input-group mb-3">
+              <input
+                class="L"
+                id="sNode"
+                type="text"
+                name="startNode"
+                placeholder="Enter starting node"
+                onChange={this._addStartNodeHandleChange}
+                //onKeyPress={this._handleLinkKeyEnter}
+              />
+            </div>
+
+            <h5 class="font-weight-light h6"> Target Node </h5>
+            <div class="input-group mb-3">
+              <input
+                class="L"
+                id="tNode"
+                type="text"
+                name="targetNode"
+                placeholder="Enter ending node"
+                onChange={this._addEndNodeHandleChange}
+                //onKeyPress={this._handleLinkKeyEnter}
+              />
+            </div>
+
+            <Button
+              class="submit mt-3"
+              type="submit"
+              variant="outline-success"
+              onClick={this.startAlgorithm}
+            >
+              Start
+            </Button>
+          </form>
         </div>
 
         <div class="rightWindow">
@@ -424,13 +558,15 @@ export default class GraphVisualizer extends React.Component {
               {this.state.data.nodes.map((node, i) => {
                 const type = node.type;
                 const name = node.id;
-                if (name in this.state.neighbors) {
+                if (name in this.state.algoData.neighbors) {
                   return (
                     <TreeView key={type + "|" + i} nodeLabel={name}>
                       <TreeView key={type + "|" + i} nodeLabel="neighbors: ">
-                        {this.state.neighbors[name].map((neighbor, i) => {
-                          return <div className="info"> {neighbor}</div>;
-                        })}
+                        {this.state.algoData.neighbors[name].map(
+                          (neighbor, i) => {
+                            return <div className="info"> {neighbor}</div>;
+                          }
+                        )}
                       </TreeView>
                     </TreeView>
                   );
