@@ -1,0 +1,58 @@
+html,
+body {
+  height: 100%;
+}
+
+.box {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.box .row.welcome {
+  flex: 0 1 auto;
+}
+
+.box .row.content {
+  flex: 1 1 auto;
+}
+
+.h5.display-4.text-center {
+  color: #c34f6b;
+}
+.card.border.border-danger {
+  border-color: #c34f6b !important;
+  border-radius: 20px;
+  border-width: 0.8em;
+}
+
+h2 {
+  padding-bottom: 5px;
+  border-bottom: 3px solid #c34f6b;
+  border-radius: 2px 2px 2px 2px;
+  line-height: 10px;
+}
+
+hr {
+  opacity: 0.8;
+  border-radius: 5px;
+  width: 100%;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a.try,
+a.try:hover {
+  padding-bottom: 1px;
+  border-bottom: 3px solid #c34f6b;
+  border-radius: 2px 2px 2px 2px;
+  line-height: 10px;
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: white;
+}

@@ -155,6 +155,7 @@ h1.name.text-center {
   transform: rotate(-90deg);
 }
 
+<<<<<<< HEAD
 .form {
   background-color: cadetblue;
   width: 100%;
@@ -162,6 +163,9 @@ h1.name.text-center {
   text-align: center;
 }
 
+=======
+/*   Left Window   */
+>>>>>>> de93d5510981fade4311d29f2657ea6a17f726f1
 .submit {
   text-align: center;
   margin: 5px;
@@ -195,10 +199,40 @@ button.dropdown-toggle.btn.btn-outline-info {
   padding: 5px;
 }
 
+<<<<<<< HEAD
+=======
+h5.font-weight-light {
+  font-size: 16px;
+}
+
+#node.input-group {
+  width: 70%
+}
+
+/* Algo selector*/
+#algoSelection.show {
+  display: block;
+}
+
+/*Algorithm selector dropdown*/
+>>>>>>> de93d5510981fade4311d29f2657ea6a17f726f1
 a.dropdown-item.active {
   background-color: #f1b709;
 }
 
+<<<<<<< HEAD
 h5.font-weight-light {
   font-size: 16px;
 }
+=======
+/*All dropdowns*/
+div.dropdown-menu.show {
+  display: contents;
+}
+
+/*check boxes*/
+div.form-check {
+  display: inline-block;
+}
+
+>>>>>>> de93d5510981fade4311d29f2657ea6a17f726f1
