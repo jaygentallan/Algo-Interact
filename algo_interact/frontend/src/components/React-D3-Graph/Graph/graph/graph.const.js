@@ -1,4 +1,4 @@
-import CONST from "../../../Node/const";
+import CONST from "../const";
 
 export default {
   COORDS_SEPARATOR: ",",

@@ -28,7 +28,7 @@ import {
 
 import CONST from "./graph.const";
 import DEFAULT_CONFIG from "./graph.config";
-import ERRORS from "../../../Node/err";
+import ERRORS from "../err";
 
 import {
   isDeepEqual,
@@ -38,7 +38,7 @@ import {
   antiPick,
   throwErr,
   throwWarning
-} from "../../../Node/utils";
+} from "../utils";
 import { computeNodeDegree } from "./collapse.helper";
 
 const NODE_PROPS_WHITELIST = [

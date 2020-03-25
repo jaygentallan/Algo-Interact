@@ -11,7 +11,7 @@ import { zoom as d3Zoom } from "d3-zoom";
 
 import CONST from "./graph.const";
 import DEFAULT_CONFIG from "./graph.config";
-import ERRORS from "../../../Node/err";
+import ERRORS from "../err";
 
 import {
   getTargetLeafConnections,
@@ -26,7 +26,7 @@ import {
   initializeGraphState
 } from "./graph.helper";
 import { renderGraph } from "./graph.renderer";
-import { merge, throwErr } from "../../../Node/utils";
+import { merge, throwErr } from "../utils";
 
 /**
  * Graph component is the main component for react-d3-graph components, its interface allows its user

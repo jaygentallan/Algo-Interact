@@ -1,5 +1,5 @@
 import CONFIG from "../graph/graph.config";
-import CONST from "../../../Node/const";
+import CONST from "../const";
 
 export default {
   ARC: {
