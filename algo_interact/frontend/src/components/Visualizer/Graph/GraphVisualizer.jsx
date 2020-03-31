@@ -627,6 +627,33 @@ export default class GraphVisualizer extends React.Component {
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
+
+        <div class="stack fixed-bottom table-sm">
+          <table class="table">
+            <caption>Traversal Log</caption>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Node</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>test 1</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>test 2</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>test 3</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
         <div class="leftWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
             <Dropdown.Toggle

@@ -229,3 +229,14 @@ div.form-check {
   font-weight: bold;
   width: 83%;
 }
+
+div.box .stack {
+  display: flex;
+  flex-flow: column-reverse;
+  align-items: center;
+  bottom: 9%;
+}
+
+div.box .stack .table {
+  width: 20%;
+}
