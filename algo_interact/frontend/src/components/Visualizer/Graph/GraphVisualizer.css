@@ -230,13 +230,16 @@ div.form-check {
   width: 83%;
 }
 
-div.box .stack {
+
+div.box .tLog {
   display: flex;
   flex-flow: column-reverse;
   align-items: center;
-  bottom: 9%;
+  bottom: 13%;
+  left: -50%;
 }
 
-div.box .stack .table {
-  width: 20%;
+div.box .tLog .list-group {
+  border: 3px solid #f1b709;
+  border-top: 0px;
 }
