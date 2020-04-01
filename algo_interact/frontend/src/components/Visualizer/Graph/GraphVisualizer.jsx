@@ -61,7 +61,8 @@ export default class GraphVisualizer extends React.Component {
       endNode: "",
       neighbors: neighbors,
       algorithm: "dfs",
-      stack: []
+      stack: [],
+      queue: []
     };
 
     // Class states
@@ -412,6 +413,7 @@ export default class GraphVisualizer extends React.Component {
     if (this.state.algoData.algorithm === "dfs") {
       this.depthFirstSearch();
     } else if (this.state.algoData.algorithm === "bfs") {
+      this.breadthFirstSearch();
     } else if (this.state.algoData.algorithm === "djk") {
     }
   };
@@ -458,6 +460,15 @@ export default class GraphVisualizer extends React.Component {
           this.state.algoData.stack.length !== 0
         ) {
           const curr = this.state.algoData.stack.pop();
+          if (curr === endNode) {
+            for (let i = 0; i < 5; i++) {
+              setTimeout(() => this.foundTarget(endNode), 1200 * counter);
+              counter++;
+            }
+            console.log("FOUND TARGET");
+            this.resetState(counter);
+            return;
+          }
           setTimeout(
             () => this.highlightHandler(curr, counter),
             1000 * (counter + 1)
@@ -481,17 +492,105 @@ export default class GraphVisualizer extends React.Component {
                   console.log("VISITED");
                   continue;
                 }
-                if (newNode === endNode) {
-                  for (let i = 0; i < 5; i++) {
-                    setTimeout(() => this.foundTarget(endNode), 1200 * counter);
-                    counter++;
-                  }
-                  console.log("FOUND TARGET");
-                  this.resetState(counter);
-                  return;
-                }
 
                 this.state.algoData.stack.push(newNode);
+                visited[newNode] = newNode;
+              }
+            }
+          }
+        }
+
+        // Reset node color state after DFS is done
+        this.resetState();
+      } else {
+        console.log("FAILURE!!!");
+      }
+    } else {
+      console.log("FAIL");
+      console.log(
+        this.state.algoData.startNode,
+        this.state.algoData.endNode,
+        this.state.algoData.algorithm
+      );
+    }
+  };
+
+  breadthFirstSearch = () => {
+    if (
+      this.state.algoData.startNode !== "" &&
+      this.state.algoData.endNode !== ""
+    ) {
+      const startNode = this.state.algoData.startNode;
+      const endNode = this.state.algoData.endNode;
+      var startNodeIsValid = false;
+      var endNodeIsValid = false;
+
+      for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
+        if (startNode in this.state.algoData.neighbors[i]) {
+          startNodeIsValid = true;
+        }
+        if (endNode in this.state.algoData.neighbors[i]) {
+          endNodeIsValid = true;
+        }
+      }
+
+      if (startNodeIsValid && endNodeIsValid) {
+        if (this.state.algoData.stack == null) {
+          const algoData = {
+            startNode: this.state.algoData.stack,
+            endNode: this.state.algoData.endNode,
+            neighbors: this.state.algoData.neighbors,
+            algorithm: this.state.algoData.algorithm,
+            startAlgorithm: this.state.algoData.startAlgorithm,
+            stack: []
+          };
+          this.setState({ algoData });
+        }
+        this.state.algoData.queue = [];
+        this.state.algoData.queue.push(startNode);
+        const visited = {};
+        var counter = 0;
+        visited[startNode] = startNode;
+
+        while (
+          this.state.algoData.queue !== undefined ||
+          this.state.algoData.queue.length !== 0
+        ) {
+          const curr = this.state.algoData.queue.shift();
+          if (curr === endNode) {
+            for (let i = 0; i < 5; i++) {
+              setTimeout(() => this.foundTarget(endNode), 1200 * counter);
+              counter++;
+            }
+            console.log("FOUND TARGET");
+            this.resetState(counter);
+            return;
+          }
+
+          setTimeout(
+            () => this.highlightHandler(curr, counter),
+            1000 * (counter + 1)
+          );
+          counter++;
+
+          for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
+            if (
+              curr in this.state.algoData.neighbors[i] &&
+              this.state.algoData.neighbors[i][curr] !== null &&
+              this.state.algoData.neighbors[i][curr].length !== 0
+            ) {
+              for (
+                let j = 0;
+                j < this.state.algoData.neighbors[i][curr].length;
+                j++
+              ) {
+                const newNode = this.state.algoData.neighbors[i][curr][j];
+                if (newNode in visited) {
+                  console.log("VISITED");
+                  continue;
+                }
+
+                this.state.algoData.queue.push(newNode);
                 visited[newNode] = newNode;
               }
             }
@@ -622,21 +721,37 @@ export default class GraphVisualizer extends React.Component {
   };
 
   // Main function of the React component. Returns what is displayed to the user. This includes
-  // the left window, right window, the traversal log, and the main graph visualizer component.
+  // the left window, right window, and the main graph visualizer component.
   render() {
-    const neighborItems = this.state.algoData.stack.map(
-      (item) => {return <li class="list-group-item">{item}</li>}
-    );
     return (
-      // Main display which contains the leftWindow, rightWindow, and Graph Visualizer
+      // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
-  
-        <div class="tLog fixed-bottom">
-          <ul class="list-group list-group-flush">
-            {neighborItems}
-          </ul>
+
+        <div class="stack fixed-bottom table-sm">
+          <table class="table">
+            <caption>Traversal Log</caption>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Node</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>test 1</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>test 2</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>test 3</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        
         
         <div class="leftWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
