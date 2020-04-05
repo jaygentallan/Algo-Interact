@@ -1,6 +1,6 @@
 import React, { Component } from "../../../node_modules/react";
 import Footer from "../Footer/Footer";
-import Card from "../Card/Card";
+import LearnCard from "../LearnCard/LearnCard"; 
 import "./Learn.css";
 
 // The carousel:
@@ -16,6 +16,7 @@ const responsive = {
     items: 3
   }
 };
+
 
 class Learn extends Component {
   render() {
@@ -51,7 +52,7 @@ class Learn extends Component {
           dotListClass="custom-dot-list-style"
           itemClass="card-deck d-flex pl-5 pr-5 bd-highlight"
         >
-          <Card
+          <LearnCard
             title="Test Card – Nowitzki Stats"
             text="Dirk Nowitzki is a retired NBA player.
                 He spent his 21 years in the league playing for the
@@ -59,18 +60,19 @@ class Learn extends Component {
             image="/test-dirk.png"
             link="/visualizer"
           />
-          <Card
+
+          <LearnCard
             title="Tree"
             text="Click on this card to lead try it out in the Visualizer Page!"
             link="/visualizer"
           />
 
-          <Card
+          <LearnCard
             title="Linked List"
             text="Description for linked list here."
             link="/visualizer"
           />
-          <Card
+          <LearnCard
             title="Graph"
             text="Description for a graph here."
             link="/visualizer"
@@ -95,26 +97,22 @@ class Learn extends Component {
           dotListClass="custom-dot-list-style"
           itemClass="card-deck d-flex pl-5 pr-5 bd-highlight"
         >
-          <Card
+          <LearnCard
             title="Algorithm 1"
             text="Description for first algorithm here."
-            link="/learn"
           />
-          <Card
+          <LearnCard
             title="Algorithm 2"
             text="Description for second algorithm here."
-            link="/learn"
           />
-          <Card
+          <LearnCard
             title="Algorithm 3"
             text="Description for third algorithm here."
-            link="/learn"
           />
 
-          <Card
+          <LearnCard
             title="Algorithm 4"
             text="Description for fourth algorithm here."
-            link="/learn"
           />
         </Carousel>
         <div class="container p-5"></div>
