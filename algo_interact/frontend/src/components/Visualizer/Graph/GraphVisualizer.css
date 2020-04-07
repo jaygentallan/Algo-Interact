@@ -237,3 +237,16 @@ div.form-check {
   font-weight: bold;
   width: 83%;
 }
+
+div.box .tLog {
+  display: flex;
+  flex-flow: column-reverse;
+  align-items: center;
+  bottom: 13%;
+  left: -50%;
+}
+
+div.box .tLog .list-group {
+  border: 3px solid #f1b709;
+  border-top: 0px;
+}

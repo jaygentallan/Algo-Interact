@@ -9,7 +9,7 @@ import "./Home.css";
 */
 import { ScrollRotate } from "react-scroll-rotate";
 
-// THe carousel:
+// The carousel:
 // https://www.npmjs.com/package/react-multi-carousel
 // npm install react-multi-carousel
 import Carousel from "react-multi-carousel";
@@ -44,7 +44,7 @@ class Home extends Component {
             <h5 class="display-4 text-center">
               Algo-Interact was created to visualize data structures and
               algorithms for computer science students and anyone curious to
-              learn. ASS{" "}
+              learn.
               <a href="/visualizer" class="try">
                 Try it out!
               </a>

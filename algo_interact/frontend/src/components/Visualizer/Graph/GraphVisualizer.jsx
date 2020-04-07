@@ -763,11 +763,21 @@ export default class GraphVisualizer extends React.Component {
   };
 
   // Main function of the React component. Returns what is displayed to the user. This includes
-  // the left window, right window, and the main graph visualizer component.
+  // the left window, right window, the traversal log and the main graph visualizer component.
   render() {
+    const neighborItems = this.state.algoData.stack.map(
+      (item) => {return <li class="list-group-item">{item}</li>}
+    );
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
+
+        <div class="tLog fixed-bottom">
+        <ul class="list-group list-group-flush">
+            {neighborItems}
+          </ul>
+        </div>
+        
         <div class="leftWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
             <Dropdown.Toggle
