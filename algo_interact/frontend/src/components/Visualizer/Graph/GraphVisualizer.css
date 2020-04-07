@@ -80,17 +80,10 @@ h1.name.text-center {
 }
 
 .leftWindow {
-  height: 36.6em;
+  height: 26em;
   width: 17em;
   position: absolute;
   margin-left: 0.5em;
-}
-
-.rightWindow {
-  height: 36.6em;
-  width: 17em;
-  position: absolute;
-  right: 0px;
 }
 
 .json-data-container {
@@ -205,12 +198,21 @@ div.form-check {
 }
 
 #dropdown-basic {
-  width: 96%;
+  width: 12%;
+}
+
+#dropdown-basic:after {
+  content: none;
+}
+
+#dropdown-two {
+  width: 94.5%;
 }
 
 .dropdown.font-weight-light {
   font-size: 1.2em;
-  padding-top: 0;
+  padding-top: 0em;
+  padding-left: 0.3em;
   color: #c34f6b;
 }
 
@@ -218,6 +220,12 @@ div.form-check {
   width: 88%;
   margin-bottom: 0.5em;
 }
+
+.icon {
+  position: relative;
+  bottom: 0.15em;
+}
+
 .submit.mt-2.font-weight-normal {
   text-align: center;
   font: inherit;

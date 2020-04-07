@@ -14,7 +14,7 @@ const Footer = () => {
       </div>
 
       <div className="container text-center">
-        <small>Copyright &copy; 2020 Algo Interact</small>
+        <small>Copyright &copy; 2020 Algo-Interact</small>
       </div>
     </footer>
   );

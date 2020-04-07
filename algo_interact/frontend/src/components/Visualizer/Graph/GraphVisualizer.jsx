@@ -24,27 +24,68 @@ export default class GraphVisualizer extends React.Component {
     const data = {
       //apply characteristics for each node
       nodes: [
-        { id: "Harry", color: "", strokeColor: "" },
-        { id: "Sally", color: "", strokeColor: "" },
-        { id: "Alice", color: "", strokeColor: "" }
+        { id: "Michael", color: "", strokeColor: "" },
+        { id: "Jim", color: "", strokeColor: "" },
+        { id: "Pam", color: "", strokeColor: "" },
+        { id: "Dwight", color: "", strokeColor: "" },
+        { id: "Angela", color: "", strokeColor: "" },
+        { id: "Jan", color: "", strokeColor: "" },
+        { id: "Kevin", color: "", strokeColor: "" },
+        { id: "Andy", color: "", strokeColor: "" },
+        { id: "Toby", color: "", strokeColor: "" },
+        { id: "Erin", color: "", strokeColor: "" },
+        { id: "Karen", color: "", strokeColor: "" },
+        { id: "Stanley", color: "", strokeColor: "" },
+        { id: "Phyllis", color: "", strokeColor: "" },
+        { id: "Oscar", color: "", strokeColor: "" },
+        { id: "Ryan", color: "", strokeColor: "" },
+        { id: "Kelly", color: "", strokeColor: "" },
+        { id: "Holly", color: "", strokeColor: "" },
+        { id: "Senator", color: "", strokeColor: "" },
+        { id: "Roy", color: "", strokeColor: "" },
+        { id: "Bob Vance, Vance Refrigeration" }
       ],
       links: [
-        { source: "Harry", target: "Sally" },
-        { source: "Harry", target: "Alice" }
+        { source: "Michael", target: "Jan" },
+        { source: "Michael", target: "Holly" },
+        { source: "Michael", target: "Ryan" },
+        { source: "Michael", target: "Jim" },
+        { source: "Michael", target: "Toby" },
+        { source: "Jim", target: "Pam" },
+        { source: "Jim", target: "Karen" },
+        { source: "Jim", target: "Dwight" },
+        { source: "Pam", target: "Roy" },
+        { source: "Dwight", target: "Angela" },
+        { source: "Dwight", target: "Andy" },
+        { source: "Andy", target: "Erin" },
+        { source: "Ryan", target: "Kelly" },
+        { source: "Angela", target: "Oscar" },
+        { source: "Angela", target: "Kevin" },
+        { source: "Angela", target: "Senator" },
+        { source: "Oscar", target: "Senator" },
+        { source: "Oscar", target: "Phyllis" },
+        { source: "Phyllis", target: "Stanley" },
+        { source: "Phyllis", target: "Bob Vance, Vance Refrigeration" }
       ]
     };
 
     const neighbors = [
-      { Harry: ["Sally", "Alice"] },
-      { Sally: ["Harry"] },
-      { Alice: ["Harry"] }
+      { Michael: [("Jan", 10), "Holly", "Ryan", "Jim", "Toby"] },
+      { Jim: ["Pam", "Karen", "Dwight"] },
+      { Pam: ["Roy"] },
+      { Dwight: ["Angela", "Andy"] },
+      { Andy: ["Erin"] },
+      { Ryan: ["Kelly"] },
+      { Angela: ["Oscar", "Kevin", "Senator"] },
+      { Oscar: ["Senator", "Phyllis"] },
+      { Phyllis: ["Stanley", "Bob Vance, Vance Refrigeration"] }
     ];
 
     // Default configurations used by the Graph component
     const config = {
       nodeHighlightBehavior: true,
       automaticRearrangeAfterDropNode: true,
-      height: window.innerHeight * 0.811,
+      height: window.innerHeight * 0.86,
       width: window.innerWidth,
       node: {
         color: "#c34f6b",
@@ -429,6 +470,7 @@ export default class GraphVisualizer extends React.Component {
       var endNodeIsValid = false;
 
       for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
+        console.log(startNode, endNode);
         if (startNode in this.state.algoData.neighbors[i]) {
           startNodeIsValid = true;
         }
@@ -733,7 +775,27 @@ export default class GraphVisualizer extends React.Component {
               id="dropdown-basic"
               className="dropdown font-weight-light"
             >
-              Graph Configurations
+              <div class="icon">
+                <svg
+                  class="bi bi-gear"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 014.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 01-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 011.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 012.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 012.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 011.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 01-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 018.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 001.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 00.52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 00-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 00-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 00-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 00-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 00.52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 001.255-.52l.094-.319z"
+                    clip-rule="evenodd"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 5.754a2.246 2.246 0 100 4.492 2.246 2.246 0 000-4.492zM4.754 8a3.246 3.246 0 116.492 0 3.246 3.246 0 01-6.492 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
@@ -795,7 +857,22 @@ export default class GraphVisualizer extends React.Component {
               id="dropdown-basic"
               className="dropdown font-weight-light"
             >
-              Algorithm Settings
+              <div class="icon">
+                <svg
+                  class="bi bi-code-slash"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.854 4.146a.5.5 0 010 .708L1.707 8l3.147 3.146a.5.5 0 01-.708.708l-3.5-3.5a.5.5 0 010-.708l3.5-3.5a.5.5 0 01.708 0zm6.292 0a.5.5 0 000 .708L14.293 8l-3.147 3.146a.5.5 0 00.708.708l3.5-3.5a.5.5 0 000-.708l-3.5-3.5a.5.5 0 00-.708 0zm-.999-3.124a.5.5 0 01.33.625l-4 13a.5.5 0 01-.955-.294l4-13a.5.5 0 01.625-.33z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
@@ -837,7 +914,7 @@ export default class GraphVisualizer extends React.Component {
                 </div>
 
                 <Dropdown className="dropdown pt-2" drop="right">
-                  <Dropdown.Toggle variant="outline-info" id="dropdown-basic">
+                  <Dropdown.Toggle variant="outline-info" id="dropdown-two">
                     Algorithm
                   </Dropdown.Toggle>
 
@@ -874,16 +951,34 @@ export default class GraphVisualizer extends React.Component {
               </div>
             </Dropdown.Menu>
           </Dropdown>
-        </div>
 
-        <div class="rightWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
             <Dropdown.Toggle
               variant="outline-danger"
               id="dropdown-basic"
               className="dropdown font-weight-light"
             >
-              Nodes & Links
+              <div class="icon">
+                <svg
+                  class="bi bi-bounding-box-circles"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.5 2h-9V1h9v1zm-10 1.5v9h-1v-9h1zm11 9v-9h1v9h-1zM3.5 14h9v1h-9v-1z"
+                    clip-rule="evenodd"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M14 3a1 1 0 100-2 1 1 0 000 2zm0 1a2 2 0 100-4 2 2 0 000 4zm0 11a1 1 0 100-2 1 1 0 000 2zm0 1a2 2 0 100-4 2 2 0 000 4zM2 3a1 1 0 100-2 1 1 0 000 2zm0 1a2 2 0 100-4 2 2 0 000 4zm0 11a1 1 0 100-2 1 1 0 000 2zm0 1a2 2 0 100-4 2 2 0 000 4z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
@@ -963,7 +1058,22 @@ export default class GraphVisualizer extends React.Component {
               id="dropdown-basic"
               className="dropdown font-weight-light"
             >
-              Show Node List
+              <div class="icon">
+                <svg
+                  class="bi bi-list-ul"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5 11.5a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm-3 1a1 1 0 100-2 1 1 0 000 2zm0 4a1 1 0 100-2 1 1 0 000 2zm0 4a1 1 0 100-2 1 1 0 000 2z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
@@ -998,6 +1108,8 @@ export default class GraphVisualizer extends React.Component {
             </Dropdown.Menu>
           </Dropdown>
         </div>
+
+        <div class="rightWindow"></div>
 
         <Graph
           //Entry point for passing data to library to be displayed
