@@ -229,3 +229,11 @@ div.form-check {
   font-weight: bold;
   width: 83%;
 }
+
+.nav {
+  justify-content: center;
+}
+
+nav.nav-tabs {
+  border-bottom: 1px solid whitesmoke;
+}

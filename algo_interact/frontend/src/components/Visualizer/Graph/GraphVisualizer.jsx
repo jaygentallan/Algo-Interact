@@ -1,9 +1,10 @@
 import React from "../../../../node_modules/react";
 import Graph from "../../React-D3-Graph/Graph/graph/Graph";
 import TreeView from "../../../../node_modules/react-treeview";
-import { Dropdown, Form, Button } from "react-bootstrap";
+import { Dropdown, Form, Button, Tabs, Tab} from "react-bootstrap";
 import "./GraphVisualizer.css";
 import { wait } from "@testing-library/react";
+var ReactBootstrap = require('react-bootstrap');
 //import LeftWindow from "../../LeftVdWindow/LeftWindow";
 
 // Graph Visualizer component to be called in visualizer page.
@@ -79,7 +80,8 @@ export default class GraphVisualizer extends React.Component {
       addNodePlaceholder: "Enter node to add",
       removeNodePlaceholder: "Enter node to remove",
       addLinkPlaceholder: "Enter as: source, target",
-      removeLinkPlaceholder: "Enter as: source, target"
+      removeLinkPlaceholder: "Enter as: source, target",
+      key: '' //state for Algorithm tabs 
     };
   }
 
@@ -519,7 +521,7 @@ export default class GraphVisualizer extends React.Component {
     this.state.data.nodes.forEach((node, i) => {
       setTimeout(() => this.highlightHandler(node.id, i), 1500 * (i + 1));
     });
-  };
+  }; 
 
   //reset node color back to original
   resetState = counter => {
@@ -573,7 +575,7 @@ export default class GraphVisualizer extends React.Component {
 
     //update original state with the new state
     this.setState({
-      ...(this.state.data.nodes = nodes)
+      ...(this.state.data.nodes) = nodes
     });
     //call to reset back to original state
     //this.resetState(origNode, nodeIndex);
@@ -621,12 +623,39 @@ export default class GraphVisualizer extends React.Component {
     }
   };
 
+  //sets current algorithm tab
+  eventKeyHandler = (key) => {
+      let tabKey = this.state.key
+      tabKey = key
+     
+      this.setState({
+        key: tabKey
+      })
+  }
+
+
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, and the main graph visualizer component.
   render() {
+
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
+        <div class='Tab'>
+        <Tabs
+            id="controlled-tab-example"
+            activeKey={this.state.key}
+            onSelect={event => this.eventKeyHandler(event)}
+          >
+            <Tab eventKey="1" title="Depth-First Search">
+            </Tab>
+            <Tab eventKey="2" title="Breadth-First Search">
+            </Tab>
+            <Tab eventKey="3" title="Dijkstra's">
+            </Tab>
+          </Tabs>
+        </div>
+
         <div class="leftWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
             <Dropdown.Toggle
@@ -642,7 +671,7 @@ export default class GraphVisualizer extends React.Component {
               <div id="node" class="input-group mb-3">
                 <input
                   class="L"
-                  id="color"
+                  id="size"
                   type="text"
                   placeholder="Enter node size"
                   onKeyPress={e => {
@@ -746,18 +775,21 @@ export default class GraphVisualizer extends React.Component {
                     <Dropdown.Item
                       eventKey="1"
                       onSelect={() => (this.state.algoData.algorithm = "dfs")}
+                      onSelect={(event) => this.eventKeyHandler(event)} //Tab selector
                     >
                       Depth-First Search
                     </Dropdown.Item>
                     <Dropdown.Item
                       evenyKey="2"
                       onSelect={() => (this.state.algoData.algorithm = "bfs")}
+                      onSelect={(event) => this.eventKeyHandler(2)} //Tab Selector
                     >
                       Breadth-First Search
                     </Dropdown.Item>
                     <Dropdown.Item
                       eventKey="3"
                       onSelect={() => (this.state.algoData.algorithm = "djk")}
+                      onSelect={(event) => this.eventKeyHandler(event)}
                     >
                       Dijkstra's
                     </Dropdown.Item>
