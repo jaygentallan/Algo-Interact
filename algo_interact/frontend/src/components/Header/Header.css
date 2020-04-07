@@ -24,3 +24,17 @@ a.nav-link:hover {
 .navbar.navbar-expand.navbar-dark.bg-dark {
   background-color: #c34f6b !important;
 }
+
+.navbar-brand {
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+}
+
+.logo {
+  object-fit: cover;
+  width: 35%;
+  height: 50%;
+  max-height: 2em;
+  max-width: 80em;
+}

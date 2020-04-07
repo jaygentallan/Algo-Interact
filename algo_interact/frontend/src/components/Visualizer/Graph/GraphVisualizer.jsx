@@ -1,9 +1,9 @@
 import React from "../../../../node_modules/react";
 import Graph from "../../React-D3-Graph/Graph/graph/Graph";
 import TreeView from "../../../../node_modules/react-treeview";
+import ReactTooltip from "../../../../node_modules/react-tooltip";
 import { Dropdown, Form, Button } from "react-bootstrap";
 import "./GraphVisualizer.css";
-import { wait } from "@testing-library/react";
 //import LeftWindow from "../../LeftVdWindow/LeftWindow";
 
 // Graph Visualizer component to be called in visualizer page.
@@ -43,7 +43,7 @@ export default class GraphVisualizer extends React.Component {
         { id: "Holly", color: "", strokeColor: "" },
         { id: "Senator", color: "", strokeColor: "" },
         { id: "Roy", color: "", strokeColor: "" },
-        { id: "Bob Vance, Vance Refrigeration" }
+        { id: "Bob Vance, Vance Refrigeration" },
       ],
       links: [
         { source: "Michael", target: "Jan" },
@@ -65,8 +65,8 @@ export default class GraphVisualizer extends React.Component {
         { source: "Oscar", target: "Senator" },
         { source: "Oscar", target: "Phyllis" },
         { source: "Phyllis", target: "Stanley" },
-        { source: "Phyllis", target: "Bob Vance, Vance Refrigeration" }
-      ]
+        { source: "Phyllis", target: "Bob Vance, Vance Refrigeration" },
+      ],
     };
 
     const neighbors = [
@@ -78,7 +78,7 @@ export default class GraphVisualizer extends React.Component {
       { Ryan: ["Kelly"] },
       { Angela: ["Oscar", "Kevin", "Senator"] },
       { Oscar: ["Senator", "Phyllis"] },
-      { Phyllis: ["Stanley", "Bob Vance, Vance Refrigeration"] }
+      { Phyllis: ["Stanley", "Bob Vance, Vance Refrigeration"] },
     ];
 
     // Default configurations used by the Graph component
@@ -90,11 +90,11 @@ export default class GraphVisualizer extends React.Component {
       node: {
         color: "#c34f6b",
         size: 500,
-        highlightStrokeColor: "blue"
+        highlightStrokeColor: "blue",
       },
       link: {
-        highlightColor: "lightblue"
-      }
+        highlightColor: "lightblue",
+      },
     };
 
     const algoData = {
@@ -103,7 +103,7 @@ export default class GraphVisualizer extends React.Component {
       neighbors: neighbors,
       algorithm: "dfs",
       stack: [],
-      queue: []
+      queue: [],
     };
 
     // Class states
@@ -121,7 +121,7 @@ export default class GraphVisualizer extends React.Component {
       addNodePlaceholder: "Enter node to add",
       removeNodePlaceholder: "Enter node to remove",
       addLinkPlaceholder: "Enter as: source, target",
-      removeLinkPlaceholder: "Enter as: source, target"
+      removeLinkPlaceholder: "Enter as: source, target",
     };
   }
 
@@ -135,7 +135,7 @@ export default class GraphVisualizer extends React.Component {
     // Checks if the addNodeName is an empty string
     if (this.state.addNodeName === "") {
       this.setState({
-        addNodePlaceholder: "Please enter a value!"
+        addNodePlaceholder: "Please enter a value!",
       });
       return;
     }
@@ -147,13 +147,13 @@ export default class GraphVisualizer extends React.Component {
       this.state.data.nodes.push({ id: newNode });
 
       this.setState({
-        data: this.state.data
+        data: this.state.data,
       });
     } else {
       // 1st node
       const data = {
         nodes: [{ id: "Node 1" }],
-        links: []
+        links: [],
       };
 
       this.setState({ data });
@@ -178,7 +178,7 @@ export default class GraphVisualizer extends React.Component {
 
     this.setState({
       addNodeName: "",
-      addNodePlaceholder: "Enter node to add"
+      addNodePlaceholder: "Enter node to add",
     });
   };
 
@@ -190,16 +190,16 @@ export default class GraphVisualizer extends React.Component {
   onClickRemoveNode = () => {
     if (this.state.removeNodeName === "") {
       this.setState({
-        removeNodePlaceholder: "Please enter a value!"
+        removeNodePlaceholder: "Please enter a value!",
       });
       return;
     }
     if (this.state.data.nodes && this.state.data.nodes.length >= 1) {
       const nodes = this.state.data.nodes.filter(
-        l => l.id !== this.state.removeNodeName
+        (l) => l.id !== this.state.removeNodeName
       );
       const links = this.state.data.links.filter(
-        l =>
+        (l) =>
           l.source !== this.state.removeNodeName &&
           l.target !== this.state.removeNodeName
       );
@@ -208,7 +208,7 @@ export default class GraphVisualizer extends React.Component {
       this.setState({
         data,
         removeNodeName: "",
-        removeNodePlaceholder: "Enter node to remove"
+        removeNodePlaceholder: "Enter node to remove",
       });
     }
   };
@@ -219,7 +219,7 @@ export default class GraphVisualizer extends React.Component {
     }
     if (this.state.data.nodes && this.state.data.nodes.length) {
       let source, target;
-      [source, target] = this.state.addLink.split(/[ ,]+/).filter(function(e) {
+      [source, target] = this.state.addLink.split(/[ ,]+/).filter(function (e) {
         return e.trim().length > 0;
       });
 
@@ -239,7 +239,7 @@ export default class GraphVisualizer extends React.Component {
         console.log("NODE DOES NOT EXIST!");
         this.setState({
           addLink: "",
-          addLinkPlaceholder: "Enter as: source, target"
+          addLinkPlaceholder: "Enter as: source, target",
         });
         return;
       }
@@ -252,7 +252,7 @@ export default class GraphVisualizer extends React.Component {
           console.log("ALREADY EXISTS!");
           this.setState({
             addLink: "",
-            addLinkPlaceholder: "Enter as: source, target"
+            addLinkPlaceholder: "Enter as: source, target",
           });
           return;
         }
@@ -260,7 +260,7 @@ export default class GraphVisualizer extends React.Component {
 
       this.state.data.links.push({
         source: source,
-        target: target
+        target: target,
       });
 
       var found = false;
@@ -280,7 +280,7 @@ export default class GraphVisualizer extends React.Component {
 
       this.setState({
         addLink: "",
-        addLinkPlaceholder: "Enter as: source, target"
+        addLinkPlaceholder: "Enter as: source, target",
       });
     }
   };
@@ -293,7 +293,7 @@ export default class GraphVisualizer extends React.Component {
       let source, target;
       [source, target] = this.state.removeLink
         .split(/[ ,]+/)
-        .filter(function(e) {
+        .filter(function (e) {
           return e.trim().length > 0;
         });
 
@@ -313,13 +313,13 @@ export default class GraphVisualizer extends React.Component {
         console.log("NODE DOES NOT EXIST!");
         this.setState({
           removeLink: "",
-          removeLinkPlaceholder: "Enter as: source, target"
+          removeLinkPlaceholder: "Enter as: source, target",
         });
         return;
       }
 
       const links = this.state.data.links.filter(
-        l => l.source !== source && l.target !== target
+        (l) => l.source !== source && l.target !== target
       );
 
       const data = { nodes: this.state.data.nodes, links };
@@ -329,7 +329,7 @@ export default class GraphVisualizer extends React.Component {
           this.state.algoData.neighbors[i][
             source
           ] = this.state.algoData.neighbors[i][source].filter(
-            l => l !== target
+            (l) => l !== target
           );
         }
       }
@@ -337,59 +337,59 @@ export default class GraphVisualizer extends React.Component {
       this.setState({
         data: data,
         removeLink: "",
-        removeLinkPlaceholder: "Enter as: source, target"
+        removeLinkPlaceholder: "Enter as: source, target",
       });
     }
   };
 
   // Handler function that is used by the addNode input box, keeps track of the changes
   // and then updates the addNodeName of the state accordingly.
-  _addNodeHandleChange = event => {
+  _addNodeHandleChange = (event) => {
     this.setState({ addNodeName: event.target.value });
   };
 
   // Handler function that is used by the removeNode input box, keeps track of the changes
   // and then updates the removeNodeName of the state accordingly.
-  _removeNodeHandleChange = event => {
+  _removeNodeHandleChange = (event) => {
     this.setState({ removeNodeName: event.target.value });
   };
 
-  _addLinkHandleChange = event => {
+  _addLinkHandleChange = (event) => {
     this.setState({ addLink: event.target.value });
   };
 
-  _removeLinkHandleChange = event => {
+  _removeLinkHandleChange = (event) => {
     this.setState({ removeLink: event.target.value });
   };
 
-  _addStartNodeHandleChange = event => {
+  _addStartNodeHandleChange = (event) => {
     const algoData = {
       startNode: event.target.value,
       endNode: this.state.algoData.endNode,
       neighbors: this.state.algoData.neighbors,
       algorithm: this.state.algoData.algorithm,
       startAlgorithm: this.state.algoData.startAlgorithm,
-      stack: this.state.algoData.stack
+      stack: this.state.algoData.stack,
     };
 
     this.setState({ algoData });
   };
 
-  _addEndNodeHandleChange = event => {
+  _addEndNodeHandleChange = (event) => {
     const algoData = {
       startNode: this.state.algoData.startNode,
       endNode: event.target.value,
       neighbors: this.state.algoData.neighbors,
       algorithm: this.state.algoData.algorithm,
       startAlgorithm: this.state.algoData.startAlgorithm,
-      stack: this.state.algoData.stack
+      stack: this.state.algoData.stack,
     };
 
     this.setState({ algoData });
   };
   // Handler function that listens to the Remove key press
   // and calls the onClickAddNode function.
-  _handleAddKeyEnter = e => {
+  _handleAddKeyEnter = (e) => {
     if (e.key === "Enter") {
       this.onClickAddNode();
     }
@@ -397,19 +397,19 @@ export default class GraphVisualizer extends React.Component {
 
   // Handler function that listens to the Enter key press
   // and calls the onClickRemoveNode function.
-  _handleRemoveKeyEnter = e => {
+  _handleRemoveKeyEnter = (e) => {
     if (e.key === "Enter") {
       this.onClickRemoveNode();
     }
   };
 
-  _handleLinkKeyEnter = e => {
+  _handleLinkKeyEnter = (e) => {
     if (e.key === "Enter") {
       this.onClickAddLink();
     }
   };
 
-  _handleRemoveLinkKeyEnter = e => {
+  _handleRemoveLinkKeyEnter = (e) => {
     if (e.key === "Enter") {
       this.onClickRemoveLink();
     }
@@ -420,33 +420,33 @@ export default class GraphVisualizer extends React.Component {
   };
 
   //Functions for state handling
-  nodeSizeHandler = size => {
+  nodeSizeHandler = (size) => {
     const config = this.state.config;
 
     config.node.size = size;
 
     this.setState({
-      config: config
+      config: config,
     });
   };
 
-  nodeColorHandler = color => {
+  nodeColorHandler = (color) => {
     const config = this.state.config;
 
     config.node.color = color;
 
     this.setState({
-      config: config
+      config: config,
     });
   };
 
-  linkColorHandler = linkColor => {
+  linkColorHandler = (linkColor) => {
     const config = this.state.config;
 
     config.link.color = linkColor;
 
     this.setState({
-      config: config
+      config: config,
     });
   };
 
@@ -487,7 +487,7 @@ export default class GraphVisualizer extends React.Component {
             neighbors: this.state.algoData.neighbors,
             algorithm: this.state.algoData.algorithm,
             startAlgorithm: this.state.algoData.startAlgorithm,
-            stack: []
+            stack: [],
           };
           this.setState({ algoData });
         }
@@ -584,7 +584,7 @@ export default class GraphVisualizer extends React.Component {
             neighbors: this.state.algoData.neighbors,
             algorithm: this.state.algoData.algorithm,
             startAlgorithm: this.state.algoData.startAlgorithm,
-            stack: []
+            stack: [],
           };
           this.setState({ algoData });
         }
@@ -663,24 +663,24 @@ export default class GraphVisualizer extends React.Component {
   };
 
   //reset node color back to original
-  resetState = counter => {
-    const myP = new Promise(function(resolve, reject) {
+  resetState = (counter) => {
+    const myP = new Promise(function (resolve, reject) {
       // promise for time delay
       setTimeout(() => resolve("Successful Switch!"), 2000 * (counter - 2));
     });
 
-    this.sucessHandler = msg => {
+    this.sucessHandler = (msg) => {
       // If things go well
       console.log(msg); //check console for msg from resolve
       const origNodes = this.state.data.nodes;
 
-      origNodes.forEach(node => {
+      origNodes.forEach((node) => {
         node.color = this.state.nodeColor;
         node.strokeColor = this.state.strokeColor;
       });
 
       this.setState({
-        ...(this.state.data.nodes = origNodes)
+        ...(this.state.data.nodes = origNodes),
       });
     };
     //calls when promise is resolved
@@ -688,19 +688,19 @@ export default class GraphVisualizer extends React.Component {
   };
 
   //Highlight Node -> Parameter: Node id
-  highlightHandler = id => {
+  highlightHandler = (id) => {
     //Get index of the node
-    const nodeIndex = this.state.data.nodes.findIndex(node => {
+    const nodeIndex = this.state.data.nodes.findIndex((node) => {
       //return node index that matches the passed id
       return node.id === id;
     });
 
     const origNode = {
-      ...this.state.data.nodes[nodeIndex]
+      ...this.state.data.nodes[nodeIndex],
     };
 
     const newNode = {
-      ...this.state.data.nodes[nodeIndex]
+      ...this.state.data.nodes[nodeIndex],
     };
 
     //Set colors for new node
@@ -714,26 +714,26 @@ export default class GraphVisualizer extends React.Component {
 
     //update original state with the new state
     this.setState({
-      ...(this.state.data.nodes = nodes)
+      ...(this.state.data.nodes = nodes),
     });
     //call to reset back to original state
     //this.resetState(origNode, nodeIndex);
   };
 
-  foundTarget = id => {
+  foundTarget = (id) => {
     //Get index of the node
-    const nodeIndex = this.state.data.nodes.findIndex(node => {
+    const nodeIndex = this.state.data.nodes.findIndex((node) => {
       //return node index that matches the passed id
       return node.id === id;
     });
     console.log("Found target " + this.state.data.nodes[nodeIndex].id);
 
     const origNode = {
-      ...this.state.data.nodes[nodeIndex]
+      ...this.state.data.nodes[nodeIndex],
     };
 
     const newNode = {
-      ...this.state.data.nodes[nodeIndex]
+      ...this.state.data.nodes[nodeIndex],
     };
 
     origNode.color = "gold";
@@ -751,7 +751,7 @@ export default class GraphVisualizer extends React.Component {
       //store newNode updates at the proper index of the copy
       nodes[nodeIndex] = newNode;
       this.setState({
-        ...(this.state.data.nodes = nodes)
+        ...(this.state.data.nodes = nodes),
       });
 
       setTimeout(() => {
@@ -765,22 +765,21 @@ export default class GraphVisualizer extends React.Component {
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, the traversal log and the main graph visualizer component.
   render() {
-    const neighborItems = this.state.algoData.stack.map(
-      (item) => {return <li class="list-group-item">{item}</li>}
-    );
+    const neighborItems = this.state.algoData.stack.map((item) => {
+      return <li class="list-group-item">{item}</li>;
+    });
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
-
         <div class="tLog fixed-bottom">
-        <ul class="list-group list-group-flush">
-            {neighborItems}
-          </ul>
+          <ul class="list-group list-group-flush">{neighborItems}</ul>
         </div>
-        
+
         <div class="leftWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
             <Dropdown.Toggle
+              data-tip="Graph Settings"
+              data-for="buttons"
               variant="outline-danger"
               id="dropdown-basic"
               className="dropdown font-weight-light"
@@ -816,7 +815,7 @@ export default class GraphVisualizer extends React.Component {
                   id="color"
                   type="text"
                   placeholder="Enter node size"
-                  onKeyPress={e => {
+                  onKeyPress={(e) => {
                     if (e.key === "Enter")
                       this.nodeSizeHandler(
                         document.getElementById("size").value
@@ -833,7 +832,7 @@ export default class GraphVisualizer extends React.Component {
                   type="text"
                   name="nodeColor"
                   placeholder="Enter node color"
-                  onKeyPress={e => {
+                  onKeyPress={(e) => {
                     if (e.key === "Enter")
                       this.nodeColorHandler(
                         document.getElementById("color").value
@@ -850,7 +849,7 @@ export default class GraphVisualizer extends React.Component {
                   type="text"
                   name="linkColor"
                   placeholder="Enter link color"
-                  onKeyPress={e => {
+                  onKeyPress={(e) => {
                     if (e.key === "Enter")
                       this.linkColorHandler(
                         document.getElementById("linkColor").value
@@ -863,6 +862,8 @@ export default class GraphVisualizer extends React.Component {
 
           <Dropdown id="algo" className="pt-3 ml-2">
             <Dropdown.Toggle
+              data-tip="Algorithm Settings"
+              data-for="buttons"
               variant="outline-danger"
               id="dropdown-basic"
               className="dropdown font-weight-light"
@@ -888,12 +889,17 @@ export default class GraphVisualizer extends React.Component {
             <Dropdown.Menu>
               <div className="mt-2 mb-2">
                 <Form.Check
-                  className="mr-3"
+                  className="checkboxes"
                   type="checkbox"
                   id="direct"
                   label="Directed"
                 />
-                <Form.Check type="checkbox" id="weight" label="Weighted" />
+                <Form.Check
+                  className="checkboxes"
+                  type="checkbox"
+                  id="weight"
+                  label="Weighted"
+                />
               </div>
 
               <div id="node" class="input-group mb-3">
@@ -964,6 +970,8 @@ export default class GraphVisualizer extends React.Component {
 
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
             <Dropdown.Toggle
+              data-tip="Nodes & Links"
+              data-for="buttons"
               variant="outline-danger"
               id="dropdown-basic"
               className="dropdown font-weight-light"
@@ -1064,6 +1072,8 @@ export default class GraphVisualizer extends React.Component {
 
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
             <Dropdown.Toggle
+              data-tip="Node List"
+              data-for="buttons"
               variant="outline-danger"
               id="dropdown-basic"
               className="dropdown font-weight-light"
@@ -1119,7 +1129,14 @@ export default class GraphVisualizer extends React.Component {
           </Dropdown>
         </div>
 
-        <div class="rightWindow"></div>
+        <ReactTooltip
+          id="buttons"
+          place="right"
+          backgroundColor="#c34f6b"
+          effect="solid"
+          multiline={true}
+          className="extraClass"
+        />
 
         <Graph
           //Entry point for passing data to library to be displayed
