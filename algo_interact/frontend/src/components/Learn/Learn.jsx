@@ -55,24 +55,29 @@ class Learn extends Component {
                 He spent his 21 years in the league playing for the
                 Dallas Mavericks, and he has made over 30,000 points."
             image="/test-dirk.png"
-            link="/visualizer"
+            tab1title="Stats"
+            tab1text="Cool stats...example stats..."
+            tab2title="Awards"
+            tab2text="2011 NBA Championship, 2007 and 2011 NBA MVP, 14-time All-Star"
+            tab3title="Fun Facts"
+            tab3text="Nowitzki was born in Germany and grew up playing tennis."
           />
 
           <LearnCard
             title="Tree"
             text="Click on this card to lead try it out in the Visualizer Page!"
-            link="/visualizer"
+            tab1title="Description"
+            tab1text=""
+            tab2title="Scenarios"
           />
 
           <LearnCard
             title="Linked List"
             text="Description for linked list here."
-            link="/visualizer"
           />
           <LearnCard
             title="Graph"
             text="Description for a graph here."
-            link="/visualizer"
           />
         </Carousel>
         <br></br>
