@@ -1,6 +1,6 @@
 import React, { Component } from "../../../node_modules/react";
 import Footer from "../Footer/Footer";
-import LearnCard from "../LearnCard/LearnCard"; 
+import LearnCard from "../LearnCard/LearnCard";
 import "./Learn.css";
 
 // The carousel:
@@ -13,10 +13,9 @@ import "react-multi-carousel/lib/styles.css";
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3
-  }
+    items: 3,
+  },
 };
-
 
 class Learn extends Component {
   render() {
@@ -24,9 +23,7 @@ class Learn extends Component {
       <div class="box">
         <div class="d-flex p-5 bd-highlight">
           <div class="d-flex p-5 bd-highlight">
-            <h5 class="display-3 text-center">
-              Welcome to the Learn Page!
-            </h5>
+            <h5 class="display-3 text-center">Welcome to the Learn Page!</h5>
           </div>
         </div>
 
@@ -34,8 +31,8 @@ class Learn extends Component {
         {/** All the cards in the Data Structures and Algorithms
          *    sections go to the Visualizer page when clicked.
          *    Our intent is that for each respective structure,
-         *    a default one will be rendered. 
-        */}
+         *    a default one will be rendered.
+         */}
         <div class="d-flex p-2 bd-highlight">
           <div class="pl-5 pb-2">
             <h2>
