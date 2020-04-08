@@ -9,8 +9,9 @@ body {
   height: 100%;
 }
 
-.box .row.welcome {
-  flex: 0 1 auto;
+.box .row {
+  align-self: center;
+  margin: 0;
 }
 
 .box .row.content {
@@ -21,9 +22,9 @@ body {
   color: #c34f6b;
 }
 .card.border.border-danger {
-  border-color: #c34f6b !important; 
+  border-color: #c34f6b !important;
   border-radius: 20px;
-  border-width: 0.8em; 
+  border-width: 0.8em;
 }
 
 h2 {

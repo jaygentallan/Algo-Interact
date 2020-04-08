@@ -9,7 +9,7 @@ import "./Home.css";
 */
 import { ScrollRotate } from "react-scroll-rotate";
 
-// THe carousel:
+// The carousel:
 // https://www.npmjs.com/package/react-multi-carousel
 // npm install react-multi-carousel
 import Carousel from "react-multi-carousel";
@@ -19,15 +19,15 @@ import "react-multi-carousel/lib/styles.css";
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3
-  }
+    items: 3,
+  },
 };
 
 class Home extends Component {
   render() {
     return (
       <div class="box">
-        <div class="logo text-center">
+        <div class="row">
           <ScrollRotate animationDuration={0.5}>
             <img
               src={"/project_logo3.png"}
@@ -39,12 +39,12 @@ class Home extends Component {
           </ScrollRotate>
         </div>
 
-        <div class="d-flex p-5 bd-highlight">
+        <div class="d-flex pl-5 pr-5 bd-highlight">
           <div class="d-flex p-5 bd-highlight">
             <h5 class="display-4 text-center">
               Algo-Interact was created to visualize data structures and
               algorithms for computer science students and anyone curious to
-              learn. ASS{" "}
+              learn.
               <a href="/visualizer" class="try">
                 Try it out!
               </a>
@@ -56,8 +56,8 @@ class Home extends Component {
         {/** All the cards in the Data Structures and Algorithms
          *    sections go to the Visualizer page when clicked.
          *    Our intent is that for each respective structure,
-         *    a default one will be rendered. 
-        */}
+         *    a default one will be rendered.
+         */}
         <div class="d-flex p-2 bd-highlight">
           <div class="pl-5 pb-2">
             <h2>
