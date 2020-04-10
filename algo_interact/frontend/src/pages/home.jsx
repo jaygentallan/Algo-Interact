@@ -17,5 +17,3 @@ const HomePage = () => {
 // Used to be able to import HomePage
 // outside of this file.
 export default HomePage;
-
-//goniners
