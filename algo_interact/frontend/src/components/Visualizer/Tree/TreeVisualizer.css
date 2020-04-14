@@ -238,6 +238,24 @@ div.form-check {
   width: 83%;
 }
 
+/*Algo tabs*/
+.nav {
+ justify-content: center;
+}
+
+/*Algo tabs outline*/
+nav.nav-tabs {
+  border-bottom: 1px solid whitesmoke;
+}
+
+/*Individual Tabs*/
+.nav-tabs .nav-item {
+  font-weight: bold;
+  margin-left: 25px;
+  margin-right: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
 
 div.box .tLog {
   display: flex;

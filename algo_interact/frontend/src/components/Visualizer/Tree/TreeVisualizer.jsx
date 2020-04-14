@@ -1,9 +1,9 @@
 import React from "react";
-import Graph from "../../React-D3-Graph/Graph/graph/Graph";
+import Graph from "./Graph/graph/Graph";
 import TreeView from "react-treeview";
 import ReactTooltip from "react-tooltip";
 import { Dropdown, Form, Button} from "react-bootstrap";
-import "./GraphVisualizer.css";
+import "./TreeVisualizer.css";
 //import LeftWindow from "../../LeftVdWindow/LeftWindow";
 
 // Graph Visualizer component to be called in visualizer page.
@@ -763,6 +763,15 @@ export default class GraphVisualizer extends React.Component {
     }
   };
 
+  //sets current algorithm tab
+  eventKeyHandler = (key) => {
+      let tabKey = this.state.key
+      tabKey = key
+     
+      this.setState({
+        key: tabKey
+      })
+  }
 
 
   // Main function of the React component. Returns what is displayed to the user. This includes
@@ -780,8 +789,9 @@ export default class GraphVisualizer extends React.Component {
         <div class="tLog fixed-bottom">
           <ul class="list-group list-group-flush">{neighborItems}</ul>
         </div>
-        
-        {console.log('GRAPH')}
+
+        <h3>Tree</h3>
+        {console.log('TREE')}
 
         <div class="leftWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
@@ -946,18 +956,21 @@ export default class GraphVisualizer extends React.Component {
                     <Dropdown.Item
                       eventKey="1"
                       onSelect={() => (this.state.algoData.algorithm = "dfs")}
+                      onSelect={(event) => this.eventKeyHandler(event)} //Tab selector
                     >
                       Depth-First Search
                     </Dropdown.Item>
                     <Dropdown.Item
                       evenyKey="2"
                       onSelect={() => (this.state.algoData.algorithm = "bfs")}
+                      onSelect={(event) => this.eventKeyHandler(2)} //Tab Selector
                     >
                       Breadth-First Search
                     </Dropdown.Item>
                     <Dropdown.Item
                       eventKey="3"
                       onSelect={() => (this.state.algoData.algorithm = "djk")}
+                      onSelect={(event) => this.eventKeyHandler(event)}
                     >
                       Dijkstra's
                     </Dropdown.Item>
