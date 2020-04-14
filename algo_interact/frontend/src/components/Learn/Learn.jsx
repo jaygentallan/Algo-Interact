@@ -64,16 +64,25 @@ class Learn extends Component {
           />
 
           <LearnCard
-            title="Tree"
-            text="Click on this card to lead try it out in the Visualizer Page!"
+            title="Tree "
+            text="Tree is non linear data structure where first node is called Root Node
+                of the tree and then after other nodes are called subtree every tree can have
+                multiple subtree and they can have also no any subtree but still is called tree data structure, 
+                there are some points to be remember. "
             tab1title="Description"
-            tab1text=""
-            tab2title="Scenarios"
+            tab1text="-Tree is the hieraricial data structure which an store data member in hierical manner
+                      - Height of tree should be depend on subtree of the tree.
+                      - It provides the best searching and inserting the data into tree.
+                      - it provides the best searching and inserting the data into tree
+                      - Tree are of different types like Binary search tree, AVL tree, binary tree etc."
+            tab2title="Time Complexity of Tree"
+            tab2text="In general time complexity of tree will be O(h). it can be different operations. it can be also best and worst time 
+                      complexity."
           />
 
           <LearnCard
             title="Linked List"
-            text="Description for linked list here."
+            text="Linked List is a linear data structure where all data can not be stored into congiguous memory location but then "
           />
           <LearnCard
             title="Graph"
@@ -100,15 +109,15 @@ class Learn extends Component {
           itemClass="card-deck d-flex pl-5 pr-5 bd-highlight"
         >
           <LearnCard
-            title="Algorithm 1"
+            title="Breadth First Search"
             text="Description for first algorithm here."
           />
           <LearnCard
-            title="Algorithm 2"
+            title="Depth First Search"
             text="Description for second algorithm here."
           />
           <LearnCard
-            title="Algorithm 3"
+            title="Dijkstra Algorithm"
             text="Description for third algorithm here."
           />
 
