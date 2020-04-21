@@ -82,11 +82,24 @@ class Learn extends Component {
 
           <LearnCard
             title="Linked List"
-            text="Linked List is a linear data structure where all data can not be stored into congiguous memory location but then "
+            text="Linked List is a linear data structure where all data can not be stored into congiguous memory location but then are 
+                  attached to all the nodes so that we can easy to maintain the list. its simply mean that the it is the list where we can store
+                  data member in different memory locations. it is the technic of improving of wasting of memory in the database or we can say 
+                  that to save the memory."
+            tab1title="Description"
+            tab1text="-it saves the wasting of memory
+                      -it is easier to add, delte or change the data into database
+                      it can not use contiguous memory locations.
+                      -all the nodes are linked with reference link so that each node can be connected to each other and perform operations
+                      -Linked List can be of two types single linked list and double linked list. "
+            tab2title="Average Time Complexity of Linked List"
+            tab2text="O(n)"
+            tab3title="Average Time Complexity of Linked List"
+            tab3text="O(1)"
           />
           <LearnCard
             title="Graph"
-            text="Description for a graph here."
+            text=" Grap"
           />
         </Carousel>
         <br></br>
