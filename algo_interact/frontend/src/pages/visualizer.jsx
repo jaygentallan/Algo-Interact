@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "../components/Header/Header";
-import GraphVisualizer from "../Algocomponents/Graph/GraphVisualizer";
 import Footer from "../components/Footer/Footer";
 import AlgoTab from "../components/AlgoTab/AlgoTab"
 
