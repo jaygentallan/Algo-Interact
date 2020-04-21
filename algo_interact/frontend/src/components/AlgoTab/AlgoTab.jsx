@@ -7,14 +7,19 @@ import Algorithm from './Algorithm';
 const AlgoTab = () => {
     //sets current algorithm tab
     const [tabKey, setTabkey] = useState('Graph')
-    
+
+    //Update tab key state
+    const keyHandler = (event) => {
+      setTabkey(event)
+    }
+
     return (
         <div>
         <div class='Tab'>
         <Tabs
             id="controlled-tab-example"
             activeKey={tabKey}
-            onSelect={event => setTabkey(event)}
+            onSelect={event => keyHandler(event)}
           >
             <Tab eventKey="Graph" title="Graph">
             </Tab>
