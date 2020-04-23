@@ -6,6 +6,23 @@ import { Dropdown, Form, Button } from "react-bootstrap";
 import "./GraphVisualizer.css";
 //import LeftWindow from "../../LeftVdWindow/LeftWindow";
 
+class PriorityQueue {
+  constructor() {
+    this.values = [];
+  }
+
+  enqueue(val, priority) {
+    this.values.push({ val, priority });
+    this.sort();
+  }
+  dequeue() {
+    return this.values.shift();
+  }
+  sort() {
+    this.values.sort((a, b) => a.priority - b.priority);
+  }
+}
+
 // Graph Visualizer component to be called in visualizer page.
 export default class GraphVisualizer extends React.Component {
   // constructor of the GraphVisualizer class. Contains the states:
@@ -21,6 +38,42 @@ export default class GraphVisualizer extends React.Component {
     super(props);
 
     // Default data used by the Graph component
+    const data = {
+      nodes: [
+        { id: "Harry", color: "", strokeColor: "" },
+        { id: "Sally", color: "", strokeColor: "" },
+        { id: "Alice", color: "", strokeColor: "" },
+      ],
+      links: [
+        { source: "Harry", target: "Sally", label: "10" },
+        { source: "Harry", target: "Alice", label: "15" },
+      ],
+    };
+
+    const undirected_neighbors = [
+      {
+        Harry: [
+          ["Sally", 10],
+          ["Alice", 15],
+        ],
+      },
+      { Sally: [["Harry", 10]] },
+      { Alice: [["Harry", 15]] },
+    ];
+
+    const directed_neighbors = [
+      {
+        Harry: [
+          ["Sally", 10],
+          ["Alice", 15],
+        ],
+      },
+      { Sally: [] },
+      { Alice: [] },
+    ];
+
+    /*
+    // The Office characters data
     const data = {
       //apply characteristics for each node
       nodes: [
@@ -70,7 +123,7 @@ export default class GraphVisualizer extends React.Component {
     };
 
     const neighbors = [
-      { Michael: [("Jan", 10), "Holly", "Ryan", "Jim", "Toby"] },
+      { Michael: ["Jan", "Holly", "Ryan", "Jim", "Toby"] },
       { Jim: ["Pam", "Karen", "Dwight"] },
       { Pam: ["Roy"] },
       { Dwight: ["Angela", "Andy"] },
@@ -80,10 +133,13 @@ export default class GraphVisualizer extends React.Component {
       { Oscar: ["Senator", "Phyllis"] },
       { Phyllis: ["Stanley", "Bob Vance, Vance Refrigeration"] },
     ];
+    */
 
     // Default configurations used by the Graph component
     const config = {
       nodeHighlightBehavior: true,
+      directed: false,
+      rederLabel: true,
       automaticRearrangeAfterDropNode: true,
       height: window.innerHeight * 0.86,
       width: window.innerWidth,
@@ -94,13 +150,16 @@ export default class GraphVisualizer extends React.Component {
       },
       link: {
         highlightColor: "lightblue",
+        fontSize: 13,
+        renderLabel: false,
       },
     };
 
     const algoData = {
       startNode: "",
       endNode: "",
-      neighbors: neighbors,
+      undirected_neighbors: undirected_neighbors,
+      directed_neighbors: directed_neighbors,
       algorithm: "dfs",
       stack: [],
       queue: [],
@@ -118,9 +177,9 @@ export default class GraphVisualizer extends React.Component {
       addNodeName: "",
       removeNodeName: "",
       addLink: "",
-      addNodePlaceholder: "Enter node to add",
-      removeNodePlaceholder: "Enter node to remove",
-      addLinkPlaceholder: "Enter as: source, target",
+      addNodePlaceholder: "Enter as: name",
+      removeNodePlaceholder: "Enter as: name",
+      addLinkPlaceholder: "Enter as: source, target, weight",
       removeLinkPlaceholder: "Enter as: source, target",
     };
   }
@@ -159,26 +218,48 @@ export default class GraphVisualizer extends React.Component {
       this.setState({ data });
     }
 
+    var undirected_neighbors = this.state.algoData.undirected_neighbors;
+    var directed_neighbors = this.state.algoData.directed_neighbors;
+
     // Adds node to the neighbor array in the state's algoData
     let found = false;
-    for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
-      if (this.state.addNodeName in this.state.algoData.neighbors[i]) {
+    for (let i = 0; i < undirected_neighbors.length; i++) {
+      if (this.state.addNodeName in undirected_neighbors[i]) {
+        found = true;
+      }
+      if (this.state.addNodeName in directed_neighbors[i]) {
         found = true;
       }
     }
+
     if (!found) {
       var name = this.state.addNodeName;
+      let undirected_neighbors = this.state.algoData.undirected_neighbors;
+      let directed_neighbors = this.state.algoData.directed_neighbors;
       var newNeighbor = {};
       newNeighbor[name] = [];
 
-      this.state.algoData.neighbors.push(newNeighbor);
-      this.setState({ algoData: this.state.algoData });
+      undirected_neighbors.push(newNeighbor);
+      directed_neighbors.push(newNeighbor);
+
+      this.setState({
+        undirected_neighbors: undirected_neighbors,
+        directed_neighbors: directed_neighbors,
+      });
+
+      console.log(
+        "Added to UNDIRECTED_NEIGHBORS: ",
+        this.state.algoData.undirected_neighbors
+      );
+      console.log(
+        "Added to DIRECTED NEIGHBORS: ",
+        this.state.algoData.directed_neighbors
+      );
     }
-    console.log(this.state.algoData.neighbors);
 
     this.setState({
       addNodeName: "",
-      addNodePlaceholder: "Enter node to add",
+      addNodePlaceholder: "Enter as: name",
     });
   };
 
@@ -205,10 +286,57 @@ export default class GraphVisualizer extends React.Component {
       );
       const data = { nodes, links };
 
+      let neighbors = this.state.config.directed
+        ? this.state.algoData.directed_neighbors
+        : this.state.algoData.undirected_neighbors;
+
+      for (let i = 0; i < neighbors.length; i++) {
+        if (this.state.removeNodeName in neighbors[i]) {
+          let undirected_neighbors = this.state.algoData.undirected_neighbors;
+          let directed_neighbors = this.state.algoData.directed_neighbors;
+
+          // First, remove any instances of the node in any of the nodes' neighbors
+          for (let i = 0; i < undirected_neighbors.length; i++) {
+            let key = Object.keys(undirected_neighbors[i])[0];
+            undirected_neighbors[i][key].filter(
+              (l) => l[0] !== this.state.removeNodeName
+            );
+            if (key === this.state.removeNodeName) {
+              undirected_neighbors.splice(i, 1);
+            }
+          }
+          // Do the same for the directed_neighbors list
+          for (let i = 0; i < directed_neighbors.length; i++) {
+            let key = Object.keys(directed_neighbors[i])[0];
+            directed_neighbors[i][key].filter(
+              (l) => l[0] !== this.state.removeNodeName
+            );
+            if (key === this.state.removeNodeName) {
+              directed_neighbors.splice(i, 1);
+            }
+          }
+
+          // Put the lists back into the state
+          this.setState({
+            undirected_neighbors: undirected_neighbors,
+            directed_neighbors: directed_neighbors,
+          });
+
+          console.log(
+            "Removed from UNDIRECTED_NEIGHBORS: ",
+            this.state.algoData.undirected_neighbors
+          );
+          console.log(
+            "Removed from DIRECTED NEIGHBORS: ",
+            this.state.algoData.directed_neighbors
+          );
+        }
+      }
+
       this.setState({
         data,
         removeNodeName: "",
-        removeNodePlaceholder: "Enter node to remove",
+        removeNodePlaceholder: "Enter as: name",
       });
     }
   };
@@ -218,11 +346,14 @@ export default class GraphVisualizer extends React.Component {
       return;
     }
     if (this.state.data.nodes && this.state.data.nodes.length) {
-      let source, target;
-      [source, target] = this.state.addLink.split(/[ ,]+/).filter(function (e) {
-        return e.trim().length > 0;
-      });
+      let source, target, weight;
+      [source, target, weight] = this.state.addLink
+        .split(/[ ,]+/)
+        .filter(function (e) {
+          return e.trim().length > 0;
+        });
 
+      weight = parseInt(weight);
       var sourceExists, targetExists;
       sourceExists = targetExists = false;
 
@@ -235,11 +366,10 @@ export default class GraphVisualizer extends React.Component {
         }
       }
 
-      if (!sourceExists || !targetExists) {
-        console.log("NODE DOES NOT EXIST!");
+      if (!sourceExists || !targetExists || !weight) {
         this.setState({
           addLink: "",
-          addLinkPlaceholder: "Enter as: source, target",
+          addLinkPlaceholder: "Enter as: source, target, weight",
         });
         return;
       }
@@ -249,38 +379,104 @@ export default class GraphVisualizer extends React.Component {
           this.state.data.links[j].source === source &&
           this.state.data.links[j].target === target
         ) {
-          console.log("ALREADY EXISTS!");
           this.setState({
             addLink: "",
-            addLinkPlaceholder: "Enter as: source, target",
+            addLinkPlaceholder: "Enter as: source, target, weight",
           });
           return;
         }
       }
 
+      // Push to the links list in the data state
       this.state.data.links.push({
         source: source,
         target: target,
+        label: weight,
       });
 
-      var found = false;
+      var found_in_undirected = false;
+      var found_in_directed = false;
+      var target_weight = [target, weight];
+      var source_weight = [source, weight];
+      var undirected_neighbors = this.state.algoData.undirected_neighbors;
+      var directed_neighbors = this.state.algoData.directed_neighbors;
 
-      for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
-        if (source in this.state.algoData.neighbors[i]) {
-          this.state.algoData.neighbors[i][source].push(target);
-          found = true;
+      // Push to neighbors list if a node already has it as a neighbor for UNDIRECTED GRAPH
+      for (let i = 0; i < undirected_neighbors.length; i++) {
+        let already_exists = false;
+        // Add both source and target to each other's neighbors list because the graph is undirected
+        if (source in undirected_neighbors[i]) {
+          for (let j = 0; j < undirected_neighbors[i][source].length; j++) {
+            if (target === undirected_neighbors[i][source][j][0]) {
+              already_exists = true;
+            }
+          }
+          if (!already_exists) {
+            undirected_neighbors[i][source].push(target_weight);
+          }
+          found_in_undirected = true;
+        }
+
+        already_exists = false;
+
+        if (target in undirected_neighbors[i]) {
+          for (let j = 0; j < undirected_neighbors[i][target].length; j++) {
+            if (source === undirected_neighbors[i][target][j][0]) {
+              already_exists = true;
+            }
+          }
+          if (!already_exists) {
+            undirected_neighbors[i][target].push(source_weight);
+          }
+          found_in_undirected = true;
         }
       }
 
-      if (!found) {
-        var newNeighbor = {};
-        newNeighbor[source] = [target];
-        this.state.algoData.neighbors.push(newNeighbor);
+      // Push to neighbors list if a node already
+      for (let i = 0; i < directed_neighbors.length; i++) {
+        let already_exists = false;
+        // Add only the target node to the source neighbors list because it is a directed graph
+        if (source in directed_neighbors[i]) {
+          for (let j = 0; j < directed_neighbors[i][source].length; j++) {
+            if (target === undirected_neighbors[i][source][j][0]) {
+              already_exists = true;
+            }
+          }
+          if (!already_exists) {
+            directed_neighbors[i][source].push(target_weight);
+          }
+          found_in_directed = true;
+        }
       }
+
+      // Else push a new list containing this new node as a neighbor
+      if (!found_in_undirected) {
+        let sourceNeighbor = {};
+        let targetNeighbor = {};
+        sourceNeighbor[target] = target_weight;
+        targetNeighbor[source] = source_weight;
+
+        undirected_neighbors.push(sourceNeighbor);
+        undirected_neighbors.push(targetNeighbor);
+      }
+      if (!found_in_directed) {
+        let sourceNeighbor = {};
+        sourceNeighbor[target] = target_weight;
+
+        directed_neighbors.push(sourceNeighbor);
+      }
+
+      var algoData = this.state.algoData;
+      algoData.undirected_neighbors = undirected_neighbors;
+      algoData.directed_neighbors = directed_neighbors;
+
+      this.setState({
+        algoData: algoData,
+      });
 
       this.setState({
         addLink: "",
-        addLinkPlaceholder: "Enter as: source, target",
+        addLinkPlaceholder: "Enter as: source, target, weight",
       });
     }
   };
@@ -324,13 +520,23 @@ export default class GraphVisualizer extends React.Component {
 
       const data = { nodes: this.state.data.nodes, links };
 
-      for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
-        if (source in this.state.algoData.neighbors[i]) {
-          this.state.algoData.neighbors[i][
-            source
-          ] = this.state.algoData.neighbors[i][source].filter(
-            (l) => l !== target
-          );
+      var undirected_neighbors = this.state.algoData.undirected_neighbors;
+      var directed_neighbors = this.state.algoData.directed_neighbors;
+
+      // Remove links for both the source and target in the undirected neighbors list
+      for (let i = 0; i < undirected_neighbors.length; i++) {
+        if (source in undirected_neighbors[i]) {
+          undirected_neighbors[i][source].filter((l) => l[0] !== target);
+        }
+        if (target in undirected_neighbors[i]) {
+          undirected_neighbors[i][target].filter((l) => l[0] !== source);
+        }
+      }
+
+      // Remove links for the directed neighbors list
+      for (let i = 0; i < directed_neighbors.length; i++) {
+        if (source in directed_neighbors[i]) {
+          directed_neighbors[i][source].filter((l) => l[0] !== target);
         }
       }
 
@@ -366,7 +572,8 @@ export default class GraphVisualizer extends React.Component {
     const algoData = {
       startNode: event.target.value,
       endNode: this.state.algoData.endNode,
-      neighbors: this.state.algoData.neighbors,
+      undirected_neighbors: this.state.algoData.undirected_neighbors,
+      directed_neighbors: this.state.algoData.directed_neighbors,
       algorithm: this.state.algoData.algorithm,
       startAlgorithm: this.state.algoData.startAlgorithm,
       stack: this.state.algoData.stack,
@@ -379,7 +586,8 @@ export default class GraphVisualizer extends React.Component {
     const algoData = {
       startNode: this.state.algoData.startNode,
       endNode: event.target.value,
-      neighbors: this.state.algoData.neighbors,
+      undirected_neighbors: this.state.algoData.undirected_neighbors,
+      directed_neighbors: this.state.algoData.directed_neighbors,
       algorithm: this.state.algoData.algorithm,
       startAlgorithm: this.state.algoData.startAlgorithm,
       stack: this.state.algoData.stack,
@@ -415,8 +623,24 @@ export default class GraphVisualizer extends React.Component {
     }
   };
 
-  _onRightClickNode = () => {
-    console.log("RIGHT CLICK");
+  _handleDirectedCheckBox = (e) => {
+    const config = this.state.config;
+
+    config.directed = this.refs.directed.checked;
+
+    this.setState({
+      config: config,
+    });
+  };
+
+  _handleWeightedCheckBox = (e) => {
+    const config = this.state.config;
+
+    config.link.renderLabel = this.refs.weighted.checked;
+
+    this.setState({
+      config: config,
+    });
   };
 
   //Functions for state handling
@@ -456,10 +680,12 @@ export default class GraphVisualizer extends React.Component {
     } else if (this.state.algoData.algorithm === "bfs") {
       this.breadthFirstSearch();
     } else if (this.state.algoData.algorithm === "djk") {
+      this.dijkstraAlgorithm();
     }
   };
 
   depthFirstSearch = () => {
+    console.log(this.state.algoData.neighbors);
     if (
       this.state.algoData.startNode !== "" &&
       this.state.algoData.endNode !== ""
@@ -469,28 +695,30 @@ export default class GraphVisualizer extends React.Component {
       var startNodeIsValid = false;
       var endNodeIsValid = false;
 
-      for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
-        console.log(startNode, endNode);
-        if (startNode in this.state.algoData.neighbors[i]) {
+      // Uses the appropriate neighbors list if directed is turned on or not
+      var neighbors = this.state.config.directed
+        ? this.state.algoData.directed_neighbors
+        : this.state.algoData.undirected_neighbors;
+
+      // Does a loop through the undirect and directed neighbors list to make sure both are valid nodes
+      for (let i = 0; i < neighbors.length; i++) {
+        if (startNode in neighbors[i]) {
           startNodeIsValid = true;
         }
-        if (endNode in this.state.algoData.neighbors[i]) {
+        if (endNode in neighbors[i]) {
           endNodeIsValid = true;
         }
       }
 
+      // Checks whether both the start node and end node are valid
       if (startNodeIsValid && endNodeIsValid) {
         if (this.state.algoData.stack == null) {
-          const algoData = {
-            startNode: this.state.algoData.stack,
-            endNode: this.state.algoData.endNode,
-            neighbors: this.state.algoData.neighbors,
-            algorithm: this.state.algoData.algorithm,
-            startAlgorithm: this.state.algoData.startAlgorithm,
-            stack: [],
-          };
+          const algoData = this.state.data.algoData;
+          algoData.stack = [];
           this.setState({ algoData });
         }
+
+        // Intiailizes the variables needed for depth-first search
         this.state.algoData.stack = [];
         this.state.algoData.stack.push(startNode);
         const visited = {};
@@ -516,20 +744,17 @@ export default class GraphVisualizer extends React.Component {
             1000 * (counter + 1)
           );
           counter++;
-          console.log(curr);
 
-          for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
+          // For looping through the neighbors array
+          for (let i = 0; i < neighbors.length; i++) {
             if (
-              curr in this.state.algoData.neighbors[i] &&
-              this.state.algoData.neighbors[i][curr] !== null &&
-              this.state.algoData.neighbors[i][curr].length !== 0
+              curr in neighbors[i] &&
+              neighbors[i][curr] !== null &&
+              neighbors[i][curr].length !== 0
             ) {
-              for (
-                let j = 0;
-                j < this.state.algoData.neighbors[i][curr].length;
-                j++
-              ) {
-                const newNode = this.state.algoData.neighbors[i][curr][j];
+              // For looping through the array within the neighbors array, this contains the name and weight of the link
+              for (let j = 0; j < neighbors[i][curr].length; j++) {
+                const newNode = neighbors[i][curr][j][0];
                 if (newNode in visited) {
                   console.log("VISITED");
                   continue;
@@ -549,11 +774,6 @@ export default class GraphVisualizer extends React.Component {
       }
     } else {
       console.log("FAIL");
-      console.log(
-        this.state.algoData.startNode,
-        this.state.algoData.endNode,
-        this.state.algoData.algorithm
-      );
     }
   };
 
@@ -567,11 +787,16 @@ export default class GraphVisualizer extends React.Component {
       var startNodeIsValid = false;
       var endNodeIsValid = false;
 
-      for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
-        if (startNode in this.state.algoData.neighbors[i]) {
+      // Uses the appropriate neighbors list if directed is turned on or not
+      var neighbors = this.state.config.directed
+        ? this.state.algoData.directed_neighbors
+        : this.state.algoData.undirected_neighbors;
+
+      for (let i = 0; i < neighbors.length; i++) {
+        if (startNode in neighbors[i]) {
           startNodeIsValid = true;
         }
-        if (endNode in this.state.algoData.neighbors[i]) {
+        if (endNode in neighbors[i]) {
           endNodeIsValid = true;
         }
       }
@@ -581,13 +806,16 @@ export default class GraphVisualizer extends React.Component {
           const algoData = {
             startNode: this.state.algoData.stack,
             endNode: this.state.algoData.endNode,
-            neighbors: this.state.algoData.neighbors,
+            undirected_neighbors: this.state.algoData.undirected_neighbors,
+            directed_neighbors: this.state.algoData.directed_neighbors,
             algorithm: this.state.algoData.algorithm,
             startAlgorithm: this.state.algoData.startAlgorithm,
             stack: [],
           };
           this.setState({ algoData });
         }
+
+        // Initializes all the variables needed for the breadth-first search
         this.state.algoData.queue = [];
         this.state.algoData.queue.push(startNode);
         const visited = {};
@@ -615,18 +843,14 @@ export default class GraphVisualizer extends React.Component {
           );
           counter++;
 
-          for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
+          for (let i = 0; i < neighbors.length; i++) {
             if (
-              curr in this.state.algoData.neighbors[i] &&
-              this.state.algoData.neighbors[i][curr] !== null &&
-              this.state.algoData.neighbors[i][curr].length !== 0
+              curr in neighbors[i] &&
+              neighbors[i][curr] !== null &&
+              neighbors[i][curr].length !== 0
             ) {
-              for (
-                let j = 0;
-                j < this.state.algoData.neighbors[i][curr].length;
-                j++
-              ) {
-                const newNode = this.state.algoData.neighbors[i][curr][j];
+              for (let j = 0; j < neighbors[i][curr].length; j++) {
+                const newNode = neighbors[i][curr][j][0];
                 if (newNode in visited) {
                   console.log("VISITED");
                   continue;
@@ -641,6 +865,177 @@ export default class GraphVisualizer extends React.Component {
 
         // Reset node color state after DFS is done
         this.resetState();
+      } else {
+        console.log("FAILURE!!!");
+      }
+    } else {
+      console.log("FAIL");
+      console.log(
+        this.state.algoData.startNode,
+        this.state.algoData.endNode,
+        this.state.algoData.algorithm
+      );
+    }
+  };
+
+  dijkstraAlgorithm = () => {
+    if (
+      this.state.algoData.startNode !== "" &&
+      this.state.algoData.endNode !== ""
+    ) {
+      const startNode = this.state.algoData.startNode;
+      const endNode = this.state.algoData.endNode;
+      var startNodeIsValid = false;
+      var endNodeIsValid = false;
+
+      // Uses the appropriate neighbors list if directed is turned on or not
+      var neighbors = this.state.config.directed
+        ? this.state.algoData.directed_neighbors
+        : this.state.algoData.undirected_neighbors;
+
+      for (let i = 0; i < neighbors.length; i++) {
+        if (startNode in neighbors[i]) {
+          startNodeIsValid = true;
+        }
+        if (endNode in neighbors[i]) {
+          endNodeIsValid = true;
+        }
+      }
+
+      if (startNodeIsValid && endNodeIsValid) {
+        if (this.state.algoData.stack == null) {
+          const algoData = this.state.algoData;
+          algoData.stack = [];
+          this.setState({ algoData: algoData });
+        }
+
+        const costFromStartTo = {};
+        const checkList = new PriorityQueue();
+        const prev = {};
+
+        let current;
+        let path = [];
+        var neighbors = this.state.directed
+          ? this.state.algoData.directed_neighbors
+          : this.state.algoData.undirected_neighbors;
+
+        var adjacencyList = {};
+
+        for (let i = 0; i < neighbors.length; i++) {
+          let key = Object.keys(neighbors[i])[0];
+          adjacencyList[key] = {};
+          for (let j = 0; j < neighbors[i][key].length; j++) {
+            adjacencyList[key][neighbors[i][key][j][0]] =
+              neighbors[i][key][j][1];
+          }
+        }
+
+        for (let vert in adjacencyList) {
+          if (vert === startNode) {
+            costFromStartTo[vert] = 0;
+            checkList.enqueue(vert, 0);
+          } else {
+            costFromStartTo[vert] = Infinity;
+          }
+          prev[vert] = null;
+        }
+
+        while (checkList.values.length) {
+          current = checkList.dequeue().val;
+          if (current === endNode) {
+            // Done
+            while (prev[current]) {
+              path.push(current);
+              current = prev[current];
+            }
+            break;
+          } else {
+            for (let neighbor in adjacencyList[current]) {
+              let costToNeighbor =
+                costFromStartTo[current] + adjacencyList[current][neighbor];
+              if (costToNeighbor < costFromStartTo[neighbor]) {
+                costFromStartTo[neighbor] = costToNeighbor;
+                prev[neighbor] = current;
+                checkList.enqueue(neighbor, costToNeighbor);
+              }
+            }
+          }
+        }
+
+        path = path.concat(current).reverse();
+
+        var counter = 0;
+        console.log(path);
+        for (let i = 0; i < path.length; i++) {
+          if (path[i] === endNode) {
+            for (let j = 0; j < 5; j++) {
+              setTimeout(() => this.foundTarget(endNode), 1200 * counter);
+              counter++;
+            }
+            console.log("FOUND TARGET");
+            this.resetState(counter);
+            return;
+          }
+
+          setTimeout(
+            () => this.highlightHandler(path[i], counter),
+            1000 * (counter + 1)
+          );
+          counter++;
+        }
+
+        this.resetState(counter);
+        /*
+        // Initializes all the variables needed for the breadth-first search
+        this.state.algoData.queue = [];
+        this.state.algoData.queue.push(startNode);
+        var counter = 0;
+        visited[startNode] = startNode;
+
+        while (
+          this.state.algoData.queue !== undefined ||
+          this.state.algoData.queue.length !== 0
+        ) {
+          const curr = this.state.algoData.queue.shift();
+          if (curr === endNode) {
+            for (let i = 0; i < 5; i++) {
+              setTimeout(() => this.foundTarget(endNode), 1200 * counter);
+              counter++;
+            }
+            console.log("FOUND TARGET");
+            this.resetState(counter);
+            return;
+          }
+
+          setTimeout(
+            () => this.highlightHandler(curr, counter),
+            1000 * (counter + 1)
+          );
+          counter++;
+
+          for (let i = 0; i < neighbors.length; i++) {
+            if (
+              curr in neighbors[i] &&
+              neighbors[i][curr] !== null &&
+              neighbors[i][curr].length !== 0
+            ) {
+              for (let j = 0; j < neighbors[i][curr].length; j++) {
+                const newNode = neighbors[i][curr][j][0];
+                if (newNode in visited) {
+                  console.log("VISITED");
+                  continue;
+                }
+
+                this.state.algoData.queue.push(newNode);
+                visited[newNode] = newNode;
+              }
+            }
+          }
+        }
+
+        // Reset node color state after DFS is done
+        this.resetState();
+        */
       } else {
         console.log("FAILURE!!!");
       }
@@ -765,16 +1160,9 @@ export default class GraphVisualizer extends React.Component {
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, the traversal log and the main graph visualizer component.
   render() {
-    const neighborItems = this.state.algoData.stack.map((item) => {
-      return <li class="list-group-item">{item}</li>;
-    });
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
-        <div class="tLog fixed-bottom">
-          <ul class="list-group list-group-flush">{neighborItems}</ul>
-        </div>
-
         <div class="leftWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
             <Dropdown.Toggle
@@ -893,12 +1281,18 @@ export default class GraphVisualizer extends React.Component {
                   type="checkbox"
                   id="direct"
                   label="Directed"
+                  defaultChecked={false}
+                  ref="directed"
+                  onChange={this._handleDirectedCheckBox}
                 />
                 <Form.Check
                   className="checkboxes"
                   type="checkbox"
                   id="weight"
                   label="Weighted"
+                  defaultChecked={false}
+                  ref="weighted"
+                  onChange={this._handleWeightedCheckBox}
                 />
               </div>
 
@@ -910,7 +1304,7 @@ export default class GraphVisualizer extends React.Component {
                     id="sNode"
                     type="text"
                     name="startNode"
-                    placeholder="Enter starting node"
+                    placeholder="Enter as: name"
                     onChange={this._addStartNodeHandleChange}
                     //onKeyPress={this._handleLinkKeyEnter}
                   />
@@ -923,7 +1317,7 @@ export default class GraphVisualizer extends React.Component {
                     id="tNode"
                     type="text"
                     name="tarhetNode"
-                    placeholder="Enter ending node"
+                    placeholder="Enter as: name"
                     onChange={this._addEndNodeHandleChange}
                     //onKeyPress={this._handleLinkKeyEnter}
                   />
@@ -1002,16 +1396,6 @@ export default class GraphVisualizer extends React.Component {
             <Dropdown.Menu>
               <h5 class="font-weight-light pt-2"> Add node: </h5>
               <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <button
-                    onClick={this.onClickAddNode}
-                    type="button"
-                    class="btn btn-outline-danger"
-                    id="button-addon1"
-                  >
-                    <h6 class="align-middle"> + </h6>
-                  </button>
-                </div>
                 <input
                   type="text"
                   class="nodeInput"
@@ -1025,16 +1409,6 @@ export default class GraphVisualizer extends React.Component {
 
               <h5 class="font-weight-light"> Remove node: </h5>
               <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <button
-                    onClick={this.onClickRemoveNode}
-                    type="button"
-                    class="btn btn-outline-danger pl-3 pr-2.5"
-                    id="button-addon1"
-                  >
-                    <h6 class="align-middle"> - </h6>
-                  </button>
-                </div>
                 <input
                   type="text"
                   class="nodeInput"
@@ -1102,21 +1476,24 @@ export default class GraphVisualizer extends React.Component {
                   {this.state.data.nodes.map((node, i) => {
                     const type = node.type;
                     const name = node.id;
-                    for (i = 0; i < this.state.algoData.neighbors.length; i++) {
-                      if (name in this.state.algoData.neighbors[i]) {
+
+                    var neighbors = this.state.config.directed
+                      ? this.state.algoData.directed_neighbors
+                      : this.state.algoData.undirected_neighbors;
+
+                    for (i = 0; i < neighbors.length; i++) {
+                      if (name in neighbors[i]) {
                         return (
                           <TreeView key={type + "|" + i} nodeLabel={name}>
                             <TreeView
                               key={type + "|" + i}
                               nodeLabel="neighbors: "
                             >
-                              {this.state.algoData.neighbors[i][name].map(
-                                (neighbor, i) => {
-                                  return (
-                                    <div className="info"> {neighbor}</div>
-                                  );
-                                }
-                              )}
+                              {neighbors[i][name].map((neighbor, i) => {
+                                return (
+                                  <div className="info">{neighbor[0]}</div>
+                                );
+                              })}
                             </TreeView>
                           </TreeView>
                         );

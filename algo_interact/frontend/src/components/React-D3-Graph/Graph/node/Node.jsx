@@ -4,7 +4,6 @@ import CONST from "./node.const";
 
 import nodeHelper from "./node.helper";
 
-import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 /**
  * Node component is responsible for encapsulating node render.
  * @example
@@ -61,7 +60,7 @@ export default class Node extends React.Component {
    * @param {Object} event - native event.
    * @returns {undefined}
    */
-  handleOnRightClickNode = event =>
+  handleOnRightClickNode = (event) =>
     this.props.onRightClickNode &&
     this.props.onRightClickNode(event, this.props.id);
 
@@ -88,7 +87,7 @@ export default class Node extends React.Component {
       onContextMenu: this.handleOnRightClickNode,
       onMouseOut: this.handleOnMouseOutNode,
       onMouseOver: this.handleOnMouseOverNode,
-      opacity: this.props.opacity
+      opacity: this.props.opacity,
     };
 
     const textProps = {
@@ -97,7 +96,7 @@ export default class Node extends React.Component {
       fill: this.props.fontColor,
       fontSize: this.props.fontSize,
       fontWeight: this.props.fontWeight,
-      opacity: this.props.opacity
+      opacity: this.props.opacity,
     };
 
     const size = this.props.size;
@@ -123,7 +122,7 @@ export default class Node extends React.Component {
       // By default, if a view generator is set, it takes precedence over any svg image url
       if (this.props.viewGenerator && !this.props.overrideGlobalViewGenerator) {
         node = (
-          <svg {...nodeProps} width={width} height={height}>
+          <svg {...nodeProps} width={width} height={height} id="clickable-node">
             <foreignObject x="0" y="0" width="100%" height="100%">
               <section
                 style={{ height, width, backgroundColor: "transparent" }}
@@ -162,7 +161,7 @@ export default class Node extends React.Component {
       cx: this.props.cx,
       cy: this.props.cy,
       id: this.props.id,
-      transform: `translate(${gtx},${gty})`
+      transform: `translate(${gtx},${gty})`,
     };
 
     function handleClick(e, data) {
