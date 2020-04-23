@@ -1,6 +1,11 @@
 import React from "../../../node_modules/react";
 import Modal from "react-bootstrap/Modal";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
+
+
 import "./LearnCard.css";
+import { TabContent } from "react-bootstrap";
 
 /*  The Learn page will have LearnCards that will show a
     pop-up modal window when clicked.
@@ -32,9 +37,30 @@ const LearnCard = (props) => {
         </button>
         <Modal show={isOpen} onHide={hideModal} size="lg">
           <Modal.Header>
-            <Modal.Title> {props.title} </Modal.Title>
+            <Modal.Title> <h3>{props.title}</h3> </Modal.Title>
           </Modal.Header>
-          <Modal.Body> {props.text} </Modal.Body>
+          <Modal.Body>
+            <Tabs>
+              <Tab eventKey="tab1" title={props.tab1title}>
+                <TabContent>
+                  <h4 class="mt-3">{props.tab1title}</h4>
+                  <p>{props.tab1text}</p>
+                </TabContent>
+              </Tab>
+              <Tab eventKey="tab2" title={props.tab2title}>
+                <TabContent>
+                  <h4 class="mt-3">{props.tab2title}</h4>
+                  <p>{props.tab2text}</p>
+                </TabContent>
+              </Tab>
+              <Tab eventKey="tab3" title={props.tab3title}>
+                <TabContent>
+                  <h4 class="mt-3">{props.tab3title}</h4>
+                  <p>{props.tab3text}</p>
+                </TabContent>
+              </Tab>
+            </Tabs>
+          </Modal.Body>
           <Modal.Footer></Modal.Footer>
         </Modal>
       </>

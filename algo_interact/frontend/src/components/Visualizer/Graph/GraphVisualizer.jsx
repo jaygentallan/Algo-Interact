@@ -1,7 +1,7 @@
-import React from "../../../../node_modules/react";
+import React from "react";
 import Graph from "../../React-D3-Graph/Graph/graph/Graph";
-import TreeView from "../../../../node_modules/react-treeview";
-import ReactTooltip from "../../../../node_modules/react-tooltip";
+import TreeView from "react-treeview";
+import ReactTooltip from "react-tooltip";
 import { Dropdown, Form, Button } from "react-bootstrap";
 import "./GraphVisualizer.css";
 //import LeftWindow from "../../LeftVdWindow/LeftWindow";
@@ -181,6 +181,7 @@ export default class GraphVisualizer extends React.Component {
       removeNodePlaceholder: "Enter as: name",
       addLinkPlaceholder: "Enter as: source, target, weight",
       removeLinkPlaceholder: "Enter as: source, target",
+      key: "", //state for Algorithm tabs
     };
   }
 
@@ -1160,9 +1161,19 @@ export default class GraphVisualizer extends React.Component {
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, the traversal log and the main graph visualizer component.
   render() {
+    const neighborItems = this.state.algoData.stack.map((item) => {
+      return <li class="list-group-item">{item}</li>;
+    });
+
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
+        <div class="tLog fixed-bottom">
+          <ul class="list-group list-group-flush">{neighborItems}</ul>
+        </div>
+
+        {console.log("GRAPH")}
+
         <div class="leftWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
             <Dropdown.Toggle
@@ -1200,7 +1211,7 @@ export default class GraphVisualizer extends React.Component {
               <div id="node" class="input-group mb-3">
                 <input
                   class="L"
-                  id="color"
+                  id="size"
                   type="text"
                   placeholder="Enter node size"
                   onKeyPress={(e) => {
