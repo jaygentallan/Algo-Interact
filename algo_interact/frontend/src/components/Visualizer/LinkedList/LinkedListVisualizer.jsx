@@ -1,6 +1,5 @@
 import React from "react";
 import Graph from "./Graph/graph/Graph";
-import TreeView from "react-treeview";
 import ReactTooltip from "react-tooltip";
 import { Dropdown, Form, Button} from "react-bootstrap";
 import "./LinkedListVisualizer.css";
@@ -22,51 +21,16 @@ export default class GraphVisualizer extends React.Component {
 
     // Default data used by the Graph component
     const data = {
-      //apply characteristics for each node
+      //nodeid gives each node a unique index
+      //next is our pointer 
       nodes: [
-        { id: "Michael", color: "", strokeColor: "" },
-        { id: "Jim", color: "", strokeColor: "" },
-        { id: "Pam", color: "", strokeColor: "" },
-        { id: "Dwight", color: "", strokeColor: "" },
-        { id: "Angela", color: "", strokeColor: "" },
-        { id: "Jan", color: "", strokeColor: "" },
-        { id: "Kevin", color: "", strokeColor: "" },
-        { id: "Andy", color: "", strokeColor: "" },
-        { id: "Toby", color: "", strokeColor: "" },
-        { id: "Erin", color: "", strokeColor: "" },
-        { id: "Karen", color: "", strokeColor: "" },
-        { id: "Stanley", color: "", strokeColor: "" },
-        { id: "Phyllis", color: "", strokeColor: "" },
-        { id: "Oscar", color: "", strokeColor: "" },
-        { id: "Ryan", color: "", strokeColor: "" },
-        { id: "Kelly", color: "", strokeColor: "" },
-        { id: "Holly", color: "", strokeColor: "" },
-        { id: "Senator", color: "", strokeColor: "" },
-        { id: "Roy", color: "", strokeColor: "" },
-        { id: "Bob Vance, Vance Refrigeration" },
+        { id: "Michael", nodeid: 1, next: null, color: ""},
       ],
       links: [
-        { source: "Michael", target: "Jan" },
-        { source: "Michael", target: "Holly" },
-        { source: "Michael", target: "Ryan" },
-        { source: "Michael", target: "Jim" },
-        { source: "Michael", target: "Toby" },
-        { source: "Jim", target: "Pam" },
-        { source: "Jim", target: "Karen" },
-        { source: "Jim", target: "Dwight" },
-        { source: "Pam", target: "Roy" },
-        { source: "Dwight", target: "Angela" },
-        { source: "Dwight", target: "Andy" },
-        { source: "Andy", target: "Erin" },
-        { source: "Ryan", target: "Kelly" },
-        { source: "Angela", target: "Oscar" },
-        { source: "Angela", target: "Kevin" },
-        { source: "Angela", target: "Senator" },
-        { source: "Oscar", target: "Senator" },
-        { source: "Oscar", target: "Phyllis" },
-        { source: "Phyllis", target: "Stanley" },
-        { source: "Phyllis", target: "Bob Vance, Vance Refrigeration" },
+        //{ source: "Michael", target: "Jan" },
       ],
+      //private info for linked list, head & tail refers to nodeid attribute of a node 
+      listInfo: {head: 1, tail: 1},
     };
 
     const neighbors = [
@@ -89,8 +53,9 @@ export default class GraphVisualizer extends React.Component {
       width: window.innerWidth,
       node: {
         color: "#c34f6b",
-        size: 500,
+        size: 1000,
         highlightStrokeColor: "blue",
+        symbolType: "square"
       },
       link: {
         highlightColor: "lightblue",
@@ -116,14 +81,18 @@ export default class GraphVisualizer extends React.Component {
       strokeColor: "",
       nodeIdToBeRemoved: null,
       addNodeName: "",
+      preNodeName: "",
       removeNodeName: "",
       addLink: "",
       addNodePlaceholder: "Enter node to add",
+      preNodePlaceholder: "Enter node to add",
       removeNodePlaceholder: "Enter node to remove",
       addLinkPlaceholder: "Enter as: source, target",
       removeLinkPlaceholder: "Enter as: source, target",
       key: '' //state for Algorithm tabs 
     };
+
+    //this.onClickAddNode = this.onClickAddNode.bind(this)
   }
 
   // Function called by the addButton. Makes sure the addNodeName state is not an
@@ -132,7 +101,185 @@ export default class GraphVisualizer extends React.Component {
   // addNoneName and links it to a target node if given. Then it updates the state of
   // data array of the class and resets the addNodeName and addNodePlaceholder.
 
-  onClickAddNode = () => {
+  //LINK LIST METHODS
+
+  appendNode = () => {
+    //get link list tail and the newest added node
+    let listInfo = this.state.data.listInfo
+    let newNode = this.getNewNode()
+    //find the new tail index
+    let tailIndex = this.state.data.nodes.findIndex( node => {
+      return node.nodeid === listInfo.tail
+    })
+    //create instance of the tail node
+    const tailNode = {
+      ...this.state.data.nodes[tailIndex],
+    };
+    //assign current tail to new node
+    tailNode.next = newNode.nodeid
+    //copy of the array of nodes
+    let newNodes = [...this.state.data.nodes]
+    //update copy of nodes
+    newNodes[tailIndex] = tailNode
+    //update state of nodes
+    this.setState({
+      ...this.state.data.nodes = newNodes
+    })
+    //update tail to point to the new tail node
+    listInfo.tail = newNode.nodeid
+    //update tail state 
+    this.setState({
+      listInfo : listInfo
+    })
+    //update link state
+    this.state.data.links.push({
+      source: newNode.id,
+      target: tailNode.id,
+    });
+  }
+
+  prependNode = () => {
+    //get link list head and the newest added node
+    let listInfo = this.state.data.listInfo
+    let newNode = this.getNewNode()
+    //find the current head node
+    let headIndex = this.state.data.nodes.findIndex( node => {
+      return node.nodeid === listInfo.head
+    })
+     //create instance of the head node
+    const headNode = {
+      ...this.state.data.nodes[headIndex],
+    };
+    //update head positioning 
+    newNode.next = headNode.nodeid
+    listInfo.head = newNode.nodeid
+    //copy of the array of nodes
+    let newNodes = [...this.state.data.nodes]
+    //get index of newNode and update node array
+    let lastIndex = newNodes.lastIndexOf()
+    newNodes[lastIndex] = newNode
+    //update state of nodes
+    this.setState({
+      ...this.state.data.nodes = newNodes
+    })
+     //update head state 
+    this.setState({
+      listInfo : listInfo
+    })
+    //update link state
+    this.state.data.links.push({
+      source: newNode.id,
+      target: headNode.id,
+    });
+  }
+
+  //remove node still in the works
+  updateConnection = () => {
+    let removeName = this.state.removeNodeName
+    let listInfo = this.state.data.listInfo
+
+    let removeIndex = this.state.data.nodes.findIndex( node => {
+      return node.id === removeName
+    })
+
+    let newNodes = [...this.state.data.nodes]
+
+    let removeNode = newNodes[removeIndex]
+
+    if (this.state.data.nodes.length === 0) {
+      console.log("Remove last node")
+      console.log('Length', this.state.data.nodes.length)
+      listInfo.head = null
+      listInfo.tail = null
+    }
+    else if (listInfo.head === removeNode.nodeid) {
+      console.log("Remove Head")
+      listInfo.head = removeNode.next
+      removeNode.next = null
+      newNodes[removeIndex] = removeNode
+    }
+    else if (listInfo.tail === removeNode.nodeid) {
+      console.log("Remove Tail")
+      let newTailIndex = this.state.data.nodes.findIndex( node => {
+        return node.next === removeNode.nodeid
+      })
+      let newTailNode = newNodes[newTailIndex]
+      listInfo.tail = newTailNode.nodeid
+      newTailNode.next = null
+      newNodes[newTailIndex] = newTailNode
+    } 
+    else {
+      console.log("Remove middle node")
+      let prevIndex = this.state.data.nodes.findIndex( node => {
+        return node.next === removeNode.nodeid
+      })
+      let prevNode = newNodes[prevIndex]
+      prevNode.next = removeNode.next
+      removeNode.next = null
+      newNodes[prevIndex] = prevNode
+      newNodes[removeIndex] = removeNode
+    }
+
+    newNodes.splice(removeIndex, removeIndex + 1)
+
+    this.setState({
+      ...this.state.data.nodes = newNodes
+    })
+
+    this.setState({
+      listInfo : listInfo
+    })
+
+    let links = this.state.data.links
+    let removeLinkIndex = links.findIndex(link => {
+      return link.source === removeNode.id
+    })
+
+    links.splice(removeLinkIndex, removeLinkIndex + 1)
+
+    this.setState({
+      ...this.state.data.links = links
+    })
+
+  }
+  //set head and tail colors
+  updateListColor = (index) => {
+    //get index of head and tail
+    let headIndex = this.state.data.nodes.findIndex( node => {
+      return node.nodeid === index.head
+    })
+
+    let tailIndex = this.state.data.nodes.findIndex( node => {
+      return node.nodeid === index.tail
+    })
+    //copy of array
+    let newNodes = [...this.state.data.nodes]
+    //set all nodes to original color
+    newNodes.forEach((node) => {
+      node.color = this.state.nodeColor;
+    });
+    //update new head or tail with color
+    newNodes[headIndex].color = 'blue'
+    newNodes[tailIndex].color = 'red'
+    //update state of nodes
+    this.setState({
+      ...this.state.data.nodes = newNodes
+    })
+  }
+
+  //used for assigning new nodes with a unique node id
+  getCount = () => {
+    let curCount = this.state.data.nodes.length
+    curCount++
+    return curCount
+  }
+  //retrieve new node 
+  getNewNode = () => {
+    let length = this.state.data.nodes.length
+    return this.state.data.nodes[length-1]
+  }
+  //appends or prepends node
+  onClickAddNode = (event) => {
     // Checks if the addNodeName is an empty string
     if (this.state.addNodeName === "") {
       this.setState({
@@ -144,9 +291,11 @@ export default class GraphVisualizer extends React.Component {
     // Adds node to the nodes array in the state's data
     if (this.state.data.nodes && this.state.data.nodes.length) {
       const newNode = `${this.state.addNodeName}`;
-
-      this.state.data.nodes.push({ id: newNode });
-
+      //create unique node id
+      let newid = this.getCount()
+      //add node id 
+      this.state.data.nodes.push({ id: newNode, nodeid: newid, next: null, color: ""});
+      
       this.setState({
         data: this.state.data,
       });
@@ -159,23 +308,20 @@ export default class GraphVisualizer extends React.Component {
 
       this.setState({ data });
     }
-
-    // Adds node to the neighbor array in the state's algoData
-    let found = false;
-    for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
-      if (this.state.addNodeName in this.state.algoData.neighbors[i]) {
-        found = true;
-      }
+    //decides to use either append or prepend based on button event
+    if (event === 'app') {
+      this.appendNode()
     }
-    if (!found) {
-      var name = this.state.addNodeName;
-      var newNeighbor = {};
-      newNeighbor[name] = [];
-
-      this.state.algoData.neighbors.push(newNeighbor);
-      this.setState({ algoData: this.state.algoData });
+    else if (event === 'pre') {
+      this.prependNode()
     }
-    console.log(this.state.algoData.neighbors);
+    //call to update head and tail color 
+    let index = this.state.data.listInfo
+    this.updateListColor(index)
+
+    //console test -> please use for debug
+    console.log('nodes', this.state.data.nodes)
+    console.log('listInfo', this.state.data.listInfo)
 
     this.setState({
       addNodeName: "",
@@ -189,6 +335,7 @@ export default class GraphVisualizer extends React.Component {
   // removeNodeName of the class state. THen update the class data state along with resetting
   // removeNodeName and removeNodePlaceholder.
   onClickRemoveNode = () => {
+    
     if (this.state.removeNodeName === "") {
       this.setState({
         removeNodePlaceholder: "Please enter a value!",
@@ -206,12 +353,23 @@ export default class GraphVisualizer extends React.Component {
       );
       const data = { nodes, links };
 
+      this.updateConnection()
+
+      let index = this.state.data.listInfo
+      this.updateListColor(index)
+
+       //test
+      console.log('nodes', this.state.data.nodes)
+      console.log('listInfo', this.state.data.listInfo)
+
       this.setState({
         data,
         removeNodeName: "",
         removeNodePlaceholder: "Enter node to remove",
       });
     }
+    console.log('Before pass list', this.state.data.listInfo)
+    console.log('links', this.state.data.links)
   };
 
   onClickAddLink = () => {
@@ -219,6 +377,7 @@ export default class GraphVisualizer extends React.Component {
       return;
     }
     if (this.state.data.nodes && this.state.data.nodes.length) {
+
       let source, target;
       [source, target] = this.state.addLink.split(/[ ,]+/).filter(function (e) {
         return e.trim().length > 0;
@@ -460,201 +619,6 @@ export default class GraphVisualizer extends React.Component {
     }
   };
 
-  depthFirstSearch = () => {
-    if (
-      this.state.algoData.startNode !== "" &&
-      this.state.algoData.endNode !== ""
-    ) {
-      const startNode = this.state.algoData.startNode;
-      const endNode = this.state.algoData.endNode;
-      var startNodeIsValid = false;
-      var endNodeIsValid = false;
-
-      for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
-        console.log(startNode, endNode);
-        if (startNode in this.state.algoData.neighbors[i]) {
-          startNodeIsValid = true;
-        }
-        if (endNode in this.state.algoData.neighbors[i]) {
-          endNodeIsValid = true;
-        }
-      }
-
-      if (startNodeIsValid && endNodeIsValid) {
-        if (this.state.algoData.stack == null) {
-          const algoData = {
-            startNode: this.state.algoData.stack,
-            endNode: this.state.algoData.endNode,
-            neighbors: this.state.algoData.neighbors,
-            algorithm: this.state.algoData.algorithm,
-            startAlgorithm: this.state.algoData.startAlgorithm,
-            stack: [],
-          };
-          this.setState({ algoData });
-        }
-        this.state.algoData.stack = [];
-        this.state.algoData.stack.push(startNode);
-        const visited = {};
-        var counter = 0;
-        visited[startNode] = startNode;
-
-        while (
-          this.state.algoData.stack !== undefined ||
-          this.state.algoData.stack.length !== 0
-        ) {
-          const curr = this.state.algoData.stack.pop();
-          if (curr === endNode) {
-            for (let i = 0; i < 5; i++) {
-              setTimeout(() => this.foundTarget(endNode), 1200 * counter);
-              counter++;
-            }
-            console.log("FOUND TARGET");
-            this.resetState(counter);
-            return;
-          }
-          setTimeout(
-            () => this.highlightHandler(curr, counter),
-            1000 * (counter + 1)
-          );
-          counter++;
-          console.log(curr);
-
-          for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
-            if (
-              curr in this.state.algoData.neighbors[i] &&
-              this.state.algoData.neighbors[i][curr] !== null &&
-              this.state.algoData.neighbors[i][curr].length !== 0
-            ) {
-              for (
-                let j = 0;
-                j < this.state.algoData.neighbors[i][curr].length;
-                j++
-              ) {
-                const newNode = this.state.algoData.neighbors[i][curr][j];
-                if (newNode in visited) {
-                  console.log("VISITED");
-                  continue;
-                }
-
-                this.state.algoData.stack.push(newNode);
-                visited[newNode] = newNode;
-              }
-            }
-          }
-        }
-
-        // Reset node color state after DFS is done
-        this.resetState();
-      } else {
-        console.log("FAILURE!!!");
-      }
-    } else {
-      console.log("FAIL");
-      console.log(
-        this.state.algoData.startNode,
-        this.state.algoData.endNode,
-        this.state.algoData.algorithm
-      );
-    }
-  };
-
-  breadthFirstSearch = () => {
-    if (
-      this.state.algoData.startNode !== "" &&
-      this.state.algoData.endNode !== ""
-    ) {
-      const startNode = this.state.algoData.startNode;
-      const endNode = this.state.algoData.endNode;
-      var startNodeIsValid = false;
-      var endNodeIsValid = false;
-
-      for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
-        if (startNode in this.state.algoData.neighbors[i]) {
-          startNodeIsValid = true;
-        }
-        if (endNode in this.state.algoData.neighbors[i]) {
-          endNodeIsValid = true;
-        }
-      }
-
-      if (startNodeIsValid && endNodeIsValid) {
-        if (this.state.algoData.stack == null) {
-          const algoData = {
-            startNode: this.state.algoData.stack,
-            endNode: this.state.algoData.endNode,
-            neighbors: this.state.algoData.neighbors,
-            algorithm: this.state.algoData.algorithm,
-            startAlgorithm: this.state.algoData.startAlgorithm,
-            stack: [],
-          };
-          this.setState({ algoData });
-        }
-        this.state.algoData.queue = [];
-        this.state.algoData.queue.push(startNode);
-        const visited = {};
-        var counter = 0;
-        visited[startNode] = startNode;
-
-        while (
-          this.state.algoData.queue !== undefined ||
-          this.state.algoData.queue.length !== 0
-        ) {
-          const curr = this.state.algoData.queue.shift();
-          if (curr === endNode) {
-            for (let i = 0; i < 5; i++) {
-              setTimeout(() => this.foundTarget(endNode), 1200 * counter);
-              counter++;
-            }
-            console.log("FOUND TARGET");
-            this.resetState(counter);
-            return;
-          }
-
-          setTimeout(
-            () => this.highlightHandler(curr, counter),
-            1000 * (counter + 1)
-          );
-          counter++;
-
-          for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
-            if (
-              curr in this.state.algoData.neighbors[i] &&
-              this.state.algoData.neighbors[i][curr] !== null &&
-              this.state.algoData.neighbors[i][curr].length !== 0
-            ) {
-              for (
-                let j = 0;
-                j < this.state.algoData.neighbors[i][curr].length;
-                j++
-              ) {
-                const newNode = this.state.algoData.neighbors[i][curr][j];
-                if (newNode in visited) {
-                  console.log("VISITED");
-                  continue;
-                }
-
-                this.state.algoData.queue.push(newNode);
-                visited[newNode] = newNode;
-              }
-            }
-          }
-        }
-
-        // Reset node color state after DFS is done
-        this.resetState();
-      } else {
-        console.log("FAILURE!!!");
-      }
-    } else {
-      console.log("FAIL");
-      console.log(
-        this.state.algoData.startNode,
-        this.state.algoData.endNode,
-        this.state.algoData.algorithm
-      );
-    }
-  };
-
   //Node Highlight Rotation Test -- Use Algorithm functions in replace
   rotateHandler = () => {
     //provide index "i" to invoke a delay
@@ -791,7 +755,6 @@ export default class GraphVisualizer extends React.Component {
         </div>
 
         <h3>Linked List</h3>
-        {console.log('LINKED LIST')}
 
         <div class="leftWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
@@ -1021,11 +984,11 @@ export default class GraphVisualizer extends React.Component {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <h5 class="font-weight-light pt-2"> Add node: </h5>
+              <h5 class="font-weight-light pt-2"> Append node: </h5>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <button
-                    onClick={this.onClickAddNode}
+                    onClick={() => this.onClickAddNode('app')}
                     type="button"
                     class="btn btn-outline-danger"
                     id="button-addon1"
@@ -1044,11 +1007,34 @@ export default class GraphVisualizer extends React.Component {
                 />
               </div>
 
+              <h5 class="font-weight-light pt-2"> Prepend node: </h5>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <button
+                    onClick={ () => this.onClickAddNode('pre')}
+                    type="button"
+                    class="btn btn-outline-danger"
+                    id="button-addon1"
+                  >
+                      <h6 class="align-middle"> + </h6>
+                  </button>
+                </div>
+                <input
+                  type="text"
+                  class="nodeInput"
+                  name="addNodeName"
+                  placeholder={this.state.addNodePlaceholder}
+                  value={this.state.addNodeName}
+                  onChange={this._addNodeHandleChange}
+                  onKeyPress={this._handleAddKeyEnter}
+                />
+              </div>
+
               <h5 class="font-weight-light"> Remove node: </h5>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <button
-                    onClick={this.onClickRemoveNode}
+                    onClick={() => this.onClickRemoveNode()}
                     type="button"
                     class="btn btn-outline-danger pl-3 pr-2.5"
                     id="button-addon1"
@@ -1091,65 +1077,7 @@ export default class GraphVisualizer extends React.Component {
             </Dropdown.Menu>
           </Dropdown>
 
-          <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
-            <Dropdown.Toggle
-              data-tip="Node List"
-              data-for="buttons"
-              variant="outline-danger"
-              id="dropdown-basic"
-              className="dropdown font-weight-light"
-            >
-              <div class="icon">
-                <svg
-                  class="bi bi-list-ul"
-                  width="1em"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5 11.5a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm-3 1a1 1 0 100-2 1 1 0 000 2zm0 4a1 1 0 100-2 1 1 0 000 2zm0 4a1 1 0 100-2 1 1 0 000 2z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </div>
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              <div className="json-data-container mt-3">
-                <TreeView class="nodes" key="nodes" nodeLabel="Nodes">
-                  {this.state.data.nodes.map((node, i) => {
-                    const type = node.type;
-                    const name = node.id;
-                    for (i = 0; i < this.state.algoData.neighbors.length; i++) {
-                      if (name in this.state.algoData.neighbors[i]) {
-                        return (
-                          <TreeView key={type + "|" + i} nodeLabel={name}>
-                            <TreeView
-                              key={type + "|" + i}
-                              nodeLabel="neighbors: "
-                            >
-                              {this.state.algoData.neighbors[i][name].map(
-                                (neighbor, i) => {
-                                  return (
-                                    <div className="info"> {neighbor}</div>
-                                  );
-                                }
-                              )}
-                            </TreeView>
-                          </TreeView>
-                        );
-                      }
-                    }
-                  })}
-                </TreeView>
-              </div>
-            </Dropdown.Menu>
-          </Dropdown>
         </div>
-
         <ReactTooltip
           id="buttons"
           place="right"
