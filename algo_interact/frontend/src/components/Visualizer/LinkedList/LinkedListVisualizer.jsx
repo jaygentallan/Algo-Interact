@@ -24,13 +24,15 @@ export default class GraphVisualizer extends React.Component {
       //nodeid gives each node a unique index
       //next is our pointer 
       nodes: [
+        { id: "head", nodeid: 0, next: "Michael", color: "black"},
         { id: "Michael", nodeid: 1, next: null, color: ""},
       ],
       links: [
         //{ source: "Michael", target: "Jan" },
+        { source: "head", target: "Michael"},
       ],
       //private info for linked list, head & tail refers to nodeid attribute of a node 
-      listInfo: {head: 1, tail: 1},
+      listInfo: {head: 0, tail: 1},
     };
 
     const neighbors = [
@@ -63,10 +65,10 @@ export default class GraphVisualizer extends React.Component {
     };
 
     const algoData = {
-      startNode: "",
-      endNode: "",
+      startNode: data.nodes[0].id,
+      keyNode: "",
       neighbors: neighbors,
-      algorithm: "dfs",
+      algorithm: "search",
       stack: [],
       queue: [],
     };
@@ -525,7 +527,7 @@ export default class GraphVisualizer extends React.Component {
   _addStartNodeHandleChange = (event) => {
     const algoData = {
       startNode: event.target.value,
-      endNode: this.state.algoData.endNode,
+      keyNode: this.state.algoData.keyNode,
       neighbors: this.state.algoData.neighbors,
       algorithm: this.state.algoData.algorithm,
       startAlgorithm: this.state.algoData.startAlgorithm,
@@ -535,10 +537,10 @@ export default class GraphVisualizer extends React.Component {
     this.setState({ algoData });
   };
 
-  _addEndNodeHandleChange = (event) => {
+  _addKeyNodeHandleChange = (event) => {
     const algoData = {
       startNode: this.state.algoData.startNode,
-      endNode: event.target.value,
+      keyNode: event.target.value,
       neighbors: this.state.algoData.neighbors,
       algorithm: this.state.algoData.algorithm,
       startAlgorithm: this.state.algoData.startAlgorithm,
@@ -611,12 +613,29 @@ export default class GraphVisualizer extends React.Component {
   };
 
   startAlgorithm = () => {
-    if (this.state.algoData.algorithm === "dfs") {
-      this.depthFirstSearch();
+    if (this.state.algoData.algorithm === "search") {
+      this.searchList();
     } else if (this.state.algoData.algorithm === "bfs") {
       this.breadthFirstSearch();
     } else if (this.state.algoData.algorithm === "djk") {
     }
+  };
+
+  searchList = () => {
+    // Loops through nodes to see if the key node actually exists
+    var keyIndex = null;
+    // initialize algoData stack to start as empty
+    this.state.algoData.stack = [];
+    for(let i = 0; i < this.data.nodes.length; i++) {
+      // add the traversed node to the stack
+      this.state.algoData.stack.push(this.data.nodes[i]);
+      // set the index equal to i if the key is found in the list
+      if(this.algoData.keyNode in this.data.nodes[i].id) {
+        keyIndex = i;
+        break;
+      }
+    }
+    // add a setTimeout for the rendering of the algorithm
   };
 
   //Node Highlight Rotation Test -- Use Algorithm functions in replace
@@ -897,15 +916,15 @@ export default class GraphVisualizer extends React.Component {
                   />
                 </div>
 
-                <h5 class="font-weight-light h6"> Target Node </h5>
+                <h5 class="font-weight-light h6"> Key Node </h5>
                 <div class="input-group mb-3">
                   <input
                     class="L"
                     id="tNode"
                     type="text"
                     name="tarhetNode"
-                    placeholder="Enter ending node"
-                    onChange={this._addEndNodeHandleChange}
+                    placeholder="Enter Key node"
+                    onChange={this._addKeyNodeHandleChange}
                     //onKeyPress={this._handleLinkKeyEnter}
                   />
                 </div>
@@ -918,13 +937,13 @@ export default class GraphVisualizer extends React.Component {
                   <Dropdown.Menu id="algoSelection">
                     <Dropdown.Item
                       eventKey="1"
-                      onSelect={() => (this.state.algoData.algorithm = "dfs")}
+                      onSelect={() => (this.state.algoData.algorithm = "search")}
                       onSelect={(event) => this.eventKeyHandler(event)} //Tab selector
                     >
-                      Depth-First Search
+                      Search
                     </Dropdown.Item>
                     <Dropdown.Item
-                      evenyKey="2"
+                      eventKey="2"
                       onSelect={() => (this.state.algoData.algorithm = "bfs")}
                       onSelect={(event) => this.eventKeyHandler(2)} //Tab Selector
                     >
