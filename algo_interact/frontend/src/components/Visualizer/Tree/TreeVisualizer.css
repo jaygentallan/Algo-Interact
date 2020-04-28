@@ -19,15 +19,15 @@ input {
 }
 
 input.nodeInput {
-  width: 16em;
   border-top-style: solid;
   border-right-style: solid;
-  border-left-style: solid;
   border-top-right-radius: 0.3em;
   border-bottom-right-radius: 0.3em;
-  border-top-left-radius: 0.3em;
-  border-bottom-left-radius: 0.3em;
+  border-top-left-radius: 0em;
+  border-bottom-left-radius: 0em;
   border-width: 0.08em;
+  height: 2em;
+  width: 13.8em;
   border-color: #c34f6b !important;
   padding: 8px;
 }
@@ -237,7 +237,6 @@ div.form-check {
   font-weight: bold;
   width: 83%;
 }
-
 
 div.box .tLog {
   display: flex;

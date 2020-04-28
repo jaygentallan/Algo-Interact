@@ -7,6 +7,7 @@ import "./Card.css";
 */
 const Card = (props) => {
     return (
+        
         <div class="card border shadow>Regular shadow"> 
             <div class="card-body card-text">
                 <img class="card-img-top" src={props.image}/>
