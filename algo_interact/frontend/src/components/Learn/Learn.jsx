@@ -50,15 +50,17 @@ class Learn extends Component {
           itemClass="card-deck d-flex pl-5 pr-5 bd-highlight"
         >
           <LearnCard
-            title="Test Card – Nowitzki Stats"
-            text="Dirk Nowitzki is a retired NBA player.
-                He spent his 21 years in the league playing for the
-                Dallas Mavericks, and he has made over 30,000 points."
-            image="/test-dirk.png"
-            tab1title="Stats"
-            tab1text="Cool stats...example stats..."
-            tab2title="Awards"
-            tab2text="2011 NBA Championship, 2007 and 2011 NBA MVP, 14-time All-Star"
+            title="Graph"
+            text="Graph is the non-linear data structure which is used to represent data networks."
+            image="/images/graphpicture.png"
+            tab1title="Description"
+            tab1text="-It consist of nodes and edges and sometimes we can say that nodes are vertices and edges are line or arc
+                      -It is used to show real time problems
+                      -Graph can be used in social network sites like facebook linkedin etc.
+                      -Each nodes are contains information about data.
+                      -Graph are of different types like directed, undirected and weight graphs."
+            tab2title="Time Complexity"
+            tab2text="Time complexity of graph is O(V+E) where V represent number of vertices "
             tab3title="Fun Facts"
             tab3text="Nowitzki was born in Germany and grew up playing tennis."
           />
@@ -78,6 +80,7 @@ class Learn extends Component {
             tab2title="Time Complexity of Tree"
             tab2text="In general time complexity of tree will be O(h). it can be different operations. it can be also best and worst time 
                       complexity."
+            image="/images/treepicture.png"
           />
 
           <LearnCard
@@ -96,10 +99,11 @@ class Learn extends Component {
             tab2text="O(n)"
             tab3title="Average Time Complexity of Linked List"
             tab3text="O(1)"
+            image="/images/linkedlistpicture.png"
           />
           <LearnCard
             title="Graph"
-            text=" Grap"
+            text=" "
           />
         </Carousel>
         <br></br>
@@ -123,11 +127,12 @@ class Learn extends Component {
         >
           <LearnCard
             title="Breadth First Search"
-            text="Description for first algorithm here."
+            text="it uses queue to find the goal node .it explore all the neighbour vertex not current level before moving to next level."
           />
           <LearnCard
             title="Depth First Search"
-            text="Description for second algorithm here."
+            text="It uses stack to find the goal node .it goes deeper as depper of a node until goal is found then perform recursive tracking."
+            image="/images/depthfirstsearchpicture.png"
           />
           <LearnCard
             title="Dijkstra Algorithm"
