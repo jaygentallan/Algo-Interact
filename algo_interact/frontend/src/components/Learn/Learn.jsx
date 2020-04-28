@@ -61,7 +61,7 @@ class Learn extends Component {
                       -Graph are of different types like directed, undirected and weight graphs."
             tab2title="Time Complexity"
             tab2text="Time complexity of graph is O(V+E) where V represent number of vertices "
-            tab3title="Fun Facts"
+            tab3image="Fun Facts"
             tab3text="Nowitzki was born in Germany and grew up playing tennis."
           />
 
@@ -101,10 +101,7 @@ class Learn extends Component {
             tab3text="O(1)"
             image="/images/linkedlistpicture.png"
           />
-          <LearnCard
-            title="Graph"
-            text=" "
-          />
+          
         </Carousel>
         <br></br>
         <br></br>
@@ -132,6 +129,8 @@ class Learn extends Component {
           <LearnCard
             title="Depth First Search"
             text="It uses stack to find the goal node .it goes deeper as depper of a node until goal is found then perform recursive tracking."
+            tab1title="Description"
+            tab1text="Foe a graph, DFS gives minimum Spanning tree and the Shortest paths of all pairs."
             image="/images/depthfirstsearchpicture.png"
           />
           <LearnCard
