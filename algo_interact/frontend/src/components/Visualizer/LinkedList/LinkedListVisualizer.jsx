@@ -629,7 +629,7 @@ export default class GraphVisualizer extends React.Component {
       startAlgorithm: this.state.algoData.startAlgorithm,
       stack: this.state.algoData.stack,
     };
-
+   }
   // Handler function that listens to the Remove key press
   // and calls the onClickAppNode function.
   _handleAddKeyEnter = (e) => {
