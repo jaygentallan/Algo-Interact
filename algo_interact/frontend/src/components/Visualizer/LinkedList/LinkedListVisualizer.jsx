@@ -24,26 +24,17 @@ export default class GraphVisualizer extends React.Component {
       //nodeid gives each node a unique index
       //next is our pointer 
       nodes: [
-        { id: "Michael", nodeid: 1, next: null, color: ""},
+        { id: "Michael", nodeid: 1, next: null, color: ""}
       ],
       links: [
-        //{ source: "Michael", target: "Jan" },
+       // { source: "", target: "" },
       ],
-      //private info for linked list, head & tail refers to nodeid attribute of a node 
-      listInfo: {head: 1, tail: 1},
     };
-
-    const neighbors = [
-      { Michael: [("Jan", 10), "Holly", "Ryan", "Jim", "Toby"] },
-      { Jim: ["Pam", "Karen", "Dwight"] },
-      { Pam: ["Roy"] },
-      { Dwight: ["Angela", "Andy"] },
-      { Andy: ["Erin"] },
-      { Ryan: ["Kelly"] },
-      { Angela: ["Oscar", "Kevin", "Senator"] },
-      { Oscar: ["Senator", "Phyllis"] },
-      { Phyllis: ["Stanley", "Bob Vance, Vance Refrigeration"] },
-    ];
+    //private info for linked list, head & tail refers to nodeid attribute of a node 
+    const listInfo = {
+      head: 1, 
+      tail: 1
+    }
 
     // Default configurations used by the Graph component
     const config = {
@@ -51,6 +42,7 @@ export default class GraphVisualizer extends React.Component {
       automaticRearrangeAfterDropNode: true,
       height: window.innerHeight * 0.86,
       width: window.innerWidth,
+      directed: true,
       node: {
         color: "#c34f6b",
         size: 1000,
@@ -61,6 +53,9 @@ export default class GraphVisualizer extends React.Component {
         highlightColor: "lightblue",
       },
     };
+
+    const neighbors = [
+    ];
 
     const algoData = {
       startNode: "",
@@ -84,15 +79,16 @@ export default class GraphVisualizer extends React.Component {
       preNodeName: "",
       removeNodeName: "",
       addLink: "",
-      addNodePlaceholder: "Enter node to add",
-      preNodePlaceholder: "Enter node to add",
+      addNodePlaceholder: "Enter node to append",
+      preNodePlaceholder: "Enter node to prepend",
       removeNodePlaceholder: "Enter node to remove",
       addLinkPlaceholder: "Enter as: source, target",
       removeLinkPlaceholder: "Enter as: source, target",
-      key: '' //state for Algorithm tabs 
+      listInfo,
+      headName: "",
+      tailName:""
     };
 
-    //this.onClickAddNode = this.onClickAddNode.bind(this)
   }
 
   // Function called by the addButton. Makes sure the addNodeName state is not an
@@ -105,7 +101,7 @@ export default class GraphVisualizer extends React.Component {
 
   appendNode = () => {
     //get link list tail and the newest added node
-    let listInfo = this.state.data.listInfo
+    let listInfo = this.state.listInfo
     let newNode = this.getNewNode()
     //find the new tail index
     let tailIndex = this.state.data.nodes.findIndex( node => {
@@ -121,26 +117,27 @@ export default class GraphVisualizer extends React.Component {
     let newNodes = [...this.state.data.nodes]
     //update copy of nodes
     newNodes[tailIndex] = tailNode
-    //update state of nodes
-    this.setState({
-      ...this.state.data.nodes = newNodes
-    })
     //update tail to point to the new tail node
     listInfo.tail = newNode.nodeid
-    //update tail state 
+    //update state of nodes and tail state
     this.setState({
-      listInfo : listInfo
+      listInfo: listInfo
+    })
+
+    this.setState({
+      ...this.state.data.nodes = newNodes
     })
     //update link state
     this.state.data.links.push({
       source: newNode.id,
       target: tailNode.id,
     });
+
   }
 
   prependNode = () => {
     //get link list head and the newest added node
-    let listInfo = this.state.data.listInfo
+    let listInfo = this.state.listInfo
     let newNode = this.getNewNode()
     //find the current head node
     let headIndex = this.state.data.nodes.findIndex( node => {
@@ -158,25 +155,31 @@ export default class GraphVisualizer extends React.Component {
     //get index of newNode and update node array
     let lastIndex = newNodes.lastIndexOf()
     newNodes[lastIndex] = newNode
-    //update state of nodes
+
+    //update state of nodes 
+    const data = {nodes: newNodes}
+    this.setState(data)
+    //head state
     this.setState({
-      ...this.state.data.nodes = newNodes
+      listInfo: listInfo
     })
-     //update head state 
-    this.setState({
-      listInfo : listInfo
-    })
-    //update link state
+  
     this.state.data.links.push({
-      source: newNode.id,
-      target: headNode.id,
+      source: headNode.id,
+      target: newNode.id,
     });
   }
+    //Add links between two nodes when middle is removed
+    handleMiddleConnection = (update) => {
+    const timer = setTimeout(() => this.onClickAddLink(update), 500);
+    return () => clearTimeout(timer); 
+  }
 
-  //remove node still in the works
+  //Helper function for remove node
   updateConnection = () => {
+    console.log("REMOVE", this.state.data.nodes, this.state.listInfo)
     let removeName = this.state.removeNodeName
-    let listInfo = this.state.data.listInfo
+    let listInfo = this.state.listInfo
 
     let removeIndex = this.state.data.nodes.findIndex( node => {
       return node.id === removeName
@@ -203,7 +206,9 @@ export default class GraphVisualizer extends React.Component {
       let newTailIndex = this.state.data.nodes.findIndex( node => {
         return node.next === removeNode.nodeid
       })
+  
       let newTailNode = newNodes[newTailIndex]
+ 
       listInfo.tail = newTailNode.nodeid
       newTailNode.next = null
       newNodes[newTailIndex] = newTailNode
@@ -218,33 +223,73 @@ export default class GraphVisualizer extends React.Component {
       removeNode.next = null
       newNodes[prevIndex] = prevNode
       newNodes[removeIndex] = removeNode
-    }
 
-    newNodes.splice(removeIndex, removeIndex + 1)
+      let middleIndex = this.state.data.links.findIndex( (link) => {
+        return  link.target === removeNode.id
+      })
+
+      let removeLinkIndex = this.state.data.links.findIndex( (link) => {
+        return  link.source === removeNode.id
+      })
+      //update link 
+      let newLinks = [...this.state.data.links]
+
+      let modifyRemoveLink = newLinks[removeLinkIndex]
+
+      newLinks[middleIndex] = {...newLinks[middleIndex], target: modifyRemoveLink.target}
+      
+      let updateMiddle = newLinks[middleIndex]
+      //remove link
+      let newLink = [...this.state.data.links]
+
+      let updateLink = newLink.filter( (node, index) => {
+        return index !== middleIndex;
+      }) 
+   
+      console.log("updated middle", updateLink) 
+    
+      this.setState({
+        ...this.state.data.links = updateLink
+      }) 
+
+      this.handleMiddleConnection(updateMiddle);
+    } 
+
+    //remove node
+    let updateNode = newNodes.filter( (node, index) => {
+      return index !== removeIndex;
+    })
 
     this.setState({
-      ...this.state.data.nodes = newNodes
+      ...this.state.data.nodes = updateNode
     })
 
     this.setState({
       listInfo : listInfo
     })
+  
+    let links = [...this.state.data.links]
 
-    let links = this.state.data.links
     let removeLinkIndex = links.findIndex(link => {
       return link.source === removeNode.id
     })
-
-    links.splice(removeLinkIndex, removeLinkIndex + 1)
-
-    this.setState({
-      ...this.state.data.links = links
+    //remove link
+    let updateLinks = links.filter( (link, index) => {
+      return index !== removeLinkIndex;
     })
 
+    this.setState({
+      ...this.state.data.links = updateLinks
+    })  
+
+    console.log("Link Update", this.state.data.links)
   }
+
   //set head and tail colors
   updateListColor = (index) => {
+    console.log("updateColor", this.state.data.nodes, this.state.listInfo)
     //get index of head and tail
+  
     let headIndex = this.state.data.nodes.findIndex( node => {
       return node.nodeid === index.head
     })
@@ -255,23 +300,32 @@ export default class GraphVisualizer extends React.Component {
     //copy of array
     let newNodes = [...this.state.data.nodes]
     //set all nodes to original color
-    newNodes.forEach((node) => {
+    newNodes.forEach( node => {
       node.color = this.state.nodeColor;
     });
     //update new head or tail with color
     newNodes[headIndex].color = 'blue'
     newNodes[tailIndex].color = 'red'
+    //update display head and tail
+    let headName = newNodes[headIndex].id;
+    let tailName = newNodes[tailIndex].id;
+
     //update state of nodes
     this.setState({
       ...this.state.data.nodes = newNodes
+    })
+
+    this.setState({
+      headName : headName,
+      tailName: tailName
     })
   }
 
   //used for assigning new nodes with a unique node id
   getCount = () => {
-    let curCount = this.state.data.nodes.length
-    curCount++
-    return curCount
+    let curCount = this.state.data.nodes.length + Math.floor(Math.random() * 100);
+    curCount = curCount + Math.floor(Math.random() * 100);
+    return curCount;
   }
   //retrieve new node 
   getNewNode = () => {
@@ -279,7 +333,8 @@ export default class GraphVisualizer extends React.Component {
     return this.state.data.nodes[length-1]
   }
   //appends or prepends node
-  onClickAddNode = (event) => {
+  onClickAppNode = () => {
+    console.log("APPEND", this.state.data.nodes, this.state.listInfo)
     // Checks if the addNodeName is an empty string
     if (this.state.addNodeName === "") {
       this.setState({
@@ -309,24 +364,69 @@ export default class GraphVisualizer extends React.Component {
       this.setState({ data });
     }
     //decides to use either append or prepend based on button event
-    if (event === 'app') {
-      this.appendNode()
-    }
-    else if (event === 'pre') {
-      this.prependNode()
-    }
+    this.appendNode()
+
     //call to update head and tail color 
-    let index = this.state.data.listInfo
+    let index = this.state.listInfo
     this.updateListColor(index)
 
     //console test -> please use for debug
     console.log('nodes', this.state.data.nodes)
-    console.log('listInfo', this.state.data.listInfo)
+    console.log('listInfo', this.state.listInfo)
 
     this.setState({
       addNodeName: "",
       addNodePlaceholder: "Enter node to add",
     });
+    console.log("Links", this.state.data.links)
+  };
+
+  onClickPreNode = () => {
+    console.log("PREPEND", this.state.data.nodes, this.state.listInfo)
+    // Checks if the addNodeName is an empty string
+    if (this.state.preNodeName === "") {
+      this.setState({
+        preNodePlaceholder: "Please enter a value!",
+      });
+      return;
+    }
+
+    // Adds node to the nodes array in the state's data
+    if (this.state.data.nodes && this.state.data.nodes.length) {
+      const newNode = `${this.state.preNodeName}`;
+      //create unique node id
+      let newid = this.getCount()
+      //add node id 
+      this.state.data.nodes.push({ id: newNode, nodeid: newid, next: null, color: ""});
+      
+      this.setState({
+        data: this.state.data,
+      });
+    } else {
+      // 1st node
+      const data = {
+        nodes: [{ id: "Node 1" }],
+        links: [],
+      };
+
+      this.setState({ data });
+    }
+    //decides to use either append or prepend based on button event
+    this.prependNode()
+
+    //call to update head and tail color 
+    let index = this.state.listInfo
+    this.updateListColor(index)
+
+    //console test -> please use for debug
+    console.log('nodes', this.state.data.nodes)
+    console.log('listInfo', this.state.listInfo)
+
+    this.setState({
+      preNodeName: "",
+      preNodePlaceholder: "Enter node to add",
+    });
+    console.log("Links", this.state.data.links)
   };
 
   // Function called by the removeNode button. Makes sure the removeNodeName is not an empty string.
@@ -335,6 +435,7 @@ export default class GraphVisualizer extends React.Component {
   // removeNodeName of the class state. THen update the class data state along with resetting
   // removeNodeName and removeNodePlaceholder.
   onClickRemoveNode = () => {
+    console.log("REMOVENode", this.state.data.nodes, this.state.listInfo)
     
     if (this.state.removeNodeName === "") {
       this.setState({
@@ -343,8 +444,8 @@ export default class GraphVisualizer extends React.Component {
       return;
     }
     if (this.state.data.nodes && this.state.data.nodes.length >= 1) {
-      const nodes = this.state.data.nodes.filter(
-        (l) => l.id !== this.state.removeNodeName
+      const nodes = this.state.data.nodes.filter((l) => 
+      l.id !== this.state.removeNodeName
       );
       const links = this.state.data.links.filter(
         (l) =>
@@ -353,14 +454,15 @@ export default class GraphVisualizer extends React.Component {
       );
       const data = { nodes, links };
 
-      this.updateConnection()
-
-      let index = this.state.data.listInfo
+      //remove node helper function
+      this.updateConnection();
+      //update color state
+      let index = this.state.listInfo
       this.updateListColor(index)
 
        //test
       console.log('nodes', this.state.data.nodes)
-      console.log('listInfo', this.state.data.listInfo)
+      console.log('listInfo', this.state.listInfo)
 
       this.setState({
         data,
@@ -368,11 +470,10 @@ export default class GraphVisualizer extends React.Component {
         removeNodePlaceholder: "Enter node to remove",
       });
     }
-    console.log('Before pass list', this.state.data.listInfo)
-    console.log('links', this.state.data.links)
   };
 
-  onClickAddLink = () => {
+  onClickAddLink = (middleNode) => {
+  /*
     if (this.state.addLink === "") {
       return;
     }
@@ -402,8 +503,8 @@ export default class GraphVisualizer extends React.Component {
           addLinkPlaceholder: "Enter as: source, target",
         });
         return;
-      }
-
+      } */
+/*
       for (var j = 0; j < this.state.data.links.length; j++) {
         if (
           this.state.data.links[j].source === source &&
@@ -416,34 +517,14 @@ export default class GraphVisualizer extends React.Component {
           });
           return;
         }
-      }
+      } */
 
       this.state.data.links.push({
-        source: source,
-        target: target,
+        source: middleNode.source,
+        target: middleNode.target,
       });
-
-      var found = false;
-
-      for (let i = 0; i < this.state.algoData.neighbors.length; i++) {
-        if (source in this.state.algoData.neighbors[i]) {
-          this.state.algoData.neighbors[i][source].push(target);
-          found = true;
-        }
-      }
-
-      if (!found) {
-        var newNeighbor = {};
-        newNeighbor[source] = [target];
-        this.state.algoData.neighbors.push(newNeighbor);
-      }
-
-      this.setState({
-        addLink: "",
-        addLinkPlaceholder: "Enter as: source, target",
-      });
+  
     }
-  };
 
   onClickRemoveLink = () => {
     if (this.state.removeLink === "") {
@@ -508,50 +589,28 @@ export default class GraphVisualizer extends React.Component {
     this.setState({ addNodeName: event.target.value });
   };
 
+  _preNodeHandleChange = (event) => {
+    this.setState({ preNodeName: event.target.value });
+  };
+
   // Handler function that is used by the removeNode input box, keeps track of the changes
   // and then updates the removeNodeName of the state accordingly.
   _removeNodeHandleChange = (event) => {
     this.setState({ removeNodeName: event.target.value });
   };
 
-  _addLinkHandleChange = (event) => {
-    this.setState({ addLink: event.target.value });
-  };
 
-  _removeLinkHandleChange = (event) => {
-    this.setState({ removeLink: event.target.value });
-  };
-
-  _addStartNodeHandleChange = (event) => {
-    const algoData = {
-      startNode: event.target.value,
-      endNode: this.state.algoData.endNode,
-      neighbors: this.state.algoData.neighbors,
-      algorithm: this.state.algoData.algorithm,
-      startAlgorithm: this.state.algoData.startAlgorithm,
-      stack: this.state.algoData.stack,
-    };
-
-    this.setState({ algoData });
-  };
-
-  _addEndNodeHandleChange = (event) => {
-    const algoData = {
-      startNode: this.state.algoData.startNode,
-      endNode: event.target.value,
-      neighbors: this.state.algoData.neighbors,
-      algorithm: this.state.algoData.algorithm,
-      startAlgorithm: this.state.algoData.startAlgorithm,
-      stack: this.state.algoData.stack,
-    };
-
-    this.setState({ algoData });
-  };
   // Handler function that listens to the Remove key press
-  // and calls the onClickAddNode function.
+  // and calls the onClickAppNode function.
   _handleAddKeyEnter = (e) => {
     if (e.key === "Enter") {
-      this.onClickAddNode();
+      this.onClickAppNode();
+    }
+  };
+
+  _handlePreKeyEnter = (e) => {
+    if (e.key === "Enter") {
+      this.onClickPreNode();
     }
   };
 
@@ -560,18 +619,6 @@ export default class GraphVisualizer extends React.Component {
   _handleRemoveKeyEnter = (e) => {
     if (e.key === "Enter") {
       this.onClickRemoveNode();
-    }
-  };
-
-  _handleLinkKeyEnter = (e) => {
-    if (e.key === "Enter") {
-      this.onClickAddLink();
-    }
-  };
-
-  _handleRemoveLinkKeyEnter = (e) => {
-    if (e.key === "Enter") {
-      this.onClickRemoveLink();
     }
   };
 
@@ -608,15 +655,6 @@ export default class GraphVisualizer extends React.Component {
     this.setState({
       config: config,
     });
-  };
-
-  startAlgorithm = () => {
-    if (this.state.algoData.algorithm === "dfs") {
-      this.depthFirstSearch();
-    } else if (this.state.algoData.algorithm === "bfs") {
-      this.breadthFirstSearch();
-    } else if (this.state.algoData.algorithm === "djk") {
-    }
   };
 
   //Node Highlight Rotation Test -- Use Algorithm functions in replace
@@ -727,34 +765,21 @@ export default class GraphVisualizer extends React.Component {
     }
   };
 
-  //sets current algorithm tab
-  eventKeyHandler = (key) => {
-      let tabKey = this.state.key
-      tabKey = key
-     
-      this.setState({
-        key: tabKey
-      })
-  }
-
-
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, the traversal log and the main graph visualizer component.
   render() {
-  
-    const neighborItems = this.state.algoData.stack.map((item) => {
-      return <li class="list-group-item">{item}</li>;
 
-    });
+    const head = {color : "blue", margin :"13px"};
+    const tail = {color : "red", margin: "13px"};
 
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
-        <div class="tLog fixed-bottom">
-          <ul class="list-group list-group-flush">{neighborItems}</ul>
-        </div>
 
-        <h3>Linked List</h3>
+        <div className='listInfo'>
+          <h5 style={head}>{`Head: ${this.state.headName}`}</h5>
+          <h5 style={tail}>{`Tail: ${this.state.tailName}`}</h5>
+        </div>
 
         <div class="leftWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
@@ -883,72 +908,6 @@ export default class GraphVisualizer extends React.Component {
                 />
               </div>
 
-              <div id="node" class="input-group mb-3">
-                <h5 class="font-weight-light h6 pt-3"> Start Node </h5>
-                <div class="input-group mb-3">
-                  <input
-                    class="L"
-                    id="sNode"
-                    type="text"
-                    name="startNode"
-                    placeholder="Enter starting node"
-                    onChange={this._addStartNodeHandleChange}
-                    //onKeyPress={this._handleLinkKeyEnter}
-                  />
-                </div>
-
-                <h5 class="font-weight-light h6"> Target Node </h5>
-                <div class="input-group mb-3">
-                  <input
-                    class="L"
-                    id="tNode"
-                    type="text"
-                    name="tarhetNode"
-                    placeholder="Enter ending node"
-                    onChange={this._addEndNodeHandleChange}
-                    //onKeyPress={this._handleLinkKeyEnter}
-                  />
-                </div>
-
-                <Dropdown className="dropdown pt-2" drop="right">
-                  <Dropdown.Toggle variant="outline-info" id="dropdown-two">
-                    Algorithm
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu id="algoSelection">
-                    <Dropdown.Item
-                      eventKey="1"
-                      onSelect={() => (this.state.algoData.algorithm = "dfs")}
-                      onSelect={(event) => this.eventKeyHandler(event)} //Tab selector
-                    >
-                      Depth-First Search
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      evenyKey="2"
-                      onSelect={() => (this.state.algoData.algorithm = "bfs")}
-                      onSelect={(event) => this.eventKeyHandler(2)} //Tab Selector
-                    >
-                      Breadth-First Search
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      eventKey="3"
-                      onSelect={() => (this.state.algoData.algorithm = "djk")}
-                      onSelect={(event) => this.eventKeyHandler(event)}
-                    >
-                      Dijkstra's
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-
-                <Button
-                  className="submit mt-2 font-weight-normal"
-                  type="submit" //activate Algorithm
-                  variant="outline-success"
-                  onClick={() => this.startAlgorithm()} //Should call selected algorithm
-                >
-                  Start Algorithm
-                </Button>
-              </div>
             </Dropdown.Menu>
           </Dropdown>
 
@@ -988,7 +947,7 @@ export default class GraphVisualizer extends React.Component {
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <button
-                    onClick={() => this.onClickAddNode('app')}
+                    onClick={() => this.onClickAppNode()}
                     type="button"
                     class="btn btn-outline-danger"
                     id="button-addon1"
@@ -1011,7 +970,7 @@ export default class GraphVisualizer extends React.Component {
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <button
-                    onClick={ () => this.onClickAddNode('pre')}
+                    onClick={ () => this.onClickPreNode()}
                     type="button"
                     class="btn btn-outline-danger"
                     id="button-addon1"
@@ -1022,11 +981,11 @@ export default class GraphVisualizer extends React.Component {
                 <input
                   type="text"
                   class="nodeInput"
-                  name="addNodeName"
-                  placeholder={this.state.addNodePlaceholder}
-                  value={this.state.addNodeName}
-                  onChange={this._addNodeHandleChange}
-                  onKeyPress={this._handleAddKeyEnter}
+                  name="preNodeName"
+                  placeholder={this.state.preNodePlaceholder}
+                  value={this.state.preNodeName}
+                  onChange={this._preNodeHandleChange}
+                  onKeyPress={this._handlePreKeyEnter}
                 />
               </div>
 
@@ -1052,32 +1011,10 @@ export default class GraphVisualizer extends React.Component {
                   onKeyPress={this._handleRemoveKeyEnter}
                 />
               </div>
-
-              <h5 class="font-weight-light"> Add link: </h5>
-              <input
-                class="linkInput"
-                type="text"
-                name="addLink"
-                placeholder={this.state.addLinkPlaceholder}
-                value={this.state.addLink}
-                onChange={this._addLinkHandleChange}
-                onKeyPress={this._handleLinkKeyEnter}
-              />
-
-              <h5 class="font-weight-light pt-3"> Remove link: </h5>
-              <input
-                class="linkInput"
-                type="text"
-                name="removeLink"
-                placeholder={this.state.removeLinkPlaceholder}
-                value={this.state.removeLink}
-                onChange={this._removeLinkHandleChange}
-                onKeyPress={this._handleRemoveLinkKeyEnter}
-              />
             </Dropdown.Menu>
           </Dropdown>
-
         </div>
+
         <ReactTooltip
           id="buttons"
           place="right"
