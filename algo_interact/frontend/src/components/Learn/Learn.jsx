@@ -50,16 +50,18 @@ class Learn extends Component {
           itemClass="card-deck d-flex pl-5 pr-5 bd-highlight"
         >
           <LearnCard
-            title="Test Card – Nowitzki Stats"
-            text="Dirk Nowitzki is a retired NBA player.
-                He spent his 21 years in the league playing for the
-                Dallas Mavericks, and he has made over 30,000 points."
-            image="/test-dirk.png"
-            tab1title="Stats"
-            tab1text="Cool stats...example stats..."
-            tab2title="Awards"
-            tab2text="2011 NBA Championship, 2007 and 2011 NBA MVP, 14-time All-Star"
-            tab3title="Fun Facts"
+            title="Graph"
+            text="Graph is the non-linear data structure which is used to represent data networks."
+            image="/images/graphpicture.png"
+            tab1title="Description"
+            tab1text="-It consist of nodes and edges and sometimes we can say that nodes are vertices and edges are line or arc
+                      -It is used to show real time problems
+                      -Graph can be used in social network sites like facebook linkedin etc.
+                      -Each nodes are contains information about data.
+                      -Graph are of different types like directed, undirected and weight graphs."
+            tab2title="Time Complexity"
+            tab2text="Time complexity of graph is O(V+E) where V represent number of vertices "
+            tab3image="Fun Facts"
             tab3text="Nowitzki was born in Germany and grew up playing tennis."
           />
 
@@ -78,16 +80,28 @@ class Learn extends Component {
             tab2title="Time Complexity of Tree"
             tab2text="In general time complexity of tree will be O(h). it can be different operations. it can be also best and worst time 
                       complexity."
+            image="/images/treepicture.png"
           />
 
           <LearnCard
             title="Linked List"
-            text="Linked List is a linear data structure where all data can not be stored into congiguous memory location but then "
+            text="Linked List is a linear data structure where all data can not be stored into congiguous memory location but then are 
+                  attached to all the nodes so that we can easy to maintain the list. its simply mean that the it is the list where we can store
+                  data member in different memory locations. it is the technic of improving of wasting of memory in the database or we can say 
+                  that to save the memory."
+            tab1title="Description"
+            tab1text="-it saves the wasting of memory
+                      -it is easier to add, delte or change the data into database
+                      it can not use contiguous memory locations.
+                      -all the nodes are linked with reference link so that each node can be connected to each other and perform operations
+                      -Linked List can be of two types single linked list and double linked list. "
+            tab2title="Average Time Complexity of Linked List"
+            tab2text="O(n)"
+            tab3title="Average Time Complexity of Linked List"
+            tab3text="O(1)"
+            image="/images/linkedlistpicture.png"
           />
-          <LearnCard
-            title="Graph"
-            text="Description for a graph here."
-          />
+          
         </Carousel>
         <br></br>
         <br></br>
@@ -110,11 +124,14 @@ class Learn extends Component {
         >
           <LearnCard
             title="Breadth First Search"
-            text="Description for first algorithm here."
+            text="it uses queue to find the goal node .it explore all the neighbour vertex not current level before moving to next level."
           />
           <LearnCard
             title="Depth First Search"
-            text="Description for second algorithm here."
+            text="It uses stack to find the goal node .it goes deeper as depper of a node until goal is found then perform recursive tracking."
+            tab1title="Description"
+            tab1text="Foe a graph, DFS gives minimum Spanning tree and the Shortest paths of all pairs."
+            image="/images/depthfirstsearchpicture.png"
           />
           <LearnCard
             title="Dijkstra Algorithm"

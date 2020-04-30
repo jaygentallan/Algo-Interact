@@ -58,10 +58,10 @@ export default class GraphVisualizer extends React.Component {
     ];
 
     const algoData = {
-      startNode: "",
-      endNode: "",
+      startNode: data.nodes[0].id,
+      keyNode: "",
       neighbors: neighbors,
-      algorithm: "dfs",
+      algorithm: "search",
       stack: [],
       queue: [],
     };
@@ -599,6 +599,36 @@ export default class GraphVisualizer extends React.Component {
     this.setState({ removeNodeName: event.target.value });
   };
 
+  _addLinkHandleChange = (event) => {
+    this.setState({ addLink: event.target.value });
+  };
+
+  _removeLinkHandleChange = (event) => {
+    this.setState({ removeLink: event.target.value });
+  };
+
+  _addStartNodeHandleChange = (event) => {
+    const algoData = {
+      startNode: event.target.value,
+      keyNode: this.state.algoData.keyNode,
+      neighbors: this.state.algoData.neighbors,
+      algorithm: this.state.algoData.algorithm,
+      startAlgorithm: this.state.algoData.startAlgorithm,
+      stack: this.state.algoData.stack,
+    };
+
+    this.setState({ algoData });
+  };
+
+  _addKeyNodeHandleChange = (event) => {
+    const algoData = {
+      startNode: this.state.algoData.startNode,
+      keyNode: event.target.value,
+      neighbors: this.state.algoData.neighbors,
+      algorithm: this.state.algoData.algorithm,
+      startAlgorithm: this.state.algoData.startAlgorithm,
+      stack: this.state.algoData.stack,
+    };
 
   // Handler function that listens to the Remove key press
   // and calls the onClickAppNode function.
@@ -655,6 +685,32 @@ export default class GraphVisualizer extends React.Component {
     this.setState({
       config: config,
     });
+  };
+
+  startAlgorithm = () => {
+    if (this.state.algoData.algorithm === "search") {
+      this.searchList();
+    } else if (this.state.algoData.algorithm === "bfs") {
+      this.breadthFirstSearch();
+    } else if (this.state.algoData.algorithm === "djk") {
+    }
+  };
+
+  searchList = () => {
+    // Loops through nodes to see if the key node actually exists
+    var keyIndex = null;
+    // initialize algoData stack to start as empty
+    this.state.algoData.stack = [];
+    for(let i = 0; i < this.data.nodes.length; i++) {
+      // add the traversed node to the stack
+      this.state.algoData.stack.push(this.data.nodes[i]);
+      // set the index equal to i if the key is found in the list
+      if(this.algoData.keyNode in this.data.nodes[i].id) {
+        keyIndex = i;
+        break;
+      }
+    }
+    // add a setTimeout for the rendering of the algorithm
   };
 
   //Node Highlight Rotation Test -- Use Algorithm functions in replace
