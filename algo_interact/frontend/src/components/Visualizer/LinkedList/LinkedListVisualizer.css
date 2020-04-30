@@ -259,3 +259,19 @@ div.box .tLog .list-group {
   font-size: 0.9em;
   margin-right: 2.5em;
 }
+
+.listInfo {
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  left: 1040px;
+  top: 100px;
+  border: 1.5px solid #c34f6b;
+  border-radius: 15px;
+  width: 210px;
+  height: 100px;
+}
+
+h5 {
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
