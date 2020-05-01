@@ -1347,7 +1347,7 @@ export default class GraphVisualizer extends React.Component {
                       Depth-First Search
                     </Dropdown.Item>
                     <Dropdown.Item
-                      evenyKey="2"
+                      eventKey="2"
                       onSelect={() => (this.state.algoData.algorithm = "bfs")}
                     >
                       Breadth-First Search
