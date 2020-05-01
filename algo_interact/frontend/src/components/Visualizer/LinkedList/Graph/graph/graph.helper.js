@@ -128,7 +128,7 @@ function _initializeNodes(graphNodes) {
     node.highlighted = false;
     if (!Object.prototype.hasOwnProperty.call(node, "x")) {
       // eslint-disable-next-line no-restricted-globals
-      node.x = screen.width / 2.5 + i * 150;
+      node.x = screen.width / 2 + i * 150;
     }
 
     if (!Object.prototype.hasOwnProperty.call(node, "y")) {

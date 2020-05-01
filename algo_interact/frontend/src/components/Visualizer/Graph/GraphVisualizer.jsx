@@ -29,9 +29,9 @@ export default class GraphVisualizer extends React.Component {
   // config: the configuration used for the Graph component
   // generatedConfig:
   // data: the data used for the Graph component
-  // nodeIdToBeRemoved: id of the node to be removed which is used in the onClickRemoveNode function
-  // addNodeName: a string used by the onClickAddNode function to set the new node name
-  // removeNodeName: a string used by the onClickRemoveNode function to delete the desired node
+  // nodeIdToBeRemoved: id of the node to be removed which is used in the removeNode function
+  // addNodeName: a string used by the addNode function to set the new node name
+  // removeNodeName: a string used by the removeNode function to delete the desired node
   // addNodePlaceholder: a string used by the addNode input box
   // removeNodePlaceholder: a string used by the removeNode input box
   constructor(props) {
@@ -40,36 +40,29 @@ export default class GraphVisualizer extends React.Component {
     // Default data used by the Graph component
     const data = {
       nodes: [
-        { id: "Harry", color: "", strokeColor: "" },
-        { id: "Sally", color: "", strokeColor: "" },
-        { id: "Alice", color: "", strokeColor: "" },
+        {
+          id: "Harry",
+          color: "",
+          strokeColor: "",
+          // eslint-disable-next-line no-restricted-globals
+          x: screen.width / 2,
+          // eslint-disable-next-line no-restricted-globals
+          y: screen.height / 3,
+        },
       ],
-      links: [
-        { source: "Harry", target: "Sally", label: "10" },
-        { source: "Harry", target: "Alice", label: "15" },
-      ],
+      links: [],
     };
 
     const undirected_neighbors = [
       {
-        Harry: [
-          ["Sally", 10],
-          ["Alice", 15],
-        ],
+        Harry: [],
       },
-      { Sally: [["Harry", 10]] },
-      { Alice: [["Harry", 15]] },
     ];
 
     const directed_neighbors = [
       {
-        Harry: [
-          ["Sally", 10],
-          ["Alice", 15],
-        ],
+        Harry: [],
       },
-      { Sally: [] },
-      { Alice: [] },
     ];
 
     /*
@@ -191,7 +184,7 @@ export default class GraphVisualizer extends React.Component {
   // addNoneName and links it to a target node if given. Then it updates the state of
   // data array of the class and resets the addNodeName and addNodePlaceholder.
 
-  onClickAddNode = () => {
+  addNode = () => {
     // Checks if the addNodeName is an empty string
     if (this.state.addNodeName === "") {
       this.setState({
@@ -269,7 +262,7 @@ export default class GraphVisualizer extends React.Component {
   // is greater than 0. Then filters the original nodes and links arrays in the data array using the
   // removeNodeName of the class state. THen update the class data state along with resetting
   // removeNodeName and removeNodePlaceholder.
-  onClickRemoveNode = () => {
+  removeNode = () => {
     if (this.state.removeNodeName === "") {
       this.setState({
         removeNodePlaceholder: "Please enter a value!",
@@ -342,7 +335,7 @@ export default class GraphVisualizer extends React.Component {
     }
   };
 
-  onClickAddLink = () => {
+  addLink = () => {
     if (this.state.addLink === "") {
       return;
     }
@@ -482,7 +475,7 @@ export default class GraphVisualizer extends React.Component {
     }
   };
 
-  onClickRemoveLink = () => {
+  removeLink = () => {
     if (this.state.removeLink === "") {
       return;
     }
@@ -597,30 +590,30 @@ export default class GraphVisualizer extends React.Component {
     this.setState({ algoData });
   };
   // Handler function that listens to the Remove key press
-  // and calls the onClickAddNode function.
+  // and calls the addNode function.
   _handleAddKeyEnter = (e) => {
     if (e.key === "Enter") {
-      this.onClickAddNode();
+      this.addNode();
     }
   };
 
   // Handler function that listens to the Enter key press
-  // and calls the onClickRemoveNode function.
+  // and calls the removeNode function.
   _handleRemoveKeyEnter = (e) => {
     if (e.key === "Enter") {
-      this.onClickRemoveNode();
+      this.removeNode();
     }
   };
 
   _handleLinkKeyEnter = (e) => {
     if (e.key === "Enter") {
-      this.onClickAddLink();
+      this.addLink();
     }
   };
 
-  _handleRemoveLinkKeyEnter = (e) => {
+  _handleremoveLinkKeyEnter = (e) => {
     if (e.key === "Enter") {
-      this.onClickRemoveLink();
+      this.removeLink();
     }
   };
 
@@ -1450,7 +1443,7 @@ export default class GraphVisualizer extends React.Component {
                 placeholder={this.state.removeLinkPlaceholder}
                 value={this.state.removeLink}
                 onChange={this._removeLinkHandleChange}
-                onKeyPress={this._handleRemoveLinkKeyEnter}
+                onKeyPress={this._handleremoveLinkKeyEnter}
               />
             </Dropdown.Menu>
           </Dropdown>
