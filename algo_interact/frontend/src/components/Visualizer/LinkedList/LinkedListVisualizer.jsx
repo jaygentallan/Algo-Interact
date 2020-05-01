@@ -45,7 +45,7 @@ export default class GraphVisualizer extends React.Component {
       directed: true,
       node: {
         color: "#c34f6b",
-        size: 1000,
+        size: 500,
         highlightStrokeColor: "blue",
         symbolType: "square",
       },
@@ -127,8 +127,8 @@ export default class GraphVisualizer extends React.Component {
     });
     //update link state
     this.state.data.links.push({
-      source: newNode.id,
-      target: tailNode.id,
+      source: tailNode.id,
+      target: newNode.id,
     });
   };
 
@@ -162,8 +162,8 @@ export default class GraphVisualizer extends React.Component {
     });
 
     this.state.data.links.push({
-      source: headNode.id,
-      target: newNode.id,
+      source: newNode.id,
+      target: headNode.id,
     });
   };
   //Add links between two nodes when middle is removed
