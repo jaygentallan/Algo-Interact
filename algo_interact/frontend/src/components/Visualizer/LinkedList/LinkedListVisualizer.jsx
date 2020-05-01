@@ -171,8 +171,8 @@ export default class GraphVisualizer extends React.Component {
   }
     //Add links between two nodes when middle is removed
     handleMiddleConnection = (update) => {
-    const timer = setTimeout(() => this.onClickAddLink(update), 500);
-    return () => clearTimeout(timer); 
+      this.forceUpdate(() => this.onClickAddLink(update));
+    //setTimeout(() => this.onClickAddLink(update), 500);
   }
 
   //Helper function for remove node
@@ -251,8 +251,8 @@ export default class GraphVisualizer extends React.Component {
       this.setState({
         ...this.state.data.links = updateLink
       }) 
-
-      this.handleMiddleConnection(updateMiddle);
+      
+      this.forceUpdate(() => this.onClickAddLink(updateMiddle));
     } 
 
     //remove node
@@ -629,7 +629,7 @@ export default class GraphVisualizer extends React.Component {
       startAlgorithm: this.state.algoData.startAlgorithm,
       stack: this.state.algoData.stack,
     };
-
+  }
   // Handler function that listens to the Remove key press
   // and calls the onClickAppNode function.
   _handleAddKeyEnter = (e) => {
@@ -1003,7 +1003,7 @@ export default class GraphVisualizer extends React.Component {
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <button
-                    onClick={() => this.onClickAppNode()}
+                    onClick={this.onClickAppNode}
                     type="button"
                     class="btn btn-outline-danger"
                     id="button-addon1"
@@ -1026,7 +1026,7 @@ export default class GraphVisualizer extends React.Component {
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <button
-                    onClick={ () => this.onClickPreNode()}
+                    onClick={this.onClickPreNode}
                     type="button"
                     class="btn btn-outline-danger"
                     id="button-addon1"
@@ -1049,7 +1049,7 @@ export default class GraphVisualizer extends React.Component {
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <button
-                    onClick={() => this.onClickRemoveNode()}
+                    onClick={this.onClickRemoveNode}
                     type="button"
                     class="btn btn-outline-danger pl-3 pr-2.5"
                     id="button-addon1"
