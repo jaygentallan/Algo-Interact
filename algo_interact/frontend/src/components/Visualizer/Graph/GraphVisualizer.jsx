@@ -1,5 +1,5 @@
 import React from "react";
-import Graph from "../../React-D3-Graph/Graph/graph/Graph";
+import Graph from "./Graph/graph/Graph";
 import TreeView from "react-treeview";
 import ReactTooltip from "react-tooltip";
 import { Dropdown, Form, Button } from "react-bootstrap";
@@ -145,7 +145,7 @@ export default class GraphVisualizer extends React.Component {
       width: window.innerWidth,
       node: {
         color: "#c34f6b",
-        size: 500,
+        size: 800,
         highlightStrokeColor: "blue",
       },
       link: {
@@ -1409,7 +1409,7 @@ export default class GraphVisualizer extends React.Component {
               <div class="input-group mb-3">
                 <input
                   type="text"
-                  class="nodeInput"
+                  class="linkInput"
                   name="addNodeName"
                   placeholder={this.state.addNodePlaceholder}
                   value={this.state.addNodeName}
@@ -1422,7 +1422,7 @@ export default class GraphVisualizer extends React.Component {
               <div class="input-group mb-3">
                 <input
                   type="text"
-                  class="nodeInput"
+                  class="linkInput"
                   name="removeNodeName"
                   placeholder={this.state.removeNodePlaceholder}
                   value={this.state.removeNodeName}

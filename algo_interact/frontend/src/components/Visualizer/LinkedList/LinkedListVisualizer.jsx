@@ -2,7 +2,7 @@ import React from "react";
 import Graph from "./Graph/graph/Graph";
 import TreeView from "react-treeview";
 import ReactTooltip from "react-tooltip";
-import { Dropdown, Form, Button} from "react-bootstrap";
+import { Dropdown, Form, Button } from "react-bootstrap";
 import "./LinkedListVisualizer.css";
 //import LeftWindow from "../../LeftVdWindow/LeftWindow";
 
@@ -22,50 +22,14 @@ export default class GraphVisualizer extends React.Component {
 
     // Default data used by the Graph component
     const data = {
-      //apply characteristics for each node
       nodes: [
-        { id: "Michael", color: "", strokeColor: "" },
-        { id: "Jim", color: "", strokeColor: "" },
-        { id: "Pam", color: "", strokeColor: "" },
-        { id: "Dwight", color: "", strokeColor: "" },
-        { id: "Angela", color: "", strokeColor: "" },
-        { id: "Jan", color: "", strokeColor: "" },
-        { id: "Kevin", color: "", strokeColor: "" },
-        { id: "Andy", color: "", strokeColor: "" },
-        { id: "Toby", color: "", strokeColor: "" },
-        { id: "Erin", color: "", strokeColor: "" },
-        { id: "Karen", color: "", strokeColor: "" },
-        { id: "Stanley", color: "", strokeColor: "" },
-        { id: "Phyllis", color: "", strokeColor: "" },
-        { id: "Oscar", color: "", strokeColor: "" },
-        { id: "Ryan", color: "", strokeColor: "" },
-        { id: "Kelly", color: "", strokeColor: "" },
-        { id: "Holly", color: "", strokeColor: "" },
-        { id: "Senator", color: "", strokeColor: "" },
-        { id: "Roy", color: "", strokeColor: "" },
-        { id: "Bob Vance, Vance Refrigeration" },
+        { id: "Harry", color: "", strokeColor: "" },
+        { id: "Sally", color: "", strokeColor: "" },
+        { id: "Alice", color: "", strokeColor: "" },
       ],
       links: [
-        { source: "Michael", target: "Jan" },
-        { source: "Michael", target: "Holly" },
-        { source: "Michael", target: "Ryan" },
-        { source: "Michael", target: "Jim" },
-        { source: "Michael", target: "Toby" },
-        { source: "Jim", target: "Pam" },
-        { source: "Jim", target: "Karen" },
-        { source: "Jim", target: "Dwight" },
-        { source: "Pam", target: "Roy" },
-        { source: "Dwight", target: "Angela" },
-        { source: "Dwight", target: "Andy" },
-        { source: "Andy", target: "Erin" },
-        { source: "Ryan", target: "Kelly" },
-        { source: "Angela", target: "Oscar" },
-        { source: "Angela", target: "Kevin" },
-        { source: "Angela", target: "Senator" },
-        { source: "Oscar", target: "Senator" },
-        { source: "Oscar", target: "Phyllis" },
-        { source: "Phyllis", target: "Stanley" },
-        { source: "Phyllis", target: "Bob Vance, Vance Refrigeration" },
+        { source: "Harry", target: "Sally", label: "10" },
+        { source: "Harry", target: "Alice", label: "15" },
       ],
     };
 
@@ -85,6 +49,8 @@ export default class GraphVisualizer extends React.Component {
     const config = {
       nodeHighlightBehavior: true,
       automaticRearrangeAfterDropNode: true,
+      staticGraph: true,
+      directed: true,
       height: window.innerHeight * 0.86,
       width: window.innerWidth,
       node: {
@@ -122,7 +88,7 @@ export default class GraphVisualizer extends React.Component {
       removeNodePlaceholder: "Enter node to remove",
       addLinkPlaceholder: "Enter as: source, target",
       removeLinkPlaceholder: "Enter as: source, target",
-      key: '' //state for Algorithm tabs 
+      key: "", //state for Algorithm tabs
     };
   }
 
@@ -661,7 +627,7 @@ export default class GraphVisualizer extends React.Component {
     this.state.data.nodes.forEach((node, i) => {
       setTimeout(() => this.highlightHandler(node.id, i), 1500 * (i + 1));
     });
-  }; 
+  };
 
   //reset node color back to original
   resetState = (counter) => {
@@ -765,22 +731,19 @@ export default class GraphVisualizer extends React.Component {
 
   //sets current algorithm tab
   eventKeyHandler = (key) => {
-      let tabKey = this.state.key
-      tabKey = key
-     
-      this.setState({
-        key: tabKey
-      })
-  }
+    let tabKey = this.state.key;
+    tabKey = key;
 
+    this.setState({
+      key: tabKey,
+    });
+  };
 
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, the traversal log and the main graph visualizer component.
   render() {
-  
     const neighborItems = this.state.algoData.stack.map((item) => {
       return <li class="list-group-item">{item}</li>;
-
     });
 
     return (
@@ -789,9 +752,6 @@ export default class GraphVisualizer extends React.Component {
         <div class="tLog fixed-bottom">
           <ul class="list-group list-group-flush">{neighborItems}</ul>
         </div>
-
-        <h3>Linked List</h3>
-        {console.log('LINKED LIST')}
 
         <div class="leftWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">

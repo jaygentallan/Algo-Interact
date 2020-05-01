@@ -1,18 +1,19 @@
 /*Algo tabs*/
 .nav {
-    justify-content: center;
-   }
-   
-   /*Algo tabs outline*/
-   nav.nav-tabs {
-     border-bottom: 1px solid whitesmoke;
-   }
-   
-   /*Individual Tabs*/
-   .nav-tabs .nav-item {
-     font-weight: bold;
-     margin-left: 25px;
-     margin-right: 25px;
-     padding-left: 25px;
-     padding-right: 25px;
-   }
+  justify-content: center;
+}
+
+/*Algo tabs outline*/
+nav.nav-tabs {
+  border-bottom: 1px solid whitesmoke;
+}
+
+/*Individual Tabs*/
+.nav-tabs .nav-item {
+  color: #c34f6b;
+  font-weight: bold;
+  margin-left: 25px;
+  margin-right: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+}

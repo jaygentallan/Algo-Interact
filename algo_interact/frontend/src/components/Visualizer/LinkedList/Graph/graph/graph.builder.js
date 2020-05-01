@@ -163,7 +163,7 @@ function buildLinkProps(
     onClickLink: linkCallbacks.onClickLink,
     onMouseOutLink: linkCallbacks.onMouseOutLink,
     onMouseOverLink: linkCallbacks.onMouseOverLink,
-    onRightClickLink: linkCallbacks.onRightClickLink
+    onRightClickLink: linkCallbacks.onRightClickLink,
   };
 }
 
@@ -234,10 +234,16 @@ function buildNodeProps(
     ...node,
     className: CONST.NODE_CLASS_NAME,
     cursor: config.node.mouseCursor,
-    // eslint-disable-next-line no-restricted-globals
-    cx: node?.x || screen.width / 2.5,
-    // eslint-disable-next-line no-restricted-globals
-    cy: node?.y || screen.height / 2.8,
+    // NODE DEFAULT LOCATION
+    cx:
+      node?.x ||
+      // eslint-disable-next-line no-restricted-globals
+      (screen.width / 3) * (Math.random() * (0.8 - -0.8) + 0.8).toFixed(2),
+    // NODE DEFAULT LOCATION
+    cy:
+      node?.y ||
+      // eslint-disable-next-line no-restricted-globals
+      (screen.height / 3) * (Math.random() * (0.5 - -0.5) + 0.5).toFixed(2),
     dx,
     fill,
     fontColor,
@@ -259,7 +265,7 @@ function buildNodeProps(
     onClickNode: nodeCallbacks.onClickNode,
     onMouseOut: nodeCallbacks.onMouseOut,
     onMouseOverNode: nodeCallbacks.onMouseOverNode,
-    onRightClickNode: nodeCallbacks.onRightClickNode
+    onRightClickNode: nodeCallbacks.onRightClickNode,
   };
 }
 
