@@ -61,7 +61,7 @@ export default class Node extends React.Component {
    * @param {Object} event - native event.
    * @returns {undefined}
    */
-  handleOnRightClickNode = event =>
+  handleOnRightClickNode = (event) =>
     this.props.onRightClickNode &&
     this.props.onRightClickNode(event, this.props.id);
 
@@ -88,16 +88,19 @@ export default class Node extends React.Component {
       onContextMenu: this.handleOnRightClickNode,
       onMouseOut: this.handleOnMouseOutNode,
       onMouseOver: this.handleOnMouseOverNode,
-      opacity: this.props.opacity
+      opacity: this.props.opacity,
     };
 
     const textProps = {
-      dx: this.props.dx || CONST.NODE_LABEL_DX,
-      dy: CONST.NODE_LABEL_DY,
+      dx:
+        this.props.label.length >= 15
+          ? -3.2 * this.props.label.length
+          : -3.5 * this.props.label.length,
+      dy: -25,
       fill: this.props.fontColor,
       fontSize: this.props.fontSize,
       fontWeight: this.props.fontWeight,
-      opacity: this.props.opacity
+      opacity: this.props.opacity,
     };
 
     const size = this.props.size;
@@ -162,7 +165,7 @@ export default class Node extends React.Component {
       cx: this.props.cx,
       cy: this.props.cy,
       id: this.props.id,
-      transform: `translate(${gtx},${gty})`
+      transform: `translate(${gtx},${gty})`,
     };
 
     function handleClick(e, data) {
