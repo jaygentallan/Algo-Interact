@@ -636,6 +636,8 @@ export default class GraphVisualizer extends React.Component {
       startAlgorithm: this.state.algoData.startAlgorithm,
       stack: this.state.algoData.stack,
     };
+
+    this.setState({algoData});
   }
   // Handler function that listens to the Remove key press
   // and calls the onClickAppNode function.
@@ -695,29 +697,37 @@ export default class GraphVisualizer extends React.Component {
   };
 
   startAlgorithm = () => {
-    if (this.state.algoData.algorithm === "search") {
-      this.searchList();
+    // don't need to check for other algorithms
+    // if (this.state.algoData.algorithm === "search") {
+      this.linearSearch();
+      /*
     } else if (this.state.algoData.algorithm === "bfs") {
       this.breadthFirstSearch();
     } else if (this.state.algoData.algorithm === "djk") {
     }
+    */
   };
 
-  searchList = () => {
-    // Loops through nodes to see if the key node actually exists
-    var keyIndex = null;
-    // initialize algoData stack to start as empty
-    this.state.algoData.stack = [];
-    for (let i = 0; i < this.data.nodes.length; i++) {
-      // add the traversed node to the stack
-      this.state.algoData.stack.push(this.data.nodes[i]);
-      // set the index equal to i if the key is found in the list
-      if (this.algoData.keyNode in this.data.nodes[i].id) {
-        keyIndex = i;
+  linearSearch = () => {
+    //console.log(this.state.algoData.keyNode)
+    var counter = 0;
+    for (let i = 0; i < this.state.data.nodes.length; i++) {
+      // check if keyNode string equals current node's id string
+      if (this.state.algoData.keyNode === this.state.data.nodes[i].id) {
+        console.log("found key node");
+        for(let j = 0; j < 5; j++) {
+          setTimeout(() => this.foundTarget(this.state.algoData.keyNode), 1200 * counter);
+          counter++;
+        }
         break;
       }
+      setTimeout(
+        () => this.highlightHandler(this.state.data.nodes[i].id, counter),
+        1000 * (counter + 1)
+      );
+      counter++;
     }
-    // add a setTimeout for the rendering of the algorithm
+    this.resetState(counter);
   };
 
   //Node Highlight Rotation Test -- Use Algorithm functions in replace
@@ -744,6 +754,7 @@ export default class GraphVisualizer extends React.Component {
         node.color = this.state.nodeColor;
         node.strokeColor = this.state.strokeColor;
       });
+      this.updateListColor(this.state.listInfo);
 
       this.setState({
         ...(this.state.data.nodes = origNodes),
@@ -755,6 +766,7 @@ export default class GraphVisualizer extends React.Component {
 
   //Highlight Node -> Parameter: Node id
   highlightHandler = (id) => {
+    console.log(id);
     //Get index of the node
     const nodeIndex = this.state.data.nodes.findIndex((node) => {
       //return node index that matches the passed id
@@ -967,6 +979,28 @@ export default class GraphVisualizer extends React.Component {
                   id="weight"
                   label="Weighted"
                 />
+              </div>
+              <div id="node" class="input-group mb-3">
+                <h5 class="font-weight-light h6 pt-3"> Target Value </h5>
+                <div class="input-group mb-3">
+                  <input
+                    class="L"
+                    id="keyNode"
+                    type="text"
+                    name="keyNode"
+                    placeholder="Enter as: name"
+                    value={this.state.algoData.keyNode}
+                    onChange={this._addKeyNodeHandleChange}
+                  />
+                </div>
+                <Button
+                  className="submit mt-2 font-weight-normal"
+                  type="submit" // start the Linear Search Algorithm
+                  variant="outline-success"
+                  onClick={() => this.startAlgorithm()}  
+                >
+                  Start Search
+                </Button>
               </div>
             </Dropdown.Menu>
           </Dropdown>
