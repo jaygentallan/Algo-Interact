@@ -174,7 +174,6 @@ export default class GraphVisualizer extends React.Component {
       removeNodePlaceholder: "Enter as: name",
       addLinkPlaceholder: "Enter as: source, target, weight",
       removeLinkPlaceholder: "Enter as: source, target",
-      show: "data"
     };
   }
 
@@ -1150,11 +1149,12 @@ export default class GraphVisualizer extends React.Component {
       }, 500);
     }
   };
-  //updates preset
-  showHandler = (choice) => {
+
+  //updates preset directly
+  updatePreset = (choice) => {
     this.setState({
-      show : choice
-    })
+      ...this.state.data = choice
+    });
   }
 
   // Main function of the React component. Returns what is displayed to the user. This includes
@@ -1163,6 +1163,22 @@ export default class GraphVisualizer extends React.Component {
     const neighborItems = this.state.algoData.stack.map((item) => {
       return <li class="list-group-item">{item}</li>;
     });
+
+    //Selections of Presets 
+    const Default = {
+      nodes: [
+        {
+          id: "Harry",
+          color: "",
+          strokeColor: "",
+          // eslint-disable-next-line no-restricted-globals
+          x: screen.width / 2,
+          // eslint-disable-next-line no-restricted-globals
+          y: screen.height / 3,
+        },
+      ],
+      links: [],
+    }
 
     const Office = {
       //apply characteristics for each node
@@ -1212,34 +1228,12 @@ export default class GraphVisualizer extends React.Component {
       ],
     };
 
-
-    let graph = null
-    switch (this.state.show) {
-      case "Office":
-        graph =  <Graph
-                  id="graph-id"
-                  data={Office}
-                  config={this.state.config}
-                  onRightClickNode={this._onRightClickNode}
-                />
-        break;
-        default:
-          graph = <Graph
-                    id="graph-id"
-                    data={this.state.data}
-                    config={this.state.config}
-                    onRightClickNode={this._onRightClickNode}
-                  />
-    }
-
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
         <div class="tLog fixed-bottom">
           <ul class="list-group list-group-flush">{neighborItems}</ul>
         </div>
-
-        {console.log("GRAPH")}
 
         <div class="leftWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
@@ -1619,17 +1613,17 @@ export default class GraphVisualizer extends React.Component {
               <div></div>
               <Button
                   className="submit mt-2 font-weight-normal"
-                  type="submit" //activate Algorithm
+                  type="submit" 
                   variant="outline-success"
-                  onClick={() => this.showHandler("Office")} //Should call selected algorithm
-                >
+                  onClick={() =>  this.updatePreset(Office)} 
+                > 
                 Office
               </Button>
               <Button
                   className="submit mt-2 font-weight-normal"
-                  type="submit" //activate Algorithm
+                  type="submit" 
                   variant="outline-success"
-                  onClick={() => this.showHandler("data")} //Should call selected algorithm
+                  onClick={() => this.updatePreset(Default)} 
               >
                 Default
               </Button>
@@ -1649,14 +1643,14 @@ export default class GraphVisualizer extends React.Component {
           multiline={true}
           className="extraClass"
         />
-        {graph}
-       {/* <Graph
-          //Entry point for passing data to library to be displayed
+
+       {/*Entry point for passing data to library to be displayed*/}
+        <Graph
           id="graph-id"
           data={this.state.data}
           config={this.state.config}
           onRightClickNode={this._onRightClickNode}
-       /> */}
+       /> 
       </div>
     );
   }
