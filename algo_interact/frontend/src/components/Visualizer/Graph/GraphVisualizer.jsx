@@ -658,6 +658,16 @@ export default class GraphVisualizer extends React.Component {
     });
   };
 
+  linkSizeHandler = (linkSize) => {
+    const config = this.state.config;
+
+    config.link.strokeWidth = linkSize;
+
+    this.setState({
+      config: config,
+    });
+  };
+
   linkColorHandler = (linkColor) => {
     const config = this.state.config;
 
@@ -1228,6 +1238,22 @@ export default class GraphVisualizer extends React.Component {
                     if (e.key === "Enter")
                       this.nodeColorHandler(
                         document.getElementById("color").value
+                      );
+                  }}
+                />
+              </div>
+
+              <h5 class="font-weight-light h6"> Link Size </h5>
+              <div id="node" class="input-group mb-3">
+                <input
+                  class="L"
+                  id="linkSize"
+                  type="text"
+                  placeholder="Enter link size"
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter")
+                      this.linkSizeHandler(
+                        document.getElementById("linkSize").value
                       );
                   }}
                 />

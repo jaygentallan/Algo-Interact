@@ -165,12 +165,12 @@ export default class GraphVisualizer extends React.Component {
       source: newNode.id,
       target: headNode.id,
     });
-  }
-    //Add links between two nodes when middle is removed
-    handleMiddleConnection = (update) => {
-      this.forceUpdate(() => this.onClickAddLink(update));
+  };
+  //Add links between two nodes when middle is removed
+  handleMiddleConnection = (update) => {
+    this.forceUpdate(() => this.onClickAddLink(update));
     //setTimeout(() => this.onClickAddLink(update), 500);
-  }
+  };
 
   //Helper function for remove node
   updateConnection = () => {
@@ -246,11 +246,11 @@ export default class GraphVisualizer extends React.Component {
       console.log("updated middle", updateLink);
 
       this.setState({
-        ...this.state.data.links = updateLink
-      }) 
-      
+        ...(this.state.data.links = updateLink),
+      });
+
       this.forceUpdate(() => this.onClickAddLink(updateMiddle));
-    } 
+    }
 
     //remove node
     let updateNode = newNodes.filter((node, index) => {
@@ -637,8 +637,8 @@ export default class GraphVisualizer extends React.Component {
       stack: this.state.algoData.stack,
     };
 
-    this.setState({algoData});
-  }
+    this.setState({ algoData });
+  };
   // Handler function that listens to the Remove key press
   // and calls the onClickAppNode function.
   _handleAddKeyEnter = (e) => {
@@ -686,6 +686,16 @@ export default class GraphVisualizer extends React.Component {
     });
   };
 
+  linkSizeHandler = (linkSize) => {
+    const config = this.state.config;
+
+    config.link.strokeWidth = linkSize;
+
+    this.setState({
+      config: config,
+    });
+  };
+
   linkColorHandler = (linkColor) => {
     const config = this.state.config;
 
@@ -699,8 +709,8 @@ export default class GraphVisualizer extends React.Component {
   startAlgorithm = () => {
     // don't need to check for other algorithms
     // if (this.state.algoData.algorithm === "search") {
-      this.linearSearch();
-      /*
+    this.linearSearch();
+    /*
     } else if (this.state.algoData.algorithm === "bfs") {
       this.breadthFirstSearch();
     } else if (this.state.algoData.algorithm === "djk") {
@@ -715,8 +725,11 @@ export default class GraphVisualizer extends React.Component {
       // check if keyNode string equals current node's id string
       if (this.state.algoData.keyNode === this.state.data.nodes[i].id) {
         console.log("found key node");
-        for(let j = 0; j < 5; j++) {
-          setTimeout(() => this.foundTarget(this.state.algoData.keyNode), 1200 * counter);
+        for (let j = 0; j < 5; j++) {
+          setTimeout(
+            () => this.foundTarget(this.state.algoData.keyNode),
+            1200 * counter
+          );
           counter++;
         }
         break;
@@ -920,6 +933,22 @@ export default class GraphVisualizer extends React.Component {
                 />
               </div>
 
+              <h5 class="font-weight-light h6"> Link Size </h5>
+              <div id="node" class="input-group mb-3">
+                <input
+                  class="L"
+                  id="linkSize"
+                  type="text"
+                  placeholder="Enter link size"
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter")
+                      this.linkSizeHandler(
+                        document.getElementById("linkSize").value
+                      );
+                  }}
+                />
+              </div>
+              
               <h5 class="font-weight-light h6"> Link Color </h5>
               <div id="node" class="input-group mb-3">
                 <input
@@ -997,7 +1026,7 @@ export default class GraphVisualizer extends React.Component {
                   className="submit mt-2 font-weight-normal"
                   type="submit" // start the Linear Search Algorithm
                   variant="outline-success"
-                  onClick={() => this.startAlgorithm()}  
+                  onClick={() => this.startAlgorithm()}
                 >
                   Start Search
                 </Button>
