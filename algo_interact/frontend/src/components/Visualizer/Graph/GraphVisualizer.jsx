@@ -174,7 +174,7 @@ export default class GraphVisualizer extends React.Component {
       removeNodePlaceholder: "Enter as: name",
       addLinkPlaceholder: "Enter as: source, target, weight",
       removeLinkPlaceholder: "Enter as: source, target",
-      key: "", //state for Algorithm tabs
+      show: "data"
     };
   }
 
@@ -1160,6 +1160,12 @@ export default class GraphVisualizer extends React.Component {
       }, 500);
     }
   };
+  //updates preset
+  showHandler = (choice) => {
+    this.setState({
+      show : choice
+    })
+  }
 
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, the traversal log and the main graph visualizer component.
@@ -1167,6 +1173,74 @@ export default class GraphVisualizer extends React.Component {
     const neighborItems = this.state.algoData.stack.map((item) => {
       return <li class="list-group-item">{item}</li>;
     });
+
+    const Office = {
+      //apply characteristics for each node
+      nodes: [
+        { id: "Michael", color: "", strokeColor: "" },
+        { id: "Jim", color: "", strokeColor: "" },
+        { id: "Pam", color: "", strokeColor: "" },
+        { id: "Dwight", color: "", strokeColor: "" },
+        { id: "Angela", color: "", strokeColor: "" },
+        { id: "Jan", color: "", strokeColor: "" },
+        { id: "Kevin", color: "", strokeColor: "" },
+        { id: "Andy", color: "", strokeColor: "" },
+        { id: "Toby", color: "", strokeColor: "" },
+        { id: "Erin", color: "", strokeColor: "" },
+        { id: "Karen", color: "", strokeColor: "" },
+        { id: "Stanley", color: "", strokeColor: "" },
+        { id: "Phyllis", color: "", strokeColor: "" },
+        { id: "Oscar", color: "", strokeColor: "" },
+        { id: "Ryan", color: "", strokeColor: "" },
+        { id: "Kelly", color: "", strokeColor: "" },
+        { id: "Holly", color: "", strokeColor: "" },
+        { id: "Senator", color: "", strokeColor: "" },
+        { id: "Roy", color: "", strokeColor: "" },
+        { id: "Bob Vance, Vance Refrigeration" },
+      ],
+      links: [
+        { source: "Michael", target: "Jan" },
+        { source: "Michael", target: "Holly" },
+        { source: "Michael", target: "Ryan" },
+        { source: "Michael", target: "Jim" },
+        { source: "Michael", target: "Toby" },
+        { source: "Jim", target: "Pam" },
+        { source: "Jim", target: "Karen" },
+        { source: "Jim", target: "Dwight" },
+        { source: "Pam", target: "Roy" },
+        { source: "Dwight", target: "Angela" },
+        { source: "Dwight", target: "Andy" },
+        { source: "Andy", target: "Erin" },
+        { source: "Ryan", target: "Kelly" },
+        { source: "Angela", target: "Oscar" },
+        { source: "Angela", target: "Kevin" },
+        { source: "Angela", target: "Senator" },
+        { source: "Oscar", target: "Senator" },
+        { source: "Oscar", target: "Phyllis" },
+        { source: "Phyllis", target: "Stanley" },
+        { source: "Phyllis", target: "Bob Vance, Vance Refrigeration" },
+      ],
+    };
+
+
+    let graph = null
+    switch (this.state.show) {
+      case "Office":
+        graph =  <Graph
+                  id="graph-id"
+                  data={Office}
+                  config={this.state.config}
+                  onRightClickNode={this._onRightClickNode}
+                />
+        break;
+        default:
+          graph = <Graph
+                    id="graph-id"
+                    data={this.state.data}
+                    config={this.state.config}
+                    onRightClickNode={this._onRightClickNode}
+                  />
+    }
 
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
@@ -1534,6 +1608,63 @@ export default class GraphVisualizer extends React.Component {
               </div>
             </Dropdown.Menu>
           </Dropdown>
+
+          {/*Presets */}
+          <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
+            <Dropdown.Toggle
+              data-tip="Graph Settings"
+              data-for="buttons"
+              variant="outline-danger"
+              id="dropdown-basic"
+              className="dropdown font-weight-light"
+            >
+              <div class="icon">
+                <svg
+                  class="bi bi-gear"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 014.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 01-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 011.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 012.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 012.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 011.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 01-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 018.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 001.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 00.52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 00-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 00-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 00-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 00-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 00.52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 001.255-.52l.094-.319z"
+                    clip-rule="evenodd"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 5.754a2.246 2.246 0 100 4.492 2.246 2.246 0 000-4.492zM4.754 8a3.246 3.246 0 116.492 0 3.246 3.246 0 01-6.492 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <div></div>
+              <Button
+                  className="submit mt-2 font-weight-normal"
+                  type="submit" //activate Algorithm
+                  variant="outline-success"
+                  onClick={() => this.showHandler("Office")} //Should call selected algorithm
+                >
+                Office
+              </Button>
+              <Button
+                  className="submit mt-2 font-weight-normal"
+                  type="submit" //activate Algorithm
+                  variant="outline-success"
+                  onClick={() => this.showHandler("data")} //Should call selected algorithm
+              >
+                Default
+              </Button>
+
+              
+            </Dropdown.Menu>
+          </Dropdown>
+           {/*Presets End */}
+
         </div>
 
         <ReactTooltip
@@ -1544,14 +1675,14 @@ export default class GraphVisualizer extends React.Component {
           multiline={true}
           className="extraClass"
         />
-
-        <Graph
+        {graph}
+       {/* <Graph
           //Entry point for passing data to library to be displayed
           id="graph-id"
           data={this.state.data}
           config={this.state.config}
           onRightClickNode={this._onRightClickNode}
-        />
+       /> */}
       </div>
     );
   }
