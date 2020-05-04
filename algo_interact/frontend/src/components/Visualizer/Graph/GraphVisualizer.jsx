@@ -657,6 +657,16 @@ export default class GraphVisualizer extends React.Component {
     });
   };
 
+  linkSizeHandler = (linkSize) => {
+    const config = this.state.config;
+
+    config.link.strokeWidth = linkSize;
+
+    this.setState({
+      config: config,
+    });
+  };
+
   linkColorHandler = (linkColor) => {
     const config = this.state.config;
 
@@ -1301,6 +1311,22 @@ export default class GraphVisualizer extends React.Component {
                 />
               </div>
 
+              <h5 class="font-weight-light h6"> Link Size </h5>
+              <div id="node" class="input-group mb-3">
+                <input
+                  class="L"
+                  id="linkSize"
+                  type="text"
+                  placeholder="Enter link size"
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter")
+                      this.linkSizeHandler(
+                        document.getElementById("linkSize").value
+                      );
+                  }}
+                />
+              </div>
+
               <h5 class="font-weight-light h6"> Link Color </h5>
               <div id="node" class="input-group mb-3">
                 <input
@@ -1576,19 +1602,32 @@ export default class GraphVisualizer extends React.Component {
               </div>
             </Dropdown.Menu>
           </Dropdown>
+        </div>
 
-          {/*Presets */}
-          <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
-            <Dropdown.Toggle
-              data-tip="Graph Settings"
-              data-for="buttons"
+        <ReactTooltip
+          id="buttons"
+          place="right"
+          backgroundColor="#c34f6b"
+          effect="solid"
+          multiline={true}
+          className="extraClass"
+        />
+
+        {/*Presets */}
+        <div class="rightWindow">
+          <div class="row pt-3">
+            <Button
+              data-tip="Default Graph"
+              data-for="presetButton"
               variant="outline-danger"
               id="dropdown-basic"
-              className="dropdown font-weight-light"
+              className="presetButton font-weight-light"
+              type="submit" //activate Algorithm
+              onClick={() => this.showHandler("data")} //Should call selected algorithm
             >
               <div class="icon">
                 <svg
-                  class="bi bi-gear"
+                  class="bi bi-arrow-repeat"
                   width="1em"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -1597,47 +1636,59 @@ export default class GraphVisualizer extends React.Component {
                 >
                   <path
                     fill-rule="evenodd"
-                    d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 014.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 01-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 011.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 012.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 012.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 011.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 01-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 018.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 001.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 00.52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 00-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 00-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 00-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 00-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 00.52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 001.255-.52l.094-.319z"
+                    d="M2.854 7.146a.5.5 0 00-.708 0l-2 2a.5.5 0 10.708.708L2.5 8.207l1.646 1.647a.5.5 0 00.708-.708l-2-2zm13-1a.5.5 0 00-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 00-.708.708l2 2a.5.5 0 00.708 0l2-2a.5.5 0 000-.708z"
                     clip-rule="evenodd"
                   />
                   <path
                     fill-rule="evenodd"
-                    d="M8 5.754a2.246 2.246 0 100 4.492 2.246 2.246 0 000-4.492zM4.754 8a3.246 3.246 0 116.492 0 3.246 3.246 0 01-6.492 0z"
+                    d="M8 3a4.995 4.995 0 00-4.192 2.273.5.5 0 01-.837-.546A6 6 0 0114 8a.5.5 0 01-1.001 0 5 5 0 00-5-5zM2.5 7.5A.5.5 0 013 8a5 5 0 009.192 2.727.5.5 0 11.837.546A6 6 0 012 8a.5.5 0 01.501-.5z"
                     clip-rule="evenodd"
                   />
                 </svg>
               </div>
-            </Dropdown.Toggle>
+            </Button>
+          </div>
 
-            <Dropdown.Menu>
-              <div></div>
-              <Button
-                  className="submit mt-2 font-weight-normal"
-                  type="submit" 
-                  variant="outline-success"
-                  onClick={() =>  this.updatePreset(Office)} 
-                > 
-                Office
-              </Button>
-              <Button
-                  className="submit mt-2 font-weight-normal"
-                  type="submit" 
-                  variant="outline-success"
-                  onClick={() => this.updatePreset(Default)} 
-              >
-                Default
-              </Button>
-
-              
-            </Dropdown.Menu>
-          </Dropdown>
-           {/*Presets End */}
-
+          <div class="row pt-3">
+            <Button
+              data-tip="The Office Graph"
+              data-for="presetButton"
+              variant="outline-danger"
+              id="dropdown-basic"
+              className="presetButton font-weight-light"
+              type="submit" //activate Algorithm
+              onClick={() => this.showHandler("Office")} //Should call selected algorithm
+            >
+              <div class="icon">
+                <svg
+                  class="bi bi-building"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M15.285.089A.5.5 0 0115.5.5v15a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5V14h-1v1.5a.5.5 0 01-.5.5H1a.5.5 0 01-.5-.5v-6a.5.5 0 01.418-.493l5.582-.93V3.5a.5.5 0 01.324-.468l8-3a.5.5 0 01.46.057zM7.5 3.846V8.5a.5.5 0 01-.418.493l-5.582.93V15h8v-1.5a.5.5 0 01.5-.5h2a.5.5 0 01.5.5V15h2V1.222l-7 2.624z"
+                    clip-rule="evenodd"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M6.5 15.5v-7h1v7h-1z"
+                    clip-rule="evenodd"
+                  />
+                  <path d="M2.5 11h1v1h-1v-1zm2 0h1v1h-1v-1zm-2 2h1v1h-1v-1zm2 0h1v1h-1v-1zm6-10h1v1h-1V3zm2 0h1v1h-1V3zm-4 2h1v1h-1V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm-2 2h1v1h-1V7zm2 0h1v1h-1V7zm-4 0h1v1h-1V7zm0 2h1v1h-1V9zm2 0h1v1h-1V9zm2 0h1v1h-1V9zm-4 2h1v1h-1v-1zm2 0h1v1h-1v-1zm2 0h1v1h-1v-1z" />
+                </svg>
+              </div>
+            </Button>
+          </div>
         </div>
+        {/*Presets End */}
 
         <ReactTooltip
-          id="buttons"
-          place="right"
+          id="presetButton"
+          place="left"
           backgroundColor="#c34f6b"
           effect="solid"
           multiline={true}

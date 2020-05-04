@@ -21,12 +21,19 @@ export default class GraphVisualizer extends React.Component {
     // Default data used by the Graph component
     const data = {
       //nodeid gives each node a unique index
-      //next is our pointer 
-      nodes: [{ 
-              id: "Michael", nodeid: 1, next: null, color: "",
-              // eslint-disable-next-line no-restricted-globals
-              x: screen.width / 2, y: screen.width / 5
-            }],
+      //next is our pointer
+      nodes: [
+        {
+          id: "Michael",
+          nodeid: 1,
+          next: null,
+          color: "",
+          // eslint-disable-next-line no-restricted-globals
+          x: screen.width / 2,
+          // eslint-disable-next-line no-restricted-globals
+          y: screen.width / 5,
+        },
+      ],
       links: [
         // { source: "", target: "" },
       ],
@@ -39,8 +46,8 @@ export default class GraphVisualizer extends React.Component {
 
     const nodePos = {
       preAcc: 0,
-      appAcc: 0
-    }
+      appAcc: 0,
+    };
 
     // Default configurations used by the Graph component
     const config = {
@@ -60,7 +67,7 @@ export default class GraphVisualizer extends React.Component {
       },
       link: {
         highlightColor: "lightblue",
-        type: "STRAIGHT"
+        type: "STRAIGHT",
       },
     };
 
@@ -176,12 +183,12 @@ export default class GraphVisualizer extends React.Component {
       source: newNode.id,
       target: headNode.id,
     });
-  }
-    //Add links between two nodes when middle is removed
-    handleMiddleConnection = (update) => {
-      this.forceUpdate(() => this.onClickAddLink(update));
+  };
+  //Add links between two nodes when middle is removed
+  handleMiddleConnection = (update) => {
+    this.forceUpdate(() => this.onClickAddLink(update));
     //setTimeout(() => this.onClickAddLink(update), 500);
-  }
+  };
 
   //Helper function for remove node
   updateConnection = () => {
@@ -257,11 +264,11 @@ export default class GraphVisualizer extends React.Component {
       console.log("updated middle", updateLink);
 
       this.setState({
-        ...this.state.data.links = updateLink
-      }) 
-      
+        ...(this.state.data.links = updateLink),
+      });
+
       this.forceUpdate(() => this.onClickAddLink(updateMiddle));
-    } 
+    }
 
     //remove node
     let updateNode = newNodes.filter((node, index) => {
@@ -343,26 +350,24 @@ export default class GraphVisualizer extends React.Component {
   };
 
   nodePosHandler = (pos) => {
-    let newPos = 0
-    let nodePos = this.state.nodePos
+    let newPos = 0;
+    let nodePos = this.state.nodePos;
     if (pos === "app") {
-      newPos = this.state.nodePos.appAcc
-      newPos += 1
-      nodePos.appAcc = newPos
+      newPos = this.state.nodePos.appAcc;
+      newPos += 1;
+      nodePos.appAcc = newPos;
       this.setState({
-        nodePos : nodePos
-      })
-
-    }
-    else {
-      newPos = this.state.nodePos.preAcc
-      newPos += 1
-      nodePos.preAcc = newPos
+        nodePos: nodePos,
+      });
+    } else {
+      newPos = this.state.nodePos.preAcc;
+      newPos += 1;
+      nodePos.preAcc = newPos;
       this.setState({
-        nodePos : nodePos
-      })
+        nodePos: nodePos,
+      });
     }
-  }
+  };
   //appends or prepends node
   onClickAppNode = () => {
     console.log("APPEND", this.state.data.nodes, this.state.listInfo);
@@ -377,7 +382,7 @@ export default class GraphVisualizer extends React.Component {
     // Adds node to the nodes array in the state's data
     if (this.state.data.nodes && this.state.data.nodes.length) {
       const newNode = `${this.state.addNodeName}`;
-      this.nodePosHandler('app');
+      this.nodePosHandler("app");
       //create unique node id
       let newid = this.getCount();
 
@@ -388,9 +393,9 @@ export default class GraphVisualizer extends React.Component {
         next: null,
         color: "",
         // eslint-disable-next-line no-restricted-globals
-        x: screen.width / 2 + 120 * this.state.nodePos.appAcc, 
+        x: screen.width / 2 + 120 * this.state.nodePos.appAcc,
         // eslint-disable-next-line no-restricted-globals
-        y: screen.width / 5
+        y: screen.width / 5,
       });
 
       this.setState({
@@ -436,7 +441,7 @@ export default class GraphVisualizer extends React.Component {
     // Adds node to the nodes array in the state's data
     if (this.state.data.nodes && this.state.data.nodes.length) {
       const newNode = `${this.state.preNodeName}`;
-      this.nodePosHandler('pre');
+      this.nodePosHandler("pre");
       //create unique node id
       let newid = this.getCount();
       //add node id
@@ -446,9 +451,9 @@ export default class GraphVisualizer extends React.Component {
         next: null,
         color: "",
         // eslint-disable-next-line no-restricted-globals
-        x: screen.width / 2  - 120 * this.state.nodePos.preAcc, 
+        x: screen.width / 2 - 120 * this.state.nodePos.preAcc,
         // eslint-disable-next-line no-restricted-globals
-        y: screen.width / 5 
+        y: screen.width / 5,
       });
 
       this.setState({
@@ -681,8 +686,8 @@ export default class GraphVisualizer extends React.Component {
       stack: this.state.algoData.stack,
     };
 
-    this.setState({algoData});
-  }
+    this.setState({ algoData });
+  };
   // Handler function that listens to the Remove key press
   // and calls the onClickAppNode function.
   _handleAddKeyEnter = (e) => {
@@ -730,6 +735,16 @@ export default class GraphVisualizer extends React.Component {
     });
   };
 
+  linkSizeHandler = (linkSize) => {
+    const config = this.state.config;
+
+    config.link.strokeWidth = linkSize;
+
+    this.setState({
+      config: config,
+    });
+  };
+
   linkColorHandler = (linkColor) => {
     const config = this.state.config;
 
@@ -743,8 +758,8 @@ export default class GraphVisualizer extends React.Component {
   startAlgorithm = () => {
     // don't need to check for other algorithms
     // if (this.state.algoData.algorithm === "search") {
-      this.linearSearch();
-      /*
+    this.linearSearch();
+    /*
     } else if (this.state.algoData.algorithm === "bfs") {
       this.breadthFirstSearch();
     } else if (this.state.algoData.algorithm === "djk") {
@@ -759,8 +774,11 @@ export default class GraphVisualizer extends React.Component {
       // check if keyNode string equals current node's id string
       if (this.state.algoData.keyNode === this.state.data.nodes[i].id) {
         console.log("found key node");
-        for(let j = 0; j < 5; j++) {
-          setTimeout(() => this.foundTarget(this.state.algoData.keyNode), 1200 * counter);
+        for (let j = 0; j < 5; j++) {
+          setTimeout(
+            () => this.foundTarget(this.state.algoData.keyNode),
+            1200 * counter
+          );
           counter++;
         }
         break;
@@ -964,6 +982,22 @@ export default class GraphVisualizer extends React.Component {
                 />
               </div>
 
+              <h5 class="font-weight-light h6"> Link Size </h5>
+              <div id="node" class="input-group mb-3">
+                <input
+                  class="L"
+                  id="linkSize"
+                  type="text"
+                  placeholder="Enter link size"
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter")
+                      this.linkSizeHandler(
+                        document.getElementById("linkSize").value
+                      );
+                  }}
+                />
+              </div>
+
               <h5 class="font-weight-light h6"> Link Color </h5>
               <div id="node" class="input-group mb-3">
                 <input
@@ -1041,7 +1075,7 @@ export default class GraphVisualizer extends React.Component {
                   className="submit mt-2 font-weight-normal"
                   type="submit" // start the Linear Search Algorithm
                   variant="outline-success"
-                  onClick={() => this.startAlgorithm()}  
+                  onClick={() => this.startAlgorithm()}
                 >
                   Start Search
                 </Button>
