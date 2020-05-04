@@ -86,6 +86,13 @@ h1.name.text-center {
   margin-left: 0.5em;
 }
 
+.rightWindow {
+  height: 36.6em;
+  width: 17em;
+  position: absolute;
+  right: 0px;
+}
+
 .json-data-container {
   padding: 0.6em;
   max-height: 14em;

@@ -21,12 +21,19 @@ export default class GraphVisualizer extends React.Component {
     // Default data used by the Graph component
     const data = {
       //nodeid gives each node a unique index
-      //next is our pointer 
-      nodes: [{ 
-              id: "Michael", nodeid: 1, next: null, color: "",
-              // eslint-disable-next-line no-restricted-globals
-              x: screen.width / 2, y: screen.width / 5
-            }],
+      //next is our pointer
+      nodes: [
+        {
+          id: "Michael",
+          nodeid: 1,
+          next: null,
+          color: "",
+          // eslint-disable-next-line no-restricted-globals
+          x: screen.width / 2,
+          // eslint-disable-next-line no-restricted-globals
+          y: screen.width / 5,
+        },
+      ],
       links: [
         // { source: "", target: "" },
       ],
@@ -39,8 +46,8 @@ export default class GraphVisualizer extends React.Component {
 
     const nodePos = {
       preAcc: 0,
-      appAcc: 0
-    }
+      appAcc: 0,
+    };
 
     // Default configurations used by the Graph component
     const config = {
@@ -60,7 +67,7 @@ export default class GraphVisualizer extends React.Component {
       },
       link: {
         highlightColor: "lightblue",
-        type: "STRAIGHT"
+        type: "STRAIGHT",
       },
     };
 
@@ -343,26 +350,24 @@ export default class GraphVisualizer extends React.Component {
   };
 
   nodePosHandler = (pos) => {
-    let newPos = 0
-    let nodePos = this.state.nodePos
+    let newPos = 0;
+    let nodePos = this.state.nodePos;
     if (pos === "app") {
-      newPos = this.state.nodePos.appAcc
-      newPos += 1
-      nodePos.appAcc = newPos
+      newPos = this.state.nodePos.appAcc;
+      newPos += 1;
+      nodePos.appAcc = newPos;
       this.setState({
-        nodePos : nodePos
-      })
-
-    }
-    else {
-      newPos = this.state.nodePos.preAcc
-      newPos += 1
-      nodePos.preAcc = newPos
+        nodePos: nodePos,
+      });
+    } else {
+      newPos = this.state.nodePos.preAcc;
+      newPos += 1;
+      nodePos.preAcc = newPos;
       this.setState({
-        nodePos : nodePos
-      })
+        nodePos: nodePos,
+      });
     }
-  }
+  };
   //appends or prepends node
   onClickAppNode = () => {
     console.log("APPEND", this.state.data.nodes, this.state.listInfo);
@@ -377,7 +382,7 @@ export default class GraphVisualizer extends React.Component {
     // Adds node to the nodes array in the state's data
     if (this.state.data.nodes && this.state.data.nodes.length) {
       const newNode = `${this.state.addNodeName}`;
-      this.nodePosHandler('app');
+      this.nodePosHandler("app");
       //create unique node id
       let newid = this.getCount();
 
@@ -388,9 +393,9 @@ export default class GraphVisualizer extends React.Component {
         next: null,
         color: "",
         // eslint-disable-next-line no-restricted-globals
-        x: screen.width / 2 + 120 * this.state.nodePos.appAcc, 
+        x: screen.width / 2 + 120 * this.state.nodePos.appAcc,
         // eslint-disable-next-line no-restricted-globals
-        y: screen.width / 5
+        y: screen.width / 5,
       });
 
       this.setState({
@@ -436,7 +441,7 @@ export default class GraphVisualizer extends React.Component {
     // Adds node to the nodes array in the state's data
     if (this.state.data.nodes && this.state.data.nodes.length) {
       const newNode = `${this.state.preNodeName}`;
-      this.nodePosHandler('pre');
+      this.nodePosHandler("pre");
       //create unique node id
       let newid = this.getCount();
       //add node id
@@ -446,9 +451,9 @@ export default class GraphVisualizer extends React.Component {
         next: null,
         color: "",
         // eslint-disable-next-line no-restricted-globals
-        x: screen.width / 2  - 120 * this.state.nodePos.preAcc, 
+        x: screen.width / 2 - 120 * this.state.nodePos.preAcc,
         // eslint-disable-next-line no-restricted-globals
-        y: screen.width / 5 
+        y: screen.width / 5,
       });
 
       this.setState({
@@ -992,7 +997,7 @@ export default class GraphVisualizer extends React.Component {
                   }}
                 />
               </div>
-              
+
               <h5 class="font-weight-light h6"> Link Color </h5>
               <div id="node" class="input-group mb-3">
                 <input
