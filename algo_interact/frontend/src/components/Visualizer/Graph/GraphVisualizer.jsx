@@ -174,7 +174,6 @@ export default class GraphVisualizer extends React.Component {
       removeNodePlaceholder: "Enter as: name",
       addLinkPlaceholder: "Enter as: source, target, weight",
       removeLinkPlaceholder: "Enter as: source, target",
-      show: "data",
     };
   }
 
@@ -1160,12 +1159,13 @@ export default class GraphVisualizer extends React.Component {
       }, 500);
     }
   };
-  //updates preset
-  showHandler = (choice) => {
+
+  //updates preset directly
+  updatePreset = (choice) => {
     this.setState({
-      show: choice,
+      ...this.state.data = choice
     });
-  };
+  }
 
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, the traversal log and the main graph visualizer component.
@@ -1173,6 +1173,22 @@ export default class GraphVisualizer extends React.Component {
     const neighborItems = this.state.algoData.stack.map((item) => {
       return <li class="list-group-item">{item}</li>;
     });
+
+    //Selections of Presets 
+    const Default = {
+      nodes: [
+        {
+          id: "Harry",
+          color: "",
+          strokeColor: "",
+          // eslint-disable-next-line no-restricted-globals
+          x: screen.width / 2,
+          // eslint-disable-next-line no-restricted-globals
+          y: screen.height / 3,
+        },
+      ],
+      links: [],
+    }
 
     const Office = {
       //apply characteristics for each node
@@ -1221,29 +1237,6 @@ export default class GraphVisualizer extends React.Component {
         { source: "Phyllis", target: "Bob Vance, Vance Refrigeration" },
       ],
     };
-
-    let graph = null;
-    switch (this.state.show) {
-      case "Office":
-        graph = (
-          <Graph
-            id="graph-id"
-            data={Office}
-            config={this.state.config}
-            onRightClickNode={this._onRightClickNode}
-          />
-        );
-        break;
-      default:
-        graph = (
-          <Graph
-            id="graph-id"
-            data={this.state.data}
-            config={this.state.config}
-            onRightClickNode={this._onRightClickNode}
-          />
-        );
-    }
 
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
@@ -1702,14 +1695,13 @@ export default class GraphVisualizer extends React.Component {
           className="extraClass"
         />
 
-        {graph}
-        {/* <Graph
-          //Entry point for passing data to library to be displayed
+       {/*Entry point for passing data to library to be displayed*/}
+        <Graph
           id="graph-id"
           data={this.state.data}
           config={this.state.config}
           onRightClickNode={this._onRightClickNode}
-       /> */}
+       /> 
       </div>
     );
   }
