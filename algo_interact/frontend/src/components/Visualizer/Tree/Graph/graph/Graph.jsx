@@ -238,9 +238,6 @@ export default class Graph extends React.Component {
       draggedNode.oldX = draggedNode.x;
       draggedNode.oldY = draggedNode.y;
 
-      draggedNode.x += d3Event.dx;
-      draggedNode.y += d3Event.dy;
-
       // set nodes fixing coords fx and fy
       draggedNode["fx"] = draggedNode.x;
       draggedNode["fy"] = draggedNode.y;
@@ -469,7 +466,7 @@ export default class Graph extends React.Component {
    * @param {Object} node - an object holding information about the dragged node.
    * @returns {undefined}
    */
-  onNodeositionChange = (node) => {
+  onNodePositionChange = (node) => {
     if (!this.props.onNodePositionChange) {
       return;
     }

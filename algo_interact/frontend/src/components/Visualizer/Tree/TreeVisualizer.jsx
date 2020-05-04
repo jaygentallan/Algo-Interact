@@ -12,9 +12,9 @@ export default class GraphVisualizer extends React.Component {
   // config: the configuration used for the Graph component
   // generatedConfig:
   // data: the data used for the Graph component
-  // nodeIdToBeRemoved: id of the node to be removed which is used in the RemoveNode function
-  // addNodeName: a string used by the AddNode function to set the new node name
-  // removeNodeName: a string used by the RemoveNode function to delete the desired node
+  // nodeIdToBeRemoved: id of the node to be removed which is used in the removeNode function
+  // addNodeName: a string used by the addNode function to set the new node name
+  // removeNodeName: a string used by the removeNode function to delete the desired node
   // addNodePlaceholder: a string used by the addNode input box
   // removeNodePlaceholder: a string used by the removeNode input box
   constructor(props) {
@@ -23,6 +23,7 @@ export default class GraphVisualizer extends React.Component {
     // Default data used by the Graph component
     const data = {
       nodes: [
+        // default data
         {
           id: "Harry",
           color: "",
@@ -31,29 +32,12 @@ export default class GraphVisualizer extends React.Component {
           x: screen.width / 2,
           // eslint-disable-next-line no-restricted-globals
           y: screen.height / 10,
+          level: 0,
           left: false,
           right: false,
+          isRight: false,
+          isRightRight: false,
         },
-        /*
-        {
-          id: "Sally",
-          color: "",
-          strokeColor: "",
-          // eslint-disable-next-line no-restricted-globals
-          x: screen.width / 2.4,
-          // eslint-disable-next-line no-restricted-globals
-          y: screen.height / 5,
-        },
-        {
-          id: "Alice",
-          color: "",
-          strokeColor: "",
-          // eslint-disable-next-line no-restricted-globals
-          x: screen.width / 1.7,
-          // eslint-disable-next-line no-restricted-globals
-          y: screen.height / 5,
-        },
-        */
       ],
       links: [],
     };
@@ -69,7 +53,8 @@ export default class GraphVisualizer extends React.Component {
       nodeHighlightBehavior: true,
       directed: true,
       staticGraph: true,
-      disableLinkForceConfig: false,
+      //staticGraphWithDragAndDrop: true,
+      //disableLinkForce: true,
       rederLabel: true,
       automaticRearrangeAfterDropNode: true,
       height: window.innerHeight * 0.86,
@@ -119,9 +104,9 @@ export default class GraphVisualizer extends React.Component {
   // empty string. Then checks that the data.nodes array in the state is NOT empty and
   // that the length is greater than 0. Then it creates a new node with the value of the
   // addNoneName and links it to a target node if given. Then it updates the state of
-  // data array of the class and resets the addNodeName and addNodePlaceholder.
+  // data array of the class and resets the add///NodeName and addNodePlaceholder.
 
-  AddNode = () => {
+  addNode = () => {
     // Checks if the addNodeName is an empty string
     if (this.state.addNodeName === "") {
       this.setState({
@@ -143,27 +128,68 @@ export default class GraphVisualizer extends React.Component {
       for (let i = 0; i < data.nodes.length; i++) {
         if (parent === data.nodes[i].id) {
           if (!data.nodes[i].left) {
+            let x =
+              data.nodes[i].level === 0
+                ? data.nodes[i].x * (0.468 + (data.nodes[i].level + 1) * 0.05)
+                : data.nodes[i].isRightRight
+                ? data.nodes[i].x * (0.82 + (data.nodes[i].level + 1) * 0.04)
+                : data.nodes[i].isRight
+                ? data.nodes[i].x * (0.77 + (data.nodes[i].level + 1) * 0.04)
+                : data.nodes[i].x * (0.44 + (data.nodes[i].level + 1) * 0.04);
+            let y = data.nodes[i].y * 1.5;
+
             data.nodes.push({
               id: newNode,
-              x: data.nodes[i].x * 0.83,
-              y: data.nodes[i].y * 2,
+              level: data.nodes[i].level + 1,
+              x: x,
+              y: y,
+              isRight: data.nodes[i].isRight,
+              isRightRight: data.nodes[i].isRightRight,
             });
+
             data.nodes[i].left = true;
           } else if (!data.nodes[i].right) {
+            let x =
+              data.nodes[i].level === 0
+                ? data.nodes[i].x * (1.47 + (data.nodes[i].level + 1) * 0.05)
+                : data.nodes[i].isRightRight
+                ? data.nodes[i].x * (1.26 - (data.nodes[i].level + 1) * 0.04)
+                : data.nodes[i].isRight
+                ? data.nodes[i].x * (1.26 - (data.nodes[i].level + 1) * 0.04)
+                : data.nodes[i].x * (1.6 - (data.nodes[i].level + 1) * 0.04);
+            let y = data.nodes[i].y * 1.5;
+
+            let isRightRight =
+              data.nodes[i].level === 1 && data.nodes[i].isRight
+                ? true
+                : data.nodes[i].isRightRight
+                ? true
+                : false;
+
             data.nodes.push({
               id: newNode,
-              x: data.nodes[i].x * 1.18,
-              y: data.nodes[i].y * 2,
+              level: data.nodes[i].level + 1,
+              x: x,
+              y: y,
+              isRight: true,
+              isRightRight: isRightRight,
             });
+
             data.nodes[i].right = true;
           }
+
+          data.links.push({
+            source: parent,
+            target: newNode,
+          });
+
+          this.setState({
+            data: data,
+          });
+
           break;
         }
       }
-
-      this.setState({
-        data: data,
-      });
     } else {
       // 1st node
       const data = {
@@ -226,7 +252,7 @@ export default class GraphVisualizer extends React.Component {
   // is greater than 0. Then filters the original nodes and links arrays in the data array using the
   // removeNodeName of the class state. THen update the class data state along with resetting
   // removeNodeName and removeNodePlaceholder.
-  RemoveNode = () => {
+  removeNode = () => {
     if (this.state.removeNodeName === "") {
       this.setState({
         removeNodePlaceholder: "Please enter a value!",
@@ -299,7 +325,7 @@ export default class GraphVisualizer extends React.Component {
     }
   };
 
-  AddLink = () => {
+  addLink = () => {
     if (this.state.addLink === "") {
       return;
     }
@@ -439,7 +465,7 @@ export default class GraphVisualizer extends React.Component {
     }
   };
 
-  RemoveLink = () => {
+  removeLink = () => {
     if (this.state.removeLink === "") {
       return;
     }
@@ -554,30 +580,30 @@ export default class GraphVisualizer extends React.Component {
     this.setState({ algoData });
   };
   // Handler function that listens to the Remove key press
-  // and calls the AddNode function.
+  // and calls the addNode function.
   _handleAddKeyEnter = (e) => {
     if (e.key === "Enter") {
-      this.AddNode();
+      this.addNode();
     }
   };
 
   // Handler function that listens to the Enter key press
-  // and calls the RemoveNode function.
+  // and calls the removeNode function.
   _handleRemoveKeyEnter = (e) => {
     if (e.key === "Enter") {
-      this.RemoveNode();
+      this.removeNode();
     }
   };
 
   _handleLinkKeyEnter = (e) => {
     if (e.key === "Enter") {
-      this.AddLink();
+      this.addLink();
     }
   };
 
-  _handleRemoveLinkKeyEnter = (e) => {
+  _handleremoveLinkKeyEnter = (e) => {
     if (e.key === "Enter") {
-      this.RemoveLink();
+      this.removeLink();
     }
   };
 
