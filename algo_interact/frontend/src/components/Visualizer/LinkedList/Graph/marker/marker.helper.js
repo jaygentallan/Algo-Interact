@@ -13,7 +13,7 @@ import { MARKERS, SIZES, HIGHLIGHTED } from "./marker.const";
  * @memberof Marker/helper
  */
 function _markerKeyBuilder(size, highlighted) {
-    return `MARKER_${size}${highlighted}`;
+  return `MARKER_${size}${highlighted}`;
 }
 
 /**
@@ -26,13 +26,13 @@ function _markerKeyBuilder(size, highlighted) {
  * @memberof Marker/helper
  */
 function _getMarkerSize(transform, mMax, lMax) {
-    if (transform < mMax) {
-        return SIZES.S;
-    } else if (transform >= mMax && transform < lMax) {
-        return SIZES.M;
-    } else {
-        return SIZES.L;
-    }
+  if (transform < mMax) {
+    return SIZES.S;
+  } else if (transform >= mMax && transform < lMax) {
+    return SIZES.M;
+  } else {
+    return SIZES.L;
+  }
 }
 
 /**
@@ -45,13 +45,13 @@ function _getMarkerSize(transform, mMax, lMax) {
  * @memberof Marker/helper
  */
 function _computeMarkerId(highlight, transform, { maxZoom }) {
-    const mMax = maxZoom / 4;
-    const lMax = maxZoom / 2;
-    const size = _getMarkerSize(transform, mMax, lMax);
-    const highlighted = highlight ? HIGHLIGHTED : "";
-    const markerKey = _markerKeyBuilder(size, highlighted);
+  const mMax = maxZoom / 4;
+  const lMax = maxZoom / 2;
+  const size = SIZES.L;
+  const highlighted = highlight ? HIGHLIGHTED : "";
+  const markerKey = _markerKeyBuilder(size, highlighted);
 
-    return MARKERS[markerKey];
+  return MARKERS[markerKey];
 }
 
 /**
@@ -63,21 +63,21 @@ function _computeMarkerId(highlight, transform, { maxZoom }) {
  * @memberof Marker/helper
  */
 function _memoizedComputeMarkerId() {
-    let cache = {};
+  let cache = {};
 
-    return (highlight, transform, { maxZoom }) => {
-        const cacheKey = `${highlight};${transform};${maxZoom}`;
+  return (highlight, transform, { maxZoom }) => {
+    const cacheKey = `${highlight};${transform};${maxZoom}`;
 
-        if (cache[cacheKey]) {
-            return cache[cacheKey];
-        }
+    if (cache[cacheKey]) {
+      return cache[cacheKey];
+    }
 
-        const markerId = _computeMarkerId(highlight, transform, { maxZoom });
+    const markerId = _computeMarkerId(highlight, transform, { maxZoom });
 
-        cache[cacheKey] = markerId;
+    cache[cacheKey] = markerId;
 
-        return markerId;
-    };
+    return markerId;
+  };
 }
 
 /**

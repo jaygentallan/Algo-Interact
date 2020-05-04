@@ -23,7 +23,7 @@ import {
   forceX as d3ForceX,
   forceY as d3ForceY,
   forceSimulation as d3ForceSimulation,
-  forceManyBody as d3ForceManyBody
+  forceManyBody as d3ForceManyBody,
 } from "d3-force";
 
 import CONST from "./graph.const";
@@ -37,7 +37,7 @@ import {
   pick,
   antiPick,
   throwErr,
-  throwWarning
+  throwWarning,
 } from "../utils";
 import { computeNodeDegree } from "./collapse.helper";
 
@@ -48,7 +48,7 @@ const NODE_PROPS_WHITELIST = [
   "y",
   "index",
   "vy",
-  "vx"
+  "vx",
 ];
 const LINK_PROPS_WHITELIST = ["index", "source", "target", "isHidden"];
 
@@ -126,13 +126,14 @@ function _initializeNodes(graphNodes) {
     const node = graphNodes[i];
 
     node.highlighted = false;
-
     if (!Object.prototype.hasOwnProperty.call(node, "x")) {
-      node.x = 0;
+      // eslint-disable-next-line no-restricted-globals
+      node.x = screen.width / 2 + i * 150;
     }
 
     if (!Object.prototype.hasOwnProperty.call(node, "y")) {
-      node.y = 0;
+      // eslint-disable-next-line no-restricted-globals
+      node.y = screen.height / 3;
     }
 
     nodes[node.id.toString()] = node;
@@ -162,7 +163,7 @@ function _mergeDataLinkWithD3Link(
 ) {
   // find the matching link if it exists
   const tmp = d3Links.find(
-    l => l.source.id === link.source && l.target.id === link.target
+    (l) => l.source.id === link.source && l.target.id === link.target
   );
   const d3Link = tmp && pick(tmp, LINK_PROPS_WHITELIST);
   const customProps = antiPick(link, ["source", "target"]);
@@ -175,7 +176,7 @@ function _mergeDataLinkWithD3Link(
     const refinedD3Link = {
       index,
       ...d3Link,
-      ...customProps
+      ...customProps,
     };
 
     // every time we toggle directed config all links should be visible again
@@ -192,18 +193,18 @@ function _mergeDataLinkWithD3Link(
   const highlighted = false;
   const source = {
     id: link.source,
-    highlighted
+    highlighted,
   };
   const target = {
     id: link.target,
-    highlighted
+    highlighted,
   };
 
   return {
     index,
     source,
     target,
-    ...customProps
+    ...customProps,
   };
 }
 
@@ -254,14 +255,14 @@ function _validateGraphData(data) {
   for (let i = 0; i < n; i++) {
     const l = data.links[i];
 
-    if (!data.nodes.find(n => n.id === l.source)) {
+    if (!data.nodes.find((n) => n.id === l.source)) {
       throwErr(
         "Graph",
         `${ERRORS.INVALID_LINKS} - "${l.source}" is not a valid source node id`
       );
     }
 
-    if (!data.nodes.find(n => n.id === l.target)) {
+    if (!data.nodes.find((n) => n.id === l.target)) {
       throwErr(
         "Graph",
         `${ERRORS.INVALID_LINKS} - "${l.target}" is not a valid target node id`
@@ -315,16 +316,16 @@ function _pickSourceAndTarget(o) {
  */
 
 function checkForGraphElementsChanges(nextProps, currentState) {
-  const nextNodes = nextProps.data.nodes.map(n =>
+  const nextNodes = nextProps.data.nodes.map((n) =>
     antiPick(n, NODE_PROPERTIES_DISCARD_TO_COMPARE)
   );
   const nextLinks = nextProps.data.links;
-  const stateD3Nodes = currentState.d3Nodes.map(n =>
+  const stateD3Nodes = currentState.d3Nodes.map((n) =>
     antiPick(n, NODE_PROPERTIES_DISCARD_TO_COMPARE)
   );
-  const stateD3Links = currentState.d3Links.map(l => ({
+  const stateD3Links = currentState.d3Links.map((l) => ({
     source: getId(l.source),
-    target: getId(l.target)
+    target: getId(l.target),
   }));
   const graphElementsUpdated = !(
     isDeepEqual(nextNodes, stateD3Nodes) && isDeepEqual(nextLinks, stateD3Links)
@@ -415,14 +416,14 @@ function getId(sot) {
  * @returns {Object} a fully (re)initialized graph state object.
  * @memberof Graph/helper
  */
-function initializeGraphState({ data, id, config, algoData }, state) {
+function initializeGraphState({ data, id, config }, state) {
   _validateGraphData(data);
 
   let graph;
 
   if (state && state.nodes) {
     graph = {
-      nodes: data.nodes.map(n =>
+      nodes: data.nodes.map((n) =>
         state.nodes[n.id]
           ? { ...n, ...pick(state.nodes[n.id], NODE_PROPS_WHITELIST) }
           : { ...n }
@@ -435,12 +436,12 @@ function initializeGraphState({ data, id, config, algoData }, state) {
           config,
           state
         )
-      )
+      ),
     };
   } else {
     graph = {
-      nodes: data.nodes.map(n => ({ ...n })),
-      links: data.links.map(l => ({ ...l }))
+      nodes: data.nodes.map((n) => ({ ...n })),
+      links: data.links.map((l) => ({ ...l })),
     };
   }
 
@@ -474,7 +475,7 @@ function initializeGraphState({ data, id, config, algoData }, state) {
     newGraphElements: false,
     configUpdated: false,
     transform: 1,
-    draggedNode: null
+    draggedNode: null,
   };
 }
 
@@ -508,7 +509,7 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
 
   return {
     nodes: updatedNodes,
-    highlightedNode
+    highlightedNode,
   };
 }
 
@@ -518,5 +519,5 @@ export {
   getCenterAndZoomTransformation,
   getId,
   initializeGraphState,
-  updateNodeHighlightedValue
+  updateNodeHighlightedValue,
 };

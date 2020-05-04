@@ -4,14 +4,14 @@
  * Some methods that help no the process of rendering a node.
  */
 import {
-    symbolCircle as d3SymbolCircle,
-    symbolCross as d3SymbolCross,
-    symbolDiamond as d3SymbolDiamond,
-    symbolSquare as d3SymbolSquare,
-    symbolStar as d3SymbolStar,
-    symbolTriangle as d3SymbolTriangle,
-    symbolWye as d3SymbolWye,
-    symbol as d3Symbol,
+  symbolCircle as d3SymbolCircle,
+  symbolCross as d3SymbolCross,
+  symbolDiamond as d3SymbolDiamond,
+  symbolSquare as d3SymbolSquare,
+  symbolStar as d3SymbolStar,
+  symbolTriangle as d3SymbolTriangle,
+  symbolWye as d3SymbolWye,
+  symbol as d3Symbol,
 } from "d3-shape";
 
 import CONST from "./node.const";
@@ -25,24 +25,24 @@ import CONST from "./node.const";
  * @memberof Node/helper
  */
 function _convertTypeToD3Symbol(typeName) {
-    switch (typeName) {
-        case CONST.SYMBOLS.CIRCLE:
-            return d3SymbolCircle;
-        case CONST.SYMBOLS.CROSS:
-            return d3SymbolCross;
-        case CONST.SYMBOLS.DIAMOND:
-            return d3SymbolDiamond;
-        case CONST.SYMBOLS.SQUARE:
-            return d3SymbolSquare;
-        case CONST.SYMBOLS.STAR:
-            return d3SymbolStar;
-        case CONST.SYMBOLS.TRIANGLE:
-            return d3SymbolTriangle;
-        case CONST.SYMBOLS.WYE:
-            return d3SymbolWye;
-        default:
-            return d3SymbolCircle;
-    }
+  switch (typeName) {
+    case CONST.SYMBOLS.CIRCLE:
+      return d3SymbolCircle;
+    case CONST.SYMBOLS.CROSS:
+      return d3SymbolCross;
+    case CONST.SYMBOLS.DIAMOND:
+      return d3SymbolDiamond;
+    case CONST.SYMBOLS.SQUARE:
+      return d3SymbolSquare;
+    case CONST.SYMBOLS.STAR:
+      return d3SymbolStar;
+    case CONST.SYMBOLS.TRIANGLE:
+      return d3SymbolTriangle;
+    case CONST.SYMBOLS.WYE:
+      return d3SymbolWye;
+    default:
+      return d3SymbolCircle;
+  }
 }
 
 /**
@@ -53,12 +53,15 @@ function _convertTypeToD3Symbol(typeName) {
  * @returns {Object} concrete instance of d3 symbol.
  * @memberof Node/helper
  */
-function buildSvgSymbol(size = CONST.DEFAULT_NODE_SIZE, symbolTypeDesc = CONST.SYMBOLS.CIRCLE) {
-    return d3Symbol()
-        .size(() => size)
-        .type(() => _convertTypeToD3Symbol(symbolTypeDesc))();
+function buildSvgSymbol(
+  size = CONST.DEFAULT_NODE_SIZE,
+  symbolTypeDesc = CONST.SYMBOLS.WYE
+) {
+  return d3Symbol()
+    .size(() => size)
+    .type(d3SymbolTriangle)();
 }
 
 export default {
-    buildSvgSymbol,
+  buildSvgSymbol,
 };
