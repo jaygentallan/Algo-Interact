@@ -87,8 +87,7 @@ h1.name.text-center {
 }
 
 .rightWindow {
-  height: 36.6em;
-  width: 17em;
+  height: 16em !important;
   position: absolute;
   right: 0px;
 }
