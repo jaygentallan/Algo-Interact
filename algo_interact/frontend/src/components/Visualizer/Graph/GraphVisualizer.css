@@ -88,6 +88,7 @@ h1.name.text-center {
 
 .rightWindow {
   height: 16em !important;
+  width: 3em;
   position: absolute;
   right: 0px;
 }
@@ -230,7 +231,7 @@ div.form-check {
 .presetButton.font-weight-light {
   font-size: 1.2em;
   padding-top: 0em;
-  padding-left: 0.3em;
+  width: 1.6em !important;
   color: #c34f6b;
   margin-left: auto;
   margin-right: 0.75em;
@@ -238,6 +239,7 @@ div.form-check {
 
 .icon {
   position: relative;
+  right: 0.35em;
   bottom: 0.15em;
 }
 
