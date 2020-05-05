@@ -54,11 +54,12 @@ class Learn extends Component {
             text="Graph is the non-linear data structure which is used to represent data networks."
             image="/images/graphpicture.png"
             tab1title="Description"
-            tab1text="-It consist of nodes and edges and sometimes we can say that nodes are vertices and edges are line or arc
-                      -It is used to show real time problems
-                      -Graph can be used in social network sites like facebook linkedin etc.
-                      -Each nodes are contains information about data.
-                      -Graph are of different types like directed, undirected and weight graphs."
+            tab1text={<ul><li>It consist of nodes and edges and sometimes we can say that nodes are vertices and edges are line or arc</li>
+                      <li>It is used to show real time problems</li>
+                      <li>Graph can be used in social network sites like facebook linkedin etc.</li>
+                      <li>Each nodes are contains information about data.</li>
+                      <li>Each nodes are contains information about data.</li>
+                    </ul>}
             tab2title="Time Complexity"
             tab2text="Time complexity of graph is O(V+E) where V represent number of vertices "
             tab3image="Fun Facts"
@@ -72,15 +73,17 @@ class Learn extends Component {
                 multiple subtree and they can have also no any subtree but still is called tree data structure, 
                 there are some points to be remember. "
             tab1title="Description"
-            tab1text="-Tree is the hieraricial data structure which an store data member in hierical manner
-                      - Height of tree should be depend on subtree of the tree.
-                      - It provides the best searching and inserting the data into tree.
-                      - it provides the best searching and inserting the data into tree
-                      - Tree are of different types like Binary search tree, AVL tree, binary tree etc."
+            tab1text={<ul> <li>Tree is the hieraricial data structure which an store data member in hierical manner</li>
+                      <li>Height of tree should be depend on subtree of the tree.</li>
+                      <li>In the Tree data structure there is node, edge, leaf nodes and child node.</li>
+                      <li>Provides the best searching and inserting the data into tree</li>
+                      <li>Tree are of different types like Binary Search (tree, AVL tree, binary tree etc.)</li>
+                      </ul>}
             tab2title="Time Complexity of Tree"
             tab2text="In general time complexity of tree will be O(h). it can be different operations. it can be also best and worst time 
                       complexity."
             image="/images/treepicture.png"
+            tab1image="/images/treepicture.png"
           />
 
           <LearnCard
@@ -90,17 +93,34 @@ class Learn extends Component {
                   data member in different memory locations. it is the technic of improving of wasting of memory in the database or we can say 
                   that to save the memory."
             tab1title="Description"
-            tab1text="-it saves the wasting of memory
-                      -it is easier to add, delte or change the data into database
-                      it can not use contiguous memory locations.
-                      -all the nodes are linked with reference link so that each node can be connected to each other and perform operations
-                      -Linked List can be of two types single linked list and double linked list. "
+            tab1text={<ul> <li>It saves the wasting of memory</li>
+              <li>It is easier to add, delete or change the data into database.</li>
+              <li>It can not use contiguous memory locations.</li>
+              <li>All the nodes are linked with references link so that each node can be connected to each other and perforrm operations.</li>
+              <li>Linkee List can be of two types Single Linked list and Double linked list</li>
+              </ul>}
             tab2title="Average Time Complexity of Linked List"
             tab2text="O(n)"
             tab3title="Average Time Complexity of Linked List"
             tab3text="O(1)"
-            image="/images/linkedlistpicture.png"
+            image="/images/linkedlist.png"
+            tab1image="/images/linkedlist.png"
           />
+
+          <LearnCard
+            title="Binary Search Tree"
+            Text="In Binary tree, every tree elements have at least 2 children so its called binary tree"
+            tab1title="Description"
+            tab1text={<ul> <li>Since every element have only 2 children, they are typically named as left and right child.</li>
+              <li>In tree, nodes with no children are called laves, or external nodes</li>
+              <li>Nodes which are not leaves are called internal nodes</li>
+              <li>The topmost node in the tree is called root.</li>
+              <li>Height of the binary tree - The height of a node is the number of edges from the node to the deepest leaf.</li>
+              <li>The height of a tree is a height of the tree</li>
+              </ul>}
+            image="/images/binarysearch.png"
+            tab1image="/images/binarysearch.png"
+            />
           
         </Carousel>
         <br></br>
@@ -124,23 +144,44 @@ class Learn extends Component {
         >
           <LearnCard
             title="Breadth First Search"
-            text="it uses queue to find the goal node .it explore all the neighbour vertex not current level before moving to next level."
+            text="The Breadth first search is another fundamental search algorithm used to explore nodes and edges of a graph. It runs with a time complexity of o(v+e) and is often used as a building block in other algorithms."
+            tab1title="Description"
+            tab1text={<ul> <li>The BFS algorithm is  particularly useful for one thing: finding the shortest path  on unsweighted graphs.</li>
+              <li>Height of tree should be depend on subtree of the tree.</li>
+              <li></li>
+              </ul>}
+            image="/images/braedth.png"
+
           />
           <LearnCard
             title="Depth First Search"
-            text="It uses stack to find the goal node .it goes deeper as depper of a node until goal is found then perform recursive tracking."
+            text="The Depth First Search (DFS) is the most fundamental search algorithm used to explore nodes and edges of a graph."
             tab1title="Description"
-            tab1text="Foe a graph, DFS gives minimum Spanning tree and the Shortest paths of all pairs."
-            image="/images/depthfirstsearchpicture.png"
+            tab1text={<ul> <li>by itself the DFS isn't all the useful, but when augmented to perform other tasks such as connectively, or find bridges/articulation points then DFS really shines</li>
+              <li>It runs with a time complexity of O(V+E) and is often used as a building block in other algorithms.</li>
+              <li>It uses stack to find the goal Node. it goes deeper as deeper node until goal is found then perform recursive tracking.</li>
+              </ul>}
+            tab1image="/images/dfs.png"
+            image="/images/depthfirst.png"
+            
           />
           <LearnCard
             title="Dijkstra Algorithm"
             text="Description for third algorithm here."
+            image="/images/dijkstra.png"
           />
 
           <LearnCard
-            title="Algorithm 4"
+            title="Tree Algorithm "
             text="Description for fourth algorithm here."
+            image="/images/treetraversal.png"
+            tab1title="Preorder Traversal"
+            tab1text="In this algorithm we visit root first, then traverse the left subtree, then traverse the right subtree."
+            tab1image="/images/preorderpic.png"
+            tab2title="Inorder Traversal"
+            tab2text="In This algorithm we Traverse the left subtree is visited first, and then root and after the right subtree, always remember that every node represent subtree itself."
+            tab2image="/images/inorder.png"
+            
           />
         </Carousel>
         <div class="container p-5"></div>
