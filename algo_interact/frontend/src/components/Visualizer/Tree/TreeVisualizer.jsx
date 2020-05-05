@@ -44,7 +44,7 @@ export default class GraphVisualizer extends React.Component {
 
     const tree = [
       {
-        Harry: [],
+        Harry: {},
       },
     ];
 
@@ -92,10 +92,8 @@ export default class GraphVisualizer extends React.Component {
       addNodeName: "",
       removeNodeName: "",
       addLink: "",
-      addNodePlaceholder: "Enter as: name",
+      addNodePlaceholder: "Enter as: name, parent, L / R",
       removeNodePlaceholder: "Enter as: name",
-      addLinkPlaceholder: "Enter as: source, target, weight",
-      removeLinkPlaceholder: "Enter as: source, target",
       key: "", //state for Algorithm tabs
     };
   }
@@ -118,16 +116,29 @@ export default class GraphVisualizer extends React.Component {
     // Adds node to the nodes array in the state's data
     if (this.state.data.nodes && this.state.data.nodes.length) {
       var data = this.state.data;
-      let newNode, parent;
-      [newNode, parent] = this.state.addNodeName
+      let newNode, parent, side;
+      [newNode, parent, side] = this.state.addNodeName
         .split(/[ ,]+/)
         .filter(function (e) {
           return e.trim().length > 0;
         });
 
+      // Do some error checking
+      // prettier-ignore
+      if (newNode === "" || parent === "" || side === "" || (side !== "l" && side !== "r" && side !== "L" && side !== "R")) {
+        this.setState({
+          addNodeName: "",
+        })
+        return;
+      }
+
+      var tree = this.state.algoData.tree;
+
       for (let i = 0; i < data.nodes.length; i++) {
         if (parent === data.nodes[i].id) {
-          if (!data.nodes[i].left) {
+          // Determines if node is to be places on the left or right side of the parent node
+          // Then calculate the position by using a formula.
+          if ((side === "l" || side === "L") && !data.nodes[i].left) {
             let x =
               data.nodes[i].level === 0
                 ? data.nodes[i].x * (0.468 + (data.nodes[i].level + 1) * 0.05)
@@ -148,7 +159,24 @@ export default class GraphVisualizer extends React.Component {
             });
 
             data.nodes[i].left = true;
-          } else if (!data.nodes[i].right) {
+
+            // Used to determine if parent already exists in tree list
+            let exists = false;
+
+            // Put new node in tree list
+            for (let i = 0; i < tree.length; i++) {
+              if (parent in tree[i]) {
+                tree[i][parent]["left"] = newNode;
+                exists = true;
+              }
+            }
+
+            if (!exists) {
+              let newParent = {};
+              newParent[parent] = { left: newNode };
+              tree.push(newParent);
+            }
+          } else if ((side === "r" || side === "R") && !data.nodes[i].right) {
             let x =
               data.nodes[i].level === 0
                 ? data.nodes[i].x * (1.47 + (data.nodes[i].level + 1) * 0.05)
@@ -176,15 +204,40 @@ export default class GraphVisualizer extends React.Component {
             });
 
             data.nodes[i].right = true;
+
+            // Used to determine if parent already exists in tree list
+            let exists = false;
+
+            // Put new node in tree list
+            for (let i = 0; i < tree.length; i++) {
+              if (parent in tree[i]) {
+                tree[i][parent]["right"] = newNode;
+                exists = true;
+              }
+            }
+
+            if (!exists) {
+              let newParent = {};
+              newParent[parent] = { right: newNode };
+              tree.push(newParent);
+            }
           }
 
+          // Form link between parent and node
           data.links.push({
             source: parent,
             target: newNode,
           });
 
+          console.log(tree);
+
+          var algoData = this.state.algoData;
+          algoData.tree = tree;
+
+          // Set state data into the current data object we have
           this.setState({
             data: data,
+            algoData: algoData,
           });
 
           break;
@@ -259,7 +312,14 @@ export default class GraphVisualizer extends React.Component {
       });
       return;
     }
-    if (this.state.data.nodes && this.state.data.nodes.length >= 1) {
+    if (this.state.data.nodes.length === 1) {
+      this.setState({
+        removeNodeName: "",
+        removeNodePlaceholder: "Cannot remove last node!",
+      });
+      return;
+    }
+    if (this.state.data.nodes && this.state.data.nodes.length > 1) {
       const nodes = this.state.data.nodes.filter(
         (l) => l.id !== this.state.removeNodeName
       );
@@ -305,15 +365,6 @@ export default class GraphVisualizer extends React.Component {
             undirected_neighbors: undirected_neighbors,
             directed_neighbors: directed_neighbors,
           });
-
-          console.log(
-            "Removed from UNDIRECTED_NEIGHBORS: ",
-            this.state.algoData.undirected_neighbors
-          );
-          console.log(
-            "Removed from DIRECTED NEIGHBORS: ",
-            this.state.algoData.directed_neighbors
-          );
         }
       }
 
@@ -659,7 +710,6 @@ export default class GraphVisualizer extends React.Component {
   };
 
   depthFirstSearch = () => {
-    console.log(this.state.algoData.neighbors);
     if (
       this.state.algoData.startNode !== "" &&
       this.state.algoData.endNode !== ""
@@ -869,7 +919,6 @@ export default class GraphVisualizer extends React.Component {
 
     this.sucessHandler = (msg) => {
       // If things go well
-      console.log(msg); //check console for msg from resolve
       const origNodes = this.state.data.nodes;
 
       origNodes.forEach((node) => {
@@ -945,7 +994,6 @@ export default class GraphVisualizer extends React.Component {
     const nodes = [...this.state.data.nodes];
 
     for (let i = 0; i < 5; i++) {
-      console.log(i);
       //store newNode updates at the proper index of the copy
       nodes[nodeIndex] = newNode;
       this.setState({
@@ -953,7 +1001,6 @@ export default class GraphVisualizer extends React.Component {
       });
 
       setTimeout(() => {
-        console.log("POP");
         nodes[nodeIndex] = origNode;
         this.setState({ ...(this.state.data.nodes = nodes) });
       }, 500);
@@ -973,8 +1020,6 @@ export default class GraphVisualizer extends React.Component {
         <div class="tLog fixed-bottom">
           <ul class="list-group list-group-flush">{neighborItems}</ul>
         </div>
-
-        {console.log("GRAPH")}
 
         <div class="leftWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
@@ -1246,7 +1291,7 @@ export default class GraphVisualizer extends React.Component {
             <Dropdown.Menu>
               <div className="json-data-container mt-3">
                 <TreeView class="nodes" key="nodes" nodeLabel="Nodes">
-                  {this.state.data.nodes.map((node, i) => {
+                  {this.state.algoData.tree.map((node, i) => {
                     const type = node.type;
                     const name = node.id;
 
@@ -1258,13 +1303,18 @@ export default class GraphVisualizer extends React.Component {
                           <TreeView key={type + "|" + i} nodeLabel={name}>
                             <TreeView
                               key={type + "|" + i}
-                              nodeLabel="neighbors: "
+                              nodeLabel="children: "
                             >
-                              {neighbors[i][name].map((neighbor, i) => {
-                                return (
-                                  <div className="info">{neighbor[0]}</div>
-                                );
-                              })}
+                              {Object.keys(neighbors[i][name]).map(
+                                (side, child) => {
+                                  return (
+                                    <div className="info">
+                                      {" "}
+                                      {side} : {child}{" "}
+                                    </div>
+                                  );
+                                }
+                              )}
                             </TreeView>
                           </TreeView>
                         );
