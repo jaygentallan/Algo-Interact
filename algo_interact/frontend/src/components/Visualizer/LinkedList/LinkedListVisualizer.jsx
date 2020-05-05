@@ -500,7 +500,14 @@ export default class GraphVisualizer extends React.Component {
       });
       return;
     }
-    if (this.state.data.nodes && this.state.data.nodes.length >= 1) {
+    if (this.state.data.nodes.length === 1) {
+      this.setState({
+        removeNodeName: "",
+        removeNodePlaceholder: "Cannot remove last node!",
+      });
+      return;
+    }
+    if (this.state.data.nodes && this.state.data.nodes.length > 1) {
       const nodes = this.state.data.nodes.filter(
         (l) => l.id !== this.state.removeNodeName
       );

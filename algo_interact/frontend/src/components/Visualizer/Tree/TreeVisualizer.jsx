@@ -259,7 +259,14 @@ export default class GraphVisualizer extends React.Component {
       });
       return;
     }
-    if (this.state.data.nodes && this.state.data.nodes.length >= 1) {
+    if (this.state.data.nodes.length === 1) {
+      this.setState({
+        removeNodeName: "",
+        removeNodePlaceholder: "Cannot remove last node!",
+      });
+      return;
+    }
+    if (this.state.data.nodes && this.state.data.nodes.length > 1) {
       const nodes = this.state.data.nodes.filter(
         (l) => l.id !== this.state.removeNodeName
       );
@@ -305,15 +312,6 @@ export default class GraphVisualizer extends React.Component {
             undirected_neighbors: undirected_neighbors,
             directed_neighbors: directed_neighbors,
           });
-
-          console.log(
-            "Removed from UNDIRECTED_NEIGHBORS: ",
-            this.state.algoData.undirected_neighbors
-          );
-          console.log(
-            "Removed from DIRECTED NEIGHBORS: ",
-            this.state.algoData.directed_neighbors
-          );
         }
       }
 
