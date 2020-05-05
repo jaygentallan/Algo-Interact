@@ -1623,7 +1623,7 @@ export default class GraphVisualizer extends React.Component {
               id="dropdown-basic"
               className="presetButton font-weight-light"
               type="submit" //activate Algorithm
-              onClick={() => this.showHandler("data")} //Should call selected algorithm
+              onClick={() => this.updatePreset(Default)} //Should call selected algorithm
             >
               <div class="icon">
                 <svg
@@ -1657,7 +1657,7 @@ export default class GraphVisualizer extends React.Component {
               id="dropdown-basic"
               className="presetButton font-weight-light"
               type="submit" //activate Algorithm
-              onClick={() => this.showHandler("Office")} //Should call selected algorithm
+              onClick={() => this.updatePreset(Office)} //Should call selected algorithm
             >
               <div class="icon">
                 <svg
