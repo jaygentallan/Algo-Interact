@@ -6,6 +6,7 @@ import { Dropdown, Form, Button } from "react-bootstrap";
 import "./GraphVisualizer.css";
 //import LeftWindow from "../../LeftVdWindow/LeftWindow";
 
+// Priority Queue class used for Dijkstra's Algorithm
 class PriorityQueue {
   constructor() {
     this.values = [];
@@ -174,7 +175,6 @@ export default class GraphVisualizer extends React.Component {
       removeNodePlaceholder: "Enter as: name",
       addLinkPlaceholder: "Enter as: source, target, weight",
       removeLinkPlaceholder: "Enter as: source, target",
-      show: "data",
     };
   }
 
@@ -269,7 +269,14 @@ export default class GraphVisualizer extends React.Component {
       });
       return;
     }
-    if (this.state.data.nodes && this.state.data.nodes.length >= 1) {
+    if (this.state.data.nodes.length === 1) {
+      this.setState({
+        removeNodeName: "",
+        removeNodePlaceholder: "Cannot remove last node!",
+      });
+      return;
+    }
+    if (this.state.data.nodes && this.state.data.nodes.length > 1) {
       const nodes = this.state.data.nodes.filter(
         (l) => l.id !== this.state.removeNodeName
       );
@@ -341,6 +348,7 @@ export default class GraphVisualizer extends React.Component {
     }
     if (this.state.data.nodes && this.state.data.nodes.length) {
       let source, target, weight;
+
       [source, target, weight] = this.state.addLink
         .split(/[ ,]+/)
         .filter(function (e) {
@@ -760,7 +768,7 @@ export default class GraphVisualizer extends React.Component {
               for (let j = 0; j < neighbors[i][curr].length; j++) {
                 const newNode = neighbors[i][curr][j][0];
                 if (newNode in visited) {
-                  console.log("VISITED");
+                  console.log("VISITED ");
                   continue;
                 }
 
@@ -989,57 +997,6 @@ export default class GraphVisualizer extends React.Component {
         }
 
         this.resetState(counter);
-        /*
-        // Initializes all the variables needed for the breadth-first search
-        this.state.algoData.queue = [];
-        this.state.algoData.queue.push(startNode);
-        var counter = 0;
-        visited[startNode] = startNode;
-
-        while (
-          this.state.algoData.queue !== undefined ||
-          this.state.algoData.queue.length !== 0
-        ) {
-          const curr = this.state.algoData.queue.shift();
-          if (curr === endNode) {
-            for (let i = 0; i < 5; i++) {
-              setTimeout(() => this.foundTarget(endNode), 1200 * counter);
-              counter++;
-            }
-            console.log("FOUND TARGET");
-            this.resetState(counter);
-            return;
-          }
-
-          setTimeout(
-            () => this.highlightHandler(curr, counter),
-            1000 * (counter + 1)
-          );
-          counter++;
-
-          for (let i = 0; i < neighbors.length; i++) {
-            if (
-              curr in neighbors[i] &&
-              neighbors[i][curr] !== null &&
-              neighbors[i][curr].length !== 0
-            ) {
-              for (let j = 0; j < neighbors[i][curr].length; j++) {
-                const newNode = neighbors[i][curr][j][0];
-                if (newNode in visited) {
-                  console.log("VISITED");
-                  continue;
-                }
-
-                this.state.algoData.queue.push(newNode);
-                visited[newNode] = newNode;
-              }
-            }
-          }
-        }
-
-        // Reset node color state after DFS is done
-        this.resetState();
-        */
       } else {
         console.log("FAILURE!!!");
       }
@@ -1160,10 +1117,15 @@ export default class GraphVisualizer extends React.Component {
       }, 500);
     }
   };
-  //updates preset
-  showHandler = (choice) => {
+
+  //updates preset directly
+  updatePreset = (data, neighbors) => {
     this.setState({
-      show: choice,
+      ...(this.state.data = data),
+      ...(this.state.algoData.undirected_neighbors =
+        neighbors["undirected_neighbors"]),
+      ...(this.state.algoData.directed_neighbors =
+        neighbors["directed_neighbors"]),
     });
   };
 
@@ -1174,8 +1136,29 @@ export default class GraphVisualizer extends React.Component {
       return <li class="list-group-item">{item}</li>;
     });
 
+    //Selections of Presets
+    const Default = {
+      nodes: [
+        {
+          id: "Harry",
+          color: "",
+          strokeColor: "",
+          // eslint-disable-next-line no-restricted-globals
+          x: screen.width / 2,
+          // eslint-disable-next-line no-restricted-globals
+          y: screen.height / 3,
+        },
+      ],
+      links: [],
+    };
+
+    const DefaultNeighbors = {
+      undirected_neighbors: [{ Harry: [] }],
+      directed_neighbors: [{ Harry: [] }],
+    };
+
+    // The Office preset data, contains the nodes and links lists
     const Office = {
-      //apply characteristics for each node
       nodes: [
         { id: "Michael", color: "", strokeColor: "" },
         { id: "Jim", color: "", strokeColor: "" },
@@ -1199,51 +1182,81 @@ export default class GraphVisualizer extends React.Component {
         { id: "Bob Vance, Vance Refrigeration" },
       ],
       links: [
-        { source: "Michael", target: "Jan" },
-        { source: "Michael", target: "Holly" },
-        { source: "Michael", target: "Ryan" },
-        { source: "Michael", target: "Jim" },
-        { source: "Michael", target: "Toby" },
-        { source: "Jim", target: "Pam" },
-        { source: "Jim", target: "Karen" },
-        { source: "Jim", target: "Dwight" },
-        { source: "Pam", target: "Roy" },
-        { source: "Dwight", target: "Angela" },
-        { source: "Dwight", target: "Andy" },
-        { source: "Andy", target: "Erin" },
-        { source: "Ryan", target: "Kelly" },
-        { source: "Angela", target: "Oscar" },
-        { source: "Angela", target: "Kevin" },
-        { source: "Angela", target: "Senator" },
-        { source: "Oscar", target: "Senator" },
-        { source: "Oscar", target: "Phyllis" },
-        { source: "Phyllis", target: "Stanley" },
-        { source: "Phyllis", target: "Bob Vance, Vance Refrigeration" },
+        { source: "Michael", target: "Jan", label: 50 },
+        { source: "Michael", target: "Holly", label: 5 },
+        { source: "Michael", target: "Ryan", label: 20 },
+        { source: "Michael", target: "Jim", label: 10 },
+        { source: "Michael", target: "Toby", label: 100 },
+        { source: "Jim", target: "Pam", label: 0 },
+        { source: "Jim", target: "Karen", label: 30 },
+        { source: "Jim", target: "Dwight", label: 15 },
+        { source: "Pam", target: "Roy", label: 75 },
+        { source: "Dwight", target: "Angela", label: 5 },
+        { source: "Dwight", target: "Andy", label: 25 },
+        { source: "Andy", target: "Erin", label: 35 },
+        { source: "Ryan", target: "Kelly", label: 5 },
+        { source: "Angela", target: "Oscar", label: 60 },
+        { source: "Angela", target: "Kevin", label: 40 },
+        { source: "Angela", target: "Senator", label: 10 },
+        { source: "Oscar", target: "Senator", label: 15 },
+        { source: "Oscar", target: "Phyllis", label: 20 },
+        { source: "Phyllis", target: "Stanley", label: 10 },
+        {
+          source: "Phyllis",
+          target: "Bob Vance, Vance Refrigeration",
+          label: 0,
+        },
       ],
     };
 
-    let graph = null;
-    switch (this.state.show) {
-      case "Office":
-        graph = (
-          <Graph
-            id="graph-id"
-            data={Office}
-            config={this.state.config}
-            onRightClickNode={this._onRightClickNode}
-          />
-        );
-        break;
-      default:
-        graph = (
-          <Graph
-            id="graph-id"
-            data={this.state.data}
-            config={this.state.config}
-            onRightClickNode={this._onRightClickNode}
-          />
-        );
-    }
+    // The Office neighbors list, used by the traversal algorithms.
+    // prettier-ignore
+    const OfficeNeighbors = {
+      undirected_neighbors: [
+        { Michael: [["Jan", 50], ["Holly", 5], ["Ryan", 20], ["Jim", 10], ["Toby", 100]] },
+        { Jan: [["Michael", 50]] },
+        { Holly: [["Michael", 5]] },
+        { Toby: [["Michael", 100]] },
+        { Jim: [["Michael", 10], ["Pam", 0], ["Karen", 30], ["Dwight", 15]] },
+        { Pam: [["Jim", 0], ["Roy", 75]] },
+        { Karen: [["Jim", 30]] },
+        { Roy: [["Pam", 75]] },
+        { Dwight: [["Jim", 15], ["Angela", 5], ["Andy", 25]] },
+        { Andy: [["Dwight", 25], ["Erin", 35]] },
+        { Erin: [["Andy", 35]] },
+        { Ryan: [["Michael", 20], ["Kelly", 5]] },
+        { Kelly: [["Ryan", 5]] },
+        { Angela: [["Dwight", 5], ["Oscar", 60], ["Kevin", 40], ["Senator", 10]] },
+        { Oscar: [["Angela", 60], ["Senator", 15], ["Phyllis", 20]] },
+        { Kevin: [["Angela", 40]] },
+        { Senator: [["Angela", 10], ["Oscar", 15]] },
+        { Phyllis: [["Stanley", 10], ["Bob Vance, Vance Refrigeration", 0]] },
+        { Stanley: [["Phyllis", 10]] },
+        { "Bob Vance, Vance Refrigeration": [["Phyllis", 0]] },
+      ],
+      directed_neighbors: [
+        { Michael: [["Jan", 50], ["Holly", 5], ["Ryan", 20], ["Jim", 10], ["Toby", 100]] },
+        { Jan: [] },
+        { Holly: [] },
+        { Toby: [] },
+        { Jim: [["Pam", 0], ["Karen", 30], ["Dwight", 15]] },
+        { Pam: [["Roy", 75]] },
+        { Karen: [] },
+        { Roy: [] },
+        { Dwight: [["Angela", 5], ["Andy", 25]] },
+        { Andy: [["Erin", 35]] },
+        { Erin: [] },
+        { Ryan: [["Kelly", 5]] },
+        { Kelly: [] },
+        { Angela: [["Oscar", 60], ["Kevin", 40], ["Senator", 10]] },
+        { Oscar: [["Senator", 15], ["Phyllis", 20]] },
+        { Kevin: [] },
+        { Senator: [] },
+        { Phyllis: [["Stanley", 10], ["Bob Vance, Vance Refrigeration", 0]] },
+        { Stanley: [] },
+        { "Bob Vance, Vance Refrigeration": [] },
+       ],
+    };
 
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
@@ -1630,9 +1643,9 @@ export default class GraphVisualizer extends React.Component {
               id="dropdown-basic"
               className="presetButton font-weight-light"
               type="submit" //activate Algorithm
-              onClick={() => this.showHandler("data")} //Should call selected algorithm
+              onClick={() => this.updatePreset(Default, DefaultNeighbors)} //Should call selected algorithm
             >
-              <div class="icon">
+              <div class="iconPresets">
                 <svg
                   class="bi bi-arrow-repeat"
                   width="1em"
@@ -1664,9 +1677,9 @@ export default class GraphVisualizer extends React.Component {
               id="dropdown-basic"
               className="presetButton font-weight-light"
               type="submit" //activate Algorithm
-              onClick={() => this.showHandler("Office")} //Should call selected algorithm
+              onClick={() => this.updatePreset(Office, OfficeNeighbors)} //Should call selected algorithm
             >
-              <div class="icon">
+              <div class="iconPresets">
                 <svg
                   class="bi bi-building"
                   width="1em"
@@ -1702,14 +1715,13 @@ export default class GraphVisualizer extends React.Component {
           className="extraClass"
         />
 
-        {graph}
-        {/* <Graph
-          //Entry point for passing data to library to be displayed
+        {/*Entry point for passing data to library to be displayed*/}
+        <Graph
           id="graph-id"
           data={this.state.data}
           config={this.state.config}
           onRightClickNode={this._onRightClickNode}
-       /> */}
+        />
       </div>
     );
   }
