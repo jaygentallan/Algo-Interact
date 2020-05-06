@@ -1650,6 +1650,16 @@ export default class GraphVisualizer extends React.Component {
               </div>
             </Button>
           </div>
+
+          <div class="row pt-3">
+            <Button
+              class = "help-button"
+              variant="success"
+              size="med"
+            >
+              ?
+            </Button>
+          </div>
         </div>
         {/*Presets End */}
 
