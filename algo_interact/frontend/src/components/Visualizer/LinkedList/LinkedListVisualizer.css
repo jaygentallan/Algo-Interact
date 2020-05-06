@@ -261,17 +261,18 @@ div.box .tLog .list-group {
 }
 
 .listInfo {
-  position: fixed;
+  position: absolute;
+  right: 1em;
   margin: 0;
   padding: 0;
-  left: 1040px;
-  top: 100px;
-  border: 1.5px solid #c34f6b;
-  border-radius: 15px;
+  border: 0.08em solid #c34f6b;
+  border-radius: 0.5em;
   width: 210px;
   height: 100px;
+  background-color: white;
 }
 
 h5 {
-  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
 }

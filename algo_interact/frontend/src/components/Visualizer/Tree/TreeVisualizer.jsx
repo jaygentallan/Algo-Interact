@@ -64,10 +64,13 @@ export default class GraphVisualizer extends React.Component {
       node: {
         color: "#c34f6b",
         size: 600,
-        highlightStrokeColor: "blue",
+        highlightStrokeColor: "orange",
+        strokeWidth: 3,
+        fontWeight: "lighter",
+        highlightFontWeight: "lighter",
       },
       link: {
-        highlightColor: "lightblue",
+        highlightColor: "gold",
         fontSize: 13,
         renderLabel: false,
       },
@@ -1169,9 +1172,8 @@ export default class GraphVisualizer extends React.Component {
                 </svg>
               </div>
             </Dropdown.Toggle>
-
             <Dropdown.Menu>
-              <div id="node" class="input-group mb-3 pt-2">
+              <div id="node" class="input-group mb-3 pt-3">
                 <h5 class="font-weight-light h6"> Target Node </h5>
                 <div class="input-group mb-3">
                   <input
@@ -1275,7 +1277,7 @@ export default class GraphVisualizer extends React.Component {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <h5 class="font-weight-light pt-2"> Add node: </h5>
+              <h5 class="font-weight-light h6 pt-4"> Add node: </h5>
               <div class="input-group mb-3">
                 <input
                   type="text"
@@ -1288,7 +1290,7 @@ export default class GraphVisualizer extends React.Component {
                 />
               </div>
 
-              <h5 class="font-weight-light"> Remove node: </h5>
+              <h5 class="font-weight-light h6"> Remove node: </h5>
               <div class="input-group mb-3">
                 <input
                   type="text"

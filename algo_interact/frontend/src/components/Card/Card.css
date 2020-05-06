@@ -1,6 +1,13 @@
 .card.border {
-    border-color: #c34f6b !important;   /* Sets all card border colors to match header and footer color */ 
-    border-radius: 20px;    /* Larger number results in more curved corners of card */
-    border-width: 0.8em; 
+  border-color: #c34f6b !important; /* Sets all card border colors to match header and footer color */
+  border-radius: 20px; /* Larger number results in more curved corners of card */
+  border-width: 0.8em;
 }
-  
+
+.title.font-weight-normal {
+  font-size: 2em;
+  align-content: center;
+  position: absolute;
+  left: auto;
+  bottom: 0.1em;
+}

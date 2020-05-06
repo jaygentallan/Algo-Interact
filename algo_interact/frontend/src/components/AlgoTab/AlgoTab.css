@@ -12,8 +12,20 @@ nav.nav-tabs {
 .nav-tabs .nav-item {
   color: #c34f6b;
   font-weight: bold;
-  margin-left: 25px;
-  margin-right: 25px;
-  padding-left: 25px;
-  padding-right: 25px;
+  margin-left: 2%;
+  margin-right: 2%;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.nav-tabs .nav-item:first-child {
+  color: #c34f6b !important;
+}
+
+.nav-tabs .nav-item:focus {
+  color: #a7435a !important;
+}
+
+.nav-tabs .nav-item:hover {
+  color: #ff6287 !important;
 }

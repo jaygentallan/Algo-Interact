@@ -121,6 +121,25 @@ h1.name.text-center {
   border-color: #c34f6b !important;
   padding: 0.6em !important;
   font-size: 1.1em !important;
+  color: #c34f6b !important;
+}
+
+.algoSelection:hover {
+  border-top-style: solid;
+  border-right-style: solid;
+  border-left-style: solid;
+  border-top-right-radius: 0.3em;
+  border-bottom-right-radius: 0.3em;
+  border-top-left-radius: 0.3em;
+  border-bottom-left-radius: 0.3em;
+  border-width: 0.08em;
+  height: 2.3em !important;
+  width: 14.1em;
+  border-color: #c34f6b !important;
+  padding: 0.6em !important;
+  font-size: 1.1em !important;
+  color: white !important;
+  background-color: #c34f6b !important;
 }
 
 .json-data-container {
@@ -246,6 +265,14 @@ div.form-check {
   padding-top: 0em;
   padding-left: 0.3em;
   color: #c34f6b;
+}
+
+.dropdown.font-weight-light:hover {
+  font-size: 1.2em;
+  padding-top: 0em;
+  padding-left: 0.3em;
+  color: white !important;
+  background-color: #c34f6b !important;
 }
 
 .dropdown.pt-2 {

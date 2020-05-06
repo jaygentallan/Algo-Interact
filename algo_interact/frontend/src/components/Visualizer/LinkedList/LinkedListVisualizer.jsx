@@ -49,10 +49,8 @@ export default class GraphVisualizer extends React.Component {
       appAcc: 0,
     };
     //for linear search
-    const listOrder = [
-      "Michael"
-    ]
-   
+    const listOrder = ["Michael"];
+
     // Default configurations used by the Graph component
     const config = {
       nodeHighlightBehavior: true,
@@ -65,11 +63,13 @@ export default class GraphVisualizer extends React.Component {
       node: {
         color: "#c34f6b",
         size: 500,
-        highlightStrokeColor: "blue",
-        symbolType: "square",
+        highlightStrokeColor: "orange",
+        strokeWidth: 3,
+        fontWeight: "lighter",
+        highlightFontWeight: "lighter",
       },
       link: {
-        highlightColor: "lightblue",
+        highlightColor: "gold",
         type: "STRAIGHT",
       },
     };
@@ -83,7 +83,7 @@ export default class GraphVisualizer extends React.Component {
       algorithm: "search",
       stack: [],
       queue: [],
-      listOrder : listOrder
+      listOrder: listOrder,
     };
 
     // Class states
@@ -107,7 +107,7 @@ export default class GraphVisualizer extends React.Component {
       listInfo,
       nodePos,
       headName: "",
-      tailName: ""
+      tailName: "",
     };
   }
 
@@ -161,7 +161,7 @@ export default class GraphVisualizer extends React.Component {
     let listInfo = this.state.listInfo;
     let newNode = this.getNewNode();
     //update listOrder
-    this.state.algoData.listOrder.unshift(newNode.id)
+    this.state.algoData.listOrder.unshift(newNode.id);
     //find the current head node
     let headIndex = this.state.data.nodes.findIndex((node) => {
       return node.nodeid === listInfo.head;
@@ -212,11 +212,11 @@ export default class GraphVisualizer extends React.Component {
 
     let removeNode = newNodes[removeIndex];
     //update listOrder
-    let newListOrder = this.state.algoData.listOrder.filter( name => {
-      return name !== removeNode.id
-    })
-    const algoData = {listOrder: newListOrder}
-    this.setState({algoData : algoData})
+    let newListOrder = this.state.algoData.listOrder.filter((name) => {
+      return name !== removeNode.id;
+    });
+    const algoData = { listOrder: newListOrder };
+    this.setState({ algoData: algoData });
 
     if (this.state.data.nodes.length === 0) {
       console.log("Remove last node");
@@ -311,7 +311,6 @@ export default class GraphVisualizer extends React.Component {
     this.setState({
       ...(this.state.data.links = updateLinks),
     });
-
   };
 
   //set head and tail colors
@@ -332,8 +331,8 @@ export default class GraphVisualizer extends React.Component {
       node.color = this.state.nodeColor;
     });
     //update new head or tail with color
-    newNodes[headIndex].color = "blue";
-    newNodes[tailIndex].color = "red";
+    newNodes[headIndex].color = "#0080FF";
+    newNodes[tailIndex].color = "#FF0800";
     //update display head and tail
     let headName = newNodes[headIndex].id;
     let tailName = newNodes[tailIndex].id;
@@ -550,13 +549,13 @@ export default class GraphVisualizer extends React.Component {
   };
 
   onClickAddLink = (middleNode) => {
-    //creat copy 
-    let link = this.state.data.links
-    link.push({source: middleNode.source, target: middleNode.target})
+    //creat copy
+    let link = this.state.data.links;
+    link.push({ source: middleNode.source, target: middleNode.target });
     //update links with copy
     this.setState({
-      links : link
-    })
+      links: link,
+    });
     /*
     if (this.state.addLink === "") {
       return;
@@ -932,16 +931,23 @@ export default class GraphVisualizer extends React.Component {
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, the traversal log and the main graph visualizer component.
   render() {
-    const head = { color: "blue", margin: "13px" };
-    const tail = { color: "red", margin: "13px" };
-
+    const head = { color: "#0080FF", margin: "13px" };
+    const tail = { color: "#FF0800", margin: "13px" };
 
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
-        <div className="listInfo">
-          <h5 style={head}>{`Head: ${this.state.headName}`}</h5>
-          <h5 style={tail}>{`Tail: ${this.state.tailName}`}</h5>
+        <div className="pt-3">
+          <div className="listInfo">
+            <h5
+              className="font-weight-light"
+              style={head}
+            >{`Head: ${this.state.headName}`}</h5>
+            <h5
+              className="font-weight-light pt-1"
+              style={tail}
+            >{`Tail: ${this.state.tailName}`}</h5>
+          </div>
         </div>
 
         <div class="leftWindow">
@@ -1072,20 +1078,6 @@ export default class GraphVisualizer extends React.Component {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <div className="mt-2 mb-2">
-                <Form.Check
-                  className="checkboxes"
-                  type="checkbox"
-                  id="direct"
-                  label="Directed"
-                />
-                <Form.Check
-                  className="checkboxes"
-                  type="checkbox"
-                  id="weight"
-                  label="Weighted"
-                />
-              </div>
               <div id="node" class="input-group mb-3">
                 <h5 class="font-weight-light h6 pt-3"> Target Value </h5>
                 <div class="input-group mb-3">
@@ -1105,7 +1097,7 @@ export default class GraphVisualizer extends React.Component {
                   variant="outline-success"
                   onClick={() => this.startAlgorithm()}
                 >
-                  Start Search
+                  Start Linear Search
                 </Button>
               </div>
             </Dropdown.Menu>
@@ -1143,21 +1135,11 @@ export default class GraphVisualizer extends React.Component {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <h5 class="font-weight-light pt-2"> Append node: </h5>
+              <h5 class="font-weight-light h6 pt-3"> Append node: </h5>
               <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <button
-                    onClick={this.onClickAppNode}
-                    type="button"
-                    class="btn btn-outline-danger"
-                    id="button-addon1"
-                  >
-                    <h6 class="align-middle"> + </h6>
-                  </button>
-                </div>
                 <input
                   type="text"
-                  class="nodeInput"
+                  class="linkInput"
                   name="addNodeName"
                   placeholder={this.state.addNodePlaceholder}
                   value={this.state.addNodeName}
@@ -1166,21 +1148,11 @@ export default class GraphVisualizer extends React.Component {
                 />
               </div>
 
-              <h5 class="font-weight-light pt-2"> Prepend node: </h5>
+              <h5 class="font-weight-light h6"> Prepend node: </h5>
               <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <button
-                    onClick={this.onClickPreNode}
-                    type="button"
-                    class="btn btn-outline-danger"
-                    id="button-addon1"
-                  >
-                    <h6 class="align-middle"> + </h6>
-                  </button>
-                </div>
                 <input
                   type="text"
-                  class="nodeInput"
+                  class="linkInput"
                   name="preNodeName"
                   placeholder={this.state.preNodePlaceholder}
                   value={this.state.preNodeName}
@@ -1189,21 +1161,11 @@ export default class GraphVisualizer extends React.Component {
                 />
               </div>
 
-              <h5 class="font-weight-light"> Remove node: </h5>
+              <h5 class="font-weight-light h6"> Remove node: </h5>
               <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <button
-                    onClick={this.onClickRemoveNode}
-                    type="button"
-                    class="btn btn-outline-danger pl-3 pr-2.5"
-                    id="button-addon1"
-                  >
-                    <h6 class="align-middle"> - </h6>
-                  </button>
-                </div>
                 <input
                   type="text"
-                  class="nodeInput"
+                  class="linkInput"
                   name="removeNodeName"
                   placeholder={this.state.removeNodePlaceholder}
                   value={this.state.removeNodeName}

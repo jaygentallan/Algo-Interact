@@ -66,69 +66,6 @@ export default class GraphVisualizer extends React.Component {
       },
     ];
 
-    /*
-    // The Office characters data
-    const data = {
-      //apply characteristics for each node
-      nodes: [
-        { id: "Michael", color: "", strokeColor: "" },
-        { id: "Jim", color: "", strokeColor: "" },
-        { id: "Pam", color: "", strokeColor: "" },
-        { id: "Dwight", color: "", strokeColor: "" },
-        { id: "Angela", color: "", strokeColor: "" },
-        { id: "Jan", color: "", strokeColor: "" },
-        { id: "Kevin", color: "", strokeColor: "" },
-        { id: "Andy", color: "", strokeColor: "" },
-        { id: "Toby", color: "", strokeColor: "" },
-        { id: "Erin", color: "", strokeColor: "" },
-        { id: "Karen", color: "", strokeColor: "" },
-        { id: "Stanley", color: "", strokeColor: "" },
-        { id: "Phyllis", color: "", strokeColor: "" },
-        { id: "Oscar", color: "", strokeColor: "" },
-        { id: "Ryan", color: "", strokeColor: "" },
-        { id: "Kelly", color: "", strokeColor: "" },
-        { id: "Holly", color: "", strokeColor: "" },
-        { id: "Senator", color: "", strokeColor: "" },
-        { id: "Roy", color: "", strokeColor: "" },
-        { id: "Bob Vance, Vance Refrigeration" },
-      ],
-      links: [
-        { source: "Michael", target: "Jan" },
-        { source: "Michael", target: "Holly" },
-        { source: "Michael", target: "Ryan" },
-        { source: "Michael", target: "Jim" },
-        { source: "Michael", target: "Toby" },
-        { source: "Jim", target: "Pam" },
-        { source: "Jim", target: "Karen" },
-        { source: "Jim", target: "Dwight" },
-        { source: "Pam", target: "Roy" },
-        { source: "Dwight", target: "Angela" },
-        { source: "Dwight", target: "Andy" },
-        { source: "Andy", target: "Erin" },
-        { source: "Ryan", target: "Kelly" },
-        { source: "Angela", target: "Oscar" },
-        { source: "Angela", target: "Kevin" },
-        { source: "Angela", target: "Senator" },
-        { source: "Oscar", target: "Senator" },
-        { source: "Oscar", target: "Phyllis" },
-        { source: "Phyllis", target: "Stanley" },
-        { source: "Phyllis", target: "Bob Vance, Vance Refrigeration" },
-      ],
-    };
-
-    const neighbors = [
-      { Michael: ["Jan", "Holly", "Ryan", "Jim", "Toby"] },
-      { Jim: ["Pam", "Karen", "Dwight"] },
-      { Pam: ["Roy"] },
-      { Dwight: ["Angela", "Andy"] },
-      { Andy: ["Erin"] },
-      { Ryan: ["Kelly"] },
-      { Angela: ["Oscar", "Kevin", "Senator"] },
-      { Oscar: ["Senator", "Phyllis"] },
-      { Phyllis: ["Stanley", "Bob Vance, Vance Refrigeration"] },
-    ];
-    */
-
     // Default configurations used by the Graph component
     const config = {
       nodeHighlightBehavior: true,
@@ -140,10 +77,13 @@ export default class GraphVisualizer extends React.Component {
       node: {
         color: "#c34f6b",
         size: 800,
-        highlightStrokeColor: "blue",
+        highlightStrokeColor: "orange",
+        strokeWidth: 3,
+        fontWeight: "lighter",
+        highlightFontWeight: "lighter",
       },
       link: {
-        highlightColor: "lightblue",
+        highlightColor: "gold",
         fontSize: 13,
         renderLabel: false,
       },
@@ -1395,7 +1335,7 @@ export default class GraphVisualizer extends React.Component {
             <Dropdown.Menu>
               <div className="mt-2 mb-2">
                 <Form.Check
-                  className="checkboxes"
+                  className="checkboxes font-weight-light"
                   type="checkbox"
                   id="direct"
                   label="Directed"
@@ -1404,7 +1344,7 @@ export default class GraphVisualizer extends React.Component {
                   onChange={this._handleDirectedCheckBox}
                 />
                 <Form.Check
-                  className="checkboxes"
+                  className="checkboxes font-weight-light"
                   type="checkbox"
                   id="weight"
                   label="Weighted"
@@ -1415,7 +1355,7 @@ export default class GraphVisualizer extends React.Component {
               </div>
 
               <div id="node" class="input-group mb-3">
-                <h5 class="font-weight-light h6 pt-3"> Start Node </h5>
+                <h5 class="font-weight-light h6 pt-3"> Start Node: </h5>
                 <div class="input-group mb-3">
                   <input
                     class="L"
@@ -1428,7 +1368,7 @@ export default class GraphVisualizer extends React.Component {
                   />
                 </div>
 
-                <h5 class="font-weight-light h6"> Target Node </h5>
+                <h5 class="font-weight-light h6"> Target Node: </h5>
                 <div class="input-group mb-3">
                   <input
                     class="L"
@@ -1441,32 +1381,37 @@ export default class GraphVisualizer extends React.Component {
                   />
                 </div>
 
-                <Dropdown className="dropdown pt-2" drop="right">
-                  <Dropdown.Toggle variant="outline-info" id="dropdown-two">
-                    Algorithm
-                  </Dropdown.Toggle>
+                <h5 class="font-weight-light h6"> Algorithms: </h5>
 
-                  <Dropdown.Menu id="algoSelection">
-                    <Dropdown.Item
-                      eventKey="1"
-                      onSelect={() => (this.state.algoData.algorithm = "dfs")}
-                    >
-                      Depth-First Search
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      eventKey="2"
-                      onSelect={() => (this.state.algoData.algorithm = "bfs")}
-                    >
-                      Breadth-First Search
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      eventKey="3"
-                      onSelect={() => (this.state.algoData.algorithm = "djk")}
-                    >
-                      Dijkstra's
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
+                <div className="pt-1">
+                  <Button
+                    variant="outline-danger"
+                    className="algoSelection"
+                    onClick={() => (this.state.algoData.algorithm = "dfs")}
+                  >
+                    <h6 class="font-weight-normal">Depth-First Search</h6>
+                  </Button>
+                </div>
+
+                <div className="pt-2">
+                  <Button
+                    variant="outline-danger"
+                    className="algoSelection"
+                    onClick={() => (this.state.algoData.algorithm = "bfs")}
+                  >
+                    <h6 class="font-weight-normal">Breadth-First Search</h6>
+                  </Button>
+                </div>
+
+                <div className="pt-2">
+                  <Button
+                    variant="outline-danger"
+                    className="algoSelection"
+                    onClick={() => (this.state.algoData.algorithm = "djk")}
+                  >
+                    <h6 class="font-weight-normal">Dijkstra's</h6>
+                  </Button>
+                </div>
 
                 <Button
                   className="submit mt-2 font-weight-normal"
@@ -1512,7 +1457,7 @@ export default class GraphVisualizer extends React.Component {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <h5 class="font-weight-light pt-2"> Add node: </h5>
+              <h5 class="font-weight-light h6 pt-4"> Add node: </h5>
               <div class="input-group mb-3">
                 <input
                   type="text"
@@ -1525,7 +1470,7 @@ export default class GraphVisualizer extends React.Component {
                 />
               </div>
 
-              <h5 class="font-weight-light"> Remove node: </h5>
+              <h5 class="font-weight-light h6"> Remove node: </h5>
               <div class="input-group mb-3">
                 <input
                   type="text"
@@ -1538,7 +1483,7 @@ export default class GraphVisualizer extends React.Component {
                 />
               </div>
 
-              <h5 class="font-weight-light"> Add link: </h5>
+              <h5 class="font-weight-light h6"> Add link: </h5>
               <input
                 class="linkInput"
                 type="text"
@@ -1549,9 +1494,9 @@ export default class GraphVisualizer extends React.Component {
                 onKeyPress={this._handleLinkKeyEnter}
               />
 
-              <h5 class="font-weight-light pt-3"> Remove link: </h5>
+              <h5 class="font-weight-light h6 pt-3"> Remove link: </h5>
               <input
-                class="linkInput"
+                className="linkInput"
                 type="text"
                 name="removeLink"
                 placeholder={this.state.removeLinkPlaceholder}
@@ -1559,6 +1504,8 @@ export default class GraphVisualizer extends React.Component {
                 onChange={this._removeLinkHandleChange}
                 onKeyPress={this._handleremoveLinkKeyEnter}
               />
+
+              <div class="pt-3"></div>
             </Dropdown.Menu>
           </Dropdown>
 
