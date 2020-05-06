@@ -92,6 +92,37 @@ h1.name.text-center {
   right: 0px;
 }
 
+.listDisplay.font-weight-light {
+  height: 10em !important;
+  width: 50% !important;
+  position: absolute;
+  text-align: center;
+  font-size: 20;
+  left: 25vw;
+  bottom: 0px;
+}
+
+.traversalList {
+  font-size: 25px;
+  color: #505050;
+}
+
+.algoSelection {
+  border-top-style: solid;
+  border-right-style: solid;
+  border-left-style: solid;
+  border-top-right-radius: 0.3em;
+  border-bottom-right-radius: 0.3em;
+  border-top-left-radius: 0.3em;
+  border-bottom-left-radius: 0.3em;
+  border-width: 0.08em;
+  height: 2.3em !important;
+  width: 14.1em;
+  border-color: #c34f6b !important;
+  padding: 0.6em !important;
+  font-size: 1.1em !important;
+}
+
 .json-data-container {
   padding: 0.6em;
   max-height: 14em;
@@ -181,11 +212,6 @@ button.dropdown-toggle.btn.btn-outline-info {
 
 #node.input-group {
   width: 113%;
-}
-
-/* Algo selector*/
-#algoSelection.show {
-  display: block;
 }
 
 /*Algorithm selector dropdown*/
