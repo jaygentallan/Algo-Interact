@@ -75,28 +75,31 @@ class Home extends Component {
           itemClass="card-deck d-flex pl-5 pr-5 bd-highlight"
         >
           <Card
-            title="Test Card – Nowitzki Stats"
-            text="Dirk Nowitzki is a retired NBA player.
-                He spent his 21 years in the league playing for the
-                Dallas Mavericks, and he has made over 30,000 points."
-            image="/test-dirk.png"
+            title="Graph"
+            image="/images/graphpicture.png"
             link="/visualizer"
           />
           <Card
             title="Tree"
-            text="Click on this card to lead try it out in the Visualizer Page!"
+            image="/images/hometree.png"
             link="/visualizer"
           />
 
           <Card
             title="Linked List"
-            text="Description for linked list here."
+            image="/images/linkedlist.png"
             link="/visualizer"
+
           />
-          <Card
-            title="Graph"
-            text="Description for a graph here."
-            link="/visualizer"
+
+          <Card 
+             title="Binary Linked List"
+             Text="kjhfsdhjkds"
+             tab1title="Description"
+             tab1text="hgfhjgshjfh"
+             image="/images/binarysearchtreepic.png"
+
+            
           />
         </Carousel>
         <br></br>
@@ -119,25 +122,29 @@ class Home extends Component {
           itemClass="card-deck d-flex pl-5 pr-5 bd-highlight"
         >
           <Card
-            title="Algorithm 1"
-            text="Description for first algorithm here."
+            title="Depth First Search"
+            image="/images/depthfirst.png"
             link="/learn"
           />
           <Card
-            title="Algorithm 2"
-            text="Description for second algorithm here."
+            title="Breadth First Search"
+            image="/images/linkedlistpicture.png"
             link="/learn"
+            image="/images/braedth.png"
           />
           <Card
-            title="Algorithm 3"
-            text="Description for third algorithm here."
+            title="Dijkstra Algorithm"
+            image="/images/linkedlistpicture.png"
             link="/learn"
           />
 
           <Card
-            title="Algorithm 4"
-            text="Description for fourth algorithm here."
+            title="Tree Algorithm"
             link="/learn"
+            image="/images/treetraversal.png"
+
+
+
           />
         </Carousel>
         <div class="container p-5"></div>

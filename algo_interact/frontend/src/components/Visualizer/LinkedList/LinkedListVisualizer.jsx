@@ -48,12 +48,15 @@ export default class GraphVisualizer extends React.Component {
       preAcc: 0,
       appAcc: 0,
     };
-
+    //for linear search
+    const listOrder = [
+      "Michael"
+    ]
+   
     // Default configurations used by the Graph component
     const config = {
       nodeHighlightBehavior: true,
       automaticRearrangeAfterDropNode: true,
-      //staticGraphWithDragAndDrop: true,
       staticGraph: true,
       directed: true,
       rederLabel: true,
@@ -80,6 +83,7 @@ export default class GraphVisualizer extends React.Component {
       algorithm: "search",
       stack: [],
       queue: [],
+      listOrder : listOrder
     };
 
     // Class states
@@ -103,7 +107,7 @@ export default class GraphVisualizer extends React.Component {
       listInfo,
       nodePos,
       headName: "",
-      tailName: "",
+      tailName: ""
     };
   }
 
@@ -119,6 +123,8 @@ export default class GraphVisualizer extends React.Component {
     //get link list tail and the newest added node
     let listInfo = this.state.listInfo;
     let newNode = this.getNewNode();
+    //update listOrder
+    this.state.algoData.listOrder.push(newNode.id);
     //find the new tail index
     let tailIndex = this.state.data.nodes.findIndex((node) => {
       return node.nodeid === listInfo.tail;
@@ -154,6 +160,8 @@ export default class GraphVisualizer extends React.Component {
     //get link list head and the newest added node
     let listInfo = this.state.listInfo;
     let newNode = this.getNewNode();
+    //update listOrder
+    this.state.algoData.listOrder.unshift(newNode.id)
     //find the current head node
     let headIndex = this.state.data.nodes.findIndex((node) => {
       return node.nodeid === listInfo.head;
@@ -203,12 +211,19 @@ export default class GraphVisualizer extends React.Component {
     let newNodes = [...this.state.data.nodes];
 
     let removeNode = newNodes[removeIndex];
+    //update listOrder
+    let newListOrder = this.state.algoData.listOrder.filter( name => {
+      return name !== removeNode.id
+    })
+    const algoData = {listOrder: newListOrder}
+    this.setState({algoData : algoData})
 
     if (this.state.data.nodes.length === 0) {
       console.log("Remove last node");
       console.log("Length", this.state.data.nodes.length);
       listInfo.head = null;
       listInfo.tail = null;
+      this.state.algoData.listOrder.pop();
     } else if (listInfo.head === removeNode.nodeid) {
       console.log("Remove Head");
       listInfo.head = removeNode.next;
@@ -297,14 +312,12 @@ export default class GraphVisualizer extends React.Component {
       ...(this.state.data.links = updateLinks),
     });
 
-    console.log("Link Update", this.state.data.links);
   };
 
   //set head and tail colors
   updateListColor = (index) => {
     console.log("updateColor", this.state.data.nodes, this.state.listInfo);
     //get index of head and tail
-
     let headIndex = this.state.data.nodes.findIndex((node) => {
       return node.nodeid === index.head;
     });
@@ -537,6 +550,13 @@ export default class GraphVisualizer extends React.Component {
   };
 
   onClickAddLink = (middleNode) => {
+    //creat copy 
+    let link = this.state.data.links
+    link.push({source: middleNode.source, target: middleNode.target})
+    //update links with copy
+    this.setState({
+      links : link
+    })
     /*
     if (this.state.addLink === "") {
       return;
@@ -582,11 +602,11 @@ export default class GraphVisualizer extends React.Component {
           return;
         }
       } */
-
+    /*
     this.state.data.links.push({
       source: middleNode.source,
       target: middleNode.target,
-    });
+    }); */
   };
 
   onClickRemoveLink = () => {
@@ -914,6 +934,7 @@ export default class GraphVisualizer extends React.Component {
   render() {
     const head = { color: "blue", margin: "13px" };
     const tail = { color: "red", margin: "13px" };
+
 
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
