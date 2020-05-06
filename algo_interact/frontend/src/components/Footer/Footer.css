@@ -28,3 +28,20 @@ a.nav-link:hover {
 .container.text-center {
   color: white;
 }
+
+.modal {
+    
+}
+
+.modal-dialog {
+  display: flex;
+  align-items: center;
+  top: 20%;
+}
+
+.modal-header {
+  background-color: aquamarine;
+  font-style: italic;
+  font-size: 100%;
+  font-weight: 900px;
+}
