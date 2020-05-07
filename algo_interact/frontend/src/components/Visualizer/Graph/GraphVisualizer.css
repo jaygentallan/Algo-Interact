@@ -93,6 +93,14 @@ h1.name.text-center {
   right: 0px;
 }
 
+.rightWindowHelpButton {
+  height: 3em !important;
+  width: 3em;
+  position: absolute;
+  right: 0px;
+  bottom: 0;
+}
+
 .algoSelection {
   border-top-style: solid;
   border-right-style: solid;

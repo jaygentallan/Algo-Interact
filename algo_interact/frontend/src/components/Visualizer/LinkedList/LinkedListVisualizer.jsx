@@ -59,8 +59,10 @@ export default class GraphVisualizer extends React.Component {
       staticGraph: true,
       directed: true,
       rederLabel: true,
-      height: window.innerHeight * 0.86,
-      width: window.innerWidth,
+      // eslint-disable-next-line no-restricted-globals
+      height: screen.height * 0.86,
+      // eslint-disable-next-line no-restricted-globals
+      width: screen.width * 0.989,
       node: {
         color: "#c34f6b",
         size: 500,
@@ -949,22 +951,6 @@ export default class GraphVisualizer extends React.Component {
               style={tail}
             >{`Tail: ${this.state.tailName}`}</h5>
           </div>
-          <div class="rightWindow-LL">
-            <HelpButton
-              mTitle="Linked List Visualizer–More Info"
-              algoDesc="Enter the name of an existing node that you'd like the 
-                        search algorithm to find. Then, press the start button."
-              nLinkDesc="Append node adds the new node to the tail of the linked list,
-                          and the tail node is updated to be the new node. Prepend node 
-                          adds a node before the current head, and the head node is 
-                          updated to be the new node. Enter the name of the node you'd 
-                          like to remove to remove it. The linked list will automatically
-                          update the links that were connected to the deleted node."
-              rButtons="Right Window–Head & Tail Tracker"
-              b1Desc="This box tracks the Head and Tail node of the linked list. It updates
-                      as nodes are appended and prepended."
-            />
-          </div>
         </div>
 
         <div class="leftWindow">
@@ -1192,6 +1178,29 @@ export default class GraphVisualizer extends React.Component {
               </div>
             </Dropdown.Menu>
           </Dropdown>
+        </div>
+
+        <div class="rightWindowHelpButton">
+          <div class="row pt-3"></div>
+          <HelpButton
+            mTitle="Graph Visualizer-More Info"
+            algoDesc="Choose Directed to see the path direction or Weighted to see values associated
+                      with each link in the graph. To prepare the execution of an algorithm, enter a
+                      start node's name and a target node's name. Finally choose 1 algorithm to 
+                      execute in the "
+            nLinkDesc="Enter the name of a new node you'd like to add or the name of an existing node 
+                      you'd like to delete from the graph. For a new node, follow the instructions to 
+                      link it to an existing node: enter the source node's name, the target node's name, 
+                      and an integer value for the link's weight between the 2 nodes. When deleting a 
+                      link, enter the names of the nodes at each end of the link."
+            nodeList="Node List"
+            nListDesc=": Click on this button to view each node's neighboring nodes."
+            rButtons="Right Buttons"
+            b1="Default Graph"
+            b1Desc=": This button resets the Graph to its default of one node, Harry."
+            b2="The Office Graph"
+            b2Desc=": Click to render a larger graph with connecting nodes."
+          />
         </div>
 
         <ReactTooltip
