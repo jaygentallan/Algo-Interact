@@ -32,6 +32,7 @@ a.nav-link:hover {
 .modal-dialog {
   display: flex;
   align-items: center;
+  top: 20%;
 }
 
 .modal-header {

@@ -2,6 +2,7 @@ import React from "react";
 import Graph from "./Graph/graph/Graph";
 import ReactTooltip from "react-tooltip";
 import { Dropdown, Form, Button } from "react-bootstrap";
+import HelpButton from "../../HelpButton/HelpButton";
 import "./LinkedListVisualizer.css";
 //import LeftWindow from "../../LeftVdWindow/LeftWindow";
 
@@ -947,6 +948,22 @@ export default class GraphVisualizer extends React.Component {
               className="font-weight-light pt-1"
               style={tail}
             >{`Tail: ${this.state.tailName}`}</h5>
+          </div>
+          <div class="rightWindow-LL">
+            <HelpButton
+              mTitle="Linked List Visualizer–More Info"
+              algoDesc="Enter the name of an existing node that you'd like the 
+                        search algorithm to find. Then, press the start button."
+              nLinkDesc="Append node adds the new node to the tail of the linked list,
+                          and the tail node is updated to be the new node. Prepend node 
+                          adds a node before the current head, and the head node is 
+                          updated to be the new node. Enter the name of the node you'd 
+                          like to remove to remove it. The linked list will automatically
+                          update the links that were connected to the deleted node."
+              rButtons="Right Window–Head & Tail Tracker"
+              b1Desc="This box tracks the Head and Tail node of the linked list. It updates
+                      as nodes are appended and prepended."
+            />
           </div>
         </div>
 

@@ -29,7 +29,7 @@ const HelpButton = (props) => {
                 onHide={hideModal} 
                 size="lg"
                 >
-              <Modal.Header>
+              <Modal.Header class="mHeader">
                 <Modal.Title><h1 class="display-4">{props.mTitle}</h1></Modal.Title>
               </Modal.Header>
               <Modal.Body>
