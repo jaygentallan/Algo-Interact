@@ -29,11 +29,12 @@ const Footer = () => {
           size="lg"
         >
           <Modal.Header>
-            <Modal.Title><h1>Meet the Team</h1></Modal.Title>
+            <Modal.Title><h1 class="display-3">Meet the Team!</h1></Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div>
-              <p> We are undergraduate Computer Science students at California State 
+              <p class="lead"> 
+                  We are undergraduate Computer Science students at California State 
                   East Bay. As students that have taken Data Structures and Analysis of Algorithms,
                   we understood the visual disconnect that some students struggle with when
                   first learning about how certain algorithms are implemented with their respective

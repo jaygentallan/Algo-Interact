@@ -1,0 +1,9 @@
+.modal-dialog {
+    display: flex;
+    align-items: center;
+}
+
+.modal-header {
+    background-color: palegreen;
+    font-style: italic;
+}

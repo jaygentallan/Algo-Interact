@@ -3,6 +3,7 @@ import Graph from "./Graph/graph/Graph";
 import TreeView from "react-treeview";
 import ReactTooltip from "react-tooltip";
 import { Dropdown, Form, Button } from "react-bootstrap";
+import HelpButton from "../../HelpButton/HelpButton"
 import "./GraphVisualizer.css";
 //import LeftWindow from "../../LeftVdWindow/LeftWindow";
 
@@ -1650,16 +1651,25 @@ export default class GraphVisualizer extends React.Component {
               </div>
             </Button>
           </div>
+          <HelpButton
+            mTitle="Graph Visualizer-More Info"
+            algoDesc="1) Choose Directed to see the path direction or Weighted to see values associated
+                      with each link in the graph. 2) To prepare the execution of an algorithm, enter a
+                      start node's name and a target node's name. 3) Finally choose 1 algorithm to 
+                      execute in the "
+            nLinkDesc="Enter the name of a new node you'd like to add or an existing node you'd like 
+                        to delete from the graph. If a new node is added, follow the instruction in the 
+                        box to link it to an existing node in the graph. To delete a node's link, follow
+                        the instruction and enter the names of node on the ends of the link."
+            nodeList="Node List"
+            nListDesc=": Click on this button to view each node's neighboring nodes."
+            rButtons="Right Buttons"
+            b1="Default Graph"
+            b1Desc=": This button resets the Graph to its default of one node, Harry."
+            b2="The Office Graph"
+            b2Desc=": Click to render a larger graph with connecting nodes."
+          />
 
-          <div class="row pt-3">
-            <Button
-              class = "help-button"
-              variant="success"
-              size="med"
-            >
-              ?
-            </Button>
-          </div>
         </div>
         {/*Presets End */}
 
