@@ -1653,14 +1653,15 @@ export default class GraphVisualizer extends React.Component {
           </div>
           <HelpButton
             mTitle="Graph Visualizer-More Info"
-            algoDesc="1) Choose Directed to see the path direction or Weighted to see values associated
-                      with each link in the graph. 2) To prepare the execution of an algorithm, enter a
-                      start node's name and a target node's name. 3) Finally choose 1 algorithm to 
+            algoDesc="Choose Directed to see the path direction or Weighted to see values associated
+                      with each link in the graph. To prepare the execution of an algorithm, enter a
+                      start node's name and a target node's name. Finally choose 1 algorithm to 
                       execute in the "
-            nLinkDesc="Enter the name of a new node you'd like to add or an existing node you'd like 
-                        to delete from the graph. If a new node is added, follow the instruction in the 
-                        box to link it to an existing node in the graph. To delete a node's link, follow
-                        the instruction and enter the names of node on the ends of the link."
+            nLinkDesc="Enter the name of a new node you'd like to add or the name of an existing node 
+                      you'd like to delete from the graph. For a new node, follow the instructions to 
+                      link it to an existing node: enter the source node's name, the target node's name, 
+                      and an integer value for the link's weight between the 2 nodes. When deleting a 
+                      link, enter the names of the nodes at each end of the link."
             nodeList="Node List"
             nListDesc=": Click on this button to view each node's neighboring nodes."
             rButtons="Right Buttons"

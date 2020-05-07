@@ -30,12 +30,12 @@ const HelpButton = (props) => {
                 size="lg"
                 >
               <Modal.Header>
-                <Modal.Title><h1 class="display-3">{props.mTitle}</h1></Modal.Title>
+                <Modal.Title><h1 class="display-4">{props.mTitle}</h1></Modal.Title>
               </Modal.Header>
               <Modal.Body>
                   <h2>Left Buttons</h2>
                   <p><strong>Graph Settings</strong>: Alter the color and size of all the nodes or links in the graph.</p>
-                  <p><strong>Algorithm Settings</strong>: {props.algDesc}</p>
+                  <p><strong>Algorithm Settings</strong>: {props.algoDesc}</p>
                   <p><strong>Nodes & Links</strong>: {props.nLinkDesc}</p>
                   <p><strong>{props.nodeList}</strong>{props.nListDesc}</p>
                   <h2>{props.rButtons}</h2>

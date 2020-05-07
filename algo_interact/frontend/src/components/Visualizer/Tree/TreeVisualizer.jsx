@@ -3,6 +3,7 @@ import Graph from "./Graph/graph/Graph";
 import TreeView from "react-treeview";
 import ReactTooltip from "react-tooltip";
 import { Dropdown, Form, Button } from "react-bootstrap";
+import HelpButton from "../../HelpButton/HelpButton";
 import "./TreeVisualizer.css";
 //import LeftWindow from "../../LeftVdWindow/LeftWindow";
 
@@ -1368,6 +1369,19 @@ export default class GraphVisualizer extends React.Component {
               </div>
             </Dropdown.Menu>
           </Dropdown>
+        </div>
+        <div class="rightWindow">
+          <HelpButton
+            mTitle="Tree Visualizer–More Info"
+            algoDesc="Enter the name of an existing node in the tree. Then, choose one
+                      algorithm you would like to run and press the Start button."
+            nLinkDesc="Follow the instructions in the box for adding a new node to the Tree.
+                      to remove an existing node, enter the node's name. Since it is a tree, there
+                      is only a maximum of 2 links that can extend from a node, so you don't need
+                      to enter information for deleting a link."
+            nodeList="Node List"
+            nListDesc=": Click this button to see the list of nodes and their respective children."
+          />
         </div>
 
         <ReactTooltip
