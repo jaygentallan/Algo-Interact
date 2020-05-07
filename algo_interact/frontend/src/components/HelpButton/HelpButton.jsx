@@ -12,7 +12,6 @@ const HelpButton = (props) => {
     setIsOpen(true);
   };
 
-<<<<<<< Updated upstream
   const hideModal = () => {
     setIsOpen(false);
   };
@@ -70,41 +69,6 @@ const HelpButton = (props) => {
       </Modal>
     </div>
   );
-=======
-    const hideModal = () => {
-        setIsOpen(false);
-    };
-    return (
-        <div class="row pt-3">
-            <button 
-              type="button" 
-              class="btn btn-success" 
-              onClick={showModal}
-              >
-              ?
-            </button>
-            <Modal 
-                show={isOpen} 
-                onHide={hideModal} 
-                size="lg"
-                >
-              <Modal.Header className="helpHeader">
-                <Modal.Title><h1 class="display-4">{props.mTitle}</h1></Modal.Title>
-              </Modal.Header>
-              <Modal.Body className="mBody">
-                  <h2>Left Buttons</h2>
-                  <p><strong>Graph Settings</strong>: Alter the color and size of all the nodes or links in the graph.</p>
-                  <p><strong>Algorithm Settings</strong>: {props.algoDesc}</p>
-                  <p><strong>Nodes & Links</strong>: {props.nLinkDesc}</p>
-                  <p><strong>{props.nodeList}</strong>{props.nListDesc}</p>
-                  <h2>{props.rButtons}</h2>
-                  <p><strong>{props.b1}</strong>{props.b1Desc}</p>
-                  <p><strong>{props.b2}</strong>{props.b2Desc}</p>
-              </Modal.Body>
-            </Modal>
-        </div>
-    );
->>>>>>> Stashed changes
 };
 
 export default HelpButton;
