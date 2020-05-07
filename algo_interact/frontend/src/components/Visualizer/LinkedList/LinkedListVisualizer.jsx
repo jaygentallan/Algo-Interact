@@ -109,6 +109,7 @@ export default class GraphVisualizer extends React.Component {
       nodePos,
       headName: "",
       tailName: "",
+      listOrder
     };
   }
 
@@ -124,8 +125,12 @@ export default class GraphVisualizer extends React.Component {
     //get link list tail and the newest added node
     let listInfo = this.state.listInfo;
     let newNode = this.getNewNode();
-    //update listOrder
-    this.state.algoData.listOrder.push(newNode.id);
+    let newList = [...this.state.listOrder]
+    //update listOrder copy
+    newList.push(newNode.id);
+    // 
+    this.setState({listOrder: newList});
+
     //find the new tail index
     let tailIndex = this.state.data.nodes.findIndex((node) => {
       return node.nodeid === listInfo.tail;
@@ -150,19 +155,26 @@ export default class GraphVisualizer extends React.Component {
     this.setState({
       ...(this.state.data.nodes = newNodes),
     });
+    
+    this.setState({listOrder: newList}); 
+
     //update link state
     this.state.data.links.push({
       source: tailNode.id,
       target: newNode.id,
-    });
+    }); 
   };
 
   prependNode = () => {
     //get link list head and the newest added node
     let listInfo = this.state.listInfo;
     let newNode = this.getNewNode();
-    //update listOrder
-    this.state.algoData.listOrder.unshift(newNode.id);
+    let newList = [...this.state.listOrder]
+    //update listOrder copy
+    newList.unshift(newNode.id);
+    // update listOrder state
+    this.setState({listOrder: newList});
+
     //find the current head node
     let headIndex = this.state.data.nodes.findIndex((node) => {
       return node.nodeid === listInfo.head;
@@ -187,12 +199,12 @@ export default class GraphVisualizer extends React.Component {
     this.setState({
       listInfo: listInfo,
     });
-
     this.state.data.links.push({
       source: newNode.id,
       target: headNode.id,
-    });
+    }); 
   };
+
   //Add links between two nodes when middle is removed
   handleMiddleConnection = (update) => {
     this.forceUpdate(() => this.onClickAddLink(update));
@@ -213,9 +225,11 @@ export default class GraphVisualizer extends React.Component {
 
     let removeNode = newNodes[removeIndex];
     //update listOrder
-    let newListOrder = this.state.algoData.listOrder.filter((name) => {
+    let newListOrder = this.state.listOrder.filter((name) => {
       return name !== removeNode.id;
     });
+    this.setState({listOrder: newListOrder});
+
     const algoData = { listOrder: newListOrder };
     this.setState({ algoData: algoData });
 
@@ -797,9 +811,13 @@ export default class GraphVisualizer extends React.Component {
   linearSearch = () => {
     //console.log(this.state.algoData.keyNode)
     var counter = 0;
-    for (let i = 0; i < this.state.data.nodes.length; i++) {
+    for (let i = 0; i < this.state.listOrder.length; i++) {
+      console.log(this.state.listOrder);
+      if(!(this.state.algoData.keyNode in this.state.listOrder)) {
+        return;
+      }
       // check if keyNode string equals current node's id string
-      if (this.state.algoData.keyNode === this.state.data.nodes[i].id) {
+      if (this.state.algoData.keyNode === this.state.listOrder[i]) {
         console.log("found key node");
         for (let j = 0; j < 5; j++) {
           setTimeout(
@@ -811,7 +829,7 @@ export default class GraphVisualizer extends React.Component {
         break;
       }
       setTimeout(
-        () => this.highlightHandler(this.state.data.nodes[i].id, counter),
+        () => this.highlightHandler(this.state.listOrder[i], counter),
         1000 * (counter + 1)
       );
       counter++;
