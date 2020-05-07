@@ -2,6 +2,7 @@ import React from "react";
 import Graph from "./Graph/graph/Graph";
 import ReactTooltip from "react-tooltip";
 import { Dropdown, Form, Button } from "react-bootstrap";
+import HelpButton from "../../HelpButton/HelpButton";
 import "./LinkedListVisualizer.css";
 //import LeftWindow from "../../LeftVdWindow/LeftWindow";
 
@@ -48,12 +49,13 @@ export default class GraphVisualizer extends React.Component {
       preAcc: 0,
       appAcc: 0,
     };
+    //for linear search
+    const listOrder = ["Michael"];
 
     // Default configurations used by the Graph component
     const config = {
       nodeHighlightBehavior: true,
       automaticRearrangeAfterDropNode: true,
-      //staticGraphWithDragAndDrop: true,
       staticGraph: true,
       directed: true,
       rederLabel: true,
@@ -62,11 +64,13 @@ export default class GraphVisualizer extends React.Component {
       node: {
         color: "#c34f6b",
         size: 500,
-        highlightStrokeColor: "blue",
-        symbolType: "square",
+        highlightStrokeColor: "orange",
+        strokeWidth: 3,
+        fontWeight: "lighter",
+        highlightFontWeight: "lighter",
       },
       link: {
-        highlightColor: "lightblue",
+        highlightColor: "gold",
         type: "STRAIGHT",
       },
     };
@@ -80,6 +84,7 @@ export default class GraphVisualizer extends React.Component {
       algorithm: "search",
       stack: [],
       queue: [],
+      listOrder: listOrder,
     };
 
     // Class states
@@ -119,6 +124,8 @@ export default class GraphVisualizer extends React.Component {
     //get link list tail and the newest added node
     let listInfo = this.state.listInfo;
     let newNode = this.getNewNode();
+    //update listOrder
+    this.state.algoData.listOrder.push(newNode.id);
     //find the new tail index
     let tailIndex = this.state.data.nodes.findIndex((node) => {
       return node.nodeid === listInfo.tail;
@@ -154,6 +161,8 @@ export default class GraphVisualizer extends React.Component {
     //get link list head and the newest added node
     let listInfo = this.state.listInfo;
     let newNode = this.getNewNode();
+    //update listOrder
+    this.state.algoData.listOrder.unshift(newNode.id);
     //find the current head node
     let headIndex = this.state.data.nodes.findIndex((node) => {
       return node.nodeid === listInfo.head;
@@ -203,12 +212,19 @@ export default class GraphVisualizer extends React.Component {
     let newNodes = [...this.state.data.nodes];
 
     let removeNode = newNodes[removeIndex];
+    //update listOrder
+    let newListOrder = this.state.algoData.listOrder.filter((name) => {
+      return name !== removeNode.id;
+    });
+    const algoData = { listOrder: newListOrder };
+    this.setState({ algoData: algoData });
 
     if (this.state.data.nodes.length === 0) {
       console.log("Remove last node");
       console.log("Length", this.state.data.nodes.length);
       listInfo.head = null;
       listInfo.tail = null;
+      this.state.algoData.listOrder.pop();
     } else if (listInfo.head === removeNode.nodeid) {
       console.log("Remove Head");
       listInfo.head = removeNode.next;
@@ -296,15 +312,12 @@ export default class GraphVisualizer extends React.Component {
     this.setState({
       ...(this.state.data.links = updateLinks),
     });
-
-    console.log("Link Update", this.state.data.links);
   };
 
   //set head and tail colors
   updateListColor = (index) => {
     console.log("updateColor", this.state.data.nodes, this.state.listInfo);
     //get index of head and tail
-
     let headIndex = this.state.data.nodes.findIndex((node) => {
       return node.nodeid === index.head;
     });
@@ -319,8 +332,8 @@ export default class GraphVisualizer extends React.Component {
       node.color = this.state.nodeColor;
     });
     //update new head or tail with color
-    newNodes[headIndex].color = "blue";
-    newNodes[tailIndex].color = "red";
+    newNodes[headIndex].color = "#0080FF";
+    newNodes[tailIndex].color = "#FF0800";
     //update display head and tail
     let headName = newNodes[headIndex].id;
     let tailName = newNodes[tailIndex].id;
@@ -537,6 +550,13 @@ export default class GraphVisualizer extends React.Component {
   };
 
   onClickAddLink = (middleNode) => {
+    //creat copy
+    let link = this.state.data.links;
+    link.push({ source: middleNode.source, target: middleNode.target });
+    //update links with copy
+    this.setState({
+      links: link,
+    });
     /*
     if (this.state.addLink === "") {
       return;
@@ -582,11 +602,11 @@ export default class GraphVisualizer extends React.Component {
           return;
         }
       } */
-
+    /*
     this.state.data.links.push({
       source: middleNode.source,
       target: middleNode.target,
-    });
+    }); */
   };
 
   onClickRemoveLink = () => {
@@ -912,15 +932,39 @@ export default class GraphVisualizer extends React.Component {
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, the traversal log and the main graph visualizer component.
   render() {
-    const head = { color: "blue", margin: "13px" };
-    const tail = { color: "red", margin: "13px" };
+    const head = { color: "#0080FF", margin: "13px" };
+    const tail = { color: "#FF0800", margin: "13px" };
 
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
-        <div className="listInfo">
-          <h5 style={head}>{`Head: ${this.state.headName}`}</h5>
-          <h5 style={tail}>{`Tail: ${this.state.tailName}`}</h5>
+        <div className="pt-3">
+          <div className="listInfo">
+            <h5
+              className="font-weight-light"
+              style={head}
+            >{`Head: ${this.state.headName}`}</h5>
+            <h5
+              className="font-weight-light pt-1"
+              style={tail}
+            >{`Tail: ${this.state.tailName}`}</h5>
+          </div>
+          <div class="rightWindow-LL">
+            <HelpButton
+              mTitle="Linked List Visualizer–More Info"
+              algoDesc="Enter the name of an existing node that you'd like the 
+                        search algorithm to find. Then, press the start button."
+              nLinkDesc="Append node adds the new node to the tail of the linked list,
+                          and the tail node is updated to be the new node. Prepend node 
+                          adds a node before the current head, and the head node is 
+                          updated to be the new node. Enter the name of the node you'd 
+                          like to remove to remove it. The linked list will automatically
+                          update the links that were connected to the deleted node."
+              rButtons="Right Window–Head & Tail Tracker"
+              b1Desc="This box tracks the Head and Tail node of the linked list. It updates
+                      as nodes are appended and prepended."
+            />
+          </div>
         </div>
 
         <div class="leftWindow">
@@ -1051,20 +1095,6 @@ export default class GraphVisualizer extends React.Component {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <div className="mt-2 mb-2">
-                <Form.Check
-                  className="checkboxes"
-                  type="checkbox"
-                  id="direct"
-                  label="Directed"
-                />
-                <Form.Check
-                  className="checkboxes"
-                  type="checkbox"
-                  id="weight"
-                  label="Weighted"
-                />
-              </div>
               <div id="node" class="input-group mb-3">
                 <h5 class="font-weight-light h6 pt-3"> Target Value </h5>
                 <div class="input-group mb-3">
@@ -1084,7 +1114,7 @@ export default class GraphVisualizer extends React.Component {
                   variant="outline-success"
                   onClick={() => this.startAlgorithm()}
                 >
-                  Start Search
+                  Start Linear Search
                 </Button>
               </div>
             </Dropdown.Menu>
@@ -1122,21 +1152,11 @@ export default class GraphVisualizer extends React.Component {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <h5 class="font-weight-light pt-2"> Append node: </h5>
+              <h5 class="font-weight-light h6 pt-3"> Append node: </h5>
               <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <button
-                    onClick={this.onClickAppNode}
-                    type="button"
-                    class="btn btn-outline-danger"
-                    id="button-addon1"
-                  >
-                    <h6 class="align-middle"> + </h6>
-                  </button>
-                </div>
                 <input
                   type="text"
-                  class="nodeInput"
+                  class="linkInput"
                   name="addNodeName"
                   placeholder={this.state.addNodePlaceholder}
                   value={this.state.addNodeName}
@@ -1145,21 +1165,11 @@ export default class GraphVisualizer extends React.Component {
                 />
               </div>
 
-              <h5 class="font-weight-light pt-2"> Prepend node: </h5>
+              <h5 class="font-weight-light h6"> Prepend node: </h5>
               <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <button
-                    onClick={this.onClickPreNode}
-                    type="button"
-                    class="btn btn-outline-danger"
-                    id="button-addon1"
-                  >
-                    <h6 class="align-middle"> + </h6>
-                  </button>
-                </div>
                 <input
                   type="text"
-                  class="nodeInput"
+                  class="linkInput"
                   name="preNodeName"
                   placeholder={this.state.preNodePlaceholder}
                   value={this.state.preNodeName}
@@ -1168,21 +1178,11 @@ export default class GraphVisualizer extends React.Component {
                 />
               </div>
 
-              <h5 class="font-weight-light"> Remove node: </h5>
+              <h5 class="font-weight-light h6"> Remove node: </h5>
               <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <button
-                    onClick={this.onClickRemoveNode}
-                    type="button"
-                    class="btn btn-outline-danger pl-3 pr-2.5"
-                    id="button-addon1"
-                  >
-                    <h6 class="align-middle"> - </h6>
-                  </button>
-                </div>
                 <input
                   type="text"
-                  class="nodeInput"
+                  class="linkInput"
                   name="removeNodeName"
                   placeholder={this.state.removeNodePlaceholder}
                   value={this.state.removeNodeName}

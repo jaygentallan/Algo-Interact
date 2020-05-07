@@ -3,6 +3,7 @@ import Graph from "./Graph/graph/Graph";
 import TreeView from "react-treeview";
 import ReactTooltip from "react-tooltip";
 import { Dropdown, Form, Button } from "react-bootstrap";
+import HelpButton from "../../HelpButton/HelpButton";
 import "./TreeVisualizer.css";
 //import LeftWindow from "../../LeftVdWindow/LeftWindow";
 
@@ -48,6 +49,8 @@ export default class GraphVisualizer extends React.Component {
       },
     ];
 
+    const traversalList = [];
+
     // Default configurations used by the Graph component
     const config = {
       nodeHighlightBehavior: true,
@@ -62,19 +65,24 @@ export default class GraphVisualizer extends React.Component {
       node: {
         color: "#c34f6b",
         size: 600,
-        highlightStrokeColor: "blue",
+        highlightStrokeColor: "orange",
+        strokeWidth: 3,
+        fontWeight: "lighter",
+        highlightFontWeight: "lighter",
       },
       link: {
-        highlightColor: "lightblue",
+        highlightColor: "gold",
         fontSize: 13,
         renderLabel: false,
       },
     };
 
     const algoData = {
-      startNode: "",
-      endNode: "",
+      root: "Harry",
+      target: "",
       tree: tree,
+      traversalList: traversalList,
+      showList: false,
       algorithm: "dfs",
       stack: [],
       queue: [],
@@ -160,21 +168,14 @@ export default class GraphVisualizer extends React.Component {
 
             data.nodes[i].left = true;
 
-            // Used to determine if parent already exists in tree list
-            let exists = false;
-
             // Put new node in tree list
             for (let i = 0; i < tree.length; i++) {
               if (parent in tree[i]) {
                 tree[i][parent]["left"] = newNode;
-                exists = true;
+                let newParent = {};
+                newParent[newNode] = {};
+                tree.push(newParent);
               }
-            }
-
-            if (!exists) {
-              let newParent = {};
-              newParent[parent] = { left: newNode };
-              tree.push(newParent);
             }
           } else if ((side === "r" || side === "R") && !data.nodes[i].right) {
             let x =
@@ -205,21 +206,14 @@ export default class GraphVisualizer extends React.Component {
 
             data.nodes[i].right = true;
 
-            // Used to determine if parent already exists in tree list
-            let exists = false;
-
             // Put new node in tree list
             for (let i = 0; i < tree.length; i++) {
               if (parent in tree[i]) {
                 tree[i][parent]["right"] = newNode;
-                exists = true;
+                let newParent = {};
+                newParent[newNode] = {};
+                tree.push(newParent);
               }
-            }
-
-            if (!exists) {
-              let newParent = {};
-              newParent[parent] = { right: newNode };
-              tree.push(newParent);
             }
           }
 
@@ -228,8 +222,6 @@ export default class GraphVisualizer extends React.Component {
             source: parent,
             target: newNode,
           });
-
-          console.log(tree);
 
           var algoData = this.state.algoData;
           algoData.tree = tree;
@@ -252,47 +244,6 @@ export default class GraphVisualizer extends React.Component {
 
       this.setState({ data });
     }
-
-    /*
-    var undirected_neighbors = this.state.algoData.undirected_neighbors;
-    var directed_neighbors = this.state.algoData.directed_neighbors;
-
-    // Adds node to the neighbor array in the state's algoData
-    let found = false;
-    for (let i = 0; i < undirected_neighbors.length; i++) {
-      if (this.state.addNodeName in undirected_neighbors[i]) {
-        found = true;
-      }
-      if (this.state.addNodeName in directed_neighbors[i]) {
-        found = true;
-      }
-    }
-
-    if (!found) {
-      var name = this.state.addNodeName;
-      let undirected_neighbors = this.state.algoData.undirected_neighbors;
-      let directed_neighbors = this.state.algoData.directed_neighbors;
-      var newNeighbor = {};
-      newNeighbor[name] = [];
-
-      undirected_neighbors.push(newNeighbor);
-      directed_neighbors.push(newNeighbor);
-
-      this.setState({
-        undirected_neighbors: undirected_neighbors,
-        directed_neighbors: directed_neighbors,
-      });
-
-      console.log(
-        "Added to UNDIRECTED_NEIGHBORS: ",
-        this.state.algoData.undirected_neighbors
-      );
-      console.log(
-        "Added to DIRECTED NEIGHBORS: ",
-        this.state.algoData.directed_neighbors
-      );
-    }
-    */
 
     this.setState({
       addNodeName: "",
@@ -700,206 +651,273 @@ export default class GraphVisualizer extends React.Component {
   };
 
   startAlgorithm = () => {
-    if (this.state.algoData.algorithm === "dfs") {
-      this.depthFirstSearch();
-    } else if (this.state.algoData.algorithm === "bfs") {
-      this.breadthFirstSearch();
-    } else if (this.state.algoData.algorithm === "djk") {
-      this.dijkstraAlgorithm();
+    if (this.state.algoData.algorithm === "preOrder") {
+      this.state.algoData.showList = true;
+      this.preOrder();
+    } else if (this.state.algoData.algorithm === "inOrder") {
+      this.state.algoData.showList = true;
+      this.inOrder();
+    } else if (this.state.algoData.algorithm === "postOrder") {
+      this.state.algoData.showList = true;
+      this.postOrder();
+    } else if (this.state.algoData.algorithm === "levelOrder") {
+      this.state.algoData.showList = true;
+      this.levelOrder();
     }
   };
 
-  depthFirstSearch = () => {
-    if (
-      this.state.algoData.startNode !== "" &&
-      this.state.algoData.endNode !== ""
-    ) {
-      const startNode = this.state.algoData.startNode;
-      const endNode = this.state.algoData.endNode;
-      var startNodeIsValid = false;
-      var endNodeIsValid = false;
+  // Preorder function that does the preorder traversal on the tree.
+  // Uses a stack to store the strings of the node names, and uses
+  // the tree list to traverse the tree as if it was a regular tree class.
+  preOrder = () => {
+    var tree = this.state.algoData.tree;
+    var traversalList = this.state.algoData.traversalList;
+    var counter = 0;
+    var stack = [];
+    stack.push(this.state.algoData.root);
 
-      // Uses the appropriate neighbors list if directed is turned on or not
-      var neighbors = this.state.config.directed
-        ? this.state.algoData.directed_neighbors
-        : this.state.algoData.undirected_neighbors;
+    // Loop while the stack is not empty
+    while (stack !== undefined && stack.length !== 0) {
+      // Pops the tail element of the stack
+      let node = stack.pop();
 
-      // Does a loop through the undirect and directed neighbors list to make sure both are valid nodes
-      for (let i = 0; i < neighbors.length; i++) {
-        if (startNode in neighbors[i]) {
-          startNodeIsValid = true;
-        }
-        if (endNode in neighbors[i]) {
-          endNodeIsValid = true;
+      // Gets the traversalList so we can push the current node values
+      // and have it display to the user as a line indicating the order
+      // of the traversal.
+
+      // Call the highlight handler function
+      setTimeout(() => {
+        traversalList.push(node);
+        this.highlightHandler(node, counter);
+      }, 1000 * (counter + 1));
+
+      this.setState({
+        ...(this.state.algoData.traversalList = traversalList),
+      });
+
+      // Iterates through the tree list to check if any of them equal to the node
+      // If it is, check if right node exists, if so, push to the stack.
+      // Also check if left node exists, if so, push to the stack.
+      for (let i = 0; i < tree.length; i++) {
+        if (node in tree[i]) {
+          if ("right" in tree[i][node]) {
+            stack.push(tree[i][node]["right"]);
+          }
+          if ("left" in tree[i][node]) {
+            stack.push(tree[i][node]["left"]);
+          }
         }
       }
 
-      // Checks whether both the start node and end node are valid
-      if (startNodeIsValid && endNodeIsValid) {
-        if (this.state.algoData.stack == null) {
-          const algoData = this.state.data.algoData;
-          algoData.stack = [];
-          this.setState({ algoData });
-        }
-
-        // Intiailizes the variables needed for depth-first search
-        this.state.algoData.stack = [];
-        this.state.algoData.stack.push(startNode);
-        const visited = {};
-        var counter = 0;
-        visited[startNode] = startNode;
-
-        while (
-          this.state.algoData.stack !== undefined ||
-          this.state.algoData.stack.length !== 0
-        ) {
-          const curr = this.state.algoData.stack.pop();
-          if (curr === endNode) {
-            for (let i = 0; i < 5; i++) {
-              setTimeout(() => this.foundTarget(endNode), 1200 * counter);
-              counter++;
-            }
-            console.log("FOUND TARGET");
-            this.resetState(counter);
-            return;
-          }
-          setTimeout(
-            () => this.highlightHandler(curr, counter),
-            1000 * (counter + 1)
-          );
-          counter++;
-
-          // For looping through the neighbors array
-          for (let i = 0; i < neighbors.length; i++) {
-            if (
-              curr in neighbors[i] &&
-              neighbors[i][curr] !== null &&
-              neighbors[i][curr].length !== 0
-            ) {
-              // For looping through the array within the neighbors array, this contains the name and weight of the link
-              for (let j = 0; j < neighbors[i][curr].length; j++) {
-                const newNode = neighbors[i][curr][j][0];
-                if (newNode in visited) {
-                  console.log("VISITED");
-                  continue;
-                }
-
-                this.state.algoData.stack.push(newNode);
-                visited[newNode] = newNode;
-              }
-            }
-          }
-        }
-
-        // Reset node color state after DFS is done
-        this.resetState();
-      } else {
-        console.log("FAILURE!!!");
-      }
-    } else {
-      console.log("FAIL");
+      counter++;
     }
+
+    // Resets the graph, the showList boolean, and the traversalList at the end of the algorithm.
+    this.resetState(counter + 3);
+    setTimeout(() => {
+      this.setState({
+        ...(this.state.algoData.showList = false),
+        ...(this.state.algoData.traversalList = []),
+      });
+    }, 1000 * (counter + 5));
   };
 
-  breadthFirstSearch = () => {
-    if (
-      this.state.algoData.startNode !== "" &&
-      this.state.algoData.endNode !== ""
+  // Preorder function that does the preorder traversal on the tree.
+  // Uses a stack to store the strings of the node names, and uses
+  // the tree list to traverse the tree as if it was a regular tree class.
+  inOrder = () => {
+    var tree = this.state.algoData.tree;
+    var traversalList = this.state.algoData.traversalList;
+    var counter = 0;
+    var node = this.state.algoData.root;
+    var stack = [];
+
+    // Loop while the stack is not empty
+    while (
+      (node !== undefined && node.slice(0, -1) != "") ||
+      (stack !== undefined && stack.length !== 0)
     ) {
-      const startNode = this.state.algoData.startNode;
-      const endNode = this.state.algoData.endNode;
-      var startNodeIsValid = false;
-      var endNodeIsValid = false;
-
-      // Uses the appropriate neighbors list if directed is turned on or not
-      var neighbors = this.state.config.directed
-        ? this.state.algoData.directed_neighbors
-        : this.state.algoData.undirected_neighbors;
-
-      for (let i = 0; i < neighbors.length; i++) {
-        if (startNode in neighbors[i]) {
-          startNodeIsValid = true;
-        }
-        if (endNode in neighbors[i]) {
-          endNodeIsValid = true;
+      // Reach the left most node of the curr node
+      while (node !== undefined && node.slice(0, -1) != "") {
+        for (let i = 0; i < tree.length; i++) {
+          if (node in tree[i]) {
+            stack.push(node);
+            if ("left" in tree[i][node]) {
+              node = tree[i][node]["left"];
+            } else {
+              node = "";
+            }
+            break;
+          } else if (i === tree.length - 1) {
+            node = "";
+            break;
+          }
         }
       }
 
-      if (startNodeIsValid && endNodeIsValid) {
-        if (this.state.algoData.stack == null) {
-          const algoData = {
-            startNode: this.state.algoData.stack,
-            endNode: this.state.algoData.endNode,
-            undirected_neighbors: this.state.algoData.undirected_neighbors,
-            directed_neighbors: this.state.algoData.directed_neighbors,
-            algorithm: this.state.algoData.algorithm,
-            startAlgorithm: this.state.algoData.startAlgorithm,
-            stack: [],
-          };
-          this.setState({ algoData });
-        }
+      // Current should be NULL by this point
+      let curr = stack.pop();
 
-        // Initializes all the variables needed for the breadth-first search
-        this.state.algoData.queue = [];
-        this.state.algoData.queue.push(startNode);
-        const visited = {};
-        var counter = 0;
-        visited[startNode] = startNode;
+      // Call the highlight handler function
+      setTimeout(() => {
+        traversalList.push(curr);
+        this.highlightHandler(curr, counter);
+      }, 1000 * (counter + 1));
 
-        while (
-          this.state.algoData.queue !== undefined ||
-          this.state.algoData.queue.length !== 0
-        ) {
-          const curr = this.state.algoData.queue.shift();
-          if (curr === endNode) {
-            for (let i = 0; i < 5; i++) {
-              setTimeout(() => this.foundTarget(endNode), 1200 * counter);
-              counter++;
-            }
-            console.log("FOUND TARGET");
-            this.resetState(counter);
-            return;
+      // Set the traversalList of the class state
+      this.setState({
+        ...(this.state.algoData.traversalList = traversalList),
+      });
+
+      // Set node to curr
+      node = curr;
+
+      // Check if the node has a right child, if it does, set node to it, else set it to undefined
+      for (let i = 0; i < tree.length; i++) {
+        if (node in tree[i]) {
+          if ("right" in tree[i][node]) {
+            node = tree[i][node]["right"];
+          } else {
+            node = "";
           }
-
-          setTimeout(
-            () => this.highlightHandler(curr, counter),
-            1000 * (counter + 1)
-          );
-          counter++;
-
-          for (let i = 0; i < neighbors.length; i++) {
-            if (
-              curr in neighbors[i] &&
-              neighbors[i][curr] !== null &&
-              neighbors[i][curr].length !== 0
-            ) {
-              for (let j = 0; j < neighbors[i][curr].length; j++) {
-                const newNode = neighbors[i][curr][j][0];
-                if (newNode in visited) {
-                  console.log("VISITED");
-                  continue;
-                }
-
-                this.state.algoData.queue.push(newNode);
-                visited[newNode] = newNode;
-              }
-            }
-          }
+          break;
+        } else if (i === tree.length - 1) {
+          node = "";
+          break;
         }
-
-        // Reset node color state after DFS is done
-        this.resetState();
-      } else {
-        console.log("FAILURE!!!");
       }
-    } else {
-      console.log("FAIL");
-      console.log(
-        this.state.algoData.startNode,
-        this.state.algoData.endNode,
-        this.state.algoData.algorithm
-      );
+
+      counter++;
     }
+
+    // Resets the graph, the showList boolean, and the traversalList at the end of the algorithm.
+    this.resetState(counter + 1);
+    setTimeout(() => {
+      this.setState({
+        ...(this.state.algoData.showList = false),
+        ...(this.state.algoData.traversalList = []),
+      });
+    }, 1000 * (counter + 5));
+  };
+
+  // Preorder function that does the preorder traversal on the tree.
+  // Uses a stack to store the strings of the node names, and uses
+  // the tree list to traverse the tree as if it was a regular tree class.
+  postOrder = () => {
+    var tree = this.state.algoData.tree;
+    var traversalList = this.state.algoData.traversalList;
+    var counter = 0;
+    var node = this.state.algoData.root;
+    var stack = [];
+    var outputStack = [];
+    stack.push(node);
+
+    // Loop while the stack is not empty
+    while (stack !== undefined && stack.length !== 0) {
+      // Pop a node from the stack
+      node = stack.pop();
+      outputStack.push(node);
+
+      // Checks if the node has any left child, if so push that value to the stack
+      for (let i = 0; i < tree.length; i++) {
+        if (node in tree[i]) {
+          if ("left" in tree[i][node]) {
+            stack.push(tree[i][node]["left"]);
+          }
+          break;
+        }
+      }
+
+      // Checks if the node has any right child, if so push that value to the stack
+      for (let i = 0; i < tree.length; i++) {
+        if (node in tree[i]) {
+          if ("right" in tree[i][node]) {
+            stack.push(tree[i][node]["right"]);
+          }
+          break;
+        }
+      }
+    }
+
+    while (outputStack !== undefined && outputStack.length !== 0) {
+      let out = outputStack.pop();
+      // Call the highlight handler function
+      setTimeout(() => {
+        traversalList.push(out);
+        this.highlightHandler(out, counter);
+      }, 1000 * (counter + 1));
+
+      this.setState({
+        ...(this.state.algoData.traversalList = traversalList),
+      });
+      counter++;
+    }
+
+    // Resets the graph, the showList boolean, and the traversalList at the end of the algorithm.
+    this.resetState(counter + 1);
+    setTimeout(() => {
+      this.setState({
+        ...(this.state.algoData.showList = false),
+        ...(this.state.algoData.traversalList = []),
+      });
+    }, 1000 * (counter + 5));
+  };
+
+  levelOrder = () => {
+    var tree = this.state.algoData.tree;
+    var traversalList = this.state.algoData.traversalList;
+    var counter = 0;
+    var node = this.state.algoData.root;
+    var queue = [];
+    queue.push(node);
+
+    while (queue !== undefined && queue.length !== 0) {
+      node = queue.shift();
+      let curr = node;
+      console.log(node);
+
+      // Call the highlight handler function
+      setTimeout(() => {
+        traversalList.push(curr);
+        this.highlightHandler(curr, counter);
+        console.log("HIGHLIGHTING ", curr, "WITH COUNTER ", counter);
+      }, 1000 * (counter + 1));
+
+      this.setState({
+        ...(this.state.algoData.traversalList = traversalList),
+      });
+
+      // Checks if the node has any left child, if so push that value to the stack
+      for (let i = 0; i < tree.length; i++) {
+        if (node in tree[i]) {
+          if ("left" in tree[i][node]) {
+            queue.push(tree[i][node]["left"]);
+          }
+          break;
+        }
+      }
+
+      // Checks if the node has any right child, if so push that value to the stack
+      for (let i = 0; i < tree.length; i++) {
+        if (node in tree[i]) {
+          if ("right" in tree[i][node]) {
+            queue.push(tree[i][node]["right"]);
+          }
+          break;
+        }
+      }
+
+      counter++;
+    }
+
+    // Resets the graph, the showList boolean, and the traversalList at the end of the algorithm.
+    this.resetState(counter + 1);
+    setTimeout(() => {
+      this.setState({
+        ...(this.state.algoData.showList = false),
+        ...(this.state.algoData.traversalList = []),
+      });
+    }, 1000 * (counter + 5));
   };
 
   //Node Highlight Rotation Test -- Use Algorithm functions in replace
@@ -912,6 +930,7 @@ export default class GraphVisualizer extends React.Component {
 
   //reset node color back to original
   resetState = (counter) => {
+    if (counter <= 2) counter = 3;
     const myP = new Promise(function (resolve, reject) {
       // promise for time delay
       setTimeout(() => resolve("Successful Switch!"), 2000 * (counter - 2));
@@ -1010,17 +1029,24 @@ export default class GraphVisualizer extends React.Component {
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, the traversal log and the main graph visualizer component.
   render() {
-    const neighborItems = this.state.algoData.stack.map((item) => {
-      return <li class="list-group-item">{item}</li>;
-    });
+    // prettier-ignore
+    var listItems;
+    if (this.state.algoData.algorithm === "preOrder") {
+      listItems = "Preorder Traversal: ";
+    } else if (this.state.algoData.algorithm === "inOrder") {
+      listItems = "Inorder Traversal: ";
+    } else if (this.state.algoData.algorithm === "postOrder") {
+      listItems = "Postorder Traversal: ";
+    } else if (this.state.algoData.algorithm === "levelOrder") {
+      listItems = "Levelorder Traversal: ";
+    }
+
+    // prettier-ignore
+    this.state.algoData.traversalList.map((e, i) => (i < this.state.algoData.traversalList.length - 1 ? listItems += e + " > " : listItems += e));
 
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
-        <div class="tLog fixed-bottom">
-          <ul class="list-group list-group-flush">{neighborItems}</ul>
-        </div>
-
         <div class="leftWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
             <Dropdown.Toggle
@@ -1147,9 +1173,8 @@ export default class GraphVisualizer extends React.Component {
                 </svg>
               </div>
             </Dropdown.Toggle>
-
             <Dropdown.Menu>
-              <div id="node" class="input-group mb-3 pt-2">
+              <div id="node" class="input-group mb-3 pt-3">
                 <h5 class="font-weight-light h6"> Target Node </h5>
                 <div class="input-group mb-3">
                   <input
@@ -1163,32 +1188,51 @@ export default class GraphVisualizer extends React.Component {
                   />
                 </div>
 
-                <Dropdown className="dropdown pt-2" drop="right">
-                  <Dropdown.Toggle variant="outline-info" id="dropdown-two">
-                    Algorithm
-                  </Dropdown.Toggle>
+                <h5 class="font-weight-light h6"> Algorithms: </h5>
 
-                  <Dropdown.Menu id="algoSelection">
-                    <Dropdown.Item
-                      eventKey="1"
-                      onSelect={() => (this.state.algoData.algorithm = "dfs")}
-                    >
-                      Depth-First Search
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      evenyKey="2"
-                      onSelect={() => (this.state.algoData.algorithm = "bfs")}
-                    >
-                      Breadth-First Search
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      eventKey="3"
-                      onSelect={() => (this.state.algoData.algorithm = "djk")}
-                    >
-                      Dijkstra's
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
+                <div className="pt-1">
+                  <Button
+                    variant="outline-danger"
+                    className="algoSelection"
+                    onClick={() => (this.state.algoData.algorithm = "preOrder")}
+                  >
+                    <h6 class="font-weight-normal">Preorder</h6>
+                  </Button>
+                </div>
+
+                <div className="pt-2">
+                  <Button
+                    variant="outline-danger"
+                    className="algoSelection"
+                    onClick={() => (this.state.algoData.algorithm = "inOrder")}
+                  >
+                    <h6 class="font-weight-normal">Inorder</h6>
+                  </Button>
+                </div>
+
+                <div className="pt-2">
+                  <Button
+                    variant="outline-danger"
+                    className="algoSelection"
+                    onClick={() =>
+                      (this.state.algoData.algorithm = "postOrder")
+                    }
+                  >
+                    <h6 class="font-weight-normal">Postorder</h6>
+                  </Button>
+                </div>
+
+                <div className="pt-2">
+                  <Button
+                    variant="outline-danger"
+                    className="algoSelection"
+                    onClick={() =>
+                      (this.state.algoData.algorithm = "levelOrder")
+                    }
+                  >
+                    <h6 class="font-weight-normal">Levelorder</h6>
+                  </Button>
+                </div>
 
                 <Button
                   className="submit mt-2 font-weight-normal"
@@ -1234,7 +1278,7 @@ export default class GraphVisualizer extends React.Component {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <h5 class="font-weight-light pt-2"> Add node: </h5>
+              <h5 class="font-weight-light h6 pt-4"> Add node: </h5>
               <div class="input-group mb-3">
                 <input
                   type="text"
@@ -1247,7 +1291,7 @@ export default class GraphVisualizer extends React.Component {
                 />
               </div>
 
-              <h5 class="font-weight-light"> Remove node: </h5>
+              <h5 class="font-weight-light h6"> Remove node: </h5>
               <div class="input-group mb-3">
                 <input
                   type="text"
@@ -1326,6 +1370,19 @@ export default class GraphVisualizer extends React.Component {
             </Dropdown.Menu>
           </Dropdown>
         </div>
+        <div class="rightWindow">
+          <HelpButton
+            mTitle="Tree Visualizer–More Info"
+            algoDesc="Enter the name of an existing node in the tree. Then, choose one
+                      algorithm you would like to run and press the Start button."
+            nLinkDesc="Follow the instructions in the box for adding a new node to the Tree.
+                      to remove an existing node, enter the node's name. Since it is a tree, there
+                      is only a maximum of 2 links that can extend from a node, so you don't need
+                      to enter information for deleting a link."
+            nodeList="Node List"
+            nListDesc=": Click this button to see the list of nodes and their respective children."
+          />
+        </div>
 
         <ReactTooltip
           id="buttons"
@@ -1335,6 +1392,13 @@ export default class GraphVisualizer extends React.Component {
           multiline={true}
           className="extraClass"
         />
+
+        {
+          // prettier-ignore
+          this.state.algoData.showList
+            ? <div className="listDisplay font-weight-light"> <p class="traversalList">{listItems}</p> </div>
+            : <div></div>
+        }
 
         <Graph
           //Entry point for passing data to library to be displayed
