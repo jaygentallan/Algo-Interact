@@ -60,7 +60,7 @@ export default class GraphVisualizer extends React.Component {
       directed: true,
       rederLabel: true,
       // eslint-disable-next-line no-restricted-globals
-      height: screen.height * 0.86,
+      height: screen.height * 0.78,
       // eslint-disable-next-line no-restricted-globals
       width: screen.width * 0.989,
       node: {
@@ -111,6 +111,7 @@ export default class GraphVisualizer extends React.Component {
       nodePos,
       headName: "",
       tailName: "",
+      listOrder,
     };
   }
 
@@ -126,8 +127,12 @@ export default class GraphVisualizer extends React.Component {
     //get link list tail and the newest added node
     let listInfo = this.state.listInfo;
     let newNode = this.getNewNode();
-    //update listOrder
-    this.state.algoData.listOrder.push(newNode.id);
+    let newList = [...this.state.listOrder];
+    //update listOrder copy
+    newList.push(newNode.id);
+    //
+    this.setState({ listOrder: newList });
+
     //find the new tail index
     let tailIndex = this.state.data.nodes.findIndex((node) => {
       return node.nodeid === listInfo.tail;
@@ -152,6 +157,9 @@ export default class GraphVisualizer extends React.Component {
     this.setState({
       ...(this.state.data.nodes = newNodes),
     });
+
+    this.setState({ listOrder: newList });
+
     //update link state
     this.state.data.links.push({
       source: tailNode.id,
@@ -163,8 +171,12 @@ export default class GraphVisualizer extends React.Component {
     //get link list head and the newest added node
     let listInfo = this.state.listInfo;
     let newNode = this.getNewNode();
-    //update listOrder
-    this.state.algoData.listOrder.unshift(newNode.id);
+    let newList = [...this.state.listOrder];
+    //update listOrder copy
+    newList.unshift(newNode.id);
+    // update listOrder state
+    this.setState({ listOrder: newList });
+
     //find the current head node
     let headIndex = this.state.data.nodes.findIndex((node) => {
       return node.nodeid === listInfo.head;
@@ -189,12 +201,12 @@ export default class GraphVisualizer extends React.Component {
     this.setState({
       listInfo: listInfo,
     });
-
     this.state.data.links.push({
       source: newNode.id,
       target: headNode.id,
     });
   };
+
   //Add links between two nodes when middle is removed
   handleMiddleConnection = (update) => {
     this.forceUpdate(() => this.onClickAddLink(update));
@@ -215,9 +227,11 @@ export default class GraphVisualizer extends React.Component {
 
     let removeNode = newNodes[removeIndex];
     //update listOrder
-    let newListOrder = this.state.algoData.listOrder.filter((name) => {
+    let newListOrder = this.state.listOrder.filter((name) => {
       return name !== removeNode.id;
     });
+    this.setState({ listOrder: newListOrder });
+
     const algoData = { listOrder: newListOrder };
     this.setState({ algoData: algoData });
 
@@ -799,9 +813,13 @@ export default class GraphVisualizer extends React.Component {
   linearSearch = () => {
     //console.log(this.state.algoData.keyNode)
     var counter = 0;
-    for (let i = 0; i < this.state.data.nodes.length; i++) {
+    for (let i = 0; i < this.state.listOrder.length; i++) {
+      console.log(this.state.listOrder);
+      if (!(this.state.algoData.keyNode in this.state.listOrder)) {
+        return;
+      }
       // check if keyNode string equals current node's id string
-      if (this.state.algoData.keyNode === this.state.data.nodes[i].id) {
+      if (this.state.algoData.keyNode === this.state.listOrder[i]) {
         console.log("found key node");
         for (let j = 0; j < 5; j++) {
           setTimeout(
@@ -813,7 +831,7 @@ export default class GraphVisualizer extends React.Component {
         break;
       }
       setTimeout(
-        () => this.highlightHandler(this.state.data.nodes[i].id, counter),
+        () => this.highlightHandler(this.state.listOrder[i], counter),
         1000 * (counter + 1)
       );
       counter++;
@@ -1180,10 +1198,22 @@ export default class GraphVisualizer extends React.Component {
           </Dropdown>
         </div>
 
-        <div class="rightWindowHelpButton">
-          <div class="row pt-3"></div>
+        <ReactTooltip
+          id="buttons"
+          place="right"
+          backgroundColor="#c34f6b"
+          effect="solid"
+          multiline={true}
+          className="extraClass"
+        />
+
+        <div
+          class="rightWindowHelpButton"
+          data-tip="Help"
+          data-for="helpButton"
+        >
           <HelpButton
-            mTitle="Graph Visualizer-More Info"
+            mTitle="Linked List"
             algoDesc="Choose Directed to see the path direction or Weighted to see values associated
                       with each link in the graph. To prepare the execution of an algorithm, enter a
                       start node's name and a target node's name. Finally choose 1 algorithm to 
@@ -1204,9 +1234,9 @@ export default class GraphVisualizer extends React.Component {
         </div>
 
         <ReactTooltip
-          id="buttons"
-          place="right"
-          backgroundColor="#c34f6b"
+          id="helpButton"
+          place="left"
+          backgroundColor="#2e8b57"
           effect="solid"
           multiline={true}
           className="extraClass"

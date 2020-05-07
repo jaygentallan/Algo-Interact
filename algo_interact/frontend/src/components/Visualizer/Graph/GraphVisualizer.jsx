@@ -1652,9 +1652,22 @@ export default class GraphVisualizer extends React.Component {
         </div>
         {/*Presets End */}
 
-        <div class="rightWindowHelpButton">
+        <ReactTooltip
+          id="presetButton"
+          place="left"
+          backgroundColor="#c34f6b"
+          effect="solid"
+          multiline={true}
+          className="extraClass"
+        />
+
+        <div
+          class="rightWindowHelpButton"
+          data-tip="Help"
+          data-for="helpButton"
+        >
           <HelpButton
-            mTitle="Graph Visualizer-More Info"
+            mTitle="Graph Visualizer"
             algoDesc="Choose Directed to see the path direction or Weighted to see values associated
                       with each link in the graph. To prepare the execution of an algorithm, enter a
                       start node's name and a target node's name. Finally choose 1 algorithm to 
@@ -1675,9 +1688,9 @@ export default class GraphVisualizer extends React.Component {
         </div>
 
         <ReactTooltip
-          id="presetButton"
+          id="helpButton"
           place="left"
-          backgroundColor="#c34f6b"
+          backgroundColor="#2e8b57"
           effect="solid"
           multiline={true}
           className="extraClass"

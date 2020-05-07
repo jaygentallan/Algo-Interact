@@ -28,7 +28,7 @@ const Footer = () => {
           onHide={hideModal} 
           size="lg"
         >
-          <Modal.Header>
+          <Modal.Header class="teamHeader">
             <Modal.Title><h1 class="display-3">Meet the Team!</h1></Modal.Title>
           </Modal.Header>
           <Modal.Body>

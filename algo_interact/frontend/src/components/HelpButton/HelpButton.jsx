@@ -35,13 +35,13 @@ const HelpButton = (props) => {
         </svg>
       </button>
       <Modal show={isOpen} onHide={hideModal} size="lg">
-        <Modal.Header class="mHeader">
+        <Modal.Header className="helpHeader">
           <Modal.Title>
             <h1 class="display-4">{props.mTitle}</h1>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h2>Left Buttons</h2>
+          <h2 className="helpModal">Left Buttons</h2>
           <p>
             <strong>Graph Settings</strong>: Alter the color and size of all the
             nodes or links in the graph.
@@ -56,7 +56,7 @@ const HelpButton = (props) => {
             <strong>{props.nodeList}</strong>
             {props.nListDesc}
           </p>
-          <h2>{props.rButtons}</h2>
+          <h2 className="helpModal2">{props.rButtons}</h2>
           <p>
             <strong>{props.b1}</strong>
             {props.b1Desc}

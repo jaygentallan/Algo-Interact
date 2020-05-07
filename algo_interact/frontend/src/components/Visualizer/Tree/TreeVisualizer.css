@@ -93,11 +93,11 @@ h1.name.text-center {
 }
 
 .rightWindowHelpButton {
-  height: 3em !important;
-  width: 3em;
+  height: 2em !important;
+  width: 2em !important;
   position: absolute;
-  right: 0px;
-  bottom: 0;
+  right: 1em !important;
+  bottom: 1em !important;
 }
 
 .listDisplay.font-weight-light {

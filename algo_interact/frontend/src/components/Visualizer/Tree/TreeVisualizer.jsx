@@ -1392,9 +1392,13 @@ export default class GraphVisualizer extends React.Component {
           className="extraClass"
         />
 
-        <div class="rightWindowHelpButton">
+        <div
+          class="rightWindowHelpButton"
+          data-tip="Help"
+          data-for="helpButton"
+        >
           <HelpButton
-            mTitle="Graph Visualizer-More Info"
+            mTitle="Tree"
             algoDesc="Choose Directed to see the path direction or Weighted to see values associated
                       with each link in the graph. To prepare the execution of an algorithm, enter a
                       start node's name and a target node's name. Finally choose 1 algorithm to 
@@ -1413,6 +1417,15 @@ export default class GraphVisualizer extends React.Component {
             b2Desc=": Click to render a larger graph with connecting nodes."
           />
         </div>
+
+        <ReactTooltip
+          id="helpButton"
+          place="left"
+          backgroundColor="#2e8b57"
+          effect="solid"
+          multiline={true}
+          className="extraClass"
+        />
 
         {
           // prettier-ignore
