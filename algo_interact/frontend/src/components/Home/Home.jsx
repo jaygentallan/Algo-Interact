@@ -81,7 +81,7 @@ class Home extends Component {
           />
           <Card
             title="Tree"
-            image="/images/hometree.png"
+            image="/images/tree.png"
             link="/visualizer"
           />
 
@@ -139,7 +139,7 @@ class Home extends Component {
           />
 
           <Card
-            title="Tree Algorithm"
+            title="Tree Traversal"
             link="/learn"
             image="/images/treetraversal.png"
 

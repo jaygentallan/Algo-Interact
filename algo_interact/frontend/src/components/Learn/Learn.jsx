@@ -60,10 +60,10 @@ class Learn extends Component {
                       <li>Each nodes are contains information about data.</li>
                       <li>Each nodes are contains information about data.</li>
                     </ul>}
+            tab1image="/images/graph.png"
             tab2title="Time Complexity"
             tab2text="Time complexity of graph is O(V+E) where V represent number of vertices "
-            tab3image="Fun Facts"
-            tab3text="Nowitzki was born in Germany and grew up playing tennis."
+            
           />
 
           <LearnCard
@@ -82,8 +82,8 @@ class Learn extends Component {
             tab2title="Time Complexity of Tree"
             tab2text="In general time complexity of tree will be O(h). it can be different operations. it can be also best and worst time 
                       complexity."
-            image="/images/treepicture.png"
-            tab1image="/images/treepicture.png"
+                      image="/images/tree.png"
+                      tab1image="/images/treepicture.png"
           />
 
           <LearnCard
@@ -109,7 +109,7 @@ class Learn extends Component {
 
           <LearnCard
             title="Binary Search Tree"
-            Text="In Binary tree, every tree elements have at least 2 children so its called binary tree"
+            text="In Binary tree, every tree elements have at least 2 children so its called binary tree"
             tab1title="Description"
             tab1text={<ul> <li>Since every element have only 2 children, they are typically named as left and right child.</li>
               <li>In tree, nodes with no children are called laves, or external nodes</li>
@@ -118,8 +118,8 @@ class Learn extends Component {
               <li>Height of the binary tree - The height of a node is the number of edges from the node to the deepest leaf.</li>
               <li>The height of a tree is a height of the tree</li>
               </ul>}
-            image="/images/binarysearch.png"
-            tab1image="/images/binarysearch.png"
+            image="/images/binarysearchtree.png"
+            tab1image="/images/bst.png"
             />
           
         </Carousel>
@@ -151,6 +151,7 @@ class Learn extends Component {
               <li></li>
               </ul>}
             image="/images/braedth.png"
+            tab1image="/images/bstl.png"
 
           />
           <LearnCard
@@ -167,12 +168,12 @@ class Learn extends Component {
           />
           <LearnCard
             title="Dijkstra Algorithm"
-            text="Description for third algorithm here."
+            text="Dijkstra's algorithm is an algorithm we can use to find shortest distances or minimum costs depending on what is represented in a graph."
             image="/images/dijkstra.png"
           />
 
           <LearnCard
-            title="Tree Algorithm "
+            title="Tree Traversal"
             text="Description for fourth algorithm here."
             image="/images/treetraversal.png"
             tab1title="Preorder Traversal"
