@@ -1371,6 +1371,7 @@ export default class GraphVisualizer extends React.Component {
           </Dropdown>
         </div>
         <div class="rightWindow">
+         
           <HelpButton
             mTitle="Tree Visualizer–More Info"
             algoDesc="Enter the name of an existing node in the tree. Then, choose one
