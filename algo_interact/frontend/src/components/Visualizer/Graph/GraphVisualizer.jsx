@@ -74,7 +74,7 @@ export default class GraphVisualizer extends React.Component {
       rederLabel: true,
       automaticRearrangeAfterDropNode: true,
       // eslint-disable-next-line no-restricted-globals
-      height: screen.height * 0.83,
+      height: screen.height * 0.73,
       // eslint-disable-next-line no-restricted-globals
       width: screen.width * 0.989,
       node: {

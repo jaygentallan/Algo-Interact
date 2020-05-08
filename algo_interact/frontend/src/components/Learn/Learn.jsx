@@ -54,16 +54,24 @@ class Learn extends Component {
             text="Graph is the non-linear data structure which is used to represent data networks."
             image="/images/graphpicture.png"
             tab1title="Description"
-            tab1text={<ul><li>It consist of nodes and edges and sometimes we can say that nodes are vertices and edges are line or arc</li>
-                      <li>It is used to show real time problems</li>
-                      <li>Graph can be used in social network sites like facebook linkedin etc.</li>
-                      <li>Each nodes are contains information about data.</li>
-                      <li>Each nodes are contains information about data.</li>
-                    </ul>}
+            tab1text={
+              <ul>
+                <li>
+                  It consist of nodes and edges and sometimes we can say that
+                  nodes are vertices and edges are line or arc
+                </li>
+                <li>It is used to show real time problems</li>
+                <li>
+                  Graph can be used in social network sites like facebook
+                  linkedin etc.
+                </li>
+                <li>Each nodes are contains information about data.</li>
+                <li>Each nodes are contains information about data.</li>
+              </ul>
+            }
             tab1image="/images/graph.png"
             tab2title="Time Complexity"
             tab2text="Time complexity of graph is O(V+E) where V represent number of vertices "
-            
           />
 
           <LearnCard
@@ -73,17 +81,32 @@ class Learn extends Component {
                 multiple subtree and they can have also no any subtree but still is called tree data structure, 
                 there are some points to be remember. "
             tab1title="Description"
-            tab1text={<ul> <li>Tree is the hieraricial data structure which an store data member in hierical manner</li>
-                      <li>Height of tree should be depend on subtree of the tree.</li>
-                      <li>In the Tree data structure there is node, edge, leaf nodes and child node.</li>
-                      <li>Provides the best searching and inserting the data into tree</li>
-                      <li>Tree are of different types like Binary Search (tree, AVL tree, binary tree etc.)</li>
-                      </ul>}
+            tab1text={
+              <ul>
+                 
+                <li>
+                  Tree is the hieraricial data structure which an store data
+                  member in hierical manner
+                </li>
+                <li>Height of tree should be depend on subtree of the tree.</li>
+                <li>
+                  In the Tree data structure there is node, edge, leaf nodes and
+                  child node.
+                </li>
+                <li>
+                  Provides the best searching and inserting the data into tree
+                </li>
+                <li>
+                  Tree are of different types like Binary Search (tree, AVL
+                  tree, binary tree etc.)
+                </li>
+              </ul>
+            }
             tab2title="Time Complexity of Tree"
             tab2text="In general time complexity of tree will be O(h). it can be different operations. it can be also best and worst time 
                       complexity."
-                      image="/images/tree.png"
-                      tab1image="/images/treepicture.png"
+            image="/images/tree.png"
+            tab1image="/images/treepicture.png"
           />
 
           <LearnCard
@@ -93,21 +116,28 @@ class Learn extends Component {
                   data member in different memory locations. it is the technic of improving of wasting of memory in the database or we can say 
                   that to save the memory."
             tab1title="Description"
-            tab1text={<ul> <li>It saves the wasting of memory</li>
-              <li>It is easier to add, delete or change the data into database.</li>
-              <li>It can not use contiguous memory locations.</li>
-              <li>All the nodes are linked with references link so that each node can be connected to each other and perforrm operations.</li>
-              <li>Linkee List can be of two types Single Linked list and Double linked list</li>
-              </ul>}
+            tab1text={
+              <ul>
+                 <li>It saves the wasting of memory</li>
+                <li>
+                  It is easier to add, delete or change the data into database.
+                </li>
+                <li>It can not use contiguous memory locations.</li>
+                <li>
+                  All the nodes are linked with references link so that each
+                  node can be connected to each other and perforrm operations.
+                </li>
+                <li>
+                  Linkee List can be of two types Single Linked list and Double
+                  linked list
+                </li>
+              </ul>
+            }
             tab2title="Time Complexity"
             tab2text="O(n)"
             image="/images/linkedlist.png"
             tab1image="/images/linkedlist.png"
           />
-
-        
-          
-          
         </Carousel>
         <br></br>
         <br></br>
@@ -132,30 +162,51 @@ class Learn extends Component {
             title="Breadth First Search"
             text="The Breadth first search is another fundamental search algorithm used to explore nodes and edges of a graph. It runs with a time complexity of o(v+e) and is often used as a building block in other algorithms."
             tab1title="Description"
-            tab1text={<ul> <li>The BFS algorithm is  particularly useful for one thing: finding the shortest path  on unsweighted graphs.</li>
-              <li>Height of tree should be depend on subtree of the tree.</li>
-              <li>Its an algorithm, used for traversing or searching tree or graph data structure</li>
-              </ul>}
+            tab1text={
+              <ul>
+                 
+                <li>
+                  The BFS algorithm is particularly useful for one thing:
+                  finding the shortest path on unsweighted graphs.
+                </li>
+                <li>Height of tree should be depend on subtree of the tree.</li>
+                <li>
+                  Its an algorithm, used for traversing or searching tree or
+                  graph data structure
+                </li>
+              </ul>
+            }
             image="/images/braedth.png"
             tab1image="/images/bstl.png"
             tab2title="Time Complexity"
             tab2text="O(V + E)"
-
           />
           <LearnCard
             title="Depth First Search"
             text="The Depth First Search (DFS) is the most fundamental search algorithm used to explore nodes and edges of a graph."
             tab1title="Description"
-            tab1text={<ul> <li>by itself the DFS isn't all the useful, but when augmented to perform other tasks such as connectively, or find bridges/articulation points then DFS really shines</li>
-              <li>It runs with a time complexity of O(V+E) and is often used as a building block in other algorithms.</li>
-              <li>It uses stack to find the goal Node. it goes deeper as deeper node until goal is found then perform recursive tracking.</li>
-              </ul>}
+            tab1text={
+              <ul>
+                 
+                <li>
+                  by itself the DFS isn't all the useful, but when augmented to
+                  perform other tasks such as connectively, or find
+                  bridges/articulation points then DFS really shines
+                </li>
+                <li>
+                  It runs with a time complexity of O(V+E) and is often used as
+                  a building block in other algorithms.
+                </li>
+                <li>
+                  It uses stack to find the goal Node. it goes deeper as deeper
+                  node until goal is found then perform recursive tracking.
+                </li>
+              </ul>
+            }
             tab1image="/images/dfs.png"
             image="/images/depthfirst.png"
             tab2title="Time Complexity"
             tab2text="O ( V + E ) O(V + E) O(V+E)."
-
-            
           />
           <LearnCard
             title="Dijkstra Algorithm"
@@ -180,9 +231,9 @@ class Learn extends Component {
             tab3title="Postorder"
             tab3text="In this algorithm we Traverse the left subtree, than traverse the right subtree than visit root."
             tab3image="/images/postorder.png"
-            
           />
         </Carousel>
+        <div class="container p-5"></div>
         <div class="container p-5"></div>
 
         <Footer />

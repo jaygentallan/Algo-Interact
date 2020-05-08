@@ -61,7 +61,7 @@ export default class GraphVisualizer extends React.Component {
       rederLabel: true,
       automaticRearrangeAfterDropNode: true,
       // eslint-disable-next-line no-restricted-globals
-      height: screen.height * 0.83,
+      height: screen.height * 0.73,
       // eslint-disable-next-line no-restricted-globals
       width: screen.width * 0.989,
       node: {
@@ -157,6 +157,7 @@ export default class GraphVisualizer extends React.Component {
 
       for (let i = 0; i < data.nodes.length; i++) {
         if (parent === data.nodes[i].id) {
+          console.log("ADDING ", newNode, " IN SIDE ", side);
           // Determines if node is to be places on the left or right side of the parent node
           // Then calculate the position by using a formula.
           if (
@@ -189,6 +190,7 @@ export default class GraphVisualizer extends React.Component {
 
             // Put new node in tree list
             for (let i = 0; i < tree.length; i++) {
+              console.log("TREE LENGTH ", tree.length);
               if (parent in tree[i]) {
                 tree[i][parent]["left"] = newNode;
                 let newParent = {};
@@ -241,15 +243,19 @@ export default class GraphVisualizer extends React.Component {
               }
             }
           }
+          // Set state data into the current data object we have
+          this.setState({
+            data: data,
+          });
+
+          var algoData = this.state.algoData;
+          algoData.tree = tree;
 
           // Form link between parent and node
           data.links.push({
             source: parent,
             target: newNode,
           });
-
-          var algoData = this.state.algoData;
-          algoData.tree = tree;
 
           // Set state data into the current data object we have
           this.setState({
@@ -299,13 +305,26 @@ export default class GraphVisualizer extends React.Component {
       var currNode = this.state.removeNodeName;
       var tree = this.state.algoData.tree;
       var loop = true;
-      var nodes;
+      var replace = true;
+      var nodes = this.state.data.nodes;
       var links;
       // Stack that contains the previous node and the side of which the node is removed
       var stack = [];
-      var originalNode;
+      var newNode;
+
+      // Check if node is in the graph
+      for (let i = 0; i < tree.length; i++) {
+        if (currNode in tree[i]) {
+          loop = true;
+          break;
+        } else {
+          loop = false;
+        }
+      }
 
       while (loop) {
+        console.log(currNode);
+
         for (let i = 0; i < tree.length; i++) {
           if (currNode in tree[i]) {
             // Case #1
@@ -314,6 +333,34 @@ export default class GraphVisualizer extends React.Component {
               !("left" in tree[i][currNode]) &&
               !("right" in tree[i][currNode])
             ) {
+              // Go through tree list to find the parent of the node to be removed
+              for (let x = 0; x < tree.length; x++) {
+                let key = Object.keys(tree[x])[0];
+                console.log("KEY ", key, "TREE LENGTH ", tree.length);
+
+                // Changes the nodes attribute of the parent to false to indicate the current node being removed
+                if (
+                  "left" in tree[x][key] &&
+                  tree[x][key]["left"] === this.state.removeNodeName
+                ) {
+                  for (let y = 0; y < nodes.length; y++) {
+                    if (key === nodes[y].id) {
+                      nodes[y].left = false;
+                    }
+                  }
+                } else if (
+                  "right" in tree[x][key] &&
+                  tree[x][key]["right"] === this.state.removeNodeName
+                ) {
+                  for (let y = 0; y < nodes.length; y++) {
+                    if (key === nodes[y].id) {
+                      nodes[y].right = false;
+                    }
+                  }
+                }
+              }
+
+              // Remove node and link
               nodes = this.state.data.nodes.filter(
                 (l) => l.id !== this.state.removeNodeName
               );
@@ -325,8 +372,16 @@ export default class GraphVisualizer extends React.Component {
 
               // Remove node from tree list
               for (let j = 0; j < tree.length; j++) {
-                if (currNode in tree[j]) {
-                  delete tree[j][currNode];
+                let key = Object.keys(tree[j])[0];
+
+                if (currNode === tree[j][key]["left"]) {
+                  delete tree[j][key]["left"];
+                } else if (currNode === tree[j][key]["right"]) {
+                  delete tree[j][key]["right"];
+                }
+
+                if (currNode === key) {
+                  delete tree[j];
                 }
               }
 
@@ -338,28 +393,39 @@ export default class GraphVisualizer extends React.Component {
                   // Remove node from tree lsit
                   for (let k = 0; k < tree.length; k++) {
                     if (prevNode in tree[k]) {
-                      let sideNode = tree[k][prevNode][side];
-                      // Replace this node with the node we just deleted
-                      if (prevNode !== sideNode) {
-                        delete tree[k][prevNode][side];
-                        Object.defineProperty(
-                          tree[k],
-                          sideNode,
-                          Object.getOwnPropertyDescriptor(tree, prevNode)
-                        );
-                        delete tree[k][prevNode];
-                      }
+                      let sideNode;
+                      if (newNode !== undefined) sideNode = newNode;
+                      else sideNode = tree[k][prevNode][side];
 
-                      // Set originalNode to this node.
+                      // Replace this node with the node we just deleted
+                      if (replace) {
+                        if (prevNode !== sideNode) {
+                          delete tree[k][prevNode][side];
+                          Object.defineProperty(
+                            tree[k],
+                            sideNode,
+                            Object.getOwnPropertyDescriptor(tree, prevNode)
+                          );
+                          delete tree[k][prevNode];
+                        }
+                      } else {
+                        tree[k][prevNode][side] = sideNode;
+                      }
+                      replace = false;
+
+                      // Set originalNode to this node
+                      newNode = sideNode;
                     }
                   }
                 }
+                if (stack.length === 0) loop = false;
               }
               break;
             } else if (
               !("left" in tree[i][currNode]) ||
               !("right" in tree[i][currNode])
             ) {
+              console.log(currNode);
               if ("right" in tree[i][currNode]) {
                 stack.push([currNode, "right"]);
                 currNode = tree[i][currNode]["right"];
@@ -368,6 +434,9 @@ export default class GraphVisualizer extends React.Component {
                 stack.push([currNode, "left"]);
                 currNode = tree[i][currNode]["left"];
               }
+            } else {
+              stack.push([currNode, "right"]);
+              currNode = tree[i][currNode]["right"];
             }
           }
         }
@@ -376,14 +445,13 @@ export default class GraphVisualizer extends React.Component {
       const data = { nodes, links };
 
       this.setState({
+        ...(this.state.algoData.tree = tree),
         data,
         removeNodeName: "",
         removeNodePlaceholder: "Enter as: name",
       });
     }
   };
-
-  checkChildren = (node) => {};
 
   addLink = () => {
     if (this.state.addLink === "") {
@@ -1335,19 +1403,6 @@ export default class GraphVisualizer extends React.Component {
                   onKeyPress={this._handleAddKeyEnter}
                 />
               </div>
-
-              <h5 class="font-weight-light h6"> Remove node: </h5>
-              <div class="input-group mb-3">
-                <input
-                  type="text"
-                  class="linkInput"
-                  name="removeNodeName"
-                  placeholder={this.state.removeNodePlaceholder}
-                  value={this.state.removeNodeName}
-                  onChange={this._removeNodeHandleChange}
-                  onKeyPress={this._handleRemoveKeyEnter}
-                />
-              </div>
             </Dropdown.Menu>
           </Dropdown>
 
@@ -1389,7 +1444,10 @@ export default class GraphVisualizer extends React.Component {
                       <TreeView key={type + "|" + i} nodeLabel={name}>
                         <TreeView key={type + "|" + i} nodeLabel="Children">
                           {children.map((child) => {
-                            if (child in node[name]) {
+                            if (
+                              node[name] !== undefined &&
+                              child in node[name]
+                            ) {
                               return (
                                 <div className="info">
                                   {child.charAt(0).toUpperCase() +
