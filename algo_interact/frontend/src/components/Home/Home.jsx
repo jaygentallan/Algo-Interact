@@ -66,7 +66,6 @@ class Home extends Component {
             </h2>
           </div>
         </div>
-        <div class="pt-2"> </div>
         <Carousel
           responsive={responsive}
           containerClass="carousel-container"
@@ -79,20 +78,28 @@ class Home extends Component {
             title="Graph"
             image="/images/graphpicture.png"
             link="/visualizer"
-            dataStructure="Graph"
           />
           <Card
             title="Tree"
             image="/images/tree.png"
             link="/visualizer"
-            dataStructure="Tree"
           />
 
           <Card
             title="Linked List"
             image="/images/linkedlist.png"
             link="/visualizer"
-            dataStructure="LinkedList"
+
+          />
+
+          <Card 
+             title="Binary Linked List"
+             Text="kjhfsdhjkds"
+             tab1title="Description"
+             tab1text="hgfhjgshjfh"
+             image="/images/binarysearchtree.png"
+
+            
           />
         </Carousel>
         <br></br>
@@ -127,7 +134,7 @@ class Home extends Component {
           />
           <Card
             title="Dijkstra Algorithm"
-            image="/images/linkedlistpicture.png"
+            image="/images/dijkstra.png"
             link="/learn"
           />
 
@@ -135,6 +142,9 @@ class Home extends Component {
             title="Tree Traversal"
             link="/learn"
             image="/images/treetraversal.png"
+
+
+
           />
         </Carousel>
         <div class="container p-5"></div>

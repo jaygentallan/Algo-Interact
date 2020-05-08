@@ -99,10 +99,8 @@ class Learn extends Component {
               <li>All the nodes are linked with references link so that each node can be connected to each other and perforrm operations.</li>
               <li>Linkee List can be of two types Single Linked list and Double linked list</li>
               </ul>}
-            tab2title="Average Time Complexity of Linked List"
+            tab2title="Time Complexity"
             tab2text="O(n)"
-            tab3title="Average Time Complexity of Linked List"
-            tab3text="O(1)"
             image="/images/linkedlist.png"
             tab1image="/images/linkedlist.png"
           />
@@ -170,18 +168,23 @@ class Learn extends Component {
             title="Dijkstra Algorithm"
             text="Dijkstra's algorithm is an algorithm we can use to find shortest distances or minimum costs depending on what is represented in a graph."
             image="/images/dijkstra.png"
+            tab1title="Description"
+            tab1image="/images/djkstra.png"
           />
 
           <LearnCard
             title="Tree Traversal"
-            text="Description for fourth algorithm here."
+            text="Tree Traversal is the process which were visit all the nodes of a tree like Inorder, Postorder and Preorder Traversal"
             image="/images/treetraversal.png"
-            tab1title="Preorder Traversal"
+            tab1title="Preorder"
             tab1text="In this algorithm we visit root first, then traverse the left subtree, then traverse the right subtree."
             tab1image="/images/preorderpic.png"
-            tab2title="Inorder Traversal"
+            tab2title="Inorder"
             tab2text="In This algorithm we Traverse the left subtree is visited first, and then root and after the right subtree, always remember that every node represent subtree itself."
             tab2image="/images/inorder.png"
+            tab3title="Postorder"
+            tab3text="In this algorithm we Traverse the left subtree, than traverse the right subtree than visit root."
+            tab3image="/images/postorder.png"
             
           />
         </Carousel>
