@@ -20,8 +20,11 @@
 #### Next install node_modules 
 ![node_modules](images/node_mod.jpeg)
 
-### Install all the dependencies below
+### Install all the dependencies
+#### json package should already have all dependencies
+#### run in terminal: npm install
 ![Dependencies](images/depend.jpeg)
+#### If npm install doesn't locally update dependencies, install manually
 #### Use npm install and then a space between each dependency 
 ![npm install ](images/npminstall.jpeg)
 
