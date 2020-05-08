@@ -1426,10 +1426,7 @@ export default class GraphVisualizer extends React.Component {
           >
             <HelpButton
               mTitle="Tree"
-              algoDesc="Choose Directed to see the path direction or Weighted to see values associated
-                      with each link in the graph. To prepare the execution of an algorithm, enter a
-                      start node's name and a target node's name. Finally choose 1 algorithm to 
-                      execute in the "
+              algoDesc=""
               nLinkDesc="Enter the name of a new node you'd like to add or the name of an existing node 
                       you'd like to delete from the graph. For a new node, follow the instructions to 
                       link it to an existing node: enter the source node's name, the target node's name, 
