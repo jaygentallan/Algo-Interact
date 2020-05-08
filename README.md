@@ -1,7 +1,8 @@
 # Algo-Interact
+<img src="https://media.giphy.com/media/h3ty1m8lfburxCojtR/source.gif" width="600" height="300">
 
 ## Documentation
-##### Full documentation in the repo
+##### Full documentation
 
 ## Install 
 #### git init and clone repo 
@@ -20,11 +21,8 @@
 #### Next install node_modules 
 ![node_modules](images/node_mod.jpeg)
 
-### Install all the dependencies
-#### json package should already have all dependencies
-#### run in terminal: npm install
+### Install all the dependencies below
 ![Dependencies](images/depend.jpeg)
-#### If npm install doesn't locally update dependencies, install manually
 #### Use npm install and then a space between each dependency 
 ![npm install ](images/npminstall.jpeg)
 
