@@ -28,7 +28,7 @@ const Footer = () => {
           onHide={hideModal} 
           size="lg"
         >
-          <Modal.Header>
+          <Modal.Header className="teamHeader">
             <Modal.Title><h1 class="display-3">Meet the Team!</h1></Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -41,6 +41,44 @@ const Footer = () => {
                   data structures. Our goal of creating Algo-Interact was to help students better
                   understand algorithms through an interactive and visually-appealing website.
               </p>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <img class="teamImg" src={""}/>
+                </div>
+                <div class="col-8">
+                  <h4>Anthony Carnero</h4>
+                  <p>description goes here</p>
+                </div>
+              </div>
+              <div class="row pt-3">
+                <div class="col">
+                  <img class="circular--landscape" src="/teamPhotos/photo-jay.jpg"/>
+                </div>
+                <div class="col-8">
+                  <h4>Jay Gentallan</h4>
+                  <p>description goes here</p>
+                </div>
+              </div>
+              <div class="row pt-3">
+                <div class="col">
+                  <img class="teamImg" src=""/>
+                </div>
+                <div class="col-8">
+                  <h4>Baljeet Singh</h4>
+                  <p>description goes here</p>
+                </div>
+              </div>
+              <div class="row pt-3">
+                <div class="col">
+                  <img class="circular--landscape" src="/teamPhotos/photo-Mikaela.jpg"/>
+                </div>
+                <div class="col-8">
+                  <h4>Mikaela Valenciano</h4>
+                  <p>description goes here</p>
+                </div>
+              </div>
             </div>
 
           </Modal.Body>

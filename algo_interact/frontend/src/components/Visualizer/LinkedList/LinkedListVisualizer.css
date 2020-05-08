@@ -93,6 +93,14 @@ h1.name.text-center {
   margin-top: 100px;
 }
 
+.rightWindowHelpButton {
+  height: 2em !important;
+  width: 2em !important;
+  position: absolute;
+  right: 1em !important;
+  bottom: 1em !important;
+}
+
 .json-data-container {
   padding: 0.6em;
   max-height: 14em;

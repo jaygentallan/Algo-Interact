@@ -59,8 +59,10 @@ export default class GraphVisualizer extends React.Component {
       staticGraph: true,
       directed: true,
       rederLabel: true,
-      height: window.innerHeight * 0.86,
-      width: window.innerWidth,
+      // eslint-disable-next-line no-restricted-globals
+      height: screen.height * 0.78,
+      // eslint-disable-next-line no-restricted-globals
+      width: screen.width * 0.989,
       node: {
         color: "#c34f6b",
         size: 500,
@@ -109,6 +111,7 @@ export default class GraphVisualizer extends React.Component {
       nodePos,
       headName: "",
       tailName: "",
+      listOrder,
     };
   }
 
@@ -124,8 +127,12 @@ export default class GraphVisualizer extends React.Component {
     //get link list tail and the newest added node
     let listInfo = this.state.listInfo;
     let newNode = this.getNewNode();
-    //update listOrder
-    this.state.algoData.listOrder.push(newNode.id);
+    let newList = [...this.state.listOrder];
+    //update listOrder copy
+    newList.push(newNode.id);
+    //
+    this.setState({ listOrder: newList });
+
     //find the new tail index
     let tailIndex = this.state.data.nodes.findIndex((node) => {
       return node.nodeid === listInfo.tail;
@@ -150,6 +157,9 @@ export default class GraphVisualizer extends React.Component {
     this.setState({
       ...(this.state.data.nodes = newNodes),
     });
+
+    this.setState({ listOrder: newList });
+
     //update link state
     this.state.data.links.push({
       source: tailNode.id,
@@ -161,8 +171,12 @@ export default class GraphVisualizer extends React.Component {
     //get link list head and the newest added node
     let listInfo = this.state.listInfo;
     let newNode = this.getNewNode();
-    //update listOrder
-    this.state.algoData.listOrder.unshift(newNode.id);
+    let newList = [...this.state.listOrder];
+    //update listOrder copy
+    newList.unshift(newNode.id);
+    // update listOrder state
+    this.setState({ listOrder: newList });
+
     //find the current head node
     let headIndex = this.state.data.nodes.findIndex((node) => {
       return node.nodeid === listInfo.head;
@@ -187,12 +201,12 @@ export default class GraphVisualizer extends React.Component {
     this.setState({
       listInfo: listInfo,
     });
-
     this.state.data.links.push({
       source: newNode.id,
       target: headNode.id,
     });
   };
+
   //Add links between two nodes when middle is removed
   handleMiddleConnection = (update) => {
     this.forceUpdate(() => this.onClickAddLink(update));
@@ -213,9 +227,11 @@ export default class GraphVisualizer extends React.Component {
 
     let removeNode = newNodes[removeIndex];
     //update listOrder
-    let newListOrder = this.state.algoData.listOrder.filter((name) => {
+    let newListOrder = this.state.listOrder.filter((name) => {
       return name !== removeNode.id;
     });
+    this.setState({ listOrder: newListOrder });
+
     const algoData = { listOrder: newListOrder };
     this.setState({ algoData: algoData });
 
@@ -797,9 +813,13 @@ export default class GraphVisualizer extends React.Component {
   linearSearch = () => {
     //console.log(this.state.algoData.keyNode)
     var counter = 0;
-    for (let i = 0; i < this.state.data.nodes.length; i++) {
+    for (let i = 0; i < this.state.listOrder.length; i++) {
+      console.log(this.state.listOrder);
+      if (!(this.state.algoData.keyNode in this.state.listOrder)) {
+        return;
+      }
       // check if keyNode string equals current node's id string
-      if (this.state.algoData.keyNode === this.state.data.nodes[i].id) {
+      if (this.state.algoData.keyNode === this.state.listOrder[i]) {
         console.log("found key node");
         for (let j = 0; j < 5; j++) {
           setTimeout(
@@ -811,7 +831,7 @@ export default class GraphVisualizer extends React.Component {
         break;
       }
       setTimeout(
-        () => this.highlightHandler(this.state.data.nodes[i].id, counter),
+        () => this.highlightHandler(this.state.listOrder[i], counter),
         1000 * (counter + 1)
       );
       counter++;
@@ -948,22 +968,6 @@ export default class GraphVisualizer extends React.Component {
               className="font-weight-light pt-1"
               style={tail}
             >{`Tail: ${this.state.tailName}`}</h5>
-          </div>
-          <div class="rightWindow-LL">
-            <HelpButton
-              mTitle="Linked List Visualizer–More Info"
-              algoDesc="Enter the name of an existing node that you'd like the 
-                        search algorithm to find. Then, press the start button."
-              nLinkDesc="Append node adds the new node to the tail of the linked list,
-                          and the tail node is updated to be the new node. Prepend node 
-                          adds a node before the current head, and the head node is 
-                          updated to be the new node. Enter the name of the node you'd 
-                          like to remove to remove it. The linked list will automatically
-                          update the links that were connected to the deleted node."
-              rButtons="Right Window–Head & Tail Tracker"
-              b1Desc="This box tracks the Head and Tail node of the linked list. It updates
-                      as nodes are appended and prepended."
-            />
           </div>
         </div>
 
@@ -1198,6 +1202,41 @@ export default class GraphVisualizer extends React.Component {
           id="buttons"
           place="right"
           backgroundColor="#c34f6b"
+          effect="solid"
+          multiline={true}
+          className="extraClass"
+        />
+
+        <div
+          class="rightWindowHelpButton"
+          data-tip="Help"
+          data-for="helpButton"
+        >
+          <HelpButton
+            mTitle="Linked List"
+            algoDesc="Choose Directed to see the path direction or Weighted to see values associated
+                      with each link in the graph. To prepare the execution of an algorithm, enter a
+                      start node's name and a target node's name. Finally choose 1 algorithm to 
+                      execute in the "
+            nLinkDesc="Enter the name of a new node you'd like to add or the name of an existing node 
+                      you'd like to delete from the graph. For a new node, follow the instructions to 
+                      link it to an existing node: enter the source node's name, the target node's name, 
+                      and an integer value for the link's weight between the 2 nodes. When deleting a 
+                      link, enter the names of the nodes at each end of the link."
+            nodeList="Node List"
+            nListDesc=": Click on this button to view each node's neighboring nodes."
+            rButtons="Right Buttons"
+            b1="Default Graph"
+            b1Desc=": This button resets the Graph to its default of one node, Harry."
+            b2="The Office Graph"
+            b2Desc=": Click to render a larger graph with connecting nodes."
+          />
+        </div>
+
+        <ReactTooltip
+          id="helpButton"
+          place="left"
+          backgroundColor="#2e8b57"
           effect="solid"
           multiline={true}
           className="extraClass"

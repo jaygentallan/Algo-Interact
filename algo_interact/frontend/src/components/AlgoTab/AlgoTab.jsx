@@ -4,9 +4,12 @@ import "./AlgoTab.css";
 import Algorithm from "./Algorithm";
 
 //Renders Selected Algorithm
-const AlgoTab = () => {
+const AlgoTab = (props) => {
   //sets current algorithm tab
-  const [tabKey, setTabkey] = useState("Graph");
+  var dataStructure;
+  if (!props.dataStructure) dataStructure = "Graph";
+  else dataStructure = Object.values(props.dataStructure)[0];
+  const [tabKey, setTabkey] = useState(dataStructure);
 
   //Update tab key state
   const keyHandler = (event) => {

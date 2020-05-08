@@ -3,7 +3,7 @@ import Graph from "./Graph/graph/Graph";
 import TreeView from "react-treeview";
 import ReactTooltip from "react-tooltip";
 import { Dropdown, Form, Button } from "react-bootstrap";
-import HelpButton from "../../HelpButton/HelpButton"
+import HelpButton from "../../HelpButton/HelpButton";
 import "./GraphVisualizer.css";
 //import LeftWindow from "../../LeftVdWindow/LeftWindow";
 
@@ -73,8 +73,10 @@ export default class GraphVisualizer extends React.Component {
       directed: false,
       rederLabel: true,
       automaticRearrangeAfterDropNode: true,
-      height: window.innerHeight * 0.86,
-      width: window.innerWidth,
+      // eslint-disable-next-line no-restricted-globals
+      height: screen.height * 0.8,
+      // eslint-disable-next-line no-restricted-globals
+      width: screen.width * 0.989,
       node: {
         color: "#c34f6b",
         size: 800,
@@ -1202,10 +1204,6 @@ export default class GraphVisualizer extends React.Component {
     return (
       // Main display which contains the leftWindow, rightWindow, and the Graph Visualizer
       <div class="box">
-        <div class="tLog fixed-bottom">
-          <ul class="list-group list-group-flush">{neighborItems}</ul>
-        </div>
-
         <div class="leftWindow">
           <Dropdown id="graphConfig" className="LeftWindow pt-3 ml-2">
             <Dropdown.Toggle
@@ -1651,8 +1649,25 @@ export default class GraphVisualizer extends React.Component {
               </div>
             </Button>
           </div>
+        </div>
+        {/*Presets End */}
+
+        <ReactTooltip
+          id="presetButton"
+          place="left"
+          backgroundColor="#c34f6b"
+          effect="solid"
+          multiline={true}
+          className="extraClass"
+        />
+
+        <div
+          class="rightWindowHelpButton"
+          data-tip="Help"
+          data-for="helpButton"
+        >
           <HelpButton
-            mTitle="Graph Visualizer-More Info"
+            mTitle="Graph Visualizer"
             algoDesc="Choose Directed to see the path direction or Weighted to see values associated
                       with each link in the graph. To prepare the execution of an algorithm, enter a
                       start node's name and a target node's name. Finally choose 1 algorithm to 
@@ -1670,14 +1685,12 @@ export default class GraphVisualizer extends React.Component {
             b2="The Office Graph"
             b2Desc=": Click to render a larger graph with connecting nodes."
           />
-
         </div>
-        {/*Presets End */}
 
         <ReactTooltip
-          id="presetButton"
+          id="helpButton"
           place="left"
-          backgroundColor="#c34f6b"
+          backgroundColor="#2e8b57"
           effect="solid"
           multiline={true}
           className="extraClass"

@@ -60,8 +60,10 @@ export default class GraphVisualizer extends React.Component {
       //disableLinkForce: true,
       rederLabel: true,
       automaticRearrangeAfterDropNode: true,
-      height: window.innerHeight * 0.86,
-      width: window.innerWidth,
+      // eslint-disable-next-line no-restricted-globals
+      height: screen.height * 0.8,
+      // eslint-disable-next-line no-restricted-globals
+      width: screen.width * 0.989,
       node: {
         color: "#c34f6b",
         size: 600,
@@ -271,53 +273,61 @@ export default class GraphVisualizer extends React.Component {
       return;
     }
     if (this.state.data.nodes && this.state.data.nodes.length > 1) {
-      const nodes = this.state.data.nodes.filter(
-        (l) => l.id !== this.state.removeNodeName
-      );
-      const links = this.state.data.links.filter(
-        (l) =>
-          l.source !== this.state.removeNodeName &&
-          l.target !== this.state.removeNodeName
-      );
-      const data = { nodes, links };
+      var currNode = this.state.removeNodeName;
+      var tree = this.state.algoData.tree;
+      var loop = true;
+      var nodes;
+      var links;
+      var stack = [];
 
-      let neighbors = this.state.config.directed
-        ? this.state.algoData.directed_neighbors
-        : this.state.algoData.undirected_neighbors;
+      while (loop) {
+        for (let i = 0; i < tree.length; i++) {
+          if (currNode in tree[i]) {
+            // Case #1
+            // When node has no children
+            if (
+              !("left" in tree[i][currNode]) &&
+              !("right" in tree[i][currNode])
+            ) {
+              nodes = this.state.data.nodes.filter(
+                (l) => l.id !== this.state.removeNodeName
+              );
+              links = this.state.data.links.filter(
+                (l) =>
+                  l.source !== this.state.removeNodeName &&
+                  l.target !== this.state.removeNodeName
+              );
 
-      for (let i = 0; i < neighbors.length; i++) {
-        if (this.state.removeNodeName in neighbors[i]) {
-          let undirected_neighbors = this.state.algoData.undirected_neighbors;
-          let directed_neighbors = this.state.algoData.directed_neighbors;
+              // Remove node from tree list
+              for (let j = 0; j < tree.length; j++) {
+                if (currNode in tree[i]) {
+                  delete tree[i][currNode];
+                }
+              }
 
-          // First, remove any instances of the node in any of the nodes' neighbors
-          for (let i = 0; i < undirected_neighbors.length; i++) {
-            let key = Object.keys(undirected_neighbors[i])[0];
-            undirected_neighbors[i][key].filter(
-              (l) => l[0] !== this.state.removeNodeName
-            );
-            if (key === this.state.removeNodeName) {
-              undirected_neighbors.splice(i, 1);
+              if (stack.length === 0) loop = false;
+              else {
+                while (stack.length !== 0) {}
+              }
+              break;
+            } else if (
+              !("left" in tree[i][currNode]) ||
+              !("right" in tree[i][currNode])
+            ) {
+              if ("right" in tree[i][currNode]) {
+                stack.push(currNode);
+                currNode = tree[i][currNode]["right"];
+              }
+              if ("left" in tree[i][currNode]) {
+                stack.push(currNode);
+                currNode = tree[i][currNode]["left"];
+              }
             }
           }
-          // Do the same for the directed_neighbors list
-          for (let i = 0; i < directed_neighbors.length; i++) {
-            let key = Object.keys(directed_neighbors[i])[0];
-            directed_neighbors[i][key].filter(
-              (l) => l[0] !== this.state.removeNodeName
-            );
-            if (key === this.state.removeNodeName) {
-              directed_neighbors.splice(i, 1);
-            }
-          }
-
-          // Put the lists back into the state
-          this.setState({
-            undirected_neighbors: undirected_neighbors,
-            directed_neighbors: directed_neighbors,
-          });
         }
       }
+
+      const data = { nodes, links };
 
       this.setState({
         data,
@@ -326,6 +336,8 @@ export default class GraphVisualizer extends React.Component {
       });
     }
   };
+
+  checkChildren = (node) => {};
 
   addLink = () => {
     if (this.state.addLink === "") {
@@ -1370,24 +1382,46 @@ export default class GraphVisualizer extends React.Component {
             </Dropdown.Menu>
           </Dropdown>
         </div>
-        <div class="rightWindow">
-          <HelpButton
-            mTitle="Tree Visualizer–More Info"
-            algoDesc="Enter the name of an existing node in the tree. Then, choose one
-                      algorithm you would like to run and press the Start button."
-            nLinkDesc="Follow the instructions in the box for adding a new node to the Tree.
-                      to remove an existing node, enter the node's name. Since it is a tree, there
-                      is only a maximum of 2 links that can extend from a node, so you don't need
-                      to enter information for deleting a link."
-            nodeList="Node List"
-            nListDesc=": Click this button to see the list of nodes and their respective children."
-          />
-        </div>
 
         <ReactTooltip
           id="buttons"
           place="right"
           backgroundColor="#c34f6b"
+          effect="solid"
+          multiline={true}
+          className="extraClass"
+        />
+
+        <div
+          class="rightWindowHelpButton"
+          data-tip="Help"
+          data-for="helpButton"
+        >
+          <HelpButton
+            mTitle="Tree"
+            algoDesc="Choose Directed to see the path direction or Weighted to see values associated
+                      with each link in the graph. To prepare the execution of an algorithm, enter a
+                      start node's name and a target node's name. Finally choose 1 algorithm to 
+                      execute in the "
+            nLinkDesc="Enter the name of a new node you'd like to add or the name of an existing node 
+                      you'd like to delete from the graph. For a new node, follow the instructions to 
+                      link it to an existing node: enter the source node's name, the target node's name, 
+                      and an integer value for the link's weight between the 2 nodes. When deleting a 
+                      link, enter the names of the nodes at each end of the link."
+            nodeList="Node List"
+            nListDesc=": Click on this button to view each node's neighboring nodes."
+            rButtons="Right Buttons"
+            b1="Default Graph"
+            b1Desc=": This button resets the Graph to its default of one node, Harry."
+            b2="The Office Graph"
+            b2Desc=": Click to render a larger graph with connecting nodes."
+          />
+        </div>
+
+        <ReactTooltip
+          id="helpButton"
+          place="left"
+          backgroundColor="#2e8b57"
           effect="solid"
           multiline={true}
           className="extraClass"
