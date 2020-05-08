@@ -8,7 +8,8 @@ import "./LearnCard.css";
 import { TabContent } from "react-bootstrap";
 
 /*  The Learn page will have LearnCards that will show a
-    pop-up modal window when clicked.
+    pop-up modal window when clicked. The modals contain
+    tabs that organizes the information. 
 */
 const LearnCard = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);

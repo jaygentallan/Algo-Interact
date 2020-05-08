@@ -17,6 +17,12 @@ const responsive = {
   },
 };
 
+/*
+  The Learn page is where the user can navigate to 
+  in order to learn more about each data structure 
+  in the Visualizer page and their respective algorithms.
+*/
+
 class Learn extends Component {
   render() {
     return (

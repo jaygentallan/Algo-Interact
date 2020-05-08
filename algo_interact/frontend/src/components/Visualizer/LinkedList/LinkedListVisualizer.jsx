@@ -126,10 +126,11 @@ export default class GraphVisualizer extends React.Component {
     //get link list tail and the newest added node
     let listInfo = this.state.listInfo;
     let newNode = this.getNewNode();
+    // create copy of listOrder
     let newList = [...this.state.listOrder];
-    //update listOrder copy
+    // push new node's id (a string) onto newList
     newList.push(newNode.id);
-    //
+    // update listOrder with newList
     this.setState({ listOrder: newList });
 
     //find the new tail index
@@ -170,10 +171,11 @@ export default class GraphVisualizer extends React.Component {
     //get link list head and the newest added node
     let listInfo = this.state.listInfo;
     let newNode = this.getNewNode();
+    // create a copy of the current state of listOrder
     let newList = [...this.state.listOrder];
-    //update listOrder copy
+    //push the new node's id (a string) onto newList
     newList.unshift(newNode.id);
-    // update listOrder state
+    // update listOrder with newList
     this.setState({ listOrder: newList });
 
     //find the current head node
@@ -224,10 +226,11 @@ export default class GraphVisualizer extends React.Component {
     let newNodes = [...this.state.data.nodes];
 
     let removeNode = newNodes[removeIndex];
-    //update listOrder
+    // update listOrder
     let newListOrder = this.state.listOrder.filter((name) => {
       return name !== removeNode.id;
     });
+    // change the state of listOrder with the contents of its copy, newList
     this.setState({ listOrder: newListOrder });
 
     const algoData = { listOrder: newListOrder };
@@ -747,7 +750,7 @@ export default class GraphVisualizer extends React.Component {
   };
 
   startAlgorithm = () => {
-    // don't need to check for other algorithms
+    // don't need to check for other algorithms, since just linearSearch available
     // if (this.state.algoData.algorithm === "search") {
     //let list = this.state.algoData.listOrder
     this.linearSearch();
@@ -759,6 +762,7 @@ export default class GraphVisualizer extends React.Component {
     */
   };
 
+  // goes down the single linked 
   linearSearch = () => {
 
     var counter = 0;
@@ -767,6 +771,7 @@ export default class GraphVisualizer extends React.Component {
       // check if keyNode string equals current node's id string
       if (this.state.algoData.keyNode === this.state.listOrder[i]) {
         console.log("found key node");
+        // if target node is found, node flashes green 5 times 
         for (let j = 0; j < 5; j++) {
           setTimeout(
             () => this.foundTarget(this.state.algoData.keyNode),
@@ -776,6 +781,7 @@ export default class GraphVisualizer extends React.Component {
         }
         break;
       }
+      // takes care of the highlighting of the nodes/links as it traverses
       setTimeout(
         () => this.highlightHandler(this.state.listOrder[i], counter),
         1000 * (counter + 1)

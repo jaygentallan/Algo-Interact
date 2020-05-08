@@ -2,6 +2,13 @@ import React from "../../../node_modules/react";
 import Modal from "react-bootstrap/Modal";
 import "./Footer.css";
 
+/*
+  The Footer has a link called Team that when clicked,
+  triggers a modal window with more information about
+  our group and why we decided to create this project.
+  This modal will also have pictures of each member of 
+  the team.
+*/
 const Footer = () => {
   const [isOpen, setIsOpen] = React.useState(false);
 

@@ -5,6 +5,13 @@ import ListGroup from "react-bootstrap/ListGroup";
 import "./HelpButton.css";
 import { ListGroupItem } from "react-bootstrap";
 
+/*
+  The HelpButton is used in all the data structure
+  tabs on the Visualizer page. When clicked, a modal
+  window is triggered which lists information for each
+  of the buttons on the left/right side of the Visualizer
+  window.
+*/
 const HelpButton = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);
 

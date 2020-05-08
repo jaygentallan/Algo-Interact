@@ -1,6 +1,12 @@
 import React from "../../../node_modules/react";
 import "./Header.css";
 
+/*
+  The static Header serves as the way for users to navigate
+  to the Home, Visualizer, or Learn pages. The Header also has 
+  the Algo-Interact logo that when clicked, is another way of 
+  navigating back to the Home page.
+*/
 const Header = () => {
   return (
     <nav className="navbar navbar-expand navbar-dark bg-dark">

@@ -3,8 +3,10 @@ import Graph from "../Visualizer/Graph/GraphVisualizer";
 import LinkedList from "../Visualizer/LinkedList/LinkedListVisualizer";
 import Tree from "../Visualizer/Tree/TreeVisualizer";
 
-/*AlgoTab passes current tabKey 
-so Algorithm knows which component to render */
+/*
+  AlgoTab passes current tabKey 
+  so Algorithm knows which component to render 
+  */
 const Algorithm = (props) => {
   //Selected Algo Component is stored into this variable
   let selectedAlgo = null;

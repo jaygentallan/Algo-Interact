@@ -8,9 +8,10 @@ import {
   Redirect,
 } from "react-router-dom";
 
-/*  stretched-link makes it so that anywhere on 
-    the card–when clicked–will lead to the page
-    specified. 
+/*  This component represents the Cards to be used
+    in the home page. The stretched-link makes it 
+    so that anywhere on the card–when clicked–will lead 
+    to specified page. 
 */
 const Card = (props) => {
   return (

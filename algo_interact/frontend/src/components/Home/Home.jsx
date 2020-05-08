@@ -23,6 +23,15 @@ const responsive = {
   },
 };
 
+/*
+  This is the default page that opens when users navigate to
+  our website. There are Card components within the Learn Page, 
+  and when clicked, the Data Structures route to the Visualizer 
+  page and opens up the corresponding data structure tab. When 
+  an algorithm Card is clicked, the user is routed to the Learn
+  Page. 
+*/
+
 class Home extends Component {
   render() {
     return (
