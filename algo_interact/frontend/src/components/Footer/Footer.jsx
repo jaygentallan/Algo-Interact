@@ -28,9 +28,9 @@ const Footer = () => {
           Team
         </a>
         <Modal class="center" show={isOpen} onHide={hideModal} size="lg">
-          <Modal.Header class="teamHeader">
+          <Modal.Header className="teamHeader">
             <Modal.Title>
-              <h1 class="display-3">Meet the Team!</h1>
+              <h1 className="title">Meet the Team!</h1>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -45,6 +45,57 @@ const Footer = () => {
                 students better understand algorithms through an interactive and
                 visually-appealing website.
               </p>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <img class="teamImg" src={""} />
+                </div>
+                <div class="col-8">
+                  <h4 className="name">Anthony Carnero</h4>
+                  <p className="description">description goes here</p>
+                </div>
+              </div>
+              <div class="row pt-3">
+                <div class="col">
+                  <img
+                    class="circular--landscape jay"
+                    src="/teamPhotos/photo-jay.jpg"
+                  />
+                </div>
+                <div class="col-8">
+                  <h4 className="name">Jay Ivan Gentallan</h4>
+                  <p className="description">
+                    {" "}
+                    "I love to work on projects on my spare time. My projects
+                    include mobile, desktop, and web apps, with Algo-Interact
+                    being the most recent. I also love competetive programming
+                    and machine-learning. My goal is to become a
+                    machine-learning engineer in the future."
+                  </p>
+                </div>
+              </div>
+              <div class="row pt-3">
+                <div class="col">
+                  <img class="teamImg" src="" />
+                </div>
+                <div class="col-8">
+                  <h4 className="name">Baljeet Singh</h4>
+                  <p className="description">description goes here</p>
+                </div>
+              </div>
+              <div class="row pt-3">
+                <div class="col">
+                  <img
+                    class="circular--landscape"
+                    src="/teamPhotos/photo-Mikaela.jpg"
+                  />
+                </div>
+                <div class="col-8">
+                  <h4 className="name">Mikaela Valenciano</h4>
+                  <p className="description">description goes here</p>
+                </div>
+              </div>
             </div>
           </Modal.Body>
         </Modal>

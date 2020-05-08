@@ -17,7 +17,7 @@
   color: white;
 }
 
-h1 {
+h1.display-4 {
   font-weight: lighter !important;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 2.5em !important;

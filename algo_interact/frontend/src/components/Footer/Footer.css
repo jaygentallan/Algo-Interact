@@ -33,12 +33,51 @@ a.nav-link:hover {
 .modal-dialog {
   display: flex;
   align-items: center;
-  top: 20%;
 }
 
 .teamHeader {
-  background-color: aquamarine;
+  background-color: #c34f6b;
   font-style: italic;
-  font-size: 100%;
-  font-weight: 900px;
+}
+
+h1.title {
+  color: white;
+  font-weight: lighter !important;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+  font-size: 2.5em !important;
+}
+
+h4.name {
+  padding-top: 1em;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif !important;
+}
+
+p.description {
+  font-style: italic;
+}
+
+.container h4 {
+  font-family: monospace;
+  font-weight: bolder;
+}
+
+.circular--landscape {
+  object-fit: cover;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+}
+
+.circular--landscape.jay {
+  object-fit: cover;
+  object-position: 30% 70%;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+}
+
+.circular--landscape img {
+  width: auto;
+  height: 100;
 }
