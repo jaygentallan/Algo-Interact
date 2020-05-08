@@ -760,14 +760,10 @@ export default class GraphVisualizer extends React.Component {
   };
 
   linearSearch = () => {
-    let list = [...this.state.listOrder];
 
     var counter = 0;
     for (let i = 0; i < this.state.listOrder.length; i++) {
-      console.log(this.state.listOrder);
-      if (!(this.state.algoData.keyNode in this.state.listOrder)) {
-        return;
-      }
+    
       // check if keyNode string equals current node's id string
       if (this.state.algoData.keyNode === this.state.listOrder[i]) {
         console.log("found key node");
