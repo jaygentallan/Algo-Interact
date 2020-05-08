@@ -14,11 +14,11 @@
   border-width: 0.8em;
 }
 
-.button.d-flex.bd-highlight {
+button .container h5 {
   font-size: 17px;
   font-weight: 380;
   position: relative;
-  left: 36%;
+  justify-content: center;
   color: #303030;
 }
 
