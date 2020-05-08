@@ -1,5 +1,12 @@
 import React from "../../../node_modules/react";
 import "./Card.css";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  Redirect,
+} from "react-router-dom";
 
 /*  stretched-link makes it so that anywhere on 
     the card–when clicked–will lead to the page
@@ -8,12 +15,19 @@ import "./Card.css";
 const Card = (props) => {
   return (
     <div class="card border shadow>Regular shadow">
-      <div class="card-body card-text">
-        <img class="card-img-top" src={props.image} />
-        <h3 className="title font-weight-normal">{props.title}</h3>
-        <p>{props.text}</p>
-        <a class="card-block stretched-link" href={props.link}></a>
-      </div>
+      <Link
+        className="link"
+        to={{
+          pathname: props.link,
+          state: { dataStructure: props.dataStructure },
+        }}
+      >
+        <div class="card-body card-text">
+          <img class="card-img-top" src={props.image} />
+          <h3 className="title font-weight-normal pt-4">{props.title}</h3>
+          <p>{props.text}</p>
+        </div>
+      </Link>
     </div>
   );
 };

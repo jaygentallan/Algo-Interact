@@ -11,3 +11,12 @@
   left: auto;
   bottom: 0.1em;
 }
+
+.link {
+  font-style: italic;
+  color: #212529;
+}
+
+.link:hover {
+  color: #c34f6b;
+}

@@ -60,8 +60,10 @@ export default class GraphVisualizer extends React.Component {
       //disableLinkForce: true,
       rederLabel: true,
       automaticRearrangeAfterDropNode: true,
-      height: window.innerHeight * 0.86,
-      width: window.innerWidth,
+      // eslint-disable-next-line no-restricted-globals
+      height: screen.height * 0.83,
+      // eslint-disable-next-line no-restricted-globals
+      width: screen.width * 0.989,
       node: {
         color: "#c34f6b",
         size: 600,
@@ -132,11 +134,22 @@ export default class GraphVisualizer extends React.Component {
         });
 
       // Do some error checking
-      // prettier-ignore
-      if (newNode === "" || parent === "" || side === "" || (side !== "l" && side !== "r" && side !== "L" && side !== "R")) {
+      if (
+        newNode === "" ||
+        parent === "" ||
+        side === "" ||
+        (side !== "l" &&
+          side !== "r" &&
+          side !== "L" &&
+          side !== "R" &&
+          side !== "left" &&
+          side !== "right" &&
+          side !== "LEFT" &&
+          side !== "RIGHT")
+      ) {
         this.setState({
           addNodeName: "",
-        })
+        });
         return;
       }
 
@@ -146,7 +159,13 @@ export default class GraphVisualizer extends React.Component {
         if (parent === data.nodes[i].id) {
           // Determines if node is to be places on the left or right side of the parent node
           // Then calculate the position by using a formula.
-          if ((side === "l" || side === "L") && !data.nodes[i].left) {
+          if (
+            (side === "l" ||
+              side === "L" ||
+              side === "left" ||
+              side === "LEFT") &&
+            !data.nodes[i].left
+          ) {
             let x =
               data.nodes[i].level === 0
                 ? data.nodes[i].x * (0.468 + (data.nodes[i].level + 1) * 0.05)
@@ -177,7 +196,13 @@ export default class GraphVisualizer extends React.Component {
                 tree.push(newParent);
               }
             }
-          } else if ((side === "r" || side === "R") && !data.nodes[i].right) {
+          } else if (
+            (side === "r" ||
+              side === "R" ||
+              side === "right" ||
+              side === "RIGHT") &&
+            !data.nodes[i].right
+          ) {
             let x =
               data.nodes[i].level === 0
                 ? data.nodes[i].x * (1.47 + (data.nodes[i].level + 1) * 0.05)
@@ -271,53 +296,82 @@ export default class GraphVisualizer extends React.Component {
       return;
     }
     if (this.state.data.nodes && this.state.data.nodes.length > 1) {
-      const nodes = this.state.data.nodes.filter(
-        (l) => l.id !== this.state.removeNodeName
-      );
-      const links = this.state.data.links.filter(
-        (l) =>
-          l.source !== this.state.removeNodeName &&
-          l.target !== this.state.removeNodeName
-      );
-      const data = { nodes, links };
+      var currNode = this.state.removeNodeName;
+      var tree = this.state.algoData.tree;
+      var loop = true;
+      var nodes;
+      var links;
+      // Stack that contains the previous node and the side of which the node is removed
+      var stack = [];
+      var newNodeStack = [];
 
-      let neighbors = this.state.config.directed
-        ? this.state.algoData.directed_neighbors
-        : this.state.algoData.undirected_neighbors;
+      while (loop) {
+        for (let i = 0; i < tree.length; i++) {
+          if (currNode in tree[i]) {
+            // Case #1
+            // When node has no children
+            if (
+              !("left" in tree[i][currNode]) &&
+              !("right" in tree[i][currNode])
+            ) {
+              nodes = this.state.data.nodes.filter(
+                (l) => l.id !== this.state.removeNodeName
+              );
+              links = this.state.data.links.filter(
+                (l) =>
+                  l.source !== this.state.removeNodeName &&
+                  l.target !== this.state.removeNodeName
+              );
 
-      for (let i = 0; i < neighbors.length; i++) {
-        if (this.state.removeNodeName in neighbors[i]) {
-          let undirected_neighbors = this.state.algoData.undirected_neighbors;
-          let directed_neighbors = this.state.algoData.directed_neighbors;
+              // Remove node from tree list
+              for (let j = 0; j < tree.length; j++) {
+                if (currNode in tree[j]) {
+                  delete tree[j][currNode];
+                }
+              }
 
-          // First, remove any instances of the node in any of the nodes' neighbors
-          for (let i = 0; i < undirected_neighbors.length; i++) {
-            let key = Object.keys(undirected_neighbors[i])[0];
-            undirected_neighbors[i][key].filter(
-              (l) => l[0] !== this.state.removeNodeName
-            );
-            if (key === this.state.removeNodeName) {
-              undirected_neighbors.splice(i, 1);
+              if (stack.length === 0) loop = false;
+              else {
+                while (stack.length !== 0) {
+                  const [prevNode, side] = stack.pop();
+
+                  // Remove node from tree lsit
+                  for (let k = 0; k < tree.length; k++) {
+                    if (prevNode in tree[k]) {
+                      let sideNode = tree[k][prevNode][side];
+                      // Replace this node with the node we just deleted
+                      if (prevNode !== sideNode) {
+                        delete tree[k][prevNode][side];
+                        Object.defineProperty(
+                          tree[k],
+                          sideNode,
+                          Object.getOwnPropertyDescriptor(tree, prevNode)
+                        );
+                        delete tree[k][prevNode];
+                      }
+                    }
+                  }
+                }
+              }
+              break;
+            } else if (
+              !("left" in tree[i][currNode]) ||
+              !("right" in tree[i][currNode])
+            ) {
+              if ("right" in tree[i][currNode]) {
+                stack.push([currNode, "right"]);
+                currNode = tree[i][currNode]["right"];
+              }
+              if ("left" in tree[i][currNode]) {
+                stack.push([currNode, "left"]);
+                currNode = tree[i][currNode]["left"];
+              }
             }
           }
-          // Do the same for the directed_neighbors list
-          for (let i = 0; i < directed_neighbors.length; i++) {
-            let key = Object.keys(directed_neighbors[i])[0];
-            directed_neighbors[i][key].filter(
-              (l) => l[0] !== this.state.removeNodeName
-            );
-            if (key === this.state.removeNodeName) {
-              directed_neighbors.splice(i, 1);
-            }
-          }
-
-          // Put the lists back into the state
-          this.setState({
-            undirected_neighbors: undirected_neighbors,
-            directed_neighbors: directed_neighbors,
-          });
         }
       }
+
+      const data = { nodes, links };
 
       this.setState({
         data,
@@ -326,6 +380,8 @@ export default class GraphVisualizer extends React.Component {
       });
     }
   };
+
+  checkChildren = (node) => {};
 
   addLink = () => {
     if (this.state.addLink === "") {
@@ -1337,58 +1393,72 @@ export default class GraphVisualizer extends React.Component {
                 <TreeView class="nodes" key="nodes" nodeLabel="Nodes">
                   {this.state.algoData.tree.map((node, i) => {
                     const type = node.type;
-                    const name = node.id;
+                    const name = Object.keys(node)[0];
+                    const children = ["left", "right"];
 
-                    var neighbors = this.state.algoData.tree;
-
-                    for (i = 0; i < neighbors.length; i++) {
-                      if (name in neighbors[i]) {
-                        return (
-                          <TreeView key={type + "|" + i} nodeLabel={name}>
-                            <TreeView
-                              key={type + "|" + i}
-                              nodeLabel="children: "
-                            >
-                              {Object.keys(neighbors[i][name]).map(
-                                (side, child) => {
-                                  return (
-                                    <div className="info">
-                                      {" "}
-                                      {side} : {child}{" "}
-                                    </div>
-                                  );
-                                }
-                              )}
-                            </TreeView>
-                          </TreeView>
-                        );
-                      }
-                    }
+                    return (
+                      <TreeView key={type + "|" + i} nodeLabel={name}>
+                        <TreeView key={type + "|" + i} nodeLabel="Children">
+                          {children.map((child) => {
+                            if (child in node[name]) {
+                              return (
+                                <div className="info">
+                                  {child.charAt(0).toUpperCase() +
+                                    child.slice(1)}
+                                  : {node[name][child]}
+                                </div>
+                              );
+                            }
+                          })}
+                        </TreeView>
+                      </TreeView>
+                    );
                   })}
                 </TreeView>
               </div>
             </Dropdown.Menu>
           </Dropdown>
-        </div>
-        <div class="rightWindow">
-         
-          <HelpButton
-            mTitle="Tree Visualizer–More Info"
-            algoDesc="Enter the name of an existing node in the tree. Then, choose one
-                      algorithm you would like to run and press the Start button."
-            nLinkDesc="Follow the instructions in the box for adding a new node to the Tree.
-                      to remove an existing node, enter the node's name. Since it is a tree, there
-                      is only a maximum of 2 links that can extend from a node, so you don't need
-                      to enter information for deleting a link."
-            nodeList="Node List"
-            nListDesc=": Click this button to see the list of nodes and their respective children."
-          />
+
+          <div
+            class="rightWindowHelpButton"
+            data-tip="Help"
+            data-for="helpButton"
+          >
+            <HelpButton
+              mTitle="Tree"
+              algoDesc="Choose Directed to see the path direction or Weighted to see values associated
+                      with each link in the graph. To prepare the execution of an algorithm, enter a
+                      start node's name and a target node's name. Finally choose 1 algorithm to 
+                      execute in the "
+              nLinkDesc="Enter the name of a new node you'd like to add or the name of an existing node 
+                      you'd like to delete from the graph. For a new node, follow the instructions to 
+                      link it to an existing node: enter the source node's name, the target node's name, 
+                      and an integer value for the link's weight between the 2 nodes. When deleting a 
+                      link, enter the names of the nodes at each end of the link."
+              nodeList="Node List"
+              nListDesc=": Click on this button to view each node's neighboring nodes."
+              rButtons="Right Buttons"
+              b1="Default Graph"
+              b1Desc=": This button resets the Graph to its default of one node, Harry."
+              b2="The Office Graph"
+              b2Desc=": Click to render a larger graph with connecting nodes."
+            />
+          </div>
         </div>
 
         <ReactTooltip
           id="buttons"
           place="right"
           backgroundColor="#c34f6b"
+          effect="solid"
+          multiline={true}
+          className="extraClass"
+        />
+
+        <ReactTooltip
+          id="helpButton"
+          place="right"
+          backgroundColor="#2e8b57"
           effect="solid"
           multiline={true}
           className="extraClass"

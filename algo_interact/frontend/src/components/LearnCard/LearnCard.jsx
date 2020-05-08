@@ -24,7 +24,7 @@ const LearnCard = (props) => {
     <div class="card border shadow">
       <div class="card-body card-text">
         <img class="card-img-top" src={props.image} />
-        <h3 class="pt-5">{props.title}</h3>
+        <h3>{props.title}</h3>
         <p>{props.text}</p>
       </div>
       <>
@@ -58,6 +58,7 @@ const LearnCard = (props) => {
               <Tab eventKey="tab3" title={props.tab3title}>
                 <TabContent>
                   <h4 class="mt-3">{props.tab3title}</h4>
+                  <img src= {props.tab3image}/>
                   <p>{props.tab3text}</p>
                 </TabContent>
               </Tab>
