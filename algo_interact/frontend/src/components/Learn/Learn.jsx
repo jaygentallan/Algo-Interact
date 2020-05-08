@@ -17,6 +17,12 @@ const responsive = {
   },
 };
 
+/*
+  The Learn page is where the user can navigate to 
+  in order to learn more about each data structure 
+  in the Visualizer page and their respective algorithms.
+*/
+
 class Learn extends Component {
   render() {
     return (
@@ -214,6 +220,7 @@ class Learn extends Component {
             image="/images/dijkstra.png"
             tab1title="Description"
             tab1image="/images/djkstra.png"
+            tab1text="Dijkstra’s algorithm, published in 1959 and named after its creator Dutch computer scientist Edsger Dijkstra, can be applied on a weighted graph. The graph can either be directed or undirected. One stipulation to using the algorithm is that the graph needs to have a nonnegative weight on every edge."
             tab2title="Time Complexity"
             tab2text="O(V^2)"
           />

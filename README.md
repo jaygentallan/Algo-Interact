@@ -1,30 +1,37 @@
 # Algo-Interact
+<img src="https://media.giphy.com/media/h3ty1m8lfburxCojtR/source.gif" width="600" height="300">
 
-## Documentation
-##### Full documentation
+# Documentation
+#### Full documentation in repo
 
-## Install 
-#### git init and clone repo 
+# Installation
+### First initialize git and clone this repository
+### `git init` and `git clone https://gitlab.com/james.tandon/s2020-djma.git`
 
 ### IDE 
 ![Visual Studio Code](images/vs.jpeg)
-#### In repo open frontend folder into a Visual Studio Code Environmnet 
-#### Frontend Folder Location: s2020-djma => algo_interact => frontend
+### In repo open frontend folder into a Visual Studio Code Environmnet 
+### Frontend Folder Location: `s2020-djma/algo_interact/algo_interactfrontend`
 
-#### install node.js 
-#### Link to node install:  https://nodejs.org/en/download/
+### install node.js 
+### Link to node install:  https://nodejs.org/en/download/
 
 ### Once in environment
-#### npm package manner should come with node install if not
+### npm package manager should come with `node install` if not
 ![npm](images/npm.jpeg)
-#### Next install node_modules 
+### Next install node_modules `npm install node-modules`
 ![node_modules](images/node_mod.jpeg)
 
+### Install all the dependencies
+### `packages.json` should already have all dependencies, all you need to do is run `npm install` on the same directory.
+### Head to `s2020-djma/algo_interact/algo_interact/frontend` and then run `npm install` on the terminal
+### If `npm install` doesn't locally update dependencies, install manually
 ### Install all the dependencies below
 ![Dependencies](images/depend.jpeg)
-#### Use npm install and then a space between each dependency 
+
+### Use `npm install` and then a space between each dependency 
 ![npm install ](images/npminstall.jpeg)
 
 ### Get Algo-Interact Running in the Browser
-#### Run Reacts local server in the terminal using: npm start 
+### Run Reacts local server in the terminal using: `npm start` 
 

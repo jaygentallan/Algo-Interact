@@ -628,7 +628,7 @@ export default class GraphVisualizer extends React.Component {
       config: config,
     });
   };
-
+  // handles which algorithm to call based on what button the user clicks on
   startAlgorithm = () => {
     if (this.state.algoData.algorithm === "dfs") {
       this.depthFirstSearch();
@@ -639,6 +639,7 @@ export default class GraphVisualizer extends React.Component {
     }
   };
 
+  // searches by traversing down each neighboring nodes' branches
   depthFirstSearch = () => {
     console.log(this.state.algoData.neighbors);
     if (
@@ -732,6 +733,7 @@ export default class GraphVisualizer extends React.Component {
     }
   };
 
+  // searches by traversing each node's adjacent neighbors
   breadthFirstSearch = () => {
     if (
       this.state.algoData.startNode !== "" &&
@@ -833,6 +835,7 @@ export default class GraphVisualizer extends React.Component {
     }
   };
 
+  // looks for the shortest path to get to the target node
   dijkstraAlgorithm = () => {
     if (
       this.state.algoData.startNode !== "" &&
