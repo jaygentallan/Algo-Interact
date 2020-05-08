@@ -1,7 +1,7 @@
 # Algo-Interact
 
 ## Documentation
-##### Full documentation
+##### Full documentation in the repo
 
 ## Install 
 #### git init and clone repo 
