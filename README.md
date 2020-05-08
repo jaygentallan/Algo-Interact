@@ -4,7 +4,7 @@
 ##### Full documentation
 
 ## Install 
-##### git init and clone repo 
+#### git init and clone repo 
 
 ### IDE 
 ![Visual Studio Code](images/vs.jpeg)
