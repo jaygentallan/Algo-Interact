@@ -8,6 +8,10 @@
   border-right-width: 0;
 }
 
+.btn.btn-outline-danger.showModal:hover {
+  background-color: #c34f6b;
+}
+
 .card.border {
   border-color: #c34f6b !important; /* Sets all card border colors to match header and footer color */
   border-radius: 20px; /* Larger number results in more curved corners of card */
