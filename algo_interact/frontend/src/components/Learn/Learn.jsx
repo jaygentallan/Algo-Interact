@@ -105,20 +105,8 @@ class Learn extends Component {
             tab1image="/images/linkedlist.png"
           />
 
-          <LearnCard
-            title="Binary Search Tree"
-            text="In Binary tree, every tree elements have at least 2 children so its called binary tree"
-            tab1title="Description"
-            tab1text={<ul> <li>Since every element have only 2 children, they are typically named as left and right child.</li>
-              <li>In tree, nodes with no children are called laves, or external nodes</li>
-              <li>Nodes which are not leaves are called internal nodes</li>
-              <li>The topmost node in the tree is called root.</li>
-              <li>Height of the binary tree - The height of a node is the number of edges from the node to the deepest leaf.</li>
-              <li>The height of a tree is a height of the tree</li>
-              </ul>}
-            image="/images/binarysearchtree.png"
-            tab1image="/images/bst.png"
-            />
+        
+          
           
         </Carousel>
         <br></br>
@@ -146,10 +134,12 @@ class Learn extends Component {
             tab1title="Description"
             tab1text={<ul> <li>The BFS algorithm is  particularly useful for one thing: finding the shortest path  on unsweighted graphs.</li>
               <li>Height of tree should be depend on subtree of the tree.</li>
-              <li></li>
+              <li>Its an algorithm, used for traversing or searching tree or graph data structure</li>
               </ul>}
             image="/images/braedth.png"
             tab1image="/images/bstl.png"
+            tab2title="Time Complexity"
+            tab2text="O(V + E)"
 
           />
           <LearnCard
@@ -162,6 +152,9 @@ class Learn extends Component {
               </ul>}
             tab1image="/images/dfs.png"
             image="/images/depthfirst.png"
+            tab2title="Time Complexity"
+            tab2text="O ( V + E ) O(V + E) O(V+E)."
+
             
           />
           <LearnCard
@@ -170,6 +163,8 @@ class Learn extends Component {
             image="/images/dijkstra.png"
             tab1title="Description"
             tab1image="/images/djkstra.png"
+            tab2title="Time Complexity"
+            tab2text="O(V^2)"
           />
 
           <LearnCard

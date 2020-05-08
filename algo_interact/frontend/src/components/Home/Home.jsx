@@ -92,15 +92,7 @@ class Home extends Component {
 
           />
 
-          <Card 
-             title="Binary Linked List"
-             Text="kjhfsdhjkds"
-             tab1title="Description"
-             tab1text="hgfhjgshjfh"
-             image="/images/binarysearchtree.png"
-
-            
-          />
+        
         </Carousel>
         <br></br>
         <br></br>
