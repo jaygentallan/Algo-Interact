@@ -86,7 +86,6 @@ export default class GraphVisualizer extends React.Component {
       algorithm: "search",
       stack: [],
       queue: [],
-      listOrder: listOrder,
     };
 
     // Class states
@@ -111,7 +110,7 @@ export default class GraphVisualizer extends React.Component {
       nodePos,
       headName: "",
       tailName: "",
-      listOrder,
+      listOrder
     };
   }
 
@@ -210,7 +209,6 @@ export default class GraphVisualizer extends React.Component {
   //Add links between two nodes when middle is removed
   handleMiddleConnection = (update) => {
     this.forceUpdate(() => this.onClickAddLink(update));
-    //setTimeout(() => this.onClickAddLink(update), 500);
   };
 
   //Helper function for remove node
@@ -573,56 +571,6 @@ export default class GraphVisualizer extends React.Component {
     this.setState({
       links: link,
     });
-    /*
-    if (this.state.addLink === "") {
-      return;
-    }
-    if (this.state.data.nodes && this.state.data.nodes.length) {
-
-      let source, target;
-      [source, target] = this.state.addLink.split(/[ ,]+/).filter(function (e) {
-        return e.trim().length > 0;
-      });
-
-      var sourceExists, targetExists;
-      sourceExists = targetExists = false;
-
-      for (var i = 0; i < this.state.data.nodes.length; i++) {
-        if (this.state.data.nodes[i].id === source) {
-          sourceExists = true;
-        }
-        if (this.state.data.nodes[i].id === target) {
-          targetExists = true;
-        }
-      }
-
-      if (!sourceExists || !targetExists) {
-        console.log("NODE DOES NOT EXIST!");
-        this.setState({
-          addLink: "",
-          addLinkPlaceholder: "Enter as: source, target",
-        });
-        return;
-      } */
-    /*
-      for (var j = 0; j < this.state.data.links.length; j++) {
-        if (
-          this.state.data.links[j].source === source &&
-          this.state.data.links[j].target === target
-        ) {
-          console.log("ALREADY EXISTS!");
-          this.setState({
-            addLink: "",
-            addLinkPlaceholder: "Enter as: source, target",
-          });
-          return;
-        }
-      } */
-    /*
-    this.state.data.links.push({
-      source: middleNode.source,
-      target: middleNode.target,
-    }); */
   };
 
   onClickRemoveLink = () => {
@@ -801,6 +749,7 @@ export default class GraphVisualizer extends React.Component {
   startAlgorithm = () => {
     // don't need to check for other algorithms
     // if (this.state.algoData.algorithm === "search") {
+    //let list = this.state.algoData.listOrder
     this.linearSearch();
     /*
     } else if (this.state.algoData.algorithm === "bfs") {
@@ -811,7 +760,9 @@ export default class GraphVisualizer extends React.Component {
   };
 
   linearSearch = () => {
-    //console.log(this.state.algoData.keyNode)
+  
+   let list = [...this.state.listOrder];
+
     var counter = 0;
     for (let i = 0; i < this.state.listOrder.length; i++) {
       console.log(this.state.listOrder);
@@ -836,15 +787,7 @@ export default class GraphVisualizer extends React.Component {
       );
       counter++;
     }
-    this.resetState(counter);
-  };
-
-  //Node Highlight Rotation Test -- Use Algorithm functions in replace
-  rotateHandler = () => {
-    //provide index "i" to invoke a delay
-    this.state.data.nodes.forEach((node, i) => {
-      setTimeout(() => this.highlightHandler(node.id, i), 1500 * (i + 1));
-    });
+    this.resetState(counter); 
   };
 
   //reset node color back to original
@@ -903,8 +846,6 @@ export default class GraphVisualizer extends React.Component {
     this.setState({
       ...(this.state.data.nodes = nodes),
     });
-    //call to reset back to original state
-    //this.resetState(origNode, nodeIndex);
   };
 
   foundTarget = (id) => {

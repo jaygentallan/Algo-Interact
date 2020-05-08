@@ -49,7 +49,7 @@ export default class GraphVisualizer extends React.Component {
           // eslint-disable-next-line no-restricted-globals
           x: screen.width / 2,
           // eslint-disable-next-line no-restricted-globals
-          y: screen.height / 3,
+          y: screen.height / 2.8,
         },
       ],
       links: [],
