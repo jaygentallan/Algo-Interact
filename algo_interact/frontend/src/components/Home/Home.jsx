@@ -97,7 +97,7 @@ class Home extends Component {
              Text="kjhfsdhjkds"
              tab1title="Description"
              tab1text="hgfhjgshjfh"
-             image="/images/binarysearchtreepic.png"
+             image="/images/binarysearchtree.png"
 
             
           />
@@ -134,7 +134,7 @@ class Home extends Component {
           />
           <Card
             title="Dijkstra Algorithm"
-            image="/images/linkedlistpicture.png"
+            image="/images/dijkstra.png"
             link="/learn"
           />
 
