@@ -94,11 +94,10 @@ h1.name.text-center {
 }
 
 .rightWindowHelpButton {
-  height: 2em !important;
-  width: 2em !important;
-  position: absolute;
-  right: 1em !important;
-  bottom: 1em !important;
+  height: 2em;
+  width: 2em;
+  right: 1em;
+  bottom: 1em;
 }
 
 .json-data-container {

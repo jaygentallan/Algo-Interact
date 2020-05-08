@@ -94,11 +94,11 @@ h1.name.text-center {
 }
 
 .rightWindowHelpButton {
+  position: relative;
   height: 2em !important;
   width: 2em !important;
-  position: absolute;
-  right: 1em !important;
-  bottom: 1em !important;
+  top: 1em;
+  left: 0.5em;
 }
 
 .algoSelection {
