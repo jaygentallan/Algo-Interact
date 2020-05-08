@@ -303,7 +303,7 @@ export default class GraphVisualizer extends React.Component {
       var links;
       // Stack that contains the previous node and the side of which the node is removed
       var stack = [];
-      var newNodeStack = [];
+      var originalNode;
 
       while (loop) {
         for (let i = 0; i < tree.length; i++) {
@@ -349,6 +349,8 @@ export default class GraphVisualizer extends React.Component {
                         );
                         delete tree[k][prevNode];
                       }
+
+                      // Set originalNode to this node.
                     }
                   }
                 }
@@ -1231,19 +1233,6 @@ export default class GraphVisualizer extends React.Component {
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <div id="node" class="input-group mb-3 pt-3">
-                <h5 class="font-weight-light h6"> Target Node </h5>
-                <div class="input-group mb-3">
-                  <input
-                    class="L"
-                    id="tNode"
-                    type="text"
-                    name="tarhetNode"
-                    placeholder="Enter as: name"
-                    onChange={this._addEndNodeHandleChange}
-                    //onKeyPress={this._handleLinkKeyEnter}
-                  />
-                </div>
-
                 <h5 class="font-weight-light h6"> Algorithms: </h5>
 
                 <div className="pt-1">
@@ -1426,22 +1415,11 @@ export default class GraphVisualizer extends React.Component {
           >
             <HelpButton
               mTitle="Tree"
-              algoDesc="Choose Directed to see the path direction or Weighted to see values associated
-                      with each link in the graph. To prepare the execution of an algorithm, enter a
-                      start node's name and a target node's name. Finally choose 1 algorithm to 
-                      execute in the "
-              nLinkDesc="Enter the name of a new node you'd like to add or the name of an existing node 
-                      you'd like to delete from the graph. For a new node, follow the instructions to 
-                      link it to an existing node: enter the source node's name, the target node's name, 
-                      and an integer value for the link's weight between the 2 nodes. When deleting a 
-                      link, enter the names of the nodes at each end of the link."
+              algoDesc="Click on the algorithm that you would like to use. After clicking, click on the start algorithm button and it wil lrun the chosen algorithm on the tree."
+              nLinkDesc="When adding a node, enter in the format of 'name of node to be added, name of parent to add node to, and the side where you want the node to be at (left, right)
+                         When removing a node, enter in the format of 'name of node to be remove'."
               nodeList="Node List"
-              nListDesc=": Click on this button to view each node's neighboring nodes."
-              rButtons="Right Buttons"
-              b1="Default Graph"
-              b1Desc=": This button resets the Graph to its default of one node, Harry."
-              b2="The Office Graph"
-              b2Desc=": Click to render a larger graph with connecting nodes."
+              nListDesc=": Click on this button to view each node's left and right children."
             />
           </div>
         </div>

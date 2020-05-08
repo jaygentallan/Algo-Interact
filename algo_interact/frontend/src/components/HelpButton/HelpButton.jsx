@@ -56,7 +56,11 @@ const HelpButton = (props) => {
             <strong>{props.nodeList}</strong>
             {props.nListDesc}
           </p>
-          <h2 className="helpModal2">{props.rButtons}</h2>
+          {props.rButtons ? (
+            <h2 className="helpModal2">{props.rButtons}</h2>
+          ) : (
+            <div></div>
+          )}
           <p>
             <strong>{props.b1}</strong>
             {props.b1Desc}

@@ -49,11 +49,16 @@ const Footer = () => {
             <div class="container">
               <div class="row">
                 <div class="col">
-                  <img class="teamImg" src={""} />
+                  <img 
+                    class="circular--portrait AC" 
+                    src={"/teamPhotos/AC.jpeg"}
+                  />
                 </div>
                 <div class="col-8">
                   <h4 className="name">Anthony Carnero</h4>
-                  <p className="description">description goes here</p>
+                  <p className="description">
+                    "I love spicy food and making pepper sauce."  
+                  </p>
                 </div>
               </div>
               <div class="row pt-3">
@@ -66,22 +71,21 @@ const Footer = () => {
                 <div class="col-8">
                   <h4 className="name">Jay Ivan Gentallan</h4>
                   <p className="description">
-                    {" "}
-                    "I love to work on projects on my spare time. My projects
-                    include mobile, desktop, and web apps, with Algo-Interact
-                    being the most recent. I also love competetive programming
-                    and machine-learning. My goal is to become a
-                    machine-learning engineer in the future."
+                    "I like to play the guitar and drink Monster Energy."
                   </p>
                 </div>
               </div>
               <div class="row pt-3">
                 <div class="col">
-                  <img class="teamImg" src="" />
+                  <img 
+                    class="circular--landscape" 
+                    src="/teamPhotos/photo-baljeet.jpeg" />
                 </div>
                 <div class="col-8">
                   <h4 className="name">Baljeet Singh</h4>
-                  <p className="description">description goes here</p>
+                  <p className="description">
+                    "I can't go one day without drinking chai."
+                  </p>
                 </div>
               </div>
               <div class="row pt-3">
@@ -93,7 +97,9 @@ const Footer = () => {
                 </div>
                 <div class="col-8">
                   <h4 className="name">Mikaela Valenciano</h4>
-                  <p className="description">description goes here</p>
+                  <p className="description">
+                    "I love attending concerts, playing guitar, and drawing."
+                  </p>
                 </div>
               </div>
             </div>

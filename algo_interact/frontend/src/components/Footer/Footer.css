@@ -62,6 +62,19 @@ p.description {
   font-weight: bolder;
 }
 
+.circular--portrait.AC {
+  object-fit: cover;
+  object-position: 50%, 30% !important;
+  width: 180px;
+  height: 180px;
+  border-radius: 50% !important;
+}
+
+.circular--portrait.AC img {
+  width: 100;
+  height: auto;
+}
+
 .circular--landscape {
   object-fit: cover;
   width: 180px;

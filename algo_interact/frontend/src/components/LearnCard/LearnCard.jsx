@@ -33,7 +33,9 @@ const LearnCard = (props) => {
           type="button"
           class="btn btn-outline-danger showModal"
         >
-          <h5 class="button d-flex bd-highlight"> Learn More </h5>
+          <div class="container">
+            <h5 class="button d-flex bd-highlight">Learn More</h5>
+          </div>
         </button>
         <Modal show={isOpen} onHide={hideModal} size="lg">
           <Modal.Header>

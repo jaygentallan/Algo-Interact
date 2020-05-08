@@ -110,7 +110,7 @@ export default class GraphVisualizer extends React.Component {
       nodePos,
       headName: "",
       tailName: "",
-      listOrder
+      listOrder,
     };
   }
 
@@ -782,7 +782,7 @@ export default class GraphVisualizer extends React.Component {
       );
       counter++;
     }
-    this.resetState(counter); 
+    this.resetState(counter);
   };
 
   //reset node color back to original
@@ -1140,22 +1140,14 @@ export default class GraphVisualizer extends React.Component {
           >
             <HelpButton
               mTitle="Linked List"
-              algoDesc="Choose Directed to see the path direction or Weighted to see values associated
-                      with each link in the graph. To prepare the execution of an algorithm, enter a
-                      start node's name and a target node's name. Finally choose 1 algorithm to 
-                      execute in the "
-              nLinkDesc="Enter the name of a new node you'd like to add or the name of an existing node 
-                      you'd like to delete from the graph. For a new node, follow the instructions to 
-                      link it to an existing node: enter the source node's name, the target node's name, 
-                      and an integer value for the link's weight between the 2 nodes. When deleting a 
-                      link, enter the names of the nodes at each end of the link."
-              nodeList="Node List"
-              nListDesc=": Click on this button to view each node's neighboring nodes."
-              rButtons="Right Buttons"
-              b1="Default Graph"
-              b1Desc=": This button resets the Graph to its default of one node, Harry."
-              b2="The Office Graph"
-              b2Desc=": Click to render a larger graph with connecting nodes."
+              algoDesc="Enter the name of the node to search for in the 'Target Value' field. When you're ready to run the algorithm,
+                        click on 'Start Linear Search' to run the linear search on the linked list."
+              nLinkDesc="Enter the name of the node to append in the 'Append Node' field, once ready, click enter to add the node to the linked list.
+                         This will add the node to the end of the list. Prepending a node will add a node to the front of the list. Removing a node
+                         removes the node from the list and connects the previous node to the next node."
+              rButtons="Indicator"
+              b1="Head & Tail Indicator"
+              b1Desc=": This box indicates the current Head and Tail node of the Linked List."
             />
           </div>
         </div>

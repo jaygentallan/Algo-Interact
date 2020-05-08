@@ -8,17 +8,21 @@
   border-right-width: 0;
 }
 
+.btn.btn-outline-danger.showModal:hover {
+  background-color: #c34f6b;
+}
+
 .card.border {
   border-color: #c34f6b !important; /* Sets all card border colors to match header and footer color */
   border-radius: 20px; /* Larger number results in more curved corners of card */
   border-width: 0.8em;
 }
 
-.button.d-flex.bd-highlight {
+button .container h5 {
   font-size: 17px;
   font-weight: 380;
   position: relative;
-  left: 36%;
+  justify-content: center;
   color: #303030;
 }
 

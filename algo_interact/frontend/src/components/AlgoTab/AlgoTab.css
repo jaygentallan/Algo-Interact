@@ -16,6 +16,8 @@ nav.nav-tabs {
   margin-right: 2%;
   padding-left: 2%;
   padding-right: 2%;
+  width: 11em;
+  text-align: center;
 }
 
 .nav-tabs .nav-item:first-child {

@@ -11,6 +11,8 @@ const AlgoTab = (props) => {
   else dataStructure = Object.values(props.dataStructure)[0];
   const [tabKey, setTabkey] = useState(dataStructure);
 
+  console.log(dataStructure);
+
   //Update tab key state
   const keyHandler = (event) => {
     setTabkey(event);
