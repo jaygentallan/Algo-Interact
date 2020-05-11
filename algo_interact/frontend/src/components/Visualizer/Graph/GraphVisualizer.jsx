@@ -98,6 +98,8 @@ export default class GraphVisualizer extends React.Component {
       undirected_neighbors: undirected_neighbors,
       directed_neighbors: directed_neighbors,
       algorithm: "dfs",
+      showList: false,
+      traversalList: [],
       stack: [],
       queue: [],
     };
@@ -383,7 +385,7 @@ export default class GraphVisualizer extends React.Component {
         // Add only the target node to the source neighbors list because it is a directed graph
         if (source in directed_neighbors[i]) {
           for (let j = 0; j < directed_neighbors[i][source].length; j++) {
-            if (target === undirected_neighbors[i][source][j][0]) {
+            if (target === directed_neighbors[i][source][j][0]) {
               already_exists = true;
             }
           }
@@ -641,7 +643,6 @@ export default class GraphVisualizer extends React.Component {
 
   // searches by traversing down each neighboring nodes' branches
   depthFirstSearch = () => {
-    console.log(this.state.algoData.neighbors);
     if (
       this.state.algoData.startNode !== "" &&
       this.state.algoData.endNode !== ""
@@ -650,6 +651,8 @@ export default class GraphVisualizer extends React.Component {
       const endNode = this.state.algoData.endNode;
       var startNodeIsValid = false;
       var endNodeIsValid = false;
+
+      this.state.algoData.showList = true;
 
       // Uses the appropriate neighbors list if directed is turned on or not
       var neighbors = this.state.config.directed
@@ -677,29 +680,64 @@ export default class GraphVisualizer extends React.Component {
         // Intiailizes the variables needed for depth-first search
         this.state.algoData.stack = [];
         this.state.algoData.stack.push(startNode);
+        var traversalList = this.state.algoData.traversalList;
         const visited = {};
         var counter = 0;
         visited[startNode] = startNode;
+
+        console.log("SHOW LIST ", this.state.algoData.showList);
 
         while (
           this.state.algoData.stack !== undefined ||
           this.state.algoData.stack.length !== 0
         ) {
+          if (this.state.algoData.stack.length === 0) break;
           const curr = this.state.algoData.stack.pop();
+          let no_neighbors = false;
+
           if (curr === endNode) {
+            setTimeout(() => {
+              traversalList.push(curr);
+            }, 1200 * counter);
             for (let i = 0; i < 5; i++) {
               setTimeout(() => this.foundTarget(endNode), 1200 * counter);
               counter++;
             }
             console.log("FOUND TARGET");
+            // Reset node color state after DFS is done
             this.resetState(counter);
+            setTimeout(() => {
+              this.setState({
+                ...(this.state.algoData.showList = false),
+                ...(this.state.algoData.traversalList = []),
+              });
+            }, 1000 * (counter + 3));
             return;
           }
-          setTimeout(
-            () => this.highlightHandler(curr, counter),
-            1000 * (counter + 1)
-          );
+
+          // Highlight current node
+          setTimeout(() => {
+            traversalList.push(curr);
+            console.log("HIGHLIGHTING ", curr);
+            this.highlightHandler(curr, counter);
+            // Check if currNode has any neighbors
+            for (let j = 0; j < neighbors.length; j++) {
+              let key = Object.keys(neighbors[j])[0];
+              if (curr === key) {
+                if (neighbors[j][key].length === 0) {
+                  no_neighbors = true;
+                  break;
+                }
+              }
+            }
+          }, 1000 * (counter + 1));
           counter++;
+
+          this.setState({
+            ...(this.state.algoData.traversalList = traversalList),
+          });
+
+          if (no_neighbors) continue;
 
           // For looping through the neighbors array
           for (let i = 0; i < neighbors.length; i++) {
@@ -724,7 +762,13 @@ export default class GraphVisualizer extends React.Component {
         }
 
         // Reset node color state after DFS is done
-        this.resetState();
+        this.resetState(counter + 2);
+        setTimeout(() => {
+          this.setState({
+            ...(this.state.algoData.showList = false),
+            ...(this.state.algoData.traversalList = []),
+          });
+        }, 1000 * (counter + 3));
       } else {
         console.log("FAILURE!!!");
       }
@@ -743,6 +787,8 @@ export default class GraphVisualizer extends React.Component {
       const endNode = this.state.algoData.endNode;
       var startNodeIsValid = false;
       var endNodeIsValid = false;
+
+      this.state.algoData.showList = true;
 
       // Uses the appropriate neighbors list if directed is turned on or not
       var neighbors = this.state.config.directed
@@ -776,6 +822,7 @@ export default class GraphVisualizer extends React.Component {
         this.state.algoData.queue = [];
         this.state.algoData.queue.push(startNode);
         const visited = {};
+        var traversalList = this.state.algoData.traversalList;
         var counter = 0;
         visited[startNode] = startNode;
 
@@ -783,22 +830,47 @@ export default class GraphVisualizer extends React.Component {
           this.state.algoData.queue !== undefined ||
           this.state.algoData.queue.length !== 0
         ) {
+          if (this.state.algoData.queue.length === 0) break;
           const curr = this.state.algoData.queue.shift();
+          let no_neighbors = false;
+
           if (curr === endNode) {
+            setTimeout(() => {
+              traversalList.push(curr);
+            }, 1200 * counter);
             for (let i = 0; i < 5; i++) {
               setTimeout(() => this.foundTarget(endNode), 1200 * counter);
               counter++;
             }
             console.log("FOUND TARGET");
             this.resetState(counter);
+            setTimeout(() => {
+              this.setState({
+                ...(this.state.algoData.showList = false),
+                ...(this.state.algoData.traversalList = []),
+              });
+            }, 1000 * (counter + 3));
             return;
           }
 
-          setTimeout(
-            () => this.highlightHandler(curr, counter),
-            1000 * (counter + 1)
-          );
+          // Highlight current node
+          setTimeout(() => {
+            traversalList.push(curr);
+            this.highlightHandler(curr, counter);
+            // Check if currNode has any neighbors
+            for (let j = 0; j < neighbors.length; j++) {
+              let key = Object.keys(neighbors[j])[0];
+              if (curr === key) {
+                if (neighbors[j][key].length === 0) {
+                  no_neighbors = true;
+                  break;
+                }
+              }
+            }
+          }, 1000 * (counter + 1));
           counter++;
+
+          if (no_neighbors) continue;
 
           for (let i = 0; i < neighbors.length; i++) {
             if (
@@ -821,7 +893,13 @@ export default class GraphVisualizer extends React.Component {
         }
 
         // Reset node color state after DFS is done
-        this.resetState();
+        this.resetState(counter + 2);
+        setTimeout(() => {
+          this.setState({
+            ...(this.state.algoData.showList = false),
+            ...(this.state.algoData.traversalList = []),
+          });
+        }, 1000 * (counter + 3));
       } else {
         console.log("FAILURE!!!");
       }
@@ -839,12 +917,15 @@ export default class GraphVisualizer extends React.Component {
   dijkstraAlgorithm = () => {
     if (
       this.state.algoData.startNode !== "" &&
-      this.state.algoData.endNode !== ""
+      this.state.algoData.endNode !== "" &&
+      this.state.config.link.renderLabel
     ) {
       const startNode = this.state.algoData.startNode;
       const endNode = this.state.algoData.endNode;
       var startNodeIsValid = false;
       var endNodeIsValid = false;
+
+      this.state.algoData.showList = true;
 
       // Uses the appropriate neighbors list if directed is turned on or not
       var neighbors = this.state.config.directed
@@ -866,6 +947,8 @@ export default class GraphVisualizer extends React.Component {
           algoData.stack = [];
           this.setState({ algoData: algoData });
         }
+
+        var traversalList = this.state.algoData.traversalList;
 
         const costFromStartTo = {};
         const checkList = new PriorityQueue();
@@ -926,23 +1009,38 @@ export default class GraphVisualizer extends React.Component {
         console.log(path);
         for (let i = 0; i < path.length; i++) {
           if (path[i] === endNode) {
+            setTimeout(() => {
+              traversalList.push(endNode);
+            }, 1200 * counter);
             for (let j = 0; j < 5; j++) {
               setTimeout(() => this.foundTarget(endNode), 1200 * counter);
               counter++;
             }
             console.log("FOUND TARGET");
             this.resetState(counter);
+            setTimeout(() => {
+              this.setState({
+                ...(this.state.algoData.showList = false),
+                ...(this.state.algoData.traversalList = []),
+              });
+            }, 1000 * (counter + 3));
             return;
           }
 
-          setTimeout(
-            () => this.highlightHandler(path[i], counter),
-            1000 * (counter + 1)
-          );
+          setTimeout(() => {
+            traversalList.push(path[i]);
+            this.highlightHandler(path[i], counter);
+          }, 1000 * (counter + 1));
           counter++;
         }
 
         this.resetState(counter);
+        setTimeout(() => {
+          this.setState({
+            ...(this.state.algoData.showList = false),
+            ...(this.state.algoData.traversalList = []),
+          });
+        }, 1000 * (counter + 3));
       } else {
         console.log("FAILURE!!!");
       }
@@ -966,6 +1064,7 @@ export default class GraphVisualizer extends React.Component {
 
   //reset node color back to original
   resetState = (counter) => {
+    if (counter <= 2) counter = 3;
     const myP = new Promise(function (resolve, reject) {
       // promise for time delay
       setTimeout(() => resolve("Successful Switch!"), 2000 * (counter - 2));
@@ -1078,9 +1177,22 @@ export default class GraphVisualizer extends React.Component {
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, the traversal log and the main graph visualizer component.
   render() {
-    const neighborItems = this.state.algoData.stack.map((item) => {
-      return <li class="list-group-item">{item}</li>;
-    });
+    // prettier-ignore
+    var listItems;
+    if (this.state.algoData.algorithm === "dfs") {
+      listItems = "Depth-First Search: ";
+    } else if (this.state.algoData.algorithm === "bfs") {
+      listItems = "Breadth-First Search: ";
+    } else if (this.state.algoData.algorithm === "djk") {
+      listItems = "Dijkstra's Algorithm: ";
+    }
+
+    // prettier-ignore
+    if (this.state.algoData.showList === undefined) this.setState({...(this.state.algoData.showList = false)});
+    // prettier-ignore
+    if (this.state.algoData.traversalList === undefined) this.setState({...(this.state.algoData.traversalList = [])});
+    // prettier-ignore
+    this.state.algoData.traversalList.map((e, i) => (i < this.state.algoData.traversalList.length - 1 ? listItems += e + " > " : listItems += e));
 
     //Selections of Presets
     const Default = {
@@ -1698,6 +1810,13 @@ export default class GraphVisualizer extends React.Component {
           multiline={true}
           className="extraClass"
         />
+
+        {
+          // prettier-ignore
+          this.state.algoData.showList
+            ? <div className="listDisplay font-weight-light"> <p class="traversalList">{listItems}</p> </div>
+            : <div></div>
+        }
 
         {/*Entry point for passing data to library to be displayed*/}
         <Graph

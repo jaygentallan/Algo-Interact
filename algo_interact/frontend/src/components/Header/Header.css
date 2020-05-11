@@ -38,3 +38,7 @@ a.nav-link:hover {
   max-height: 2em;
   max-width: 40em;
 }
+
+.linkHeader:hover {
+  text-decoration: none !important;
+}

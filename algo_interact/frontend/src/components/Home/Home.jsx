@@ -2,6 +2,13 @@ import React, { Component } from "../../../node_modules/react";
 import Footer from "../Footer/Footer";
 import Card from "../Card/Card";
 import "./Home.css";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  Redirect,
+} from "react-router-dom";
 
 /* ScrollRotate:
     This package rotates the logo on the main
@@ -39,7 +46,7 @@ class Home extends Component {
         <div class="row">
           <ScrollRotate animationDuration={0.5}>
             <img
-              src={"/project_logo3.png"}
+              src={"/static/images/project_logo3.png"}
               width={300}
               height={300}
               alt="logo"
@@ -54,9 +61,14 @@ class Home extends Component {
               Algo-Interact was created to visualize data structures and
               algorithms for computer science students and anyone curious to
               learn.
-              <a href="/visualizer" class="try">
-                Try it out!
-              </a>
+              <Link
+                className="linkHome"
+                to={{
+                  pathname: "/visualizer",
+                }}
+              >
+                <a class="try">Try it out!</a>
+              </Link>
             </h5>
           </div>
         </div>
@@ -85,20 +97,20 @@ class Home extends Component {
         >
           <Card
             title="Graph"
-            image="/images/graphpicture.png"
+            image="/static/images/graphpicture.png"
             link="/visualizer"
             dataStructure="Graph"
           />
           <Card
             title="Tree"
-            image="/images/tree.png"
+            image="/static/images/tree.png"
             link="/visualizer"
             dataStructure="Tree"
           />
 
           <Card
             title="Linked List"
-            image="/images/linkedlist.png"
+            image="/static/images/linkedlist.png"
             link="/visualizer"
             dataStructure="LinkedList"
           />
@@ -123,26 +135,25 @@ class Home extends Component {
           itemClass="card-deck d-flex pl-5 pr-5 bd-highlight"
         >
           <Card
-            title="Depth First Search"
-            image="/images/depthfirst.png"
+            title="Depth-First Search"
+            image="/static/images/depthfirst.png"
             link="/learn"
           />
           <Card
-            title="Breadth First Search"
-            image="/images/linkedlistpicture.png"
+            title="Breadth-First Search"
             link="/learn"
-            image="/images/braedth.png"
+            image="/static/images/braedth.png"
           />
           <Card
-            title="Dijkstra Algorithm"
-            image="/images/dijkstra.png"
+            title="Dijkstra's Algorithm"
+            image="/static/images/dijkstra.png"
             link="/learn"
           />
 
           <Card
-            title="Tree Traversal"
+            title="Tree Traversal Algorithms"
             link="/learn"
-            image="/images/treetraversal.png"
+            image="/static/images/treetraversal.png"
           />
         </Carousel>
         <div class="container p-5"></div>

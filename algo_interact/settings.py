@@ -66,7 +66,7 @@ ROOT_URLCONF = 'algo_interact.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'algo_interact/frontend/build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,9 +130,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, "algo_interact/frontend/build/static");
 
 REACT_APP_DIR = os.path.join(BASE_DIR, 'algo_interact/frontend')
 
 STATICFILES_DIRS = [
-    os.path.join(REACT_APP_DIR, 'build', 'static'),
+    os.path.join(BASE_DIR, 'algo_interact/frontend/build/static/'),
+    os.path.join(BASE_DIR, 'frontend/build/static/images/'),
+    os.path.join(BASE_DIR, 'frontend/build/static/teamPhotos/'),
+    #os.path.join(REACT_APP_DIR, 'public'),
+    #os.path.join(REACT_APP_DIR, 'public'),
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True

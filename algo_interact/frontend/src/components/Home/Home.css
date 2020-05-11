@@ -46,6 +46,15 @@ img {
   height: auto;
 }
 
+.linkHome {
+  color: #212529;
+  text-decoration: none !important;
+}
+
+.linkHome:hover {
+  color: #c34f6b;
+}
+
 a.try,
 a.try:hover {
   padding-bottom: 1px;

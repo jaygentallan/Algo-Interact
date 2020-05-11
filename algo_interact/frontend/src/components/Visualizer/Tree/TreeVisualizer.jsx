@@ -49,8 +49,6 @@ export default class GraphVisualizer extends React.Component {
       },
     ];
 
-    const traversalList = [];
-
     // Default configurations used by the Graph component
     const config = {
       nodeHighlightBehavior: true,
@@ -83,9 +81,9 @@ export default class GraphVisualizer extends React.Component {
       root: "Harry",
       target: "",
       tree: tree,
-      traversalList: traversalList,
       showList: false,
       algorithm: "dfs",
+      traversalList: [],
       stack: [],
       queue: [],
     };
@@ -124,7 +122,7 @@ export default class GraphVisualizer extends React.Component {
     }
 
     // Adds node to the nodes array in the state's data
-    if (this.state.data.nodes && this.state.data.nodes.length) {
+    if (this.state.data.nodes && this.state.data.nodes.length >= 1) {
       var data = this.state.data;
       let newNode, parent, side;
       [newNode, parent, side] = this.state.addNodeName
@@ -157,7 +155,7 @@ export default class GraphVisualizer extends React.Component {
 
       for (let i = 0; i < data.nodes.length; i++) {
         if (parent === data.nodes[i].id) {
-          console.log("ADDING ", newNode, " IN SIDE ", side);
+          console.log("ADDING ", newNode, " AT SIDE ", side);
           // Determines if node is to be places on the left or right side of the parent node
           // Then calculate the position by using a formula.
           if (
@@ -190,12 +188,24 @@ export default class GraphVisualizer extends React.Component {
 
             // Put new node in tree list
             for (let i = 0; i < tree.length; i++) {
-              console.log("TREE LENGTH ", tree.length);
               if (parent in tree[i]) {
                 tree[i][parent]["left"] = newNode;
-                let newParent = {};
-                newParent[newNode] = {};
-                tree.push(newParent);
+                let exists = false;
+
+                for (let j = 0; j < tree.length; j++) {
+                  let key = Object.keys(tree[j])[0];
+
+                  if (newNode === key) {
+                    exists = true;
+                    break;
+                  }
+                }
+
+                if (!exists) {
+                  let newParent = {};
+                  newParent[newNode] = {};
+                  tree.push(newParent);
+                }
               }
             }
           } else if (
@@ -237,12 +247,32 @@ export default class GraphVisualizer extends React.Component {
             for (let i = 0; i < tree.length; i++) {
               if (parent in tree[i]) {
                 tree[i][parent]["right"] = newNode;
-                let newParent = {};
-                newParent[newNode] = {};
-                tree.push(newParent);
+                let exists = false;
+
+                for (let j = 0; j < tree.length; j++) {
+                  let key = Object.keys(tree[j])[0];
+
+                  if (newNode === key) {
+                    exists = true;
+                    break;
+                  }
+                }
+
+                if (!exists) {
+                  let newParent = {};
+                  newParent[newNode] = {};
+                  tree.push(newParent);
+                }
               }
             }
           }
+
+          console.log(
+            "ADDED NODE ",
+            newNode,
+            " TREE IS NOW SIZE ",
+            tree.length
+          );
           // Set state data into the current data object we have
           this.setState({
             data: data,
@@ -275,6 +305,8 @@ export default class GraphVisualizer extends React.Component {
 
       this.setState({ data });
     }
+    let tempNodes = this.state.data.nodes.slice();
+    console.log("CURRENT NODES ", tempNodes);
 
     this.setState({
       addNodeName: "",
@@ -307,12 +339,16 @@ export default class GraphVisualizer extends React.Component {
       var loop = true;
       var replace = true;
       var nodes = this.state.data.nodes;
-      var links;
+      var links = this.state.data.links;
       // Stack that contains the previous node and the side of which the node is removed
       var stack = [];
+      var mp = {};
       var newNode;
 
+      this.state.algoData.stack = [];
+
       // Check if node is in the graph
+      console.log("TREE ", tree);
       for (let i = 0; i < tree.length; i++) {
         if (currNode in tree[i]) {
           loop = true;
@@ -322,8 +358,79 @@ export default class GraphVisualizer extends React.Component {
         }
       }
 
+      // Set up dummy node for in case we have to remove ALL nodes
+      nodes.push({
+        id: "`",
+        color: "",
+        strokeColor: "",
+        // eslint-disable-next-line no-restricted-globals
+        x: screen.width * 100,
+        // eslint-disable-next-line no-restricted-globals
+        y: screen.height * 100,
+        level: 0,
+        left: false,
+        right: false,
+        isRight: false,
+        isRightRight: false,
+      });
+
+      this.setState({ ...(this.state.data.nodes = nodes) });
+
+      console.log("REMOVING ", currNode);
       while (loop) {
-        console.log(currNode);
+        console.log("CURRENTLY AT NODE ", currNode);
+        tree = this.state.algoData.tree;
+
+        // Stack to push into the state stack to use to re-add the new nodes to the tree
+        let currStack = [];
+        currStack.push(currNode);
+        if (currNode === this.state.algoData.root) {
+          currStack.push("");
+          currStack.push("");
+        } else {
+          for (let q = 0; q < tree.length; q++) {
+            let key = Object.keys(tree[q])[0];
+            if ("right" in tree[q][key]) {
+              if (currNode === tree[q][key]["right"]) {
+                for (let w = 0; w < nodes.length; w++) {
+                  if (key === nodes[w].id) {
+                    nodes[w]["right"] = false;
+                    break;
+                  }
+                }
+                console.log("PUSHING KEY ", key, " AND RIGHT TO CURRSTACK");
+                currStack.push(key);
+                currStack.push("right");
+                break;
+              }
+            }
+            if ("left" in tree[q][key]) {
+              if (currNode === tree[q][key]["left"]) {
+                for (let w = 0; w < nodes.length; w++) {
+                  if (key === nodes[w].id) {
+                    nodes[w]["left"] = false;
+                    break;
+                  }
+                }
+                console.log("PUSHING KEY ", key, " AND LEFT TO CURRSTACK");
+                currStack.push(key);
+                currStack.push("left");
+                break;
+              }
+            }
+          }
+        }
+        for (let q = 0; q < tree.length; q++) {
+          let key = Object.keys(tree[q])[0];
+          if (currNode === key) {
+            if ("left" in tree[q][key]) {
+              currStack.push(tree[q][key]["left"]);
+              break;
+            }
+          }
+        }
+        console.log("CURRSTACK ", currStack);
+        this.state.algoData.stack.push(currStack);
 
         for (let i = 0; i < tree.length; i++) {
           if (currNode in tree[i]) {
@@ -336,59 +443,121 @@ export default class GraphVisualizer extends React.Component {
               // Go through tree list to find the parent of the node to be removed
               for (let x = 0; x < tree.length; x++) {
                 let key = Object.keys(tree[x])[0];
-                console.log("KEY ", key, "TREE LENGTH ", tree.length);
 
                 // Changes the nodes attribute of the parent to false to indicate the current node being removed
-                if (
-                  "left" in tree[x][key] &&
-                  tree[x][key]["left"] === this.state.removeNodeName
-                ) {
-                  for (let y = 0; y < nodes.length; y++) {
-                    if (key === nodes[y].id) {
-                      nodes[y].left = false;
+                if (tree[x][key] !== undefined) {
+                  if (
+                    "left" in tree[x][key] &&
+                    tree[x][key]["left"] === this.state.removeNodeName
+                  ) {
+                    for (let y = 0; y < nodes.length; y++) {
+                      if (key === nodes[y].id) {
+                        nodes[y].left = false;
+                      }
                     }
-                  }
-                } else if (
-                  "right" in tree[x][key] &&
-                  tree[x][key]["right"] === this.state.removeNodeName
-                ) {
-                  for (let y = 0; y < nodes.length; y++) {
-                    if (key === nodes[y].id) {
-                      nodes[y].right = false;
+                  } else if (
+                    "right" in tree[x][key] &&
+                    tree[x][key]["right"] === this.state.removeNodeName
+                  ) {
+                    for (let y = 0; y < nodes.length; y++) {
+                      if (key === nodes[y].id) {
+                        nodes[y].right = false;
+                      }
                     }
                   }
                 }
               }
 
               // Remove node and link
-              nodes = this.state.data.nodes.filter(
-                (l) => l.id !== this.state.removeNodeName
-              );
+              nodes = this.state.data.nodes.filter((l) => l.id !== currNode);
               links = this.state.data.links.filter(
-                (l) =>
-                  l.source !== this.state.removeNodeName &&
-                  l.target !== this.state.removeNodeName
+                (l) => l.source !== currNode && l.target !== currNode
               );
+
+              console.log("REMOVED ", currNode, " FROM NODES AND LINKS");
+              console.log("NODES ", nodes, " AND LINKS ", links);
+
+              // Set list state
+              this.setState({
+                ...(this.state.data.links = links),
+              });
+              // Set node state
+              this.setState({
+                ...(this.state.data.nodes = nodes),
+              });
+              console.log("UPDATED NODES ", this.state.data.nodes);
+              console.log("UPDATED LINKS ", this.state.data.links);
 
               // Remove node from tree list
               for (let j = 0; j < tree.length; j++) {
                 let key = Object.keys(tree[j])[0];
 
-                if (currNode === tree[j][key]["left"]) {
-                  delete tree[j][key]["left"];
-                } else if (currNode === tree[j][key]["right"]) {
-                  delete tree[j][key]["right"];
-                }
+                if (tree[j][key] !== undefined) {
+                  if (
+                    "left" in tree[j][key] &&
+                    currNode === tree[j][key]["left"]
+                  ) {
+                    console.log(
+                      "DELETING ",
+                      currNode,
+                      " FROM LEFT OF TREE ",
+                      tree[j]
+                    );
 
-                if (currNode === key) {
-                  delete tree[j];
+                    newNode = currNode;
+                    delete tree[j][key]["left"];
+                  } else if (
+                    "right" in tree[j][key] &&
+                    currNode === tree[j][key]["right"]
+                  ) {
+                    console.log(
+                      "DELETING ",
+                      currNode,
+                      " FROM RIGHT OF TREE ",
+                      tree[j]
+                    );
+
+                    newNode = currNode;
+                    delete tree[j][key]["right"];
+                  }
                 }
               }
+
+              /*
+              // Remove currNode in the tree list
+              for (let j = 0; j < tree.length; j++) {
+                let key = Object.keys(tree[j])[0];
+                let exist = false;
+
+                for (let i = 0; i < nodes.length; i++) {
+                  if (key === nodes[i].id) {
+                    exist = true;
+                    break;
+                  }
+                }
+
+                if (!exist) {
+                  delete tree[j][key];
+                }
+              }
+              */
+
+              this.setState({ ...(this.state.algoData.tree = tree) });
+
+              console.log(
+                "DELETED ",
+                currNode,
+                " TREE IS NOW SIZE ",
+                tree.length,
+                " AND THE TREE IS ",
+                tree
+              );
 
               if (stack.length === 0) loop = false;
               else {
                 while (stack.length !== 0) {
                   const [prevNode, side] = stack.pop();
+                  console.log("PREVNODE ", prevNode, " NEWNODE ", newNode);
 
                   // Remove node from tree lsit
                   for (let k = 0; k < tree.length; k++) {
@@ -401,12 +570,6 @@ export default class GraphVisualizer extends React.Component {
                       if (replace) {
                         if (prevNode !== sideNode) {
                           delete tree[k][prevNode][side];
-                          Object.defineProperty(
-                            tree[k],
-                            sideNode,
-                            Object.getOwnPropertyDescriptor(tree, prevNode)
-                          );
-                          delete tree[k][prevNode];
                         }
                       } else {
                         tree[k][prevNode][side] = sideNode;
@@ -417,6 +580,23 @@ export default class GraphVisualizer extends React.Component {
                       newNode = sideNode;
                     }
                   }
+                  // Remove node and link
+                  nodes = this.state.data.nodes.filter(
+                    (l) => l.id !== prevNode
+                  );
+                  links = this.state.data.links.filter(
+                    (l) => l.source !== prevNode && l.target !== prevNode
+                  );
+                  console.log("REMOVED ", prevNode, " FROM NODES AND LINKS");
+                  // Set node state
+                  this.setState({
+                    ...(this.state.data.nodes = nodes),
+                  });
+
+                  // Set list state
+                  this.setState({
+                    ...(this.state.data.links = links),
+                  });
                 }
                 if (stack.length === 0) loop = false;
               }
@@ -428,234 +608,182 @@ export default class GraphVisualizer extends React.Component {
               console.log(currNode);
               if ("right" in tree[i][currNode]) {
                 stack.push([currNode, "right"]);
+                mp[currNode] = tree[i][currNode]["right"];
                 currNode = tree[i][currNode]["right"];
-              }
-              if ("left" in tree[i][currNode]) {
+              } else if ("left" in tree[i][currNode]) {
                 stack.push([currNode, "left"]);
+                mp[currNode] = tree[i][currNode]["right"];
                 currNode = tree[i][currNode]["left"];
               }
+              break;
             } else {
               stack.push([currNode, "right"]);
+              mp[currNode] = tree[i][currNode]["right"];
               currNode = tree[i][currNode]["right"];
+              break;
             }
           }
         }
       }
 
-      const data = { nodes, links };
+      //const data = { nodes, links };
+
+      for (let w = 0; w < this.state.algoData.stack.length - 1; w++) {
+        this.state.algoData.stack[w][0] = this.state.algoData.stack[w + 1][0];
+      }
+      for (let w = 1; w < this.state.algoData.stack.length - 1; w++) {
+        this.state.algoData.stack[w][1] = this.state.algoData.stack[w - 1][0];
+      }
+      console.log("STATE STACK ", this.state.algoData.stack);
+      this.state.algoData.stack.pop();
+
+      if (this.state.removeNodeName === this.state.algoData.root) {
+        this.state.algoData.root = this.state.algoData.stack[0][0];
+      }
+
+      // Re-add nodes and links on the tree
+      for (let e = 0; e < this.state.algoData.stack.length; e++) {
+        if (this.state.algoData.stack[e][0] === this.state.algoData.root) {
+          setTimeout(() => {
+            let newRoot = {
+              id: this.state.algoData.stack[e][0],
+              color: "",
+              strokeColor: "",
+              // eslint-disable-next-line no-restricted-globals
+              x: screen.width / 2,
+              // eslint-disable-next-line no-restricted-globals
+              y: screen.height / 10,
+              level: 0,
+              left: false,
+              right: false,
+              isRight: false,
+              isRightRight: false,
+            };
+            nodes.push(newRoot);
+            this.setState({ ...(this.state.data.nodes = nodes) });
+            console.log("ADDED NODE ", this.state.algoData.stack[e][0]);
+          }, 1 * (e + 1));
+          setTimeout(() => {
+            // Add link back to left child
+            if (
+              this.state.algoData.stack[e].length === 4 &&
+              this.state.algoData.stack[e][0] !==
+                this.state.algoData.stack[e][3]
+            ) {
+              links = this.state.data.links;
+              links.push({
+                source: this.state.algoData.stack[e][0],
+                target: this.state.algoData.stack[e][3],
+              });
+              this.setState({ ...(this.state.data.links = links) });
+              console.log(
+                "ADDED LINK ",
+                this.state.algoData.stack[e][0],
+                " WITH ",
+                this.state.algoData.stack[e][3]
+              );
+            }
+          }, (this.state.algoData.stack.length + 1) * (e + 1));
+        } else {
+          setTimeout(() => {
+            this.state.addNodeName =
+              this.state.algoData.stack[e][0] +
+              "," +
+              this.state.algoData.stack[e][1] +
+              "," +
+              this.state.algoData.stack[e][2];
+            this.addNode();
+            console.log("ADDED NODE ", this.state.algoData.stack[e][0]);
+          }, 1 * (e + 1));
+          setTimeout(() => {
+            if (this.state.algoData.stack[e][0] !== this.state.algoData.root) {
+              // Add link back to left child
+              if (
+                this.state.algoData.stack[e].length === 4 &&
+                this.state.algoData.stack[e][0] !==
+                  this.state.algoData.stack[e][3]
+              ) {
+                links = this.state.data.links;
+                links.push({
+                  source: this.state.algoData.stack[e][0],
+                  target: this.state.algoData.stack[e][3],
+                });
+                this.setState({ ...(this.state.data.links = links) });
+                console.log(
+                  "ADDED LINK ",
+                  this.state.algoData.stack[e][0],
+                  " WITH ",
+                  this.state.algoData.stack[e][3]
+                );
+              }
+            }
+          }, (this.state.algoData.stack.length + 1) * (e + 1));
+        }
+      }
+
+      console.log("MP ", mp);
+      for (let z = 0; z < tree.length; z++) {
+        let key = Object.keys(tree[z])[0];
+
+        if ("left" in tree[z][key]) {
+          if (key === tree[z][key]["left"]) tree[z][key]["left"] = mp[key];
+        }
+        if ("right" in tree[z][key]) {
+          if (key === tree[z][key]["right"]) tree[z][key]["right"] = mp[key];
+        }
+
+        console.log("REPLACING KEY ", key, " WITH ", mp[key]);
+        if (key in mp && mp[key] !== undefined) {
+          // Replace tree name from prevNode to sideNode
+          Object.defineProperty(
+            tree[z],
+            mp[key],
+            Object.getOwnPropertyDescriptor(tree[z], key)
+          );
+
+          // Delete prevNode in tree list
+          delete tree[z][key];
+        }
+      }
+
+      var newTree = [];
+      newTree.push(tree[0]);
+
+      for (let x = 1; x < tree.length; x++) {
+        let key = Object.keys(tree[x])[0];
+        if (tree[x][key] === undefined || tree[x][key].length === 0) continue;
+        let exists = false;
+
+        for (let y = 0; y < newTree.length; y++) {
+          let newKey = Object.keys(newTree[y])[0];
+
+          if (key === newKey) {
+            exists = true;
+            break;
+          }
+        }
+        if (!exists) {
+          newTree.push(tree[x]);
+        }
+      }
+      console.log("NEW TREE ", newTree);
 
       this.setState({
-        ...(this.state.algoData.tree = tree),
-        data,
+        ...(this.state.algoData.tree = newTree),
+      });
+
+      console.log("TREE NOW ", this.state.algoData.tree);
+
+      setTimeout(() => {
+        nodes = this.state.data.nodes.filter((l) => l.id !== "`");
+        this.setState({
+          ...(this.state.data.nodes = nodes),
+        });
+      }, 66);
+
+      this.setState({
         removeNodeName: "",
         removeNodePlaceholder: "Enter as: name",
-      });
-    }
-  };
-
-  addLink = () => {
-    if (this.state.addLink === "") {
-      return;
-    }
-    if (this.state.data.nodes && this.state.data.nodes.length) {
-      let source, target, weight;
-      [source, target, weight] = this.state.addLink
-        .split(/[ ,]+/)
-        .filter(function (e) {
-          return e.trim().length > 0;
-        });
-
-      weight = parseInt(weight);
-      var sourceExists, targetExists;
-      sourceExists = targetExists = false;
-
-      for (var i = 0; i < this.state.data.nodes.length; i++) {
-        if (this.state.data.nodes[i].id === source) {
-          sourceExists = true;
-        }
-        if (this.state.data.nodes[i].id === target) {
-          targetExists = true;
-        }
-      }
-
-      if (!sourceExists || !targetExists || !weight) {
-        this.setState({
-          addLink: "",
-          addLinkPlaceholder: "Enter as: source, target, weight",
-        });
-        return;
-      }
-
-      for (var j = 0; j < this.state.data.links.length; j++) {
-        if (
-          this.state.data.links[j].source === source &&
-          this.state.data.links[j].target === target
-        ) {
-          this.setState({
-            addLink: "",
-            addLinkPlaceholder: "Enter as: source, target, weight",
-          });
-          return;
-        }
-      }
-
-      // Push to the links list in the data state
-      this.state.data.links.push({
-        source: source,
-        target: target,
-        label: weight,
-      });
-
-      var found_in_undirected = false;
-      var found_in_directed = false;
-      var target_weight = [target, weight];
-      var source_weight = [source, weight];
-      var undirected_neighbors = this.state.algoData.undirected_neighbors;
-      var directed_neighbors = this.state.algoData.directed_neighbors;
-
-      // Push to neighbors list if a node already has it as a neighbor for UNDIRECTED GRAPH
-      for (let i = 0; i < undirected_neighbors.length; i++) {
-        let already_exists = false;
-        // Add both source and target to each other's neighbors list because the graph is undirected
-        if (source in undirected_neighbors[i]) {
-          for (let j = 0; j < undirected_neighbors[i][source].length; j++) {
-            if (target === undirected_neighbors[i][source][j][0]) {
-              already_exists = true;
-            }
-          }
-          if (!already_exists) {
-            undirected_neighbors[i][source].push(target_weight);
-          }
-          found_in_undirected = true;
-        }
-
-        already_exists = false;
-
-        if (target in undirected_neighbors[i]) {
-          for (let j = 0; j < undirected_neighbors[i][target].length; j++) {
-            if (source === undirected_neighbors[i][target][j][0]) {
-              already_exists = true;
-            }
-          }
-          if (!already_exists) {
-            undirected_neighbors[i][target].push(source_weight);
-          }
-          found_in_undirected = true;
-        }
-      }
-
-      // Push to neighbors list if a node already
-      for (let i = 0; i < directed_neighbors.length; i++) {
-        let already_exists = false;
-        // Add only the target node to the source neighbors list because it is a directed graph
-        if (source in directed_neighbors[i]) {
-          for (let j = 0; j < directed_neighbors[i][source].length; j++) {
-            if (target === undirected_neighbors[i][source][j][0]) {
-              already_exists = true;
-            }
-          }
-          if (!already_exists) {
-            directed_neighbors[i][source].push(target_weight);
-          }
-          found_in_directed = true;
-        }
-      }
-
-      // Else push a new list containing this new node as a neighbor
-      if (!found_in_undirected) {
-        let sourceNeighbor = {};
-        let targetNeighbor = {};
-        sourceNeighbor[target] = target_weight;
-        targetNeighbor[source] = source_weight;
-
-        undirected_neighbors.push(sourceNeighbor);
-        undirected_neighbors.push(targetNeighbor);
-      }
-      if (!found_in_directed) {
-        let sourceNeighbor = {};
-        sourceNeighbor[target] = target_weight;
-
-        directed_neighbors.push(sourceNeighbor);
-      }
-
-      var algoData = this.state.algoData;
-      algoData.undirected_neighbors = undirected_neighbors;
-      algoData.directed_neighbors = directed_neighbors;
-
-      this.setState({
-        algoData: algoData,
-      });
-
-      this.setState({
-        addLink: "",
-        addLinkPlaceholder: "Enter as: source, target, weight",
-      });
-    }
-  };
-
-  removeLink = () => {
-    if (this.state.removeLink === "") {
-      return;
-    }
-    if (this.state.data.nodes && this.state.data.nodes.length) {
-      let source, target;
-      [source, target] = this.state.removeLink
-        .split(/[ ,]+/)
-        .filter(function (e) {
-          return e.trim().length > 0;
-        });
-
-      var sourceExists, targetExists;
-      sourceExists = targetExists = false;
-
-      for (var i = 0; i < this.state.data.nodes.length; i++) {
-        if (this.state.data.nodes[i].id === source) {
-          sourceExists = true;
-        }
-        if (this.state.data.nodes[i].id === target) {
-          targetExists = true;
-        }
-      }
-
-      if (!sourceExists || !targetExists) {
-        console.log("NODE DOES NOT EXIST!");
-        this.setState({
-          removeLink: "",
-          removeLinkPlaceholder: "Enter as: source, target",
-        });
-        return;
-      }
-
-      const links = this.state.data.links.filter(
-        (l) => l.source !== source && l.target !== target
-      );
-
-      const data = { nodes: this.state.data.nodes, links };
-
-      var undirected_neighbors = this.state.algoData.undirected_neighbors;
-      var directed_neighbors = this.state.algoData.directed_neighbors;
-
-      // Remove links for both the source and target in the undirected neighbors list
-      for (let i = 0; i < undirected_neighbors.length; i++) {
-        if (source in undirected_neighbors[i]) {
-          undirected_neighbors[i][source].filter((l) => l[0] !== target);
-        }
-        if (target in undirected_neighbors[i]) {
-          undirected_neighbors[i][target].filter((l) => l[0] !== source);
-        }
-      }
-
-      // Remove links for the directed neighbors list
-      for (let i = 0; i < directed_neighbors.length; i++) {
-        if (source in directed_neighbors[i]) {
-          directed_neighbors[i][source].filter((l) => l[0] !== target);
-        }
-      }
-
-      this.setState({
-        data: data,
-        removeLink: "",
-        removeLinkPlaceholder: "Enter as: source, target",
       });
     }
   };
@@ -778,16 +906,12 @@ export default class GraphVisualizer extends React.Component {
 
   startAlgorithm = () => {
     if (this.state.algoData.algorithm === "preOrder") {
-      this.state.algoData.showList = true;
       this.preOrder();
     } else if (this.state.algoData.algorithm === "inOrder") {
-      this.state.algoData.showList = true;
       this.inOrder();
     } else if (this.state.algoData.algorithm === "postOrder") {
-      this.state.algoData.showList = true;
       this.postOrder();
     } else if (this.state.algoData.algorithm === "levelOrder") {
-      this.state.algoData.showList = true;
       this.levelOrder();
     }
   };
@@ -801,6 +925,10 @@ export default class GraphVisualizer extends React.Component {
     var counter = 0;
     var stack = [];
     stack.push(this.state.algoData.root);
+
+    this.state.algoData.showList = true;
+
+    console.log("TRAVERSAL LIST ", traversalList);
 
     // Loop while the stack is not empty
     while (stack !== undefined && stack.length !== 0) {
@@ -858,18 +986,23 @@ export default class GraphVisualizer extends React.Component {
     var node = this.state.algoData.root;
     var stack = [];
 
+    this.state.algoData.showList = true;
+
     // Loop while the stack is not empty
     while (
-      (node !== undefined && node.slice(0, -1) != "") ||
+      (node !== undefined && node !== "") ||
       (stack !== undefined && stack.length !== 0)
     ) {
       // Reach the left most node of the curr node
-      while (node !== undefined && node.slice(0, -1) != "") {
+      while (node !== undefined && node !== "") {
         for (let i = 0; i < tree.length; i++) {
+          console.log("WE'RE AT NODE ", node);
           if (node in tree[i]) {
+            console.log("PUSHING NODE ", node);
             stack.push(node);
             if ("left" in tree[i][node]) {
               node = tree[i][node]["left"];
+              console.log("NEW NODE", node);
             } else {
               node = "";
             }
@@ -883,6 +1016,7 @@ export default class GraphVisualizer extends React.Component {
 
       // Current should be NULL by this point
       let curr = stack.pop();
+      console.log("CURR ", curr);
 
       // Call the highlight handler function
       setTimeout(() => {
@@ -902,6 +1036,7 @@ export default class GraphVisualizer extends React.Component {
       for (let i = 0; i < tree.length; i++) {
         if (node in tree[i]) {
           if ("right" in tree[i][node]) {
+            console.log("NODE ", node, " RIGHT ", tree[i][node]["right"]);
             node = tree[i][node]["right"];
           } else {
             node = "";
@@ -937,6 +1072,8 @@ export default class GraphVisualizer extends React.Component {
     var stack = [];
     var outputStack = [];
     stack.push(node);
+
+    this.state.algoData.showList = true;
 
     // Loop while the stack is not empty
     while (stack !== undefined && stack.length !== 0) {
@@ -996,6 +1133,8 @@ export default class GraphVisualizer extends React.Component {
     var node = this.state.algoData.root;
     var queue = [];
     queue.push(node);
+
+    this.state.algoData.showList = true;
 
     while (queue !== undefined && queue.length !== 0) {
       node = queue.shift();
@@ -1403,6 +1542,19 @@ export default class GraphVisualizer extends React.Component {
                   onKeyPress={this._handleAddKeyEnter}
                 />
               </div>
+
+              <h5 class="font-weight-light h6"> Remove node: </h5>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="linkInput"
+                  name="removeNodeName"
+                  placeholder={this.state.removeNodePlaceholder}
+                  value={this.state.removeNodeName}
+                  onChange={this._removeNodeHandleChange}
+                  onKeyPress={this._handleRemoveKeyEnter}
+                />
+              </div>
             </Dropdown.Menu>
           </Dropdown>
 
@@ -1472,7 +1624,7 @@ export default class GraphVisualizer extends React.Component {
             data-for="helpButton"
           >
             <HelpButton
-              mTitle="Tree"
+              mTitle="Tree Visualizer"
               algoDesc="Click on the algorithm that you would like to use. After clicking, click on the start algorithm button and it wil lrun the chosen algorithm on the tree."
               nLinkDesc="When adding a node, enter in the format of 'name of node to be added, name of parent to add node to, and the side where you want the node to be at (left, right)
                          When removing a node, enter in the format of 'name of node to be remove'."

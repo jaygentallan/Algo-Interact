@@ -58,7 +58,7 @@ class Learn extends Component {
           <LearnCard
             title="Graph"
             text="Graph is the non-linear data structure which is used to represent data networks."
-            image="/images/graphpicture.png"
+            image="/static/images/graphpicture.png"
             tab1title="Description"
             tab1text={
               <ul>
@@ -75,7 +75,7 @@ class Learn extends Component {
                 <li>Each nodes are contains information about data.</li>
               </ul>
             }
-            tab1image="/images/graph.png"
+            tab1image="/static/images/graph.png"
             tab2title="Time Complexity"
             tab2text="Time complexity of graph is O(V+E) where V represent number of vertices "
           />
@@ -111,8 +111,8 @@ class Learn extends Component {
             tab2title="Time Complexity of Tree"
             tab2text="In general time complexity of tree will be O(h). it can be different operations. it can be also best and worst time 
                       complexity."
-            image="/images/tree.png"
-            tab1image="/images/treepicture.png"
+            image="/static/images/tree.png"
+            tab1image="/static/images/treepicture.png"
           />
 
           <LearnCard
@@ -141,8 +141,8 @@ class Learn extends Component {
             }
             tab2title="Time Complexity"
             tab2text="O(n)"
-            image="/images/linkedlist.png"
-            tab1image="/images/linkedlist.png"
+            image="/static/images/linkedlist.png"
+            tab1image="/static/images/linkedlist.png"
           />
         </Carousel>
         <br></br>
@@ -182,8 +182,8 @@ class Learn extends Component {
                 </li>
               </ul>
             }
-            image="/images/braedth.png"
-            tab1image="/images/bstl.png"
+            image="/static/images/braedth.png"
+            tab1image="/static/images/bstl.png"
             tab2title="Time Complexity"
             tab2text="O(V + E)"
           />
@@ -209,17 +209,17 @@ class Learn extends Component {
                 </li>
               </ul>
             }
-            tab1image="/images/dfs.png"
-            image="/images/depthfirst.png"
+            tab1image="/static/images/dfs.png"
+            image="/static/images/depthfirst.png"
             tab2title="Time Complexity"
             tab2text="O ( V + E ) O(V + E) O(V+E)."
           />
           <LearnCard
             title="Dijkstra Algorithm"
             text="Dijkstra's algorithm is an algorithm we can use to find shortest distances or minimum costs depending on what is represented in a graph."
-            image="/images/dijkstra.png"
+            image="/static/images/dijkstra.png"
             tab1title="Description"
-            tab1image="/images/djkstra.png"
+            tab1image="/static/images/djkstra.png"
             tab1text="Dijkstra’s algorithm, published in 1959 and named after its creator Dutch computer scientist Edsger Dijkstra, can be applied on a weighted graph. The graph can either be directed or undirected. One stipulation to using the algorithm is that the graph needs to have a nonnegative weight on every edge."
             tab2title="Time Complexity"
             tab2text="O(V^2)"
@@ -228,16 +228,16 @@ class Learn extends Component {
           <LearnCard
             title="Tree Traversal"
             text="Tree Traversal is the process which were visit all the nodes of a tree like Inorder, Postorder and Preorder Traversal"
-            image="/images/treetraversal.png"
+            image="/static/images/treetraversal.png"
             tab1title="Preorder"
             tab1text="In this algorithm we visit root first, then traverse the left subtree, then traverse the right subtree."
-            tab1image="/images/preorderpic.png"
+            tab1image="/static/images/preorderpic.png"
             tab2title="Inorder"
             tab2text="In This algorithm we Traverse the left subtree is visited first, and then root and after the right subtree, always remember that every node represent subtree itself."
-            tab2image="/images/inorder.png"
+            tab2image="/static/images/inorder.png"
             tab3title="Postorder"
             tab3text="In this algorithm we Traverse the left subtree, than traverse the right subtree than visit root."
-            tab3image="/images/postorder.png"
+            tab3image="/static/images/postorder.png"
           />
         </Carousel>
         <div class="container p-5"></div>

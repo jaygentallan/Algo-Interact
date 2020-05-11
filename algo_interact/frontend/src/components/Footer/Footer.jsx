@@ -20,14 +20,14 @@ const Footer = () => {
     setIsOpen(false);
   };
   return (
-    <footer id="sticky-footer" class="py-2 bg-dark text-white-50">
+    <footer id="sticky-footer" class="bg-dark text-white-50">
       <div class="d-flex flex-row-reverse bd-highlight">
-        <a class="nav-link" href="#">
+        <a class="footer nav-link" href="#">
           Support
         </a>
 
         <a
-          class="nav-link"
+          class="footer nav-link"
           href="#TeamInfoModal"
           data-toggle="modal"
           onClick={showModal}
@@ -54,25 +54,28 @@ const Footer = () => {
               </p>
             </div>
             <div class="container">
+              <div className="pt-4"></div>
               <div class="row">
                 <div class="col">
-                  <img 
-                    class="circular--portrait AC" 
-                    src={"/teamPhotos/AC.jpeg"}
+                  <img
+                    class="circular--portrait AC"
+                    src={"/static/teamPhotos/AC.jpeg"}
                   />
                 </div>
                 <div class="col-8">
                   <h4 className="name">Anthony Carnero</h4>
                   <p className="description">
-                    "I love spicy food and making pepper sauce."  
+                    "I love spicy food and making pepper sauce."
                   </p>
                 </div>
               </div>
+
+              <div className="pt-4"></div>
               <div class="row pt-3">
                 <div class="col">
                   <img
                     class="circular--landscape jay"
-                    src="/teamPhotos/photo-jay.jpg"
+                    src="/static/teamPhotos/photo-jay.jpg"
                   />
                 </div>
                 <div class="col-8">
@@ -82,11 +85,14 @@ const Footer = () => {
                   </p>
                 </div>
               </div>
+
+              <div className="pt-4"></div>
               <div class="row pt-3">
                 <div class="col">
-                  <img 
-                    class="circular--landscape" 
-                    src="/teamPhotos/photo-baljeet.jpeg" />
+                  <img
+                    class="circular--landscape"
+                    src="/static/teamPhotos/photo-baljeet.jpeg"
+                  />
                 </div>
                 <div class="col-8">
                   <h4 className="name">Baljeet Singh</h4>
@@ -95,11 +101,13 @@ const Footer = () => {
                   </p>
                 </div>
               </div>
+
+              <div className="pt-4"></div>
               <div class="row pt-3">
                 <div class="col">
                   <img
                     class="circular--landscape"
-                    src="/teamPhotos/photo-Mikaela.jpg"
+                    src="/static/teamPhotos/photo-Mikaela.jpg"
                   />
                 </div>
                 <div class="col-8">
@@ -110,6 +118,7 @@ const Footer = () => {
                 </div>
               </div>
             </div>
+            <div className="pt-5"></div>
           </Modal.Body>
         </Modal>
       </div>

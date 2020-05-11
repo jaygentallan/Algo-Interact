@@ -101,6 +101,21 @@ h1.name.text-center {
   left: 0.5em;
 }
 
+.listDisplay.font-weight-light {
+  height: 10em !important;
+  width: 50% !important;
+  position: absolute;
+  text-align: center;
+  font-size: 20;
+  left: 25vw;
+  bottom: 0px;
+}
+
+.traversalList {
+  font-size: 25px;
+  color: #505050;
+}
+
 .algoSelection {
   border-top-style: solid;
   border-right-style: solid;

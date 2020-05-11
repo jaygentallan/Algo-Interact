@@ -7,13 +7,18 @@
   background-color: turquoise;
 }
 
-a.nav-link {
+a.footer.nav-link {
   color: inherit;
   text-decoration: none;
+  font-size: 0.98em;
+  padding-top: 0.5em;
+  padding-right: 2.5em;
+  padding-left: 0.2em;
+  padding-bottom: 0.4em;
   -webkit-tap-highlight-color: white;
 }
 
-a.nav-link:hover {
+a.footer.nav-link:hover {
   color: whitesmoke;
   text-decoration: none;
 }
@@ -22,12 +27,14 @@ a.nav-link:hover {
   background-color: #c34f6b !important;
   position: absolute;
   bottom: 0;
-  height: 5em;
+  height: 3.5em;
   width: 100%;
 }
 
 .container.text-center {
-  color: white;
+  color: #e1a7b5;
+  position: relative;
+  bottom: 0.5em;
 }
 
 .modal-dialog {

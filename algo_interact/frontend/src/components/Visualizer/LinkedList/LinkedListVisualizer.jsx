@@ -84,6 +84,8 @@ export default class GraphVisualizer extends React.Component {
       keyNode: "",
       neighbors: neighbors,
       algorithm: "search",
+      showList: false,
+      traversalList: [],
       stack: [],
       queue: [],
     };
@@ -762,33 +764,66 @@ export default class GraphVisualizer extends React.Component {
     */
   };
 
-  // goes down the single linked 
+  // goes down the single linked
   linearSearch = () => {
+    if (
+      this.state.algoData.keyNode !== undefined &&
+      this.state.algoData.keyNode !== ""
+    ) {
+      var counter = 0;
+      var traversalList = this.state.algoData.traversalList;
 
-    var counter = 0;
-    for (let i = 0; i < this.state.listOrder.length; i++) {
-    
-      // check if keyNode string equals current node's id string
-      if (this.state.algoData.keyNode === this.state.listOrder[i]) {
-        console.log("found key node");
-        // if target node is found, node flashes green 5 times 
-        for (let j = 0; j < 5; j++) {
-          setTimeout(
-            () => this.foundTarget(this.state.algoData.keyNode),
-            1200 * counter
-          );
-          counter++;
+      this.state.algoData.showList = true;
+
+      for (let i = 0; i < this.state.listOrder.length; i++) {
+        // check if keyNode string equals current node's id string
+        if (this.state.algoData.keyNode === this.state.listOrder[i]) {
+          console.log("found key node");
+          setTimeout(() => {
+            traversalList.push(this.state.algoData.keyNode);
+          }, 1200 * counter);
+          // if target node is found, node flashes green 5 times
+          for (let j = 0; j < 5; j++) {
+            setTimeout(
+              () => this.foundTarget(this.state.algoData.keyNode),
+              1200 * counter
+            );
+            counter++;
+          }
+          this.resetState(counter);
+          setTimeout(() => {
+            this.setState({
+              ...(this.state.algoData.showList = false),
+              ...(this.state.algoData.traversalList = []),
+            });
+          }, 1000 * (counter + 3));
+          break;
         }
-        break;
+        // takes care of the highlighting of the nodes/links as it traverses
+        setTimeout(() => {
+          traversalList.push(this.state.listOrder[i]);
+          this.highlightHandler(this.state.listOrder[i], counter);
+        }, 1000 * (counter + 1));
+        counter++;
+
+        this.setState({
+          ...(this.state.algoData.traversalList = traversalList),
+        });
       }
-      // takes care of the highlighting of the nodes/links as it traverses
-      setTimeout(
-        () => this.highlightHandler(this.state.listOrder[i], counter),
-        1000 * (counter + 1)
-      );
-      counter++;
+      this.resetState(counter + 2);
+      setTimeout(() => {
+        this.setState({
+          ...(this.state.algoData.showList = false),
+          ...(this.state.algoData.traversalList = []),
+        });
+      }, 1000 * (counter + 3));
     }
-    this.resetState(counter);
+
+    setTimeout(() => {
+      this.setState({
+        ...(this.state.algoData.keyNode = ""),
+      });
+    }, 1000 * (counter + 3));
   };
 
   //reset node color back to original
@@ -894,6 +929,16 @@ export default class GraphVisualizer extends React.Component {
   // Main function of the React component. Returns what is displayed to the user. This includes
   // the left window, right window, the traversal log and the main graph visualizer component.
   render() {
+    // prettier-ignore
+    var listItems = "Linear Search: ";
+
+    // prettier-ignore
+    if (this.state.algoData.showList === undefined) this.setState({...(this.state.algoData.showList = false)});
+    // prettier-ignore
+    if (this.state.algoData.traversalList === undefined) this.setState({...(this.state.algoData.traversalList = [])});
+    // prettier-ignore
+    this.state.algoData.traversalList.map((e, i) => (i < this.state.algoData.traversalList.length - 1 ? listItems += e + " > " : listItems += e));
+
     const head = { color: "#0080FF", margin: "13px" };
     const tail = { color: "#FF0800", margin: "13px" };
 
@@ -1145,7 +1190,7 @@ export default class GraphVisualizer extends React.Component {
             data-for="helpButton"
           >
             <HelpButton
-              mTitle="Linked List"
+              mTitle="Linked List Visualizer"
               algoDesc="Enter the name of the node to search for in the 'Target Value' field. When you're ready to run the algorithm,
                         click on 'Start Linear Search' to run the linear search on the linked list."
               nLinkDesc="Enter the name of the node to append in the 'Append Node' field, once ready, click enter to add the node to the linked list.
@@ -1175,6 +1220,13 @@ export default class GraphVisualizer extends React.Component {
           multiline={true}
           className="extraClass"
         />
+
+        {
+          // prettier-ignore
+          this.state.algoData.showList
+            ? <div className="listDisplay font-weight-light"> <p class="traversalList">{listItems}</p> </div>
+            : <div></div>
+        }
 
         <Graph
           //Entry point for passing data to library to be displayed

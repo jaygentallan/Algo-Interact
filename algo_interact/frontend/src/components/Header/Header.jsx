@@ -1,5 +1,12 @@
 import React from "../../../node_modules/react";
 import "./Header.css";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  Redirect,
+} from "react-router-dom";
 
 /*
   The static Header serves as the way for users to navigate
@@ -13,7 +20,7 @@ const Header = () => {
       <div class="navbar-header">
         <a className="navbar-brand" href="/">
           <img
-            src={"/header_logo.png"}
+            src={"/static/images/header_logo.png"}
             width={10}
             height={40}
             className="logo"
@@ -24,19 +31,34 @@ const Header = () => {
       <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item px-3">
-            <a class="nav-link" href="/">
-              Home
-            </a>
+            <Link
+              className="linkHeader"
+              to={{
+                pathname: "/",
+              }}
+            >
+              <a class="nav-link">Home</a>
+            </Link>
           </li>
           <li class="nav-item px-2">
-            <a class="nav-link" href="/visualizer">
-              Visualizer
-            </a>
+            <Link
+              className="linkHeader"
+              to={{
+                pathname: "/visualizer",
+              }}
+            >
+              <a class="nav-link">Visualizer</a>
+            </Link>
           </li>
           <li class="nav-item px-3">
-            <a class="nav-link" href="/learn">
-              Learn
-            </a>
+            <Link
+              className="linkHeader"
+              to={{
+                pathname: "/learn",
+              }}
+            >
+              <a class="nav-link">Learn</a>
+            </Link>
           </li>
         </ul>
       </div>
