@@ -66,7 +66,7 @@ ROOT_URLCONF = 'algo_interact.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'algo_interact/frontend/build')],
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -144,12 +144,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles");
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-REACT_APP_DIR = os.path.join(BASE_DIR, 'algo_interact/frontend')
-
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'algo_interact/frontend/build/static/'),
-    os.path.join(BASE_DIR, 'frontend/build/static/images/'),
-    os.path.join(BASE_DIR, 'frontend/build/static/teamPhotos/'),
+    os.path.join(BASE_DIR, 'build/static/'),
     #os.path.join(REACT_APP_DIR, 'public'),
     #os.path.join(REACT_APP_DIR, 'public'),
 ]
