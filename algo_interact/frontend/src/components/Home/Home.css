@@ -28,7 +28,7 @@ body {
 }
 
 h2 {
-  padding-bottom: 5px;
+  padding-bottom: 0.4em !important;
   border-bottom: 3px solid #c34f6b;
   border-radius: 2px 2px 2px 2px;
   line-height: 10px;
