@@ -25,7 +25,7 @@ SECRET_KEY = 'n*9qb1p7%7%!dtp=!f_o=x1ri^oj2lltq)oh#)9j(yxb(nkd$g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['algo-interact-dev.us-west-1.elasticbeanstalk.com', 'algointeract.com', 'www.algointeract.com',] #"127.0.0.1"]
+ALLOWED_HOSTS = ['algo-interact-dev.us-west-1.elasticbeanstalk.com']#, 'algointeract.com', 'www.algointeract.com',] #"127.0.0.1"]
 
 CORS_ORIGIN_ALLOW_ALL = False
 
