@@ -143,13 +143,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles");
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build/static/'),
-    #os.path.join(REACT_APP_DIR, 'public'),
-    #os.path.join(REACT_APP_DIR, 'public'),
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles");
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CORS_ORIGIN_ALLOW_ALL = True
