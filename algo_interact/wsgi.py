@@ -10,9 +10,7 @@ https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
-from whitenoise.django important DjangoWhiteNoise
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'algo_interact.settings')
 
 application = get_wsgi_application()
-application = DjangoWhiteNoise(application)
