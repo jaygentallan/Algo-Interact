@@ -25,7 +25,7 @@ SECRET_KEY = 'n*9qb1p7%7%!dtp=!f_o=x1ri^oj2lltq)oh#)9j(yxb(nkd$g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['algo-interact.herokuapp.com']#, 'algointeract.com', 'www.algointeract.com',] #"127.0.0.1"]
+ALLOWED_HOSTS = ['algo-interact-dev.herokuapp.com', '127.0.0.1']#, 'algointeract.com', 'www.algointeract.com',] #"127.0.0.1"]
 
 CORS_ORIGIN_ALLOW_ALL = False
 
@@ -142,7 +142,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles");
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build/static/'),
