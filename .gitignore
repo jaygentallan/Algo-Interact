@@ -1,3 +1,6 @@
 # react dependencies
 algo_interact/node_modules
 node_modules
+
+# travis ci
+.travis.yml
