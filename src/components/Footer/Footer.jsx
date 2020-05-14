@@ -64,11 +64,12 @@ const Footer = () => {
 					</Modal.Header>
 					<Modal.Body>
 						<div>
+							<h1 className="hello"> Hello! </h1>
 							<p class="lead">
 								We are undergraduate Computer Science students at California State
-								East Bay. As students that have taken Data Structures and Analysis
-								of Algorithms, we understood the visual disconnect that some
-								students struggle with when first learning about how certain
+								University, East Bay. As students that have taken Data Structures
+								and Analysis of Algorithms, we understood the visual disconnect that
+								some students struggle with when first learning about how certain
 								algorithms are implemented with their respective data structures.
 								Our goal of creating Algo-Interact was to help students better
 								understand algorithms through an interactive and visually-appealing
@@ -89,6 +90,22 @@ const Footer = () => {
 									<p className="description">
 										"I love spicy food and making pepper sauce."
 									</p>
+									<div class="row pl-2">
+										<a
+											class="mr-3"
+											href="https://github.com/acarn506"
+											target="_blank"
+										>
+											<i class="uil uil-github-alt"></i>
+										</a>
+										<a
+											class="mr-3"
+											href="https://www.linkedin.com/in/anthony-carnero-6873ba1a5/"
+											target="_blank"
+										>
+											<i class="uil uil-linkedin-alt"></i>
+										</a>
+									</div>
 								</div>
 							</div>
 
@@ -105,6 +122,30 @@ const Footer = () => {
 									<p className="description">
 										"I like to play the guitar and drink Monster Energy."
 									</p>
+
+									<div class="row pl-2">
+										<a
+											class="mr-3"
+											href="https://github.com/jaygentallan"
+											target="_blank"
+										>
+											<i class="uil uil-github-alt"></i>
+										</a>
+										<a
+											class="mr-3"
+											href="https://www.linkedin.com/in/jay-ivan-gentallan-846729163/"
+											target="_blank"
+										>
+											<i class="uil uil-linkedin-alt"></i>
+										</a>
+										<a
+											class="mr-3"
+											href="http://jaygentallan.com"
+											target="_blank"
+										>
+											<i class="uil uil-window"></i>
+										</a>
+									</div>
 								</div>
 							</div>
 
@@ -121,6 +162,22 @@ const Footer = () => {
 									<p className="description">
 										"I can't go one day without drinking chai."
 									</p>
+									<div class="row pl-2">
+										<a
+											class="mr-3"
+											href="https://github.com/baljeetsohal84"
+											target="_blank"
+										>
+											<i class="uil uil-github-alt"></i>
+										</a>
+										<a
+											class="mr-3"
+											href="https://www.linkedin.com/in/baljeet-singh-603203139/"
+											target="_blank"
+										>
+											<i class="uil uil-linkedin-alt"></i>
+										</a>
+									</div>
 								</div>
 							</div>
 
@@ -137,6 +194,22 @@ const Footer = () => {
 									<p className="description">
 										"I love attending concerts, playing guitar, and drawing."
 									</p>
+									<div class="row pl-2">
+										<a
+											class="mr-3"
+											href="https://github.com/mikaelajhv"
+											target="_blank"
+										>
+											<i class="uil uil-github-alt"></i>
+										</a>
+										<a
+											class="mr-3"
+											href="https://www.linkedin.com/in/mikaelajhv/"
+											target="_blank"
+										>
+											<i class="uil uil-linkedin-alt"></i>
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>

@@ -1,103 +1,124 @@
 .Footer {
-  margin: 10px;
-  padding: 10px;
-  padding-top: 20px;
-  text-align: center;
-  font-size: 16px;
-  background-color: turquoise;
+	margin: 10px;
+	padding: 10px;
+	padding-top: 20px;
+	text-align: center;
+	font-size: 16px;
+	background-color: turquoise;
 }
 
 a.footer.nav-link {
-  color: inherit;
-  text-decoration: none;
-  font-size: 0.98em;
-  padding-top: 0.5em;
-  padding-right: 2.5em;
-  padding-left: 0.2em;
-  padding-bottom: 0.4em;
-  -webkit-tap-highlight-color: white;
+	color: inherit;
+	text-decoration: none;
+	font-size: 0.98em;
+	padding-top: 0.5em;
+	padding-right: 2.5em;
+	padding-left: 0.2em;
+	padding-bottom: 0.4em;
+	-webkit-tap-highlight-color: white;
 }
 
 a.footer.nav-link:hover {
-  color: whitesmoke;
-  text-decoration: none;
+	color: whitesmoke;
+	text-decoration: none;
 }
 
 #sticky-footer {
-  background-color: #c34f6b !important;
-  position: absolute;
-  bottom: 0;
-  height: 3.5em;
-  width: 100%;
+	background-color: #c34f6b !important;
+	position: absolute;
+	bottom: 0;
+	height: 3.5em;
+	width: 100%;
 }
 
 .container.text-center {
-  color: #e1a7b5;
-  position: relative;
-  bottom: 0.5em;
+	color: #e1a7b5;
+	position: relative;
+	bottom: 0.5em;
 }
 
 .modal-dialog {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .teamHeader {
-  background-color: #c34f6b;
-  font-style: italic;
+	background-color: #c34f6b;
+	font-style: italic;
 }
 
 h1.title {
-  color: white;
-  font-weight: lighter !important;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
-  font-size: 2.5em !important;
+	color: white;
+	font-weight: lighter !important;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+	font-size: 2.5em !important;
+}
+
+h1.hello {
+	color: #c34f6b;
+	font-style: italic;
+	text-align: center;
+	font-weight: lighter !important;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+	font-size: 4em !important;
 }
 
 h4.name {
-  padding-top: 1em;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif !important;
+	padding-top: 1em;
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
+		Geneva, Verdana, sans-serif !important;
 }
 
 p.description {
-  font-style: italic;
+	font-style: italic;
+}
+
+p.lead {
+	text-align: center;
+	margin: 1em;
 }
 
 .container h4 {
-  font-family: monospace;
-  font-weight: bolder;
+	font-family: monospace;
+	font-weight: bolder;
 }
 
 .circular--portrait.AC {
-  object-fit: cover;
-  object-position: 50%, 30% !important;
-  width: 180px;
-  height: 180px;
-  border-radius: 50% !important;
+	object-fit: cover;
+	object-position: 50% 20% !important;
+	width: 180px;
+	height: 180px;
+	border-radius: 50% !important;
 }
 
 .circular--portrait.AC img {
-  width: 100;
-  height: auto;
+	width: 100;
+	height: auto;
 }
 
 .circular--landscape {
-  object-fit: cover;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
+	object-fit: cover;
+	width: 180px;
+	height: 180px;
+	border-radius: 50%;
 }
 
 .circular--landscape.jay {
-  object-fit: cover;
-  object-position: 30% 70%;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
+	object-fit: cover;
+	object-position: 30% 70%;
+	width: 180px;
+	height: 180px;
+	border-radius: 50%;
 }
 
 .circular--landscape img {
-  width: auto;
-  height: 100;
+	width: auto;
+	height: 100;
+}
+
+.uil-github-alt,
+.uil.uil-linkedin-alt,
+.uil.uil-window {
+	color: #c34f6b;
+	font-size: xx-large;
 }

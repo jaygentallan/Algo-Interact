@@ -4,3 +4,6 @@ node_modules
 
 # travis ci
 .travis.yml
+
+# secret key
+algo_interact/secret.py

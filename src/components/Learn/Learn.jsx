@@ -26,10 +26,15 @@ class Learn extends Component {
 	render() {
 		return (
 			<div class="box">
-				<div class="d-flex p-5 bd-highlight">
-					<div class="d-flex p-5 bd-highlight">
-						<h5 class="display-3 text-center">Welcome to the Learn Page!</h5>
+				<div class="d-flex pt-5 bd-highlight">
+					<div class="d-flex pt-5 bd-highlight">
+						<h5 className="display-3 text-center">Welcome to the Learn Page!</h5>
 					</div>
+				</div>
+				<div class="bd-highlight">
+					<h5 className="description display-3">
+						We plan to regularly add more content!
+					</h5>
 				</div>
 
 				<hr></hr>
