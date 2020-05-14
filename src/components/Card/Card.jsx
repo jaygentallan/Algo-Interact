@@ -15,7 +15,7 @@ import {
 */
 const Card = (props) => {
   return (
-    <div class="card border shadow>Regular shadow">
+    <div className="card border">
       <Link
         className="link"
         to={{
@@ -23,11 +23,9 @@ const Card = (props) => {
           state: { dataStructure: props.dataStructure },
         }}
       >
-        <div class="card-body card-text">
           <img class="card-img-top" src={props.image} />
-          <h3 className="title font-weight-normal pt-4">{props.title}</h3>
-          <p>{props.text}</p>
-        </div>
+          <h3 className="title pt-4">{props.title}</h3>
+          <p className="subtitle"> {props.subtitle} </p>
       </Link>
     </div>
   );

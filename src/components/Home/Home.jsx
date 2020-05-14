@@ -44,7 +44,6 @@ class Home extends Component {
     return (
       <div class="box">
         <div class="row">
-          <ScrollRotate animationDuration={0.5}>
             <img
               src={"/static/images/project_logo3.png"}
               width={300}
@@ -52,7 +51,6 @@ class Home extends Component {
               alt="logo"
               class="pt-5"
             />
-          </ScrollRotate>
         </div>
 
         <div class="d-flex pl-5 pr-5 bd-highlight">
@@ -60,7 +58,8 @@ class Home extends Component {
             <h5 class="display-4 text-center">
               Algo-Interact was created to visualize data structures and
               algorithms for computer science students and anyone curious to
-              learn.
+              learn
+              <br></br>
               <Link
                 className="linkHome"
                 to={{
@@ -80,9 +79,8 @@ class Home extends Component {
          *    a default one will be rendered.
          */}
         <div class="d-flex p-2 bd-highlight">
-          <div class="pl-5 pb-2">
+          <div class="pl-5">
             <h2>
-              {" "}
               <em>Data Structures</em>{" "}
             </h2>
           </div>
@@ -93,16 +91,18 @@ class Home extends Component {
           removeArrowOnDeviceType={["tablet", "mobile"]}
           deviceType={this.props.deviceType}
           dotListClass="custom-dot-list-style"
-          itemClass="card-deck d-flex pl-5 pr-5 bd-highlight"
+          itemClass="card-deck d-flex pt-4 pb-5 pl-5 pr-5 bd-highlight"
         >
           <Card
             title="Graph"
+            subtitle="Visualizer"
             image="/static/images/graphpicture.png"
             link="/visualizer"
             dataStructure="Graph"
           />
           <Card
             title="Tree"
+            subtitle="Visualizer"
             image="/static/images/tree.png"
             link="/visualizer"
             dataStructure="Tree"
@@ -110,18 +110,16 @@ class Home extends Component {
 
           <Card
             title="Linked List"
+            subtitle="Visualizer"
             image="/static/images/linkedlist.png"
             link="/visualizer"
             dataStructure="LinkedList"
           />
         </Carousel>
-        <br></br>
-        <br></br>
         <hr></hr>
         <div class="d-flex pl-2 bd-highlight">
-          <div class="pl-5 pt-3 pb-4">
+          <div class="pl-5 pt-3 pb-2">
             <h2>
-              {" "}
               <em>Algorithms</em>{" "}
             </h2>
           </div>
@@ -132,26 +130,17 @@ class Home extends Component {
           removeArrowOnDeviceType={["tablet", "mobile"]}
           deviceType={this.props.deviceType}
           dotListClass="custom-dot-list-style"
-          itemClass="card-deck d-flex pl-5 pr-5 bd-highlight"
+          itemClass="card-deck d-flex pt-4 pb-5 pl-5 pr-5 bd-highlight"
         >
           <Card
-            title="Depth-First Search"
-            image="/static/images/depthfirst.png"
+            title="Graph Search"
+            subtitle="Algorithms"
+            image="/static/images/graphsearch.png"
             link="/learn"
           />
           <Card
-            title="Breadth-First Search"
-            link="/learn"
-            image="/static/images/braedth.png"
-          />
-          <Card
-            title="Dijkstra's Algorithm"
-            image="/static/images/dijkstra.png"
-            link="/learn"
-          />
-
-          <Card
-            title="Tree Traversal Algorithms"
+            title="Tree Traversal"
+            subtitle="Algorithms"
             link="/learn"
             image="/static/images/treetraversal.png"
           />

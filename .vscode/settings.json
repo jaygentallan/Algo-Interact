@@ -2,5 +2,6 @@
     "prettier.disableLanguages": [
         "html",
         "HTML"
-    ]
+    ],
+    "editor.formatOnSave": true
 }
