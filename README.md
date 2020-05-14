@@ -1,5 +1,5 @@
 # Algo-Interact
-<img src="https://media.giphy.com/media/h3ty1m8lfburxCojtR/source.gif" width="600" height="300">
+Algo-Interact was created to visualize data structures and algorithms for computer science students and anyone curious to learn. Try it out at: www.algointeract.com
 
 # Documentation
 #### Full documentation in repo
