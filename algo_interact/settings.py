@@ -29,6 +29,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['algo-interact.herokuapp.com', 'algointeract.com', 'www.algointeract.com', '127.0.0.1']#, 'algointeract.com', 'www.algointeract.com',] #"127.0.0.1"]
 
 CORS_ORIGIN_ALLOW_ALL = False
+SECURE_SSL_REDIRECT = True
 
 # Application definition
 

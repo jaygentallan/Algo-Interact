@@ -7,3 +7,8 @@ node_modules
 
 # secret key
 #algo_interact/secret.py
+
+# SSL Keys
+algo-interact.key
+algointeract_com.crt
+algointeract_com.ca-bundle
