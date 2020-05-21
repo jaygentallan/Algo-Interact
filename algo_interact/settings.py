@@ -24,10 +24,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
-ALLOWED_HOSTS = ['algo-interact.herokuapp.com', 'algointeract.com', 'www.algointeract.com', '127.0.0.1']#, 'algointeract.com', 'www.algointeract.com',] #"127.0.0.1"]
+ALLOWED_HOSTS = ['algo-interact.herokuapp.com', 'algointeract.com', 'www.algointeract.com', '127.0.0.1', 'algo-interact-dev.herokuapp.com']#, 'algointeract.com', 'www.algointeract.com',] #"127.0.0.1"]
 
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -36,7 +36,7 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:8080',
 
 )
-#SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = True
 
 # Application definition
 
