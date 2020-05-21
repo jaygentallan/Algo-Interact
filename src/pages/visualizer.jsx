@@ -6,23 +6,23 @@ import AlgoTab from "../components/AlgoTab/AlgoTab";
 // React function that returns what is displayed to the
 // user when it is called using the Router in the App.js file.
 const VisualizerPage = (props) => {
-  var dataStructure;
-  if (props.location.state) {
-    dataStructure = props.location.state;
-  }
+	var dataStructure;
+	if (props.location.state) {
+		dataStructure = props.location.state;
+	}
 
-  const scrollToTop = () => {
-    window.scrollTo(0, 0);
-  };
+	const scrollToTop = () => {
+		window.scrollTo(0, 0);
+	};
 
-  return (
-    <div>
-      {scrollToTop()}
-      <Header />
-      <AlgoTab dataStructure={dataStructure} />
-      <Footer />
-    </div>
-  );
+	return (
+		<div>
+			{scrollToTop()}
+			<Header {...props} />
+			<AlgoTab dataStructure={dataStructure} />
+			<Footer footer="visualizer" />
+		</div>
+	);
 };
 
 // Used to be able to import VisualizerPage

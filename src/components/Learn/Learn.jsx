@@ -14,6 +14,7 @@ const responsive = {
 	desktop: {
 		breakpoint: { max: 3000, min: 1024 },
 		items: 3,
+		slidesToSlide: 2,
 	},
 };
 
@@ -28,7 +29,10 @@ class Learn extends Component {
 			<div class="box">
 				<div class="d-flex pt-5 bd-highlight">
 					<div class="d-flex pt-5 bd-highlight">
-						<h5 className="display-3 text-center">Welcome to the Learn Page!</h5>
+						<h5 className="display-3 text-center">
+							As students ourselves, we know the passion to learn can bring you a long
+							way. Our goal is to help you find that passion.
+						</h5>
 					</div>
 				</div>
 				<div class="bd-highlight">
@@ -43,8 +47,8 @@ class Learn extends Component {
 				 *    Our intent is that for each respective structure,
 				 *    a default one will be rendered.
 				 */}
-				<div class="d-flex p-2 bd-highlight">
-					<div class="pl-5">
+				<div class="d-flex pl-2 bd-highlight">
+					<div class="pl-5 pb-2">
 						<h2>
 							<em>Data Structures</em>
 						</h2>
@@ -59,29 +63,119 @@ class Learn extends Component {
 					itemClass="card-deck d-flex pt-4 pb-5 pl-5 pr-5 bd-highlight"
 				>
 					<LearnCard
-						title="Graphs"
+						title="Arrays and Strings"
 						subtitle="Learn About"
-						text="Graph is the non-linear data structure which is used to represent data networks."
-						image="/static/images/graphpicture.png"
+						text="Linked List is a linear data structure where all data can not be stored into congiguous memory location but then are 
+						attached to all the nodes so that we can easy to maintain the list. its simply mean that the it is the list where we can store data member in different memory locations. it is the technic of improving of wasting of memory in the database or we can say that to save the memory."
 						tab1title="Description"
 						tab1text={
 							<ul>
+								 <li>It saves the wasting of memory</li>
 								<li>
-									It consist of nodes and edges and sometimes we can say that
-									nodes are vertices and edges are line or arc
+									It is easier to add, delete or change the data into database.
 								</li>
-								<li>It is used to show real time problems</li>
+								<li>It can not use contiguous memory locations.</li>
 								<li>
-									Graph can be used in social network sites like facebook linkedin
-									etc.
+									All the nodes are linked with references link so that each node
+									can be connected to each other and perforrm operations.
 								</li>
-								<li>Each nodes are contains information about data.</li>
-								<li>Each nodes are contains information about data.</li>
+								<li>
+									Linkee List can be of two types Single Linked list and Double
+									linked list
+								</li>
 							</ul>
 						}
-						tab1image="/static/images/graph.png"
 						tab2title="Time Complexity"
-						tab2text="Time complexity of graph is O(V+E) where V represent number of vertices "
+						tab2text="O(n)"
+						image="/static/images/array.png"
+						tab1image="/static/images/linkedlistexample.png"
+					/>
+
+					<LearnCard
+						title="Stacks and Queues"
+						subtitle="Learn About"
+						text="Linked List is a linear data structure where all data can not be stored into congiguous memory location but then are 
+						attached to all the nodes so that we can easy to maintain the list. its simply mean that the it is the list where we can store data member in different memory locations. it is the technic of improving of wasting of memory in the database or we can say that to save the memory."
+						tab1title="Description"
+						tab1text={
+							<ul>
+								 <li>It saves the wasting of memory</li>
+								<li>
+									It is easier to add, delete or change the data into database.
+								</li>
+								<li>It can not use contiguous memory locations.</li>
+								<li>
+									All the nodes are linked with references link so that each node
+									can be connected to each other and perforrm operations.
+								</li>
+								<li>
+									Linkee List can be of two types Single Linked list and Double
+									linked list
+								</li>
+							</ul>
+						}
+						tab2title="Time Complexity"
+						tab2text="O(n)"
+						image="/static/images/stackandqueue.png"
+						tab1image="/static/images/linkedlistexample.png"
+					/>
+
+					<LearnCard
+						title="Hash Tables"
+						subtitle="Learn About"
+						text="Linked List is a linear data structure where all data can not be stored into congiguous memory location but then are 
+						attached to all the nodes so that we can easy to maintain the list. its simply mean that the it is the list where we can store data member in different memory locations. it is the technic of improving of wasting of memory in the database or we can say that to save the memory."
+						tab1title="Description"
+						tab1text={
+							<ul>
+								 <li>It saves the wasting of memory</li>
+								<li>
+									It is easier to add, delete or change the data into database.
+								</li>
+								<li>It can not use contiguous memory locations.</li>
+								<li>
+									All the nodes are linked with references link so that each node
+									can be connected to each other and perforrm operations.
+								</li>
+								<li>
+									Linkee List can be of two types Single Linked list and Double
+									linked list
+								</li>
+							</ul>
+						}
+						tab2title="Time Complexity"
+						tab2text="O(n)"
+						image="/static/images/hashtable.png"
+						tab1image="/static/images/linkedlistexample.png"
+					/>
+
+					<LearnCard
+						title="Linked Lists"
+						subtitle="Learn About"
+						text="Linked List is a linear data structure where all data can not be stored into congiguous memory location but then are 
+						attached to all the nodes so that we can easy to maintain the list. its simply mean that the it is the list where we can store data member in different memory locations. it is the technic of improving of wasting of memory in the database or we can say that to save the memory."
+						tab1title="Description"
+						tab1text={
+							<ul>
+								 <li>It saves the wasting of memory</li>
+								<li>
+									It is easier to add, delete or change the data into database.
+								</li>
+								<li>It can not use contiguous memory locations.</li>
+								<li>
+									All the nodes are linked with references link so that each node
+									can be connected to each other and perforrm operations.
+								</li>
+								<li>
+									Linkee List can be of two types Single Linked list and Double
+									linked list
+								</li>
+							</ul>
+						}
+						tab2title="Time Complexity"
+						tab2text="O(n)"
+						image="/static/images/linkedlist.png"
+						tab1image="/static/images/linkedlistexample.png"
 					/>
 
 					<LearnCard
@@ -120,40 +214,36 @@ class Learn extends Component {
 					/>
 
 					<LearnCard
-						title="Linked Lists"
+						title="Graphs"
 						subtitle="Learn About"
-						text="Linked List is a linear data structure where all data can not be stored into congiguous memory location but then are 
-						attached to all the nodes so that we can easy to maintain the list. its simply mean that the it is the list where we can store data member in different memory locations. it is the technic of improving of wasting of memory in the database or we can say that to save the memory."
+						text="Graph is the non-linear data structure which is used to represent data networks."
+						image="/static/images/graphpicture.png"
 						tab1title="Description"
 						tab1text={
 							<ul>
-								 <li>It saves the wasting of memory</li>
 								<li>
-									It is easier to add, delete or change the data into database.
+									It consist of nodes and edges and sometimes we can say that
+									nodes are vertices and edges are line or arc
 								</li>
-								<li>It can not use contiguous memory locations.</li>
+								<li>It is used to show real time problems</li>
 								<li>
-									All the nodes are linked with references link so that each node
-									can be connected to each other and perforrm operations.
+									Graph can be used in social network sites like facebook linkedin
+									etc.
 								</li>
-								<li>
-									Linkee List can be of two types Single Linked list and Double
-									linked list
-								</li>
+								<li>Each nodes are contains information about data.</li>
+								<li>Each nodes are contains information about data.</li>
 							</ul>
 						}
+						tab1image="/static/images/graph.png"
 						tab2title="Time Complexity"
-						tab2text="O(n)"
-						image="/static/images/linkedlist.png"
-						tab1image="/static/images/linkedlistexample.png"
+						tab2text="Time complexity of graph is O(V+E) where V represent number of vertices "
 					/>
 				</Carousel>
 				<hr></hr>
 				<div class="d-flex pl-2 bd-highlight">
-					<div class="pl-5 pt-3 pb-4">
+					<div class="pl-5 pb-2">
 						<h2>
-							{" "}
-							<em>Algorithms</em>{" "}
+							<em>Algorithms</em>
 						</h2>
 					</div>
 				</div>
@@ -163,7 +253,7 @@ class Learn extends Component {
 					removeArrowOnDeviceType={["tablet", "mobile"]}
 					deviceType={this.props.deviceType}
 					dotListClass="custom-dot-list-style"
-					itemClass="card-deck d-flex pb-5 pl-5 pr-5 bd-highlight"
+					itemClass="card-deck d-flex pt-4 pb-5 pl-5 pr-5 bd-highlight"
 				>
 					<LearnCard
 						title="Graph Algorithms"
@@ -230,7 +320,6 @@ class Learn extends Component {
 				</Carousel>
 				<div class="container p-5" />
 				<div class="container p-5" />
-				<Footer />
 			</div>
 		);
 	}

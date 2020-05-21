@@ -19,6 +19,9 @@ body {
 
 .display-3.text-center {
 	color: #212529;
+	font-size: 3em;
+	margin-left: 5em;
+	margin-right: 5em;
 }
 .card.border.border-danger {
 	border-color: #c34f6b !important;
@@ -66,4 +69,8 @@ a.try:hover {
 	font-size: 1.5em;
 	font-style: italic;
 	text-align: center !important;
+}
+
+.card-deck.d-flex.pt-4.pb-5.pl-5.pr-5.bd-highlight {
+	margin-right: -4em;
 }

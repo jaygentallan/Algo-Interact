@@ -1,30 +1,28 @@
-.Footer {
-	margin: 10px;
-	padding: 10px;
-	padding-top: 20px;
-	text-align: center;
-	font-size: 16px;
-	background-color: turquoise;
-}
-
 a.footer.nav-link {
-	color: inherit;
+	color: #da7e93;
 	text-decoration: none;
 	font-size: 0.98em;
-	padding-top: 0.5em;
-	padding-right: 2.5em;
-	padding-left: 0.2em;
-	padding-bottom: 0.4em;
-	-webkit-tap-highlight-color: white;
+	padding-top: 0.6em;
+	padding-right: 1em;
+	padding-left: 1em;
+	padding-bottom: 0.6em;
 }
 
 a.footer.nav-link:hover {
-	color: whitesmoke;
+	color: #ce2b51;
 	text-decoration: none;
 }
 
 #sticky-footer {
-	background-color: #c34f6b !important;
+	background-color: white !important;
+	border-top: 0.1em solid whitesmoke;
+	height: 3.5em;
+	width: 100%;
+}
+
+#sticky-footer-visualizer {
+	background-color: white !important;
+	border-top: 0.1em solid whitesmoke;
 	position: absolute;
 	bottom: 0;
 	height: 3.5em;
@@ -32,7 +30,7 @@ a.footer.nav-link:hover {
 }
 
 .container.text-center {
-	color: #e1a7b5;
+	color: #da7e93;
 	position: relative;
 	bottom: 0.5em;
 }
@@ -65,8 +63,7 @@ h1.hello {
 
 h4.name {
 	padding-top: 1em;
-	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
-		Geneva, Verdana, sans-serif !important;
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif !important;
 }
 
 p.description {
