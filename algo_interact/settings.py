@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True    
+DEBUG = False  
 
 
 ALLOWED_HOSTS = ['algo-interact.herokuapp.com', 'algointeract.com', 'www.algointeract.com', '127.0.0.1', 'algo-interact-dev.herokuapp.com', 'localhost']#, 'algointeract.com', 'www.algointeract.com',] #"127.0.0.1"]
@@ -199,7 +199,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build/static'),
-    #os.path.join(BASE_DIR, 'media/profile_pics'),
+    os.path.join(BASE_DIR, 'media/profile_pics'),
 ]
 
 
