@@ -38,7 +38,7 @@ CORS_ORIGIN_WHITELIST = (
     'https://algo-interact-dev.herokuapp.com'
 
 )
-#SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = True
 
 # Application definition
 
