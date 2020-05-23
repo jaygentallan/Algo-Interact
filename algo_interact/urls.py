@@ -26,6 +26,4 @@ urlpatterns = [
     path('posts/', include('posts.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('users/', include('users.urls')),
-    re_path(r'^static/(?P<path>.*)$', serve,
-            {'document_root': settings.STATIC_ROOT}),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

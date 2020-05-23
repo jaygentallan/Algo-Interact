@@ -12,3 +12,6 @@ node_modules
 algo-interact.key
 algointeract_com.crt
 algointeract_com.ca-bundle
+
+# AWS Keys
+rootkey.csv
