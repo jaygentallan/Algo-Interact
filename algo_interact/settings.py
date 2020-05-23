@@ -35,7 +35,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
     'http://localhost:8080',
-    'https://algo-interact-dev.herokuapp.com'
+    #'https://algo-interact-dev.herokuapp.com'
 	'https://algointeract.s3.amazonaws.com',
 
 )
@@ -232,7 +232,10 @@ AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com'
 #static media settings
 STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
 MEDIA_URL = STATIC_URL + 'media/'
-STATICFILES_DIRS = ( os.path.join(BASE_DIR, 'static'), )
+STATICFILES_DIRS = [ 
+    #os.path.join(BASE_DIR, 'static'), 
+    'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/static',
+]
 MEDIA_ROOT = 'media'
 STATIC_ROOT = 'staticfiles'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
