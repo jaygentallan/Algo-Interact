@@ -28,7 +28,7 @@ SECRET_KEY = secret_key
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['algo-interact.herokuapp.com', 'algointeract.com', 'www.algointeract.com', '127.0.0.1', 'algo-interact-dev.herokuapp.com', 'localhost']#, 'algointeract.com', 'www.algointeract.com',] #"127.0.0.1"]
+ALLOWED_HOSTS = ['algo-interact.herokuapp.com', 'algointeract.com', 'www.algointeract.com', '127.0.0.1', 'algo-interact-dev.herokuapp.com']#, 'algointeract.com', 'www.algointeract.com',] #"127.0.0.1"]
 
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -36,6 +36,7 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
     'http://localhost:8080',
     'https://algo-interact-dev.herokuapp.com'
+
 )
 #SECURE_SSL_REDIRECT = True
 
@@ -199,7 +200,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build/static'),
-    os.path.join(BASE_DIR, 'media/profile_pics'),
+    #os.path.join(BASE_DIR, 'media/profile_pics'),
 ]
 
 
