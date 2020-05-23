@@ -34,6 +34,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
     'http://localhost:8080',
+    'algo-interact-dev.herokuapp.com'
 
 )
 SECURE_SSL_REDIRECT = True
@@ -198,7 +199,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'media/profile_pics'),
 ]
 
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 MEDIA_URL = '/media/'
