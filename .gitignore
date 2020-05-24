@@ -22,3 +22,7 @@ rootkey.csv
 
 # staticfiles
 staticfiles
+
+# miscellaneous
+.idea
+.vscode
