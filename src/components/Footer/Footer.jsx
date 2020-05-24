@@ -58,7 +58,7 @@ const Footer = (props) => {
 								<div className="pt-4"></div>
 								<div class="row">
 									<div class="col">
-										<img class="circular--portrait AC" src={"/static/teamPhotos/AC.jpeg"} />
+										<img class="circular--portrait AC" src={"https://algointeract.s3.amazonaws.com/static/teamPhotos/AC.jpeg"} />
 									</div>
 									<div class="col-8">
 										<h4 className="name">Anthony Carnero</h4>
@@ -77,7 +77,10 @@ const Footer = (props) => {
 								<div className="pt-4"></div>
 								<div class="row pt-3">
 									<div class="col">
-										<img class="circular--landscape jay" src="/static/teamPhotos/photo-jay.jpg" />
+										<img
+											class="circular--landscape jay"
+											src="https://algointeract.s3.amazonaws.com/static/teamPhotos/photo-jay.jpg"
+										/>
 									</div>
 									<div class="col-8">
 										<h4 className="name">Jay Ivan Gentallan</h4>
@@ -100,7 +103,10 @@ const Footer = (props) => {
 								<div className="pt-4"></div>
 								<div class="row pt-3">
 									<div class="col">
-										<img class="circular--landscape" src="/static/teamPhotos/photo-baljeet.jpeg" />
+										<img
+											class="circular--landscape"
+											src="https://algointeract.s3.amazonaws.com/static/teamPhotos/photo-baljeet.jpeg"
+										/>
 									</div>
 									<div class="col-8">
 										<h4 className="name">Baljeet Singh</h4>
@@ -119,7 +125,10 @@ const Footer = (props) => {
 								<div className="pt-4"></div>
 								<div class="row pt-3">
 									<div class="col">
-										<img class="circular--landscape" src="/static/teamPhotos/photo-mikaela.JPG" />
+										<img
+											class="circular--landscape"
+											src="https://algointeract.s3.amazonaws.com/static/teamPhotos/photo-mikaela.JPG"
+										/>
 									</div>
 									<div class="col-8">
 										<h4 className="name">Mikaela Valenciano</h4>
@@ -191,7 +200,7 @@ const Footer = (props) => {
 								<div className="pt-4"></div>
 								<div class="row">
 									<div class="col">
-										<img class="circular--portrait AC" src={"/static/teamPhotos/AC.jpeg"} />
+										<img class="circular--portrait AC" src={"https://algointeract.s3.amazonaws.com/static/teamPhotos/AC.jpeg"} />
 									</div>
 									<div class="col-8">
 										<h4 className="name">Anthony Carnero</h4>
@@ -210,7 +219,10 @@ const Footer = (props) => {
 								<div className="pt-4"></div>
 								<div class="row pt-3">
 									<div class="col">
-										<img class="circular--landscape jay" src="/static/teamPhotos/photo-jay.jpg" />
+										<img
+											class="circular--landscape jay"
+											src="https://algointeract.s3.amazonaws.com/static/teamPhotos/photo-jay.jpg"
+										/>
 									</div>
 									<div class="col-8">
 										<h4 className="name">Jay Ivan Gentallan</h4>
@@ -233,7 +245,10 @@ const Footer = (props) => {
 								<div className="pt-4"></div>
 								<div class="row pt-3">
 									<div class="col">
-										<img class="circular--landscape" src="/static/teamPhotos/photo-baljeet.jpeg" />
+										<img
+											class="circular--landscape"
+											src="https://algointeract.s3.amazonaws.com/static/teamPhotos/photo-baljeet.jpeg"
+										/>
 									</div>
 									<div class="col-8">
 										<h4 className="name">Baljeet Singh</h4>
@@ -252,7 +267,10 @@ const Footer = (props) => {
 								<div className="pt-4"></div>
 								<div class="row pt-3">
 									<div class="col">
-										<img class="circular--landscape" src="/static/teamPhotos/photo-mikaela.JPG" />
+										<img
+											class="circular--landscape"
+											src="https://algointeract.s3.amazonaws.com/static/teamPhotos/photo-mikaela.JPG"
+										/>
 									</div>
 									<div class="col-8">
 										<h4 className="name">Mikaela Valenciano</h4>

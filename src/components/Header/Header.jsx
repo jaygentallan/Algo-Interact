@@ -69,7 +69,7 @@ class Header extends Component {
 			<nav className="navbar navbar-expand navbar-dark bg-dark">
 				<div class="navbar-header">
 					<a className="navbar-brand" href="/">
-						<img src={"/static/images/header_logo.png"} className="logo" />
+						<img src={"https://algointeract.s3.amazonaws.com/static/images/header_logo.png"} className="logo" />
 					</a>
 				</div>
 

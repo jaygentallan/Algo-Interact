@@ -48,7 +48,7 @@ class RegistrationForm extends Component {
 		return (
 			<div>
 				<div className="logInLogo">
-					<img src={"/static/images/header_logo.png"} />
+					<img src={"https://algointeract.s3.amazonaws.com/static/images/header_logo.png"} />
 				</div>
 				{this.state.prompt ? (
 					this.state.prompt

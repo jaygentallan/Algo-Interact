@@ -38,7 +38,13 @@ class Home extends Component {
 		return (
 			<div class="box">
 				<div class="row">
-					<img src={"/static/images/project_logo3.png"} width={300} height={300} alt="logo" class="pt-5" />
+					<img
+						src={"https://algointeract.s3.amazonaws.com/static/images/project_logo3.png"}
+						width={300}
+						height={300}
+						alt="logo"
+						class="pt-5"
+					/>
 				</div>
 
 				<div class="d-flex pl-5 pr-5 bd-highlight">
@@ -80,13 +86,25 @@ class Home extends Component {
 					dotListClass="custom-dot-list-style"
 					itemClass="card-deck d-flex pt-4 pb-5 pl-5 pr-5 bd-highlight"
 				>
-					<Card title="Graph" subtitle="Visualizer" image="/static/images/graphpicture.png" link="/visualizer/" dataStructure="Graph" />
-					<Card title="Tree" subtitle="Visualizer" image="/static/images/tree.png" link="/visualizer/" dataStructure="Tree" />
+					<Card
+						title="Graph"
+						subtitle="Visualizer"
+						image="https://algointeract.s3.amazonaws.com/static/images/graphpicture.png"
+						link="/visualizer/"
+						dataStructure="Graph"
+					/>
+					<Card
+						title="Tree"
+						subtitle="Visualizer"
+						image="https://algointeract.s3.amazonaws.com/static/images/tree.png"
+						link="/visualizer/"
+						dataStructure="Tree"
+					/>
 
 					<Card
 						title="Linked List"
 						subtitle="Visualizer"
-						image="/static/images/linkedlist.png"
+						image="https://algointeract.s3.amazonaws.com/static/images/linkedlist.png"
 						link="/visualizer/"
 						dataStructure="LinkedList"
 					/>
@@ -107,8 +125,18 @@ class Home extends Component {
 					dotListClass="custom-dot-list-style"
 					itemClass="card-deck d-flex pt-4 pb-5 pl-5 pr-5 bd-highlight"
 				>
-					<Card title="Graph Search" subtitle="Algorithms" image="/static/images/graphsearch.png" link="/learn" />
-					<Card title="Tree Traversal" subtitle="Algorithms" link="/learn" image="/static/images/treetraversal.png" />
+					<Card
+						title="Graph Search"
+						subtitle="Algorithms"
+						image="https://algointeract.s3.amazonaws.com/static/images/graphsearch.png"
+						link="/learn"
+					/>
+					<Card
+						title="Tree Traversal"
+						subtitle="Algorithms"
+						link="/learn"
+						image="https://algointeract.s3.amazonaws.com/static/images/treetraversal.png"
+					/>
 				</Carousel>
 				<div class="container p-5"></div>
 				<div class="container p-5"></div>
