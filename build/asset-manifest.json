@@ -1,26 +1,26 @@
 {
-  "files": {
-    "main.css": "/static/css/main.faa1af7c.chunk.css",
-    "main.js": "/static/js/main.56653ce3.chunk.js",
-    "main.js.map": "/static/js/main.56653ce3.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.ecd6fc2d.js",
-    "runtime-main.js.map": "/static/js/runtime-main.ecd6fc2d.js.map",
-    "static/css/2.e9d2c6fa.chunk.css": "/static/css/2.e9d2c6fa.chunk.css",
-    "static/js/2.bb22526a.chunk.js": "/static/js/2.bb22526a.chunk.js",
-    "static/js/2.bb22526a.chunk.js.map": "/static/js/2.bb22526a.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.decb959f99a22ed2545c2ef785768a59.js": "/precache-manifest.decb959f99a22ed2545c2ef785768a59.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.e9d2c6fa.chunk.css.map": "/static/css/2.e9d2c6fa.chunk.css.map",
-    "static/css/main.faa1af7c.chunk.css.map": "/static/css/main.faa1af7c.chunk.css.map",
-    "static/js/2.bb22526a.chunk.js.LICENSE.txt": "/static/js/2.bb22526a.chunk.js.LICENSE.txt",
-    "static/media/styles.css": "/static/media/revicons.2feb69cc.eot"
-  },
-  "entrypoints": [
-    "static/js/runtime-main.ecd6fc2d.js",
-    "static/css/2.e9d2c6fa.chunk.css",
-    "static/js/2.bb22526a.chunk.js",
-    "static/css/main.faa1af7c.chunk.css",
-    "static/js/main.56653ce3.chunk.js"
-  ]
+	"files": {
+		"main.css": "https://algointeract.s3.amazonaws.com/static/css/main.faa1af7c.chunk.css",
+		"main.js": "https://algointeract.s3.amazonaws.com/static/js/main.56653ce3.chunk.js",
+		"main.js.map": "https://algointeract.s3.amazonaws.com/static/js/main.56653ce3.chunk.js.map",
+		"runtime-main.js": "https://algointeract.s3.amazonaws.com/static/js/runtime-main.ecd6fc2d.js",
+		"runtime-main.js.map": "https://algointeract.s3.amazonaws.com/static/js/runtime-main.ecd6fc2d.js.map",
+		"static/css/2.e9d2c6fa.chunk.css": "https://algointeract.s3.amazonaws.com/static/css/2.e9d2c6fa.chunk.css",
+		"static/js/2.bb22526a.chunk.js": "https://algointeract.s3.amazonaws.com/static/js/2.bb22526a.chunk.js",
+		"static/js/2.bb22526a.chunk.js.map": "https://algointeract.s3.amazonaws.com/static/js/2.bb22526a.chunk.js.map",
+		"index.html": "/index.html",
+		"precache-manifest.5d72f24593a0946048accd5ec14d3398.js": "/precache-manifest.5d72f24593a0946048accd5ec14d3398.js",
+		"service-worker.js": "/service-worker.js",
+		"static/css/2.e9d2c6fa.chunk.css.map": "https://algointeract.s3.amazonaws.com/static/css/2.e9d2c6fa.chunk.css.map",
+		"static/css/main.faa1af7c.chunk.css.map": "https://algointeract.s3.amazonaws.com/static/css/main.faa1af7c.chunk.css.map",
+		"static/js/2.bb22526a.chunk.js.LICENSE.txt": "https://algointeract.s3.amazonaws.com/static/js/2.bb22526a.chunk.js.LICENSE.txt",
+		"static/media/styles.css": "https://algointeract.s3.amazonaws.com/static/media/revicons.2feb69cc.eot"
+	},
+	"entrypoints": [
+		"https://algointeract.s3.amazonaws.comstatic/js/runtime-main.ecd6fc2d.js",
+		"https://algointeract.s3.amazonaws.comstatic/css/2.e9d2c6fa.chunk.css",
+		"https://algointeract.s3.amazonaws.comstatic/js/2.bb22526a.chunk.js",
+		"https://algointeract.s3.amazonaws.comstatic/css/main.faa1af7c.chunk.css",
+		"https://algointeract.s3.amazonaws.comstatic/js/main.56653ce3.chunk.js"
+	]
 }
