@@ -230,7 +230,7 @@ AWS_QUERYSTRING_AUTH = False #This will make sure that the file URL does not hav
 AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com'
 
 
-#static media settings
+#static media settings for aws
 STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
 MEDIA_URL = STATIC_URL + 'media/'
 STATICFILES_DIRS = [ 
