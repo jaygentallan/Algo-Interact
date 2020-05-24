@@ -222,7 +222,7 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', 'AKIAIUK6NCWPAMIML7TA')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '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')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', 'algointeract')
 
-AWS_S3_FILE_OVERWRITE = False
+#AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_QUERYSTRING_AUTH = False #This will make sure that the file URL does not have unnecessary parameters like your access key.
 
@@ -231,11 +231,10 @@ AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com'
 
 
 #static media settings
-STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/static/'
+STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
 MEDIA_URL = STATIC_URL + 'media/'
 STATICFILES_DIRS = [ 
-    os.path.join(BASE_DIR, 'static'), 
-    #'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazxonaws.com/static',
+    os.path.join(BASE_DIR, 'build'), 
 ]
 MEDIA_ROOT = 'media'
 STATIC_ROOT = 'staticfiles'
