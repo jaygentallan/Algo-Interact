@@ -2,6 +2,9 @@ import os
 from .base import *
 
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+
 DEBUG = False
 
 
@@ -34,3 +37,9 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = 'media'
 STATIC_ROOT = 'staticfiles'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+
+
+STATICFILES_FINDERS = (
+'django.contrib.staticfiles.finders.FileSystemFinder',
+'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
