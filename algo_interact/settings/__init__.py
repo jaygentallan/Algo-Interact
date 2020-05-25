@@ -1,0 +1,1 @@
+from algo_interact.settings.base import *

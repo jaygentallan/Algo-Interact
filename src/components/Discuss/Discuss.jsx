@@ -32,7 +32,7 @@ class Discuss extends Component {
 
 	getDiscuss() {
 		axios
-			.get("http://127.0.0.1:8080/posts/")
+			.get("http://127.0.0.1:8000/posts/")
 			.then((res) => {
 				this.setState({ discuss: res.data });
 			})
@@ -43,7 +43,7 @@ class Discuss extends Component {
 
 	getProfile() {
 		axios
-			.get("http://127.0.0.1:8080/users/")
+			.get("http://127.0.0.1:8000/users/")
 			.then((res) => {
 				this.setState({ profile: res.data });
 			})
