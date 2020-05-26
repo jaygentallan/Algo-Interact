@@ -6,24 +6,17 @@
 	position: relative;
 }
 
-a.nav-link,
-a.nav-link:click,
-a.nav-link:visited {
-	border: none;
-	outline: none;
-	text-decoration: none;
-	color: inherit;
-	-webkit-tap-highlight-color: white;
+.nav-link.header {
+	color: white !important;
 }
 
-a.nav-link:hover {
-	color: whitesmoke;
-	text-decoration: none;
-	cursor: pointer;
+.nav-link.header:hover {
+	color: rgb(255, 136, 165) !important;
 }
 
 .navbar.navbar-expand.navbar-dark.bg-dark {
 	background-color: #c34f6b !important;
+	border-bottom: 2px solid #af314e !important;
 }
 
 .navbar-brand {
@@ -254,4 +247,75 @@ a.nav-link:hover {
 	position: relative;
 	top: 20%;
 	cursor: pointer;
+}
+
+.circular--landscape.jay {
+	width: 2.5em;
+	height: 2.5em;
+}
+
+.dropdown.user {
+	z-index: 100;
+	position: absolute !important;
+	top: 0;
+	right: 0em;
+	height: 2em;
+}
+
+.dropdown-item {
+	position: relative;
+	top: 3.6em;
+	height: 2.5em;
+	background-color: #c34f6b !important;
+	border-left: 2px solid #af314e !important;
+	border-right: 2px solid #af314e !important;
+	color: rgb(255, 223, 223) !important;
+	font-size: 1em !important;
+	padding-top: 0.6em !important;
+	padding-bottom: 0.5em !important;
+}
+
+.dropdown-item.last {
+	position: relative;
+	top: 3.6em;
+	height: 2.5em;
+	background-color: #c34f6b !important;
+	border-left: 2px solid #af314e !important;
+	border-right: 2px solid #af314e !important;
+	border-bottom: 2px solid #af314e !important;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	color: rgb(255, 223, 223) !important;
+	font-size: 1em !important;
+	padding-top: 0.6em !important;
+	padding-bottom: 0.5em !important;
+}
+
+.dropdown-item:hover {
+	position: relative;
+	top: 3.6em;
+	height: 2.5em;
+	background-color: #c34f6b !important;
+	border-left: 2px solid #c34f6b !important;
+	border-right: 2px solid #c34f6b !important;
+	background-color: rgb(211, 69, 104) !important;
+	color: rgb(255, 223, 223) !important;
+	font-size: 1em !important;
+	padding-bottom: 0.5em !important;
+}
+
+.circular--landscape.jay {
+	position: relative !important;
+	float: right;
+	top: 0.2em;
+	right: 0em;
+	width: 2.5em !important;
+}
+
+.username {
+	padding-left: 0.5em;
+	position: absolute !important;
+	right: 2.5em;
+	width: 5em;
+	height: 2.5em;
 }

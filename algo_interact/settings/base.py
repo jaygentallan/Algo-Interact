@@ -28,9 +28,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 
-SECURE_SSL_REDIRECT = True
-
-
 ALLOWED_HOSTS = []
 
 

@@ -8,6 +8,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 DEBUG = False
 
 
+SECURE_SSL_REDIRECT = True
+
+
 ALLOWED_HOSTS = ['algo-interact.herokuapp.com', 'algointeract.com', 'www.algointeract.com', '127.0.0.1', 'algo-interact-dev.herokuapp.com']
 
 
@@ -30,7 +33,7 @@ AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com'
 
 #static media settings for aws
 STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
-MEDIA_URL = STATIC_URL + 'media/'
+MEDIA_URL = STATIC_URL + 'media/media/'
 STATICFILES_DIRS = [ 
     os.path.join(BASE_DIR, 'build'), 
 ]

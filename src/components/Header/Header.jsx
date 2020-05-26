@@ -22,35 +22,34 @@ class Header extends Component {
 		super(props);
 
 		this.state = {
-			username: "",
+			image: "",
 			prompt: null,
 			isModalOpen: false,
 			isAuthenticated: props.isAuthenticated,
 			login: true,
+			getImage: false,
 		};
 		this.updateLogin = this.updateLogin;
 		this.updateModal = this.updateModal;
 		this.updatePrompt = this.updatePrompt;
 	}
 
-	/*
 	componentDidMount() {
-		//this.getName();
+		console.log("HERE");
+		this.getImage();
 	}
 
-	getName() {
-		console.log("TEST");
-		axios
-			.post("http://127.0.0.1:8080/core/token-auth/", {
-				//username: username,
-				//password: password,
-			})
-			.then((res) => res.json())
-			.then((json) => {
-				this.setState({ username: json.username });
-			});
+	getImage() {
+		axios.get("http://127.0.0.1:8000/users/").then((res) => {
+			for (let i in res.data) {
+				let user = res.data[i];
+				if (user.username === this.props.username) {
+					this.setState({ image: user.image });
+					return;
+				}
+			}
+		});
 	}
-	*/
 
 	updateLogin = (bool) => {
 		this.setState({ login: bool });
@@ -65,8 +64,12 @@ class Header extends Component {
 	};
 
 	render() {
+		if (this.props.isAuthenticated && !this.state.getImage) {
+			this.getImage();
+			this.setState({ getImage: true });
+		}
 		return (
-			<nav className="navbar navbar-expand navbar-dark bg-dark">
+			<nav className="navbar navbar-expand navbar-toggleable navbar-dark bg-dark">
 				<div class="navbar-header">
 					<a className="navbar-brand" href="/">
 						<img src={"https://algointeract.s3.amazonaws.com/static/images/header_logo.png"} className="logo" />
@@ -82,7 +85,7 @@ class Header extends Component {
 									pathname: "/visualizer",
 								}}
 							>
-								<a class="nav-link">Visualizer</a>
+								<a className="nav-link header">Visualizer</a>
 							</Link>
 						</li>
 						<li class="nav-item px-2">
@@ -92,7 +95,7 @@ class Header extends Component {
 									pathname: "/learn",
 								}}
 							>
-								<a class="nav-link">Learn</a>
+								<a class="nav-link header">Learn</a>
 							</Link>
 						</li>
 						<li class="nav-item px-2">
@@ -102,7 +105,7 @@ class Header extends Component {
 									pathname: "/discuss",
 								}}
 							>
-								<a class="nav-link">Discuss</a>
+								<a class="nav-link header">Discuss</a>
 							</Link>
 						</li>
 					</ul>
@@ -111,19 +114,40 @@ class Header extends Component {
 				<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item px-2">
-							<a className="username">{this.props.username}</a>
-						</li>
-						<li class="nav-item px-2">
 							{this.props.isAuthenticated ? (
-								<div>
-									<a class="nav-link" onClick={this.props.logout}>
-										{" "}
-										Logout{" "}
+								<div class="dropdown user">
+									<a
+										className="username"
+										role="button"
+										id="dropdownMenuLink"
+										data-toggle="dropdown"
+										aria-haspopup="true"
+										aria-expanded="false"
+									>
+										<img className="circular--landscape jay" src={"https://algointeract.s3.amazonaws.com" + this.state.image} />
+										<span class="caret"></span>
 									</a>
+									<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+										<a className="dropdown-item display-4" href="#">
+											Profile
+										</a>
+										<a className="dropdown-item display-4" href="#">
+											My Posts
+										</a>
+										<a
+											class="dropdown-item display-4 last"
+											onClick={() => {
+												this.setState({ image: "", getImage: false });
+												this.props.logout();
+											}}
+										>
+											Logout
+										</a>
+									</div>
 								</div>
 							) : (
 								<a
-									class="nav-link"
+									class="nav-link header"
 									onClick={() => {
 										this.setState({ isModalOpen: true });
 									}}
