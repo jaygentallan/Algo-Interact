@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "https://algointeract.s3.amazonaws.com/static/css/main.d4a5c9ba.chunk.css",
+    "main.js": "https://algointeract.s3.amazonaws.com/static/js/main.851cf03c.chunk.js",
+    "main.js.map": "https://algointeract.s3.amazonaws.com/static/js/main.851cf03c.chunk.js.map",
+    "runtime-main.js": "https://algointeract.s3.amazonaws.com/static/js/runtime-main.e4daff65.js",
+    "runtime-main.js.map": "https://algointeract.s3.amazonaws.com/static/js/runtime-main.e4daff65.js.map",
+    "static/css/2.aae2bc28.chunk.css": "https://algointeract.s3.amazonaws.com/static/css/2.aae2bc28.chunk.css",
+    "static/js/2.7c530d98.chunk.js": "https://algointeract.s3.amazonaws.com/static/js/2.7c530d98.chunk.js",
+    "static/js/2.7c530d98.chunk.js.map": "https://algointeract.s3.amazonaws.com/static/js/2.7c530d98.chunk.js.map",
+    "index.html": "https://algointeract.s3.amazonaws.com/index.html",
+    "precache-manifest.ca134f6fe29b565fbd08c350dab271ac.js": "https://algointeract.s3.amazonaws.com/precache-manifest.ca134f6fe29b565fbd08c350dab271ac.js",
+    "service-worker.js": "https://algointeract.s3.amazonaws.com/service-worker.js",
+    "static/css/2.aae2bc28.chunk.css.map": "https://algointeract.s3.amazonaws.com/static/css/2.aae2bc28.chunk.css.map",
+    "static/css/main.d4a5c9ba.chunk.css.map": "https://algointeract.s3.amazonaws.com/static/css/main.d4a5c9ba.chunk.css.map",
+    "static/js/2.7c530d98.chunk.js.LICENSE.txt": "https://algointeract.s3.amazonaws.com/static/js/2.7c530d98.chunk.js.LICENSE.txt",
+    "static/media/styles.css": "https://algointeract.s3.amazonaws.com/static/media/revicons.2feb69cc.eot"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e4daff65.js",
+    "static/css/2.aae2bc28.chunk.css",
+    "static/js/2.7c530d98.chunk.js",
+    "static/css/main.d4a5c9ba.chunk.css",
+    "static/js/main.851cf03c.chunk.js"
+  ]
+}

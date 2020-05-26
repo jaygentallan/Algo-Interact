@@ -22,6 +22,8 @@ rootkey.csv
 
 # staticfiles
 staticfiles
+media
+media/profile_pics
 
 # miscellaneous
 .idea
