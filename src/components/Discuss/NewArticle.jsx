@@ -26,13 +26,15 @@ class NewArticle extends Component {
 			content: "",
 			created_at: "",
 		};
-		this.handleEditorChange = this.handleEditorChange.bind(this);
+		//this.handleEditorChange = this.handleEditorChange.bind(this);
 	}
 
+	/*
 	handleEditorChange = (e) => {
 		this.setState({ content: e });
 		console.log("CONTENT:", this.state.content);
 	};
+	*/
 
 	/*
 	componentDidMount() {
@@ -62,6 +64,7 @@ class NewArticle extends Component {
 	}
 	*/
 
+	/*
 	onChangeFile = (event) => {
 		event.stopPropagation();
 		event.preventDefault();
@@ -69,6 +72,7 @@ class NewArticle extends Component {
 		console.log("FILE:", file);
 		this.setState({ file });
 	};
+	*/
 
 	render() {
 		// Calls the article function in article.js

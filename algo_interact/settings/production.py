@@ -11,7 +11,7 @@ DEBUG = False
 SECURE_SSL_REDIRECT = True
 
 
-ALLOWED_HOSTS = ['algo-interact.herokuapp.com', 'algointeract.com', 'www.algointeract.com', '127.0.0.1', 'algo-interact-dev.herokuapp.com']
+ALLOWED_HOSTS = ['algo-interact.herokuapp.com', 'algointeract.com', 'www.algointeract.com', '127.0.0.1']
 
 
 #set S3 as the place to store your files.
