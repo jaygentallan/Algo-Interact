@@ -12,7 +12,8 @@
 	background-color: #c34f6b;
 }
 
-.card.border {
+.learn.card.border {
+	margin-top: -1em;
 	border-color: transparent !important;
 	border-width: 0 !important;
 	border-radius: 20px; /* Larger number results in more curved corners of card */
@@ -21,6 +22,7 @@
 
 .card.border:hover {
 	box-shadow: 0px 15px 30px #bbbbbb !important;
+	cursor: pointer;
 }
 
 .title.pt-4.learn {

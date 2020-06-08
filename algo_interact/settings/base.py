@@ -32,13 +32,13 @@ ALLOWED_HOSTS = []
 
 
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
-    'http://localhost:8080',
-    #'https://algo-interact-dev.herokuapp.com'
-	'https://algointeract.s3.amazonaws.com',
-
-)
+    'http://127.0.0.1:3000',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+]
 
 # Application definition
 
@@ -66,8 +66,9 @@ INSTALLED_APPS = [
     'rest_auth.registration',
 
     # Local
-    'posts.apps.PostsConfig',
     'users.apps.UsersConfig',
+    'articles.apps.ArticlesConfig',
+    'posts.apps.PostsConfig',
 ]
 
 
@@ -87,7 +88,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        #'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication'
     ],
@@ -98,15 +98,20 @@ REST_AUTH_SERIALIZERS = {
     'TOKEN_SERIALIZER': 'users.serializers.TokenSerializer',
 }
 
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+        'REGISTER_SERIALIZER': 'users.serializers.RegisterSerializer',
+}
+
 #JWT_AUTH = {
 #    'JWT_RESPONSE_PAYLOAD_HANDLER': 'core.utils.custom_jwt_response_handler'
 #}
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -198,3 +203,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 #django_heroku.settings(locals())e
+
+
+import random
+
+RANDOM_NUMBER = random.randint(1,10)

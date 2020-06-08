@@ -1,5 +1,5 @@
 a.footer.nav-link {
-	color: #da7e93;
+	color: white;
 	text-decoration: none;
 	font-size: 0.98em;
 	padding-top: 0.6em;
@@ -9,20 +9,18 @@ a.footer.nav-link {
 }
 
 a.footer.nav-link:hover {
-	color: #ce2b51;
+	color: rgb(255, 136, 165) !important;
 	text-decoration: none;
 }
 
 #sticky-footer {
-	background-color: white !important;
-	border-top: 0.1em solid whitesmoke;
+	background-color: #c34f6b !important;
 	height: 3.5em;
 	width: 100%;
 }
 
 #sticky-footer-visualizer {
-	background-color: white !important;
-	border-top: 0.1em solid whitesmoke;
+	background-color: #c34f6b !important;
 	position: absolute;
 	bottom: 0;
 	height: 3.5em;
@@ -30,7 +28,7 @@ a.footer.nav-link:hover {
 }
 
 .container.text-center {
-	color: #da7e93;
+	color: white;
 	position: relative;
 	bottom: 0.5em;
 }

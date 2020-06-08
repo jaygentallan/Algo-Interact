@@ -10,7 +10,9 @@ import HomePage from "./pages/home";
 import VisualizerPage from "./pages/visualizer";
 import LearnPage from "./pages/learn";
 import DiscussPage from "./pages/discuss";
+import NewArticlePage from "./pages/newArticle";
 import NotFoundPage from "./pages/404";
+import ViewArticlePage from "./pages/viewArticle";
 
 // Main App class to be rendered by the React DOM
 // in the index.js file.
@@ -33,6 +35,12 @@ class App extends Component {
 					/>
 					<Route exact path="/learn/" render={() => <LearnPage {...this.props} />} />
 					<Route exact path="/discuss/" render={() => <DiscussPage {...this.props} />} />
+					<Route
+						exact
+						path="/discuss/viewarticle/:id"
+						render={(props) => <ViewArticlePage {...props} isAuthenticated={this.props.isAuthenticated} username={this.props.username} />}
+					/>
+					<Route exact path="/discuss/newArticle/" render={() => <NewArticlePage {...this.props} />} />
 					{/*
 					<Route exact path="/" component={HomePage} {...this.props} />
 					<Route exact path="/visualizer" component={VisualizerPage} {...this.props} />
@@ -51,6 +59,9 @@ const mapStateToProps = (state) => {
 	return {
 		isAuthenticated: state.token != null,
 		username: state.username,
+		id: state.id,
+		first_name: state.first_name,
+		last_name: state.last_name,
 	};
 };
 

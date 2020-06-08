@@ -19,7 +19,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
 SECURE_FRAME_DENY               = False
 
 
-HOST = "http://localhost:8000"
+HOST = "http://localhost:3000"
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -34,7 +34,5 @@ STATICFILES_DIRS = [
     #os.path.join(BASE_DIR, 'media/profile_pics'),
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR)
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+MEDIA_URL = 'https://algointeract.s3.amazonaws.com/'
+MEDIA_ROOT = 'media'

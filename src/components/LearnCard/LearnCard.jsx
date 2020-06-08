@@ -22,7 +22,7 @@ const LearnCard = (props) => {
 	};
 
 	return (
-		<div className="card border" onClick={showModal}>
+		<div className="learn card border" onClick={showModal}>
 			<img class="card-img-top" src={props.image} />
 			<h3 className="title pt-4 learn">{props.title}</h3>
 			<p className="subtitle learn"> {props.subtitle} </p>

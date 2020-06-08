@@ -7,7 +7,7 @@ import axios from "axios";
 
 // Login form
 import { Form, Input, Select, Button, AutoComplete, Spin } from "antd";
-import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
+import { UserOutlined, LockOutlined, MailOutlined, MoreOutlined } from "@ant-design/icons";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -23,7 +23,7 @@ class RegistrationForm extends Component {
 
 	render() {
 		const onFinish = (values) => {
-			this.props.onAuth(values.username, values.email, values.password, values.confirm);
+			this.props.onAuth(values.username, values.first_name, values.last_name, values.email, values.password, values.confirm);
 			setTimeout(() => {
 				if (this.props.isAuthenticated) {
 					this.setState({
@@ -80,6 +80,32 @@ class RegistrationForm extends Component {
 						</Form.Item>
 
 						<Form.Item
+							name="first_name"
+							className="input"
+							rules={[
+								{
+									required: true,
+									message: "Please input your First Name!!",
+								},
+							]}
+						>
+							<Input prefix={<MoreOutlined className="site-form-item-icon" />} placeholder="First Name" className="formInput" />
+						</Form.Item>
+
+						<Form.Item
+							name="last_name"
+							className="input"
+							rules={[
+								{
+									required: true,
+									message: "Please input your Last Name!",
+								},
+							]}
+						>
+							<Input prefix={<MoreOutlined className="site-form-item-icon" />} placeholder="Last Name" className="formInput" />
+						</Form.Item>
+
+						<Form.Item
 							name="email"
 							className="input"
 							rules={[
@@ -126,7 +152,7 @@ class RegistrationForm extends Component {
 								}),
 							]}
 						>
-							<Input prefix={<LockOutlined className="site-form-item-icon" />} placeholder="Confirm Password" className="formInput" />
+							<Input prefix={<MoreOutlined className="site-form-item-icon" />} placeholder="Confirm Password" className="formInput" />
 						</Form.Item>
 						<Form.Item>
 							<div className="logIn">
@@ -162,7 +188,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onAuth: (username, email, password1, password2) => dispatch(actions.authSignup(username, email, password1, password2)),
+		onAuth: (username, first_name, last_name, email, password1, password2) =>
+			dispatch(actions.authSignup(username, first_name, last_name, email, password1, password2)),
 	};
 };
 

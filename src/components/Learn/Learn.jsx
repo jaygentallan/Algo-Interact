@@ -45,10 +45,8 @@ class Learn extends Component {
 				 *    a default one will be rendered.
 				 */}
 				<div class="d-flex pl-2 bd-highlight">
-					<div class="pl-5 pb-2">
-						<h2>
-							<em>Data Structures</em>
-						</h2>
+					<div class="pl-5">
+						<h2 className="label">Data Structures</h2>
 					</div>
 				</div>
 				<Carousel
@@ -200,11 +198,10 @@ class Learn extends Component {
 					/>
 				</Carousel>
 				<hr></hr>
+
 				<div class="d-flex pl-2 bd-highlight">
-					<div class="pl-5 pb-2">
-						<h2>
-							<em>Algorithms</em>
-						</h2>
+					<div class="pl-5">
+						<h2 className="learn label">Algorithms</h2>
 					</div>
 				</div>
 				<Carousel

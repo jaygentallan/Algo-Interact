@@ -10,7 +10,7 @@ const HomePage = (props) => {
 	return (
 		<div className="Container">
 			<Header {...props} />
-			<Discuss />
+			<Discuss {...props} />
 			<Footer />
 		</div>
 	);

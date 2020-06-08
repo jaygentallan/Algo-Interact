@@ -4,9 +4,12 @@ from rest_framework import permissions, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_auth.registration.views import RegisterView
 
 from .models import Profile
-from .serializers import UserSerializer, TokenSerializer, ProfileSerializer
+from .serializers import RegisterSerializer, UserSerializer, TokenSerializer, ProfileSerializer
+
+from rest_framework import viewsets
 
 """
 @api_view(['GET'])
@@ -15,6 +18,9 @@ def current_user(request):
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
 """
+
+class RegistrationView(RegisterView):
+  serializer_class = RegisterSerializer
 
 class CreateUserView(APIView):
     permission_classes = (permissions.AllowAny, )
@@ -36,3 +42,8 @@ class ProfileView(APIView):
         users = Profile.objects.all()
         serializer = ProfileSerializer(users, many=True)
         return Response(serializer.data)
+
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()

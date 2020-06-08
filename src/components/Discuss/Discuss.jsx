@@ -1,10 +1,17 @@
 import React, { Component } from "react";
-import Footer from "../Footer/Footer";
-import Card from "../Card/Card";
+import Carousel from "react-multi-carousel";
+import Modal from "react-bootstrap/Modal";
+import DiscussCard from "../DiscussCard/DiscussCard";
 import "./Discuss.css";
+import { Button } from "antd";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import axios from "axios";
+
+// Login form
+import NormalLoginForm from "../Header/Login";
+import RegistrationForm from "../Header/Signup";
 
 /*
   This is the default page that opens when users navigate to
@@ -15,6 +22,17 @@ import axios from "axios";
   Page. 
 */
 
+var DEBUG = false;
+
+// This responsive is for the carousel component.
+const responsive = {
+	desktop: {
+		breakpoint: { max: 3000, min: 1024 },
+		items: 3,
+		slidesToSlide: 2,
+	},
+};
+
 class Discuss extends Component {
 	constructor(props) {
 		super(props);
@@ -22,56 +40,194 @@ class Discuss extends Component {
 		this.state = {
 			discuss: [],
 			profile: [],
+			isModalOpen: false,
+			login: true,
+			prompt: null,
 		};
+
+		this.updateLogin = this.updateLogin;
+		this.updateModal = this.updateModal;
+		this.updatePrompt = this.updatePrompt;
 	}
+
+	updateLogin = (bool) => {
+		this.setState({ login: bool });
+	};
+
+	updateModal = (bool) => {
+		this.setState({ isModalOpen: bool });
+	};
+
+	updatePrompt = (string) => {
+		this.setState({ prompt: string });
+	};
 
 	componentDidMount() {
-		this.getDiscuss();
-		this.getProfile();
+		this.getArticles();
 	}
 
-	getDiscuss() {
-		axios
-			.get("http://127.0.0.1:8000/posts/")
-			.then((res) => {
-				this.setState({ discuss: res.data });
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+	getArticles() {
+		if (DEBUG) {
+			axios
+				.get("http://127.0.0.1:8000/api/articles/")
+				.then((res) => {
+					console.log("RES:", res);
+					this.setState({ discuss: res.data });
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		} else {
+			axios
+				.get("https://algointeract.com/api/articles/")
+				.then((res) => {
+					this.setState({ discuss: res.data });
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	}
 
-	getProfile() {
-		axios
-			.get("http://127.0.0.1:8000/users/")
-			.then((res) => {
-				this.setState({ profile: res.data });
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+	trendingCatalog() {
+		if (this.state.discuss.length === 0) {
+			return (
+				<div class="d-flex pt-2 pb-5 bd-highlight">
+					<div class="d-flex pt-5 bd-highlight">
+						<h5 className="empty display-4 text-center"> There are no articles available </h5>
+					</div>
+				</div>
+			);
+		} else {
+			return (
+				<Carousel
+					responsive={responsive}
+					containerClass="carousel-container"
+					removeArrowOnDeviceType={["tablet", "mobile"]}
+					deviceType={this.props.deviceType}
+					dotListClass="custom-dot-list-style"
+					itemClass="card-deck d-flex pt-1 pb-4 bd-highlight"
+				>
+					{this.state.discuss.map((item) => (
+						<DiscussCard
+							data={item}
+							title={item.title}
+							author={[item.first_name, item.last_name]}
+							subtitle={item.subtitle}
+							image="https://algointeract.s3.amazonaws.com/media/article_pics/default.jpg"
+						/>
+					))}
+				</Carousel>
+			);
+		}
 	}
 
 	render() {
 		return (
 			<div>
-				{this.state.discuss.map((item) => (
-					<div key={item.id}>
-						<h1> {item.title} </h1>
-						<h3> {item.author} </h3>
-						<h5> {item.created_at} </h5>
-						<p> {item.body} </p>
+				<div class="d-flex pt-5 bd-highlight">
+					<div class="d-flex pt-5 bd-highlight">
+						<h5 className="display-4 text-center">In teaching others we teach ourselves </h5>
 					</div>
-				))}
-				{this.state.profile.map((item) => (
-					<div>
-						<h1> {item.username} </h1>
-						<h1> {item.image} </h1>
+				</div>
+				<div class="pb-5 bd-highlight">
+					<h5 className="description display-3"> Share your story! </h5>
+				</div>
+
+				<div class="buttonHolder">
+					<input
+						type="text"
+						class="searchInput"
+						name="removeNodeName"
+						placeholder="Search articles or topics"
+						value={this.state.removeNodeName}
+						onChange={this._removeNodeHandleChange}
+						onKeyPress={this._handleRemoveKeyEnter}
+					/>
+					{this.props.isAuthenticated ? (
+						<Link to="/discuss/newarticle/">
+							<Button variant="outline-danger" className="newArticleButton">
+								<p className="newArticleText"> New + </p>
+							</Button>
+						</Link>
+					) : (
+						<Button
+							variant="outline-danger"
+							className="newArticleButton"
+							onClick={() => {
+								this.setState({ isModalOpen: true });
+							}}
+						>
+							<p className="newArticleText"> New + </p>
+						</Button>
+					)}
+				</div>
+
+				<Modal
+					class="center"
+					show={this.state.isModalOpen}
+					onHide={() => {
+						this.setState({ isModalOpen: false });
+					}}
+					size="sm"
+				>
+					<Modal.Body>
+						{this.state.login ? (
+							<NormalLoginForm
+								articlePrompt={"You need to log in to create an article"}
+								updateLogin={this.updateLogin}
+								updateModal={this.updateModal}
+								updatePrompt={this.updatePrompt}
+								isAuthenticated={this.props.isAuthenticated}
+							/>
+						) : (
+							<RegistrationForm
+								updateLogin={this.updateLogin}
+								updateModal={this.updateModal}
+								updatePrompt={this.updatePrompt}
+								isAuthenticated={this.props.isAuthenticated}
+							/>
+						)}
+					</Modal.Body>
+				</Modal>
+
+				<hr className="discuss"></hr>
+
+				<div class="d-flex pl-2 bd-highlight">
+					<div class="pl-5 pb-2">
+						<h2 className="category label">Trending</h2>
 					</div>
-				))}
+				</div>
+
+				{/* This is the trending catalog carousel */}
+				{this.trendingCatalog()}
+
+				<hr className="discuss"></hr>
+
+				<div class="d-flex pl-2 bd-highlight">
+					<div class="pl-5 pb-2">
+						<h2 className="category label">Most Popular</h2>
+					</div>
+				</div>
+
+				{/* This is the trending catalog carousel */}
+				{this.trendingCatalog()}
+
+				<hr className="discuss"></hr>
+
+				<div class="d-flex pl-2 bd-highlight">
+					<div class="pl-5 pb-2">
+						<h2 className="category label">Most Recent</h2>
+					</div>
+				</div>
+
+				{/* This is the trending catalog carousel */}
+				{this.trendingCatalog()}
+
+				<div class="pb-5"></div>
 			</div>
 		);
 	}
 }
 
-export default Discuss;
+export default withRouter(Discuss);

@@ -17,6 +17,9 @@ import RegistrationForm from "./Signup";
   the Algo-Interact logo that when clicked, is another way of 
   navigating back to the Home page.
 */
+
+var DEBUG = false;
+
 class Header extends Component {
 	constructor(props) {
 		super(props);
@@ -29,26 +32,40 @@ class Header extends Component {
 			login: true,
 			getImage: false,
 		};
+
 		this.updateLogin = this.updateLogin;
 		this.updateModal = this.updateModal;
 		this.updatePrompt = this.updatePrompt;
 	}
 
 	componentDidMount() {
-		console.log("HERE");
 		this.getImage();
 	}
 
 	getImage() {
-		axios.get("http://127.0.0.1:8000/users/").then((res) => {
-			for (let i in res.data) {
-				let user = res.data[i];
-				if (user.username === this.props.username) {
-					this.setState({ image: user.image });
-					return;
+		if (DEBUG) {
+			axios.get("http://127.0.0.1:8000/users/profiles/").then((res) => {
+				for (let i in res.data) {
+					let user = res.data[i];
+					if (user.username === this.props.username) {
+						console.log("IMAGE:", user.image);
+						this.setState({ image: user.image });
+						return;
+					}
 				}
-			}
-		});
+			});
+		} else {
+			axios.get("https://algointeract.com/users/profiles/").then((res) => {
+				for (let i in res.data) {
+					let user = res.data[i];
+					if (user.username === this.props.username) {
+						console.log("IMAGE:", user.image);
+						this.setState({ image: user.image });
+						return;
+					}
+				}
+			});
+		}
 	}
 
 	updateLogin = (bool) => {
@@ -124,7 +141,14 @@ class Header extends Component {
 										aria-haspopup="true"
 										aria-expanded="false"
 									>
-										<img className="circular--landscape jay" src={"https://algointeract.s3.amazonaws.com" + this.state.image} />
+										<img
+											className="circular--landscape jay"
+											src={
+												this.state.image
+													? this.state.image
+													: "https://algointeract.s3.amazonaws.com/media/profile_pics/default.png"
+											}
+										/>
 										<span class="caret"></span>
 									</a>
 									<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">

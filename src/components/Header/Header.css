@@ -16,7 +16,6 @@
 
 .navbar.navbar-expand.navbar-dark.bg-dark {
 	background-color: #c34f6b !important;
-	border-bottom: 2px solid #af314e !important;
 }
 
 .navbar-brand {
@@ -138,8 +137,8 @@
 	height: 2em !important;
 	width: 100%;
 	border-color: #c34f6b !important;
-	color: #c34f6b !important;
-	background-color: white;
+	color: white !important;
+	background-color: #c34f6b;
 }
 
 .logInButton:hover {
@@ -156,12 +155,12 @@
 	width: 100%;
 	border-color: #c34f6b !important;
 	color: white !important;
-	background-color: #c34f6b !important;
+	background-color: #ce4e6e !important;
 }
 
 .logInText {
-	margin-top: 0.1em;
-	font-size: 1.1em;
+	margin-top: 0.2em;
+	font-size: 1em;
 }
 
 .signUp {
@@ -267,8 +266,6 @@
 	top: 3.6em;
 	height: 2.5em;
 	background-color: #c34f6b !important;
-	border-left: 2px solid #af314e !important;
-	border-right: 2px solid #af314e !important;
 	color: rgb(255, 223, 223) !important;
 	font-size: 1em !important;
 	padding-top: 0.6em !important;
@@ -280,9 +277,6 @@
 	top: 3.6em;
 	height: 2.5em;
 	background-color: #c34f6b !important;
-	border-left: 2px solid #af314e !important;
-	border-right: 2px solid #af314e !important;
-	border-bottom: 2px solid #af314e !important;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 	color: rgb(255, 223, 223) !important;
@@ -296,8 +290,6 @@
 	top: 3.6em;
 	height: 2.5em;
 	background-color: #c34f6b !important;
-	border-left: 2px solid #c34f6b !important;
-	border-right: 2px solid #c34f6b !important;
 	background-color: rgb(211, 69, 104) !important;
 	color: rgb(255, 223, 223) !important;
 	font-size: 1em !important;
@@ -318,4 +310,11 @@
 	right: 2.5em;
 	width: 5em;
 	height: 2.5em;
+}
+
+.articlePrompt.display-4.text-center {
+	font-weight: lighter;
+	margin-top: 2em;
+	margin-bottom: -0.5em;
+	font-size: 0.9em;
 }

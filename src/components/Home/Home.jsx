@@ -73,9 +73,7 @@ class Home extends Component {
 				 */}
 				<div class="d-flex p-2 bd-highlight">
 					<div class="pl-5">
-						<h2>
-							<em>Data Structures</em>{" "}
-						</h2>
+						<h2 className="label">Data Structures</h2>
 					</div>
 				</div>
 				<Carousel
@@ -84,7 +82,7 @@ class Home extends Component {
 					removeArrowOnDeviceType={["tablet", "mobile"]}
 					deviceType={this.props.deviceType}
 					dotListClass="custom-dot-list-style"
-					itemClass="card-deck d-flex pt-4 pb-5 pl-5 pr-5 bd-highlight"
+					itemClass="card-deck d-flex pb-3 pl-5 pr-5 bd-highlight"
 				>
 					<Card
 						title="Graph"
@@ -112,9 +110,7 @@ class Home extends Component {
 				<hr></hr>
 				<div class="d-flex pl-2 bd-highlight">
 					<div class="pl-5 pt-3 pb-2">
-						<h2>
-							<em>Algorithms</em>{" "}
-						</h2>
+						<h2 className="label">Algorithms</h2>
 					</div>
 				</div>
 				<Carousel
@@ -123,7 +119,7 @@ class Home extends Component {
 					removeArrowOnDeviceType={["tablet", "mobile"]}
 					deviceType={this.props.deviceType}
 					dotListClass="custom-dot-list-style"
-					itemClass="card-deck d-flex pt-4 pb-5 pl-5 pr-5 bd-highlight"
+					itemClass="card-deck d-flex pb-5 pl-5 pr-5 bd-highlight"
 				>
 					<Card
 						title="Graph Search"

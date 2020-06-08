@@ -29,11 +29,12 @@ body {
 	border-width: 0.8em;
 }
 
-h2 {
+h2.label {
 	padding-bottom: 5px;
 	border-bottom: 3px solid #c34f6b;
 	border-radius: 2px 2px 2px 2px;
 	line-height: 10px;
+	font-size: 1.6em;
 }
 
 hr {
