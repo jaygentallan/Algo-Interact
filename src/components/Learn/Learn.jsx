@@ -1,6 +1,6 @@
 import React, { Component } from "../../../node_modules/react";
 import Footer from "../Footer/Footer";
-import LearnCard from "../LearnCard/LearnCard";
+import LearnCard from "./LearnCard";
 import "./Learn.css";
 
 // The carousel:
@@ -29,12 +29,10 @@ class Learn extends Component {
 			<div class="box">
 				<div class="d-flex pt-5 bd-highlight">
 					<div class="d-flex pt-5 bd-highlight">
-						<h5 className="display-3 text-center">
-							As students ourselves, we know the passion to learn can bring you a long way. Our goal is to help you find that passion.
-						</h5>
+						<h5 className="display-3 text-center">Welcome to the Learn Page! Use our resources to guide you in your studies</h5>
 					</div>
 				</div>
-				<div class="bd-highlight">
+				<div class="pb-5 bd-highlight">
 					<h5 className="description display-3">We plan to regularly add more content!</h5>
 				</div>
 

@@ -119,10 +119,10 @@ class Header extends Component {
 							<Link
 								className="linkHeader"
 								to={{
-									pathname: "/discuss",
+									pathname: "/hub",
 								}}
 							>
-								<a class="nav-link header">Discuss</a>
+								<a class="nav-link header">Hub</a>
 							</Link>
 						</li>
 					</ul>
@@ -142,7 +142,7 @@ class Header extends Component {
 										aria-expanded="false"
 									>
 										<img
-											className="circular--landscape jay"
+											className="circular--landscape header profile"
 											src={
 												this.state.image
 													? this.state.image

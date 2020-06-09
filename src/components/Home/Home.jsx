@@ -1,6 +1,6 @@
 import React, { Component } from "../../../node_modules/react";
 import Footer from "../Footer/Footer";
-import Card from "../Card/Card";
+import Card from "./HomeCard";
 import "./Home.css";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
 
@@ -47,11 +47,11 @@ class Home extends Component {
 					/>
 				</div>
 
-				<div class="d-flex pl-5 pr-5 bd-highlight">
-					<div class="d-flex p-5 bd-highlight">
-						<h5 class="display-4 text-center">
+				<div class="d-flex pl-5 pr-5 pb-5 bd-highlight">
+					<div class="d-flex bd-highlight">
+						<h5 className="home display-4 text-center">
 							Algo-Interact was created to visualize data structures and algorithms for computer science students and anyone curious to
-							learn
+							learn.
 							<br></br>
 							<Link
 								className="linkHome"

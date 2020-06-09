@@ -275,7 +275,7 @@ div.form-check {
 }
 
 .dropdown.font-weight-light {
-	font-size: 1.2em;
+	font-size: 19px;
 	padding-top: 0em;
 	padding-left: 0.3em;
 	color: #c34f6b;
@@ -287,7 +287,7 @@ div.form-check {
 }
 
 .presetButton.font-weight-light {
-	font-size: 1.2em;
+	font-size: 19px;
 	padding-top: 0em;
 	width: 1.6em !important;
 	color: #c34f6b;

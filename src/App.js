@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-ro
 import HomePage from "./pages/home";
 import VisualizerPage from "./pages/visualizer";
 import LearnPage from "./pages/learn";
-import DiscussPage from "./pages/discuss";
+import HubPage from "./pages/hub";
 import NewArticlePage from "./pages/newArticle";
 import NotFoundPage from "./pages/404";
 import ViewArticlePage from "./pages/viewArticle";
@@ -30,17 +30,17 @@ class App extends Component {
 					<Route exact path="/" render={() => <HomePage {...this.props} />} />
 					<Route
 						exact
-						path="/visualizer/"
+						path="/visualizer"
 						render={(props) => <VisualizerPage {...props} isAuthenticated={this.props.isAuthenticated} username={this.props.username} />}
 					/>
-					<Route exact path="/learn/" render={() => <LearnPage {...this.props} />} />
-					<Route exact path="/discuss/" render={() => <DiscussPage {...this.props} />} />
+					<Route exact path="/learn" render={() => <LearnPage {...this.props} />} />
+					<Route exact path="/hub" render={() => <HubPage {...this.props} />} />
 					<Route
 						exact
-						path="/discuss/viewarticle/:id"
+						path="/hub/viewarticle/:id"
 						render={(props) => <ViewArticlePage {...props} isAuthenticated={this.props.isAuthenticated} username={this.props.username} />}
 					/>
-					<Route exact path="/discuss/newArticle/" render={() => <NewArticlePage {...this.props} />} />
+					<Route exact path="/hub/newArticle" render={() => <NewArticlePage {...this.props} />} />
 					{/*
 					<Route exact path="/" component={HomePage} {...this.props} />
 					<Route exact path="/visualizer" component={VisualizerPage} {...this.props} />

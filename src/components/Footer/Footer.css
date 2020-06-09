@@ -1,7 +1,7 @@
 a.footer.nav-link {
 	color: white;
 	text-decoration: none;
-	font-size: 0.98em;
+	font-size: 16px;
 	padding-top: 0.6em;
 	padding-right: 1em;
 	padding-left: 1em;
@@ -47,16 +47,15 @@ h1.title {
 	color: white;
 	font-weight: lighter !important;
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
-	font-size: 2.5em !important;
+	font-size: 42px;
 }
 
 h1.hello {
-	color: #c34f6b;
 	font-style: italic;
 	text-align: center;
 	font-weight: lighter !important;
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
-	font-size: 4em !important;
+	font-size: 36px;
 }
 
 h4.name {
@@ -65,10 +64,12 @@ h4.name {
 }
 
 p.description {
+	font-size: 16px;
 	font-style: italic;
 }
 
 p.lead {
+	font-size: 18px;
 	text-align: center;
 	margin: 1em;
 }
@@ -86,12 +87,14 @@ p.lead {
 	border-radius: 50% !important;
 }
 
-.circular--portrait.AC img {
+.circular--portrait.AC {
+	margin-left: 44px !important;
 	width: 100;
-	height: auto;
+	height: 100;
 }
 
 .circular--landscape {
+	margin-left: 40px;
 	object-fit: cover;
 	width: 180px;
 	height: 180px;
@@ -99,10 +102,11 @@ p.lead {
 }
 
 .circular--landscape.jay {
+	font-size: 75px;
+	margin-top: -20px;
+	margin-bottom: 10px;
 	object-fit: cover;
 	object-position: 30% 70%;
-	width: 180px;
-	height: 180px;
 	border-radius: 50%;
 }
 

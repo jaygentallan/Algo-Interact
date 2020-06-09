@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/Header/Header";
-import NewArticle from "../components/Discuss/NewArticle";
+import NewArticle from "../components/Hub/NewArticle";
 import Footer from "../components/Footer/Footer";
 
 // React function that returns what is displayed to the

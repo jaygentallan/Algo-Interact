@@ -19,7 +19,7 @@ body {
 
 .display-3.text-center {
 	color: #212529;
-	font-size: 3em;
+	font-size: 45px;
 	margin-left: 5em;
 	margin-right: 5em;
 }
@@ -38,6 +38,7 @@ h2.label {
 }
 
 hr {
+	margin-bottom: 2% !important;
 	opacity: 0.8;
 	border-radius: 5px;
 	width: 100%;
@@ -67,11 +68,15 @@ a.try:hover {
 
 .description.display-3 {
 	color: #b9b9b9;
-	font-size: 1.5em;
+	font-size: 24px;
 	font-style: italic;
 	text-align: center !important;
 }
 
 .card-deck.d-flex.pt-4.pb-5.pl-5.pr-5.bd-highlight {
 	margin-right: -4em;
+}
+
+.label {
+	font-size: 25px !important;
 }
