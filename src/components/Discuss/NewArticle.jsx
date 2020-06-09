@@ -26,15 +26,13 @@ class NewArticle extends Component {
 			content: "",
 			created_at: "",
 		};
-		//this.handleEditorChange = this.handleEditorChange.bind(this);
+		this.handleEditorChange = this.handleEditorChange.bind(this);
 	}
 
-	/*
 	handleEditorChange = (e) => {
 		this.setState({ content: e });
 		console.log("CONTENT:", this.state.content);
 	};
-	*/
 
 	/*
 	componentDidMount() {
