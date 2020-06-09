@@ -76,7 +76,12 @@ class RegistrationForm extends Component {
 								},
 							]}
 						>
-							<Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" className="formInput" />
+							<Input
+								className="loginInput"
+								prefix={<UserOutlined className="site-form-item-icon" />}
+								placeholder="Username"
+								className="formInput"
+							/>
 						</Form.Item>
 
 						<Form.Item
@@ -89,7 +94,12 @@ class RegistrationForm extends Component {
 								},
 							]}
 						>
-							<Input prefix={<MoreOutlined className="site-form-item-icon" />} placeholder="First Name" className="formInput" />
+							<Input
+								className="loginInput"
+								prefix={<MoreOutlined className="site-form-item-icon" />}
+								placeholder="First Name"
+								className="formInput"
+							/>
 						</Form.Item>
 
 						<Form.Item
@@ -102,7 +112,12 @@ class RegistrationForm extends Component {
 								},
 							]}
 						>
-							<Input prefix={<MoreOutlined className="site-form-item-icon" />} placeholder="Last Name" className="formInput" />
+							<Input
+								className="loginInput"
+								prefix={<MoreOutlined className="site-form-item-icon" />}
+								placeholder="Last Name"
+								className="formInput"
+							/>
 						</Form.Item>
 
 						<Form.Item
@@ -115,7 +130,12 @@ class RegistrationForm extends Component {
 								},
 							]}
 						>
-							<Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" className="formInput" />
+							<Input
+								className="loginInput"
+								prefix={<MailOutlined className="site-form-item-icon" />}
+								placeholder="Email"
+								className="formInput"
+							/>
 						</Form.Item>
 
 						<Form.Item
@@ -128,7 +148,12 @@ class RegistrationForm extends Component {
 								},
 							]}
 						>
-							<Input prefix={<LockOutlined className="site-form-item-icon" />} placeholder="Password" className="formInput" />
+							<Input
+								className="loginInput"
+								prefix={<LockOutlined className="site-form-item-icon" />}
+								placeholder="Password"
+								className="formInput"
+							/>
 						</Form.Item>
 
 						<Form.Item
@@ -152,7 +177,12 @@ class RegistrationForm extends Component {
 								}),
 							]}
 						>
-							<Input prefix={<MoreOutlined className="site-form-item-icon" />} placeholder="Confirm Password" className="formInput" />
+							<Input
+								className="loginInput"
+								prefix={<MoreOutlined className="site-form-item-icon" />}
+								placeholder="Confirm Password"
+								className="formInput"
+							/>
 						</Form.Item>
 						<Form.Item>
 							<div className="logIn">

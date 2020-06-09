@@ -8,6 +8,7 @@
 
 .nav-link.header {
 	font-size: 16px;
+	font-weight: 500;
 	color: white !important;
 }
 
@@ -135,7 +136,7 @@
 	border-top-left-radius: 0.3em;
 	border-bottom-left-radius: 0.3em;
 	border-width: 0.08em;
-	height: 2em !important;
+	height: 32px !important;
 	width: 100%;
 	border-color: #c34f6b !important;
 	color: white !important;
@@ -152,7 +153,7 @@
 	border-top-left-radius: 0.3em;
 	border-bottom-left-radius: 0.3em;
 	border-width: 0.08em;
-	height: 2em !important;
+	height: 32px !important;
 	width: 100%;
 	border-color: #c34f6b !important;
 	color: white !important;
@@ -171,6 +172,7 @@
 
 .signUpOne {
 	margin-left: 8%;
+	font-weight: 500px;
 	font-size: 15px;
 	color: #6b6c6d;
 	display: inline-block;
@@ -179,6 +181,7 @@
 
 .signUpTwo {
 	margin-left: 1%;
+	font-weight: 500px;
 	font-size: 15px;
 	color: #c34f6b !important;
 	display: inline-block;
@@ -193,7 +196,7 @@
 	position: relative;
 	top: 0.5em;
 	left: 9%;
-	height: 54px;
+	height: 58px;
 	width: 82%;
 	border-top-right-radius: 0.5em;
 	border-bottom-right-radius: 0.5em;

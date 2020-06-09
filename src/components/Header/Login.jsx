@@ -98,7 +98,12 @@ class NormalLoginForm extends Component {
 									},
 								]}
 							>
-								<Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
+								<Input
+									className="loginInput"
+									prefix={<LockOutlined className="site-form-item-icon" />}
+									type="password"
+									placeholder="Password"
+								/>
 							</Form.Item>
 							<Form.Item>
 								<div className="logIn">

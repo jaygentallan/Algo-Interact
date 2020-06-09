@@ -13,7 +13,7 @@ body {
 .view.cover {
 	position: relative;
 	z-index: -1;
-	height: 16em !important;
+	height: 256px !important;
 	width: 100%;
 	object-fit: cover;
 	object-position: 0% 62%;
@@ -21,13 +21,13 @@ body {
 
 .view.title {
 	position: absolute;
-	top: 6%;
+	top: 4%;
 	color: white !important;
 	text-align: center;
 	width: 100%;
-	margin-top: 2em;
+	margin-top: 105px;
 	font-family: "IBM Plex Sans", sans-serif !important;
-	font-size: 3em !important;
+	font-size: 48px !important;
 	font-weight: 100 !important;
 }
 
@@ -39,9 +39,9 @@ body {
 	max-height: 3em;
 	color: white !important;
 	text-align: center;
-	margin-top: 2em;
+	margin-top: 10px;
 	font-family: "IBM Plex Sans", sans-serif;
-	font-size: 1.3em !important;
+	font-size: 20.8px !important;
 	font-weight: 100 !important;
 }
 

@@ -2,6 +2,7 @@ a.footer.nav-link {
 	color: white;
 	text-decoration: none;
 	font-size: 16px;
+	font-weight: 500;
 	padding-top: 0.6em;
 	padding-right: 1em;
 	padding-left: 1em;
@@ -28,9 +29,10 @@ a.footer.nav-link:hover {
 }
 
 .container.text-center {
+	font-size: 16px;
 	color: white;
 	position: relative;
-	bottom: 0.5em;
+	bottom: 12px;
 }
 
 .modal-dialog {

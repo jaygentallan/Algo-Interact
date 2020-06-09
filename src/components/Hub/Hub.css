@@ -92,7 +92,7 @@ a.try:hover {
 	border-top-left-radius: 0.3em;
 	border-bottom-left-radius: 0.3em;
 	border-width: 0.08em;
-	height: 2em !important;
+	height: 32px;
 	width: 6%;
 	border-color: #c34f6b !important;
 	color: white !important;
@@ -109,7 +109,7 @@ a.try:hover {
 	border-top-left-radius: 0.3em;
 	border-bottom-left-radius: 0.3em;
 	border-width: 0.08em;
-	height: 2em !important;
+	height: 32px;
 	width: 6%;
 	border-color: #c34f6b !important;
 	color: white !important;
@@ -133,6 +133,7 @@ a.try:hover {
 
 .searchInput {
 	margin-right: 0.5em;
+	height: 32px;
 	width: 17%;
 }
 
@@ -142,6 +143,7 @@ a.try:hover {
 
 ::placeholder {
 	font-size: 15px;
+	font-weight: 300;
 }
 
 hr.discuss {

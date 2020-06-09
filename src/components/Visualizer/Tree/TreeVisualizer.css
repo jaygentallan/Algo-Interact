@@ -262,15 +262,15 @@ div.form-check {
 
 .dropdown.font-weight-light {
 	font-size: 19px;
-	padding-top: 0em;
-	padding-left: 0.3em;
+	height: 32px !important;
+	width: 32px !important;
+	padding-top: 2px !important;
+	padding-left: 4.8px;
 	color: #c34f6b;
 }
 
 .dropdown.font-weight-light:hover {
 	font-size: 19px;
-	padding-top: 0em;
-	padding-left: 0.3em;
 	color: white !important;
 	background-color: #c34f6b !important;
 }
