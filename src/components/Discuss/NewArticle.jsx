@@ -38,28 +38,6 @@ class NewArticle extends Component {
 	componentDidMount() {
 		this.getArticles();
 	}
-
-	getArticles() {
-		if (DEBUG) {
-			axios
-				.get("http://127.0.0.1:8000/api/articles/")
-				.then((res) => {
-					this.setState({ discuss: res.data });
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		} else {
-			axios
-				.get("https://algointeract.com/api/articles/")
-				.then((res) => {
-					this.setState({ discuss: res.data });
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		}
-	}
 	*/
 
 	/*
