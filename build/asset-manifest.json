@@ -1,26 +1,26 @@
 {
   "files": {
     "main.css": "https://algointeract.s3.amazonaws.com/static/css/main.4d250241.chunk.css",
-    "main.js": "https://algointeract.s3.amazonaws.com/static/js/main.63748d0a.chunk.js",
-    "main.js.map": "https://algointeract.s3.amazonaws.com/static/js/main.63748d0a.chunk.js.map",
-    "runtime-main.js": "https://algointeract.s3.amazonaws.com/static/js/runtime-main.e4daff65.js",
-    "runtime-main.js.map": "https://algointeract.s3.amazonaws.com/static/js/runtime-main.e4daff65.js.map",
-    "static/css/2.aae2bc28.chunk.css": "https://algointeract.s3.amazonaws.com/static/css/2.aae2bc28.chunk.css",
-    "static/js/2.33479061.chunk.js": "https://algointeract.s3.amazonaws.com/static/js/2.33479061.chunk.js",
-    "static/js/2.33479061.chunk.js.map": "https://algointeract.s3.amazonaws.com/static/js/2.33479061.chunk.js.map",
+    "main.js": "https://algointeract.s3.amazonaws.com/static/js/main.45fb0465.chunk.js",
+    "main.js.map": "https://algointeract.s3.amazonaws.com/static/js/main.45fb0465.chunk.js.map",
+    "runtime-main.js": "https://algointeract.s3.amazonaws.com/static/js/runtime-main.027384d9.js",
+    "runtime-main.js.map": "https://algointeract.s3.amazonaws.com/static/js/runtime-main.027384d9.js.map",
+    "static/css/2.2601d92c.chunk.css": "https://algointeract.s3.amazonaws.com/static/css/2.2601d92c.chunk.css",
+    "static/js/2.7c15fdc2.chunk.js": "https://algointeract.s3.amazonaws.com/static/js/2.7c15fdc2.chunk.js",
+    "static/js/2.7c15fdc2.chunk.js.map": "https://algointeract.s3.amazonaws.com/static/js/2.7c15fdc2.chunk.js.map",
     "index.html": "https://algointeract.s3.amazonaws.com/index.html",
-    "precache-manifest.7f9880d76868b81f454bd9c818d68d80.js": "https://algointeract.s3.amazonaws.com/precache-manifest.7f9880d76868b81f454bd9c818d68d80.js",
+    "precache-manifest.f368a7bd978e41b48e117a848979b473.js": "https://algointeract.s3.amazonaws.com/precache-manifest.f368a7bd978e41b48e117a848979b473.js",
     "service-worker.js": "https://algointeract.s3.amazonaws.com/service-worker.js",
-    "static/css/2.aae2bc28.chunk.css.map": "https://algointeract.s3.amazonaws.com/static/css/2.aae2bc28.chunk.css.map",
+    "static/css/2.2601d92c.chunk.css.map": "https://algointeract.s3.amazonaws.com/static/css/2.2601d92c.chunk.css.map",
     "static/css/main.4d250241.chunk.css.map": "https://algointeract.s3.amazonaws.com/static/css/main.4d250241.chunk.css.map",
-    "static/js/2.33479061.chunk.js.LICENSE.txt": "https://algointeract.s3.amazonaws.com/static/js/2.33479061.chunk.js.LICENSE.txt",
+    "static/js/2.7c15fdc2.chunk.js.LICENSE.txt": "https://algointeract.s3.amazonaws.com/static/js/2.7c15fdc2.chunk.js.LICENSE.txt",
     "static/media/styles.css": "https://algointeract.s3.amazonaws.com/static/media/revicons.2feb69cc.eot"
   },
   "entrypoints": [
-    "static/js/runtime-main.e4daff65.js",
-    "static/css/2.aae2bc28.chunk.css",
-    "static/js/2.33479061.chunk.js",
+    "static/js/runtime-main.027384d9.js",
+    "static/css/2.2601d92c.chunk.css",
+    "static/js/2.7c15fdc2.chunk.js",
     "static/css/main.4d250241.chunk.css",
-    "static/js/main.63748d0a.chunk.js"
+    "static/js/main.45fb0465.chunk.js"
   ]
 }
