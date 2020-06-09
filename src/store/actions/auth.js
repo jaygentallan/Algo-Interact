@@ -80,7 +80,7 @@ export const authLogin = (username, password) => {
 				});
 		} else {
 			axios
-				.post("https://algointeract.com/users/rest-auth/login/", {
+				.post("https://algo-interact.herokuapp.com/users/rest-auth/login/", {
 					username: username,
 					password: password,
 				})

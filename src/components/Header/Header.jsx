@@ -55,7 +55,7 @@ class Header extends Component {
 				}
 			});
 		} else {
-			axios.get("https://algointeract.com/users/profiles/").then((res) => {
+			axios.get("https://algo-interact.herokuapp.com/users/profiles/").then((res) => {
 				for (let i in res.data) {
 					let user = res.data[i];
 					if (user.username === this.props.username) {

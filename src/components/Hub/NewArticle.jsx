@@ -61,7 +61,7 @@ class NewArticle extends Component {
 				values.subtitle,
 				this.state.content.level.content
 			);
-			this.props.history.push("/discuss");
+			this.props.history.push("/hub");
 		};
 
 		const onFinishFailed = (errorInfo) => {

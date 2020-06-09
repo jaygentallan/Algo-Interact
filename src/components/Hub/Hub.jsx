@@ -80,7 +80,7 @@ class Hub extends Component {
 				});
 		} else {
 			axios
-				.get("https://algointeract.com/api/articles/")
+				.get("https://algo-interact.herokuapp.com/api/articles/")
 				.then((res) => {
 					this.setState({ discuss: res.data });
 				})

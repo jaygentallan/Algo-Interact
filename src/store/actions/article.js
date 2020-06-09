@@ -84,7 +84,7 @@ export const createArticle = (user_id, first_name, last_name, title, subtitle, c
 				});
 		} else {
 			axios
-				.post("https://algointeract.com/api/articles/", data, { headers: { Authorization: "Token " + token } })
+				.post("https://algo-interact.herokuapp.com/api/articles/", data, { headers: { Authorization: "Token " + token } })
 				.then((res) => {
 					console.log("RES:", res);
 					dispatch(createArticleSuccess(res));
