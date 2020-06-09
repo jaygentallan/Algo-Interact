@@ -87,11 +87,11 @@ a.try:hover {
 	border-right-style: solid;
 	border-left-style: solid;
 	border-bottom-style: solid;
-	border-top-right-radius: 0.3em;
-	border-bottom-right-radius: 0.3em;
-	border-top-left-radius: 0.3em;
-	border-bottom-left-radius: 0.3em;
-	border-width: 0.08em;
+	border-top-right-radius: 4.8px;
+	border-bottom-right-radius: 4.8px;
+	border-top-left-radius: 4.8px;
+	border-bottom-left-radius: 4.8px;
+	border-width: 1.28px;
 	height: 32px;
 	width: 6%;
 	border-color: #c34f6b !important;
@@ -104,11 +104,11 @@ a.try:hover {
 	border-right-style: solid;
 	border-left-style: solid;
 	border-bottom-style: solid;
-	border-top-right-radius: 0.3em;
-	border-bottom-right-radius: 0.3em;
-	border-top-left-radius: 0.3em;
-	border-bottom-left-radius: 0.3em;
-	border-width: 0.08em;
+	border-top-right-radius: 4.8px;
+	border-bottom-right-radius: 4.8px;
+	border-top-left-radius: 4.8px;
+	border-bottom-left-radius: 4.8px;
+	border-width: 1.28px;
 	height: 32px;
 	width: 6%;
 	border-color: #c34f6b !important;
@@ -121,7 +121,7 @@ a.try:hover {
 }
 
 .newArticleText {
-	margin-top: 0.2em;
+	margin-top: 3.2px;
 	font-size: 15px !important;
 }
 
@@ -132,7 +132,10 @@ a.try:hover {
 }
 
 .searchInput {
+	border-width: 1.28px;
+	font-size: 15px;
 	margin-right: 0.5em;
+	padding-top: 8px;
 	height: 32px;
 	width: 17%;
 }
