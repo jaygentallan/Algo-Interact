@@ -9,8 +9,6 @@ import { withRouter } from "react-router-dom";
 
 import axios from "axios";
 
-// noprotect
-
 /*
   This is the default page that opens when users navigate to
   our website. There are Card components within the Learn Page, 
@@ -28,7 +26,7 @@ class NewArticle extends Component {
 			content: "",
 			created_at: "",
 		};
-		this.handleEditorChange = this.handleEditorChange.bind(this);
+		//this.handleEditorChange = this.handleEditorChange.bind(this);
 	}
 
 	handleEditorChange = (e) => {
