@@ -45,12 +45,74 @@ body {
 	font-weight: 100 !important;
 }
 
+.view.author {
+	position: relative;
+	top: 40px;
+	left: 200px;
+	color: rgb(73, 72, 72);
+	margin-bottom: 55px;
+}
+
+.article.line {
+	width: 71%;
+}
+
+.circular--landscape.author.picture {
+	display: inline-block;
+	position: relative;
+	left: -14px !important;
+	top: -13px;
+	width: 55px;
+	height: 55px;
+	box-shadow: 0px 5px 5px #bbbbbb !important;
+}
+
+.by {
+	display: inline-block;
+	font-style: normal;
+}
+
+.author.name {
+	display: inline-block;
+	position: relative;
+	top: -12.5px !important;
+	font-family: "IBM Plex Sans", sans-serif;
+	font-weight: 400 !important;
+	font-size: 17px;
+}
+
 .view.content {
 	margin-top: 2em;
 	margin-bottom: 4em;
-	margin-left: 6.5em;
-	margin-right: 6.5em;
+	margin-left: 225px;
+	margin-right: 225px;
 	font-family: "IBM Plex Sans", sans-serif;
-	font-size: 14pt !important;
+	font-size: 22.5px !important;
 	font-weight: 100 !important;
+}
+
+figure.image {
+	display: inline-block;
+	margin: 0 2px 0 1px;
+}
+
+figure.align-left {
+	float: left;
+}
+
+figure.align-right {
+	float: right;
+}
+
+figure.image img {
+	margin: 8px 8px 0 8px;
+}
+
+figure.image figcaption {
+	color: grey !important;
+	font-size: 16px;
+	margin: 6px 8px 6px 8px;
+	text-align: center;
+	background-color: red;
+	height: 0px;
 }

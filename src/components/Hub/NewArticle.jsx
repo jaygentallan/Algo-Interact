@@ -95,18 +95,17 @@ class NewArticle extends Component {
 								// eslint-disable-next-line no-restricted-globals
 								height: screen.height * 0.5,
 								// eslint-disable-next-line no-restricted-globals
-								width: screen.width * 0.84,
+								width: screen.width * 0.65,
 								menubar: false,
+								image_caption: true,
 								placeholder: "Tell your story...",
-								plugins: "codesample quickbars image media table hr",
+								plugins: "lists advlist codesample quickbars image media table hr",
 								quickbars_selection_toolbar: "bold italic link | h1 h2 p | codesample blockquote",
-								quickbars_insert_toolbar: "image media table hr",
-								toolbar:
-									" codesample blockquote | image media table hr | bold italic underline | \
-									alignleft aligncenter alignright alignjustify | \
+								quickbars_insert_toolbar: "",
+								toolbar: " codesample blockquote | image media table hr | bold italic underline | \
 									bullist numlist outdent indent",
 								content_style:
-									"@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap'); body { font-family: 'IBM Plex Sans', sans-serif; font-size: 12pt; color: #292929; }",
+									"@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap'); figcaption {font-size: 15px} body { font-family: 'IBM Plex Sans', sans-serif; font-size: 22.5px; color: #292929; text-align: justify; }",
 							}}
 							onEditorChange={this.handleEditorChange}
 						/>

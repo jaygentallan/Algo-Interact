@@ -1,6 +1,6 @@
 .discuss.card.border {
 	height: 170px;
-	max-width: 283px;
+	max-width: 350px;
 	border-color: transparent !important;
 	border-width: 0 !important;
 	border-radius: 20px; /* Larger number results in more curved corners of card */

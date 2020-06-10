@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import "./Header.css";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
 import * as actions from "../../store/actions/auth";
-import { CaretDownOutlined } from "@ant-design/icons";
+import { CaretDownOutlined, ContainerFilled, HeartFilled, SettingFilled, PoweroffOutlined } from "@ant-design/icons";
 
 import axios from "axios";
 
@@ -166,16 +166,26 @@ class Header extends Component {
 											/>
 											<a className="username text">{this.props.username}</a>
 										</a>
-										<a className="dropdown-item display-4" href="#">
+										<a className="options dropdown-item display-4" href="#">
+											<ContainerFilled className="options icon" />
 											My Posts
 										</a>
+										<a className="options dropdown-item display-4" href="#">
+											<HeartFilled className="options icon" />
+											Favorites
+										</a>
+										<a className="options dropdown-item display-4" href="#">
+											<SettingFilled className="options icon" />
+											Settings
+										</a>
 										<a
-											class="dropdown-item display-4 last"
+											class="options dropdown-item display-4 last"
 											onClick={() => {
 												this.setState({ image: "", getImage: false });
 												this.props.logout();
 											}}
 										>
+											<PoweroffOutlined className="options icon" />
 											Logout
 										</a>
 									</div>

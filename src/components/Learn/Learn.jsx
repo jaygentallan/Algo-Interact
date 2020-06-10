@@ -2,6 +2,7 @@ import React, { Component } from "../../../node_modules/react";
 import Footer from "../Footer/Footer";
 import LearnCard from "./LearnCard";
 import "./Learn.css";
+import { ApartmentOutlined, DeploymentUnitOutlined } from "@ant-design/icons";
 
 // The carousel:
 // https://www.npmjs.com/package/react-multi-carousel
@@ -51,7 +52,10 @@ class Learn extends Component {
 				 */}
 				<div class="d-flex pl-2 bd-highlight">
 					<div class="pl-5">
-						<h2 className="label">Data Structures</h2>
+						<h2 className="learn label">
+							<ApartmentOutlined className="label icon" />
+							Data Structures
+						</h2>
 					</div>
 				</div>
 				<Carousel
@@ -206,7 +210,10 @@ class Learn extends Component {
 
 				<div class="d-flex pl-2 bd-highlight">
 					<div class="pl-5">
-						<h2 className="learn label">Algorithms</h2>
+						<h2 className="learn label">
+							<DeploymentUnitOutlined className="label icon" />
+							Algorithms
+						</h2>
 					</div>
 				</div>
 				<Carousel

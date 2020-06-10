@@ -3,6 +3,7 @@ import Footer from "../Footer/Footer";
 import Card from "./HomeCard";
 import "./Home.css";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
+import { ApartmentOutlined, DeploymentUnitOutlined } from "@ant-design/icons";
 
 /* ScrollRotate:
     This package rotates the logo on the main
@@ -47,24 +48,20 @@ class Home extends Component {
 					/>
 				</div>
 
-				<div class="d-flex pl-5 pr-5 pb-5 bd-highlight">
+				<div class="d-flex pr-5 bd-highlight">
 					<div class="d-flex bd-highlight">
 						<div className="cover home pt-5">
 							<img src={"https://algointeract.s3.amazonaws.com/static/images/cover_art.png"} />
 						</div>
 						<h5 className="home display-4 text-center">
-							Algo-Interact was created to visualize data structures and algorithms for computer science students and anyone curious to
-							learn.
+							Algo-Interact is a Computer Science Hub for students who are eager to learn and contribute
 							<br></br>
-							<Link
-								className="linkHome"
-								to={{
-									pathname: "/visualizer/",
-								}}
-							>
-								<a class="try">Try it out!</a>
-							</Link>
 						</h5>
+					</div>
+				</div>
+				<div class="pb-5 bd-highlight">
+					<div class="pb-5 bd-highlight">
+						<h5 className="description display-3">Join the Algo-Interact community now!</h5>
 					</div>
 				</div>
 
@@ -76,7 +73,10 @@ class Home extends Component {
 				 */}
 				<div class="d-flex p-2 bd-highlight">
 					<div class="pl-5">
-						<h2 className="label">Data Structures</h2>
+						<h2 className="home label">
+							<ApartmentOutlined className="label icon" />
+							Data Structures
+						</h2>
 					</div>
 				</div>
 				<Carousel
@@ -113,7 +113,10 @@ class Home extends Component {
 				<hr></hr>
 				<div class="d-flex pl-2 bd-highlight">
 					<div class="pl-5 pt-3 pb-2">
-						<h2 className="label">Algorithms</h2>
+						<h2 className="home label">
+							<DeploymentUnitOutlined className="label icon" />
+							Algorithms
+						</h2>
 					</div>
 				</div>
 				<Carousel

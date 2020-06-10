@@ -6,7 +6,7 @@ import "./Hub.css";
 import { Button } from "antd";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-import { LoadingOutlined } from "@ant-design/icons";
+import { LoadingOutlined, FireFilled, StarFilled, ClockCircleFilled, RiseOutlined } from "@ant-design/icons";
 
 import axios from "axios";
 
@@ -101,7 +101,7 @@ class Hub extends Component {
 					removeArrowOnDeviceType={["tablet", "mobile"]}
 					deviceType={this.props.deviceType}
 					dotListClass="custom-dot-list-style"
-					itemClass="card-deck d-flex pt-1 pb-4 bd-highlight"
+					itemClass="card-deck d-flex pt-1 pl-3 pb-4 bd-highlight"
 				>
 					{this.state.discuss.map((item) => (
 						<ArticleCard
@@ -195,7 +195,13 @@ class Hub extends Component {
 
 				<div class="d-flex pl-2 bd-highlight">
 					<div class="pl-5 pb-2">
-						<h2 className="category label">Trending</h2>
+						<h2 className="category label">
+							<RiseOutlined className="label icon" />
+							Trending
+						</h2>
+						<Button variant="outline-danger" className="moreButton">
+							<p className="moreButtonText"> More </p>
+						</Button>
 					</div>
 				</div>
 
@@ -206,7 +212,13 @@ class Hub extends Component {
 
 				<div class="d-flex pl-2 bd-highlight">
 					<div class="pl-5 pb-2">
-						<h2 className="category label">Most Popular</h2>
+						<h2 className="category label">
+							<StarFilled className="label icon" />
+							Most Popular
+						</h2>
+						<Button variant="outline-danger" className="moreButton">
+							<p className="moreButtonText"> More </p>
+						</Button>
 					</div>
 				</div>
 
@@ -217,7 +229,13 @@ class Hub extends Component {
 
 				<div class="d-flex pl-2 bd-highlight">
 					<div class="pl-5 pb-2">
-						<h2 className="category label">Most Recent</h2>
+						<h2 className="category label">
+							<ClockCircleFilled className="label icon" />
+							Most Recent
+						</h2>
+						<Button variant="outline-danger" className="moreButton">
+							<p className="moreButtonText"> More </p>
+						</Button>
 					</div>
 				</div>
 

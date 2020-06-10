@@ -283,6 +283,17 @@
 	padding-bottom: 0.5em !important;
 }
 
+.options.dropdown-item {
+	text-align: left !important;
+	padding-left: 60px;
+}
+
+.options.icon {
+	margin-left: -10px;
+	margin-right: 10px;
+	font-size: 16px;
+}
+
 .dropdown-item.last {
 	position: relative;
 	top: 57.6px;
@@ -298,7 +309,6 @@
 }
 
 .dropdown-item:hover {
-	background-color: #c34f6b !important;
 	background-color: rgb(211, 69, 104) !important;
 	color: rgb(255, 223, 223) !important;
 }

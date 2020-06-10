@@ -29,14 +29,6 @@ body {
 	border-width: 0.8em;
 }
 
-h2.label {
-	padding-bottom: 5px;
-	border-bottom: 3px solid #c34f6b;
-	border-radius: 2px 2px 2px 2px;
-	line-height: 10px;
-	font-size: 1.6em;
-}
-
 hr {
 	margin-bottom: 2% !important;
 	opacity: 0.8;
@@ -77,8 +69,19 @@ a.try:hover {
 	margin-right: -4em;
 }
 
-.label {
+.learn.label {
+	padding-bottom: 5px;
+	border-bottom: 3px solid #c34f6b;
+	border-radius: 2px 2px 2px 2px;
+	line-height: 10px;
 	font-size: 25px !important;
+}
+
+.label.icon {
+	height: 15px;
+	margin-right: 8px;
+	border-bottom: none !important;
+	color: #c34f6b;
 }
 
 .cover.learn img {
