@@ -1,4 +1,4 @@
-import React from "../../../node_modules/react";
+import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";

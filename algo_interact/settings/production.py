@@ -38,7 +38,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build'), 
 ]
 MEDIA_ROOT = 'media'
-STATIC_ROOT = 'staticfiles'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 

@@ -260,12 +260,6 @@
 	cursor: pointer;
 }
 
-.circular--landscape.header.profile {
-	margin-top: 3px;
-	width: 38px;
-	height: 38px;
-}
-
 .dropdown.user {
 	z-index: 100;
 	position: absolute !important;
@@ -276,20 +270,25 @@
 
 .dropdown-item {
 	position: relative;
-	top: 3.6em;
-	height: 2.5em;
+	right: 15px;
+	top: 57.6px;
+	height: 40px;
+	width: 200px !important;
+	text-align: center !important;
 	background-color: #c34f6b !important;
 	color: rgb(255, 223, 223) !important;
 	font-size: 1em !important;
+	margin-top: -5px;
 	padding-top: 0.6em !important;
 	padding-bottom: 0.5em !important;
 }
 
 .dropdown-item.last {
 	position: relative;
-	top: 3.6em;
-	height: 2.5em;
+	top: 57.6px;
+	height: 40px;
 	background-color: #c34f6b !important;
+	text-align: center;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 	color: rgb(255, 223, 223) !important;
@@ -299,22 +298,65 @@
 }
 
 .dropdown-item:hover {
-	position: relative;
-	top: 3.6em;
-	height: 2.5em;
 	background-color: #c34f6b !important;
 	background-color: rgb(211, 69, 104) !important;
 	color: rgb(255, 223, 223) !important;
-	font-size: 1em !important;
+}
+
+.profile.dropdown-item {
+	position: relative;
+	align-content: center !important;
+	right: 15px;
+	height: 135px;
+	width: 200px !important;
+	background-color: #c34f6b !important;
+	color: rgb(255, 223, 223) !important;
+	font-size: 16px;
+	padding-top: 0.6em !important;
 	padding-bottom: 0.5em !important;
+	margin-bottom: 5px;
 }
 
 .username {
-	padding-left: 8px;
 	position: absolute !important;
-	right: 40px;
-	width: 80px;
+	right: 20px;
+	width: 50px;
 	height: 40px;
+}
+
+.username.text {
+	font-size: 16px;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding-top: 83px;
+}
+
+.circular--landscape.header.profile {
+	position: relative;
+	right: 40px;
+	margin-top: 7px;
+	width: 30px;
+	height: 30px;
+}
+
+.circular--landscape.header.profile.big {
+	position: relative;
+	left: -14px !important;
+	top: -13px;
+	width: 100px;
+	height: 100px;
+	border: 2.5px solid white;
+	box-shadow: 0px 5px 5px #a03850 !important;
+}
+
+.caret {
+	position: relative;
+	top: 17px;
+	right: 4px;
+	font-size: 12px;
+	color: white;
+	position: absolute;
 }
 
 .articlePrompt.display-4.text-center {

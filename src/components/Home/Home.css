@@ -73,3 +73,11 @@ a.try:hover {
 .label {
 	font-size: 25px !important;
 }
+
+.cover.home.pt-5 img {
+	width: 100%;
+	max-height: 300px;
+	margin-top: -110px;
+	margin-left: -50px;
+	object-fit: fill !important;
+}

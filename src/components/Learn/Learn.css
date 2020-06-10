@@ -17,11 +17,11 @@ body {
 	flex: 1 1 auto;
 }
 
-.display-3.text-center {
+.display-3.text-center.learn {
 	color: #212529;
-	font-size: 45px;
-	margin-left: 5em;
-	margin-right: 5em;
+	font-size: 40px;
+	padding-left: 250px;
+	padding-right: 250px;
 }
 .card.border.border-danger {
 	border-color: #c34f6b !important;
@@ -79,4 +79,13 @@ a.try:hover {
 
 .label {
 	font-size: 25px !important;
+}
+
+.cover.learn img {
+	position: relative;
+	top: -60px;
+	left: 60px;
+	width: 90%;
+	max-height: 250px !important;
+	object-fit: fill !important;
 }

@@ -18,11 +18,11 @@ body {
 	flex: 1 1 auto;
 }
 
-.display-3.text-center {
+.display-3.text-center.hub {
 	color: #212529;
-	font-size: 40px !important;
-	margin-left: 5em;
-	margin-right: 5em;
+	font-size: 40px;
+	padding-left: 250px;
+	padding-right: 250px;
 }
 
 .empty.display-4.text-center {
@@ -77,9 +77,9 @@ a.try:hover {
 }
 
 .card-deck.d-flex.pt-1.pb-4.bd-highlight {
-	margin-left: 2.5em;
-	margin-right: -10em;
-	margin-top: -0.2em;
+	margin-left: 40px;
+	margin-right: -160px;
+	margin-bottom: -30px;
 }
 
 .newArticleButton {
@@ -164,4 +164,13 @@ hr.discuss {
 	width: 100%;
 	height: 40px;
 	font-size: 40px;
+}
+
+.cover.hub img {
+	position: relative;
+	top: -60px;
+	left: 60px;
+	width: 90%;
+	max-height: 250px !important;
+	object-fit: fill !important;
 }

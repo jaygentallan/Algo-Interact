@@ -27,13 +27,20 @@ class Learn extends Component {
 	render() {
 		return (
 			<div class="box">
-				<div class="d-flex pt-5 bd-highlight">
+				<div class="d-flex pt-3 bd-highlight">
 					<div class="d-flex pt-5 bd-highlight">
-						<h5 className="display-3 text-center">Welcome to the Learn Page! Use our resources to guide you in your studies</h5>
+						<div class="d-flex pt-5 bd-highlight">
+							<div className="cover learn">
+								<img src={"https://algointeract.s3.amazonaws.com/static/images/cover_art.png"} />
+							</div>
+							<h5 className="display-3 text-center learn">Welcome to the Learn page! Use our resources to guide you in your studies</h5>
+						</div>
 					</div>
 				</div>
 				<div class="pb-5 bd-highlight">
-					<h5 className="description display-3">We plan to regularly add more content!</h5>
+					<div class="pb-5 bd-highlight">
+						<h5 className="description display-3">We plan to regularly add more content!</h5>
+					</div>
 				</div>
 
 				<hr></hr>

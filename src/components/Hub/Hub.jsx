@@ -120,9 +120,14 @@ class Hub extends Component {
 	render() {
 		return (
 			<div>
-				<div class="d-flex pt-5 bd-highlight">
+				<div class="d-flex pt-3 bd-highlight">
 					<div class="d-flex pt-5 bd-highlight">
-						<h5 className="display-3 text-center"> Welcome to the Hub! Read other people's articles or share your own </h5>
+						<div class="d-flex pt-5 bd-highlight">
+							<div className="cover hub">
+								<img src={"https://algointeract.s3.amazonaws.com/static/images/cover_art.png"} />
+							</div>
+							<h5 className="display-3 text-center hub"> Welcome to the Hub! Read other people's articles or share your own </h5>
+						</div>
 					</div>
 				</div>
 				<div class="pb-5 bd-highlight">

@@ -28,6 +28,7 @@ router = SimpleRouter()
 router.register('', ArticleViewSet, basename='articles')
 
 urlpatterns = [
-    path('', include(router.urls)),
     path('<int:pk>/', ArticleDetailView.as_view(), name='article-detail'),
 ]
+
+urlpatterns += re_path('.*', include(router.urls)),

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import "./Header.css";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
 import * as actions from "../../store/actions/auth";
+import { CaretDownOutlined } from "@ant-design/icons";
 
 import axios from "axios";
 
@@ -141,19 +142,29 @@ class Header extends Component {
 										aria-haspopup="true"
 										aria-expanded="false"
 									>
-										<img
-											className="circular--landscape header profile"
-											src={
-												this.state.image
-													? this.state.image
-													: "https://algointeract.s3.amazonaws.com/media/profile_pics/default.png"
-											}
-										/>
-										<span class="caret"></span>
+										<div>
+											<img
+												className="circular--landscape header profile"
+												src={
+													this.state.image
+														? this.state.image
+														: "https://algointeract.s3.amazonaws.com/media/profile_pics/default.png"
+												}
+											/>
+											<CaretDownOutlined className="caret" />
+										</div>
 									</a>
 									<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<a className="dropdown-item display-4" href="#">
-											Profile
+										<a className="profile dropdown-item display-4">
+											<img
+												className="circular--landscape header profile big"
+												src={
+													this.state.image
+														? this.state.image
+														: "https://algointeract.s3.amazonaws.com/media/profile_pics/default.png"
+												}
+											/>
+											<a className="username text">{this.props.username}</a>
 										</a>
 										<a className="dropdown-item display-4" href="#">
 											My Posts

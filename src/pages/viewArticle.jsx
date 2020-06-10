@@ -8,11 +8,18 @@ import { withRouter } from "react-router-dom";
 // user when it is called using the Router in the App.js file.
 const ViewArticlePage = (props) => {
 	var data;
+
 	if (props.location.state) {
 		data = props.location.state;
 	}
+
+	const scrollToTop = () => {
+		window.scrollTo(0, 0);
+	};
+
 	return (
 		<div className="Container">
+			{scrollToTop()}
 			<Header {...props} />
 			<ViewArticle {...props} data={data} />
 			<Footer />
