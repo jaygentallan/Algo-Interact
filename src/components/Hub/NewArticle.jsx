@@ -80,11 +80,11 @@ class NewArticle extends Component {
 				*/}
 				<Form name="basic" className="titleInput" initialValues={{ remember: true }} onFinish={onFinish} onFinishFailed={onFinishFailed}>
 					<Form.Item name="title" rules={[{ required: true, message: " " }]}>
-						<Input className="newArticleTitle" placeholder="Title" />
+						<textarea rows="2" maxlength="60" className="newArticleTitle" placeholder="Title" />
 					</Form.Item>
 
 					<Form.Item name="subtitle" rules={[{ required: true, message: " " }]}>
-						<Input className="newArticleSubtitle" placeholder="A short description" />
+						<textarea className="newArticleSubtitle" placeholder="A short description" />
 					</Form.Item>
 
 					<div class="content d-flex justify-content-center">
@@ -96,17 +96,18 @@ class NewArticle extends Component {
 								// eslint-disable-next-line no-restricted-globals
 								height: screen.height * 0.5,
 								// eslint-disable-next-line no-restricted-globals
-								width: screen.width * 0.65,
+								width: screen.width * 0.68,
 								menubar: false,
 								image_caption: true,
 								placeholder: "Tell your story...",
 								plugins: "lists advlist codesample quickbars image media table hr",
 								quickbars_selection_toolbar: "bold italic link | h1 h2 p | codesample blockquote",
 								quickbars_insert_toolbar: "",
-								toolbar: " codesample blockquote | image media table hr | bold italic underline | \
-									bullist numlist outdent indent",
+								toolbar:
+									" codesample blockquote | image media table hr | bold italic underline | \
+									alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
 								content_style:
-									"@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap'); figcaption {font-size: 15px} body { font-family: 'IBM Plex Sans', sans-serif; font-size: 22.5px; color: #292929; text-align: justify; }",
+									"@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap'); figcaption {font-family: 'Libre Baskerville', serif; font-size: 15px} body { font-family: 'Libre Baskerville', serif; font-size: 22px; color: #292929; text-align: justify; }",
 							}}
 							onEditorChange={this.handleEditorChange}
 						/>

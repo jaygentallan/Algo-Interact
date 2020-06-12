@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap");
+
 body {
 	font-family: "IBM Plex Sans", sans-serif;
 	font-size: 16pt;
@@ -21,39 +24,43 @@ body {
 
 .view.title {
 	position: absolute;
-	top: 4%;
+	top: 0;
+	left: 0;
+	padding-top: 100px;
+	padding-left: 225px;
 	color: white !important;
-	text-align: center;
 	width: 100%;
 	margin-top: 105px;
-	font-family: "IBM Plex Sans", sans-serif !important;
+	font-family: "Libre Baskerville", serif !important;
 	font-size: 48px !important;
 	font-weight: 100 !important;
 }
 
 .view.subtitle {
 	position: absolute;
-	top: 9em;
+	top: 0;
 	left: 0;
+	padding-top: 155px;
+	padding-left: 225px;
 	width: 100%;
 	max-height: 3em;
 	color: white !important;
-	text-align: center;
-	margin-top: 10px;
-	font-family: "IBM Plex Sans", sans-serif;
-	font-size: 20.8px !important;
+	margin-top: 105px;
+	font-family: "Libre Baskerville", serif !important;
+	font-size: 24px !important;
 	font-weight: 100 !important;
 }
 
 .view.author {
 	position: relative;
-	top: 40px;
-	left: 200px;
+	margin-top: 40px;
+	margin-left: 200px;
 	color: rgb(73, 72, 72);
 	margin-bottom: 55px;
 }
 
 .article.line {
+	margin-top: -40px;
 	width: 71%;
 }
 
@@ -62,8 +69,16 @@ body {
 	position: relative;
 	left: -14px !important;
 	top: -13px;
-	width: 55px;
-	height: 55px;
+	width: 50px !important;
+	height: 50px;
+	box-shadow: 0px 5px 5px #bbbbbb !important;
+}
+
+.circular--landscape.author.picture.big {
+	display: inline-block;
+	position: relative;
+	width: 100px !important;
+	height: 100px;
 	box-shadow: 0px 5px 5px #bbbbbb !important;
 }
 
@@ -75,10 +90,62 @@ body {
 .author.name {
 	display: inline-block;
 	position: relative;
-	top: -12.5px !important;
-	font-family: "IBM Plex Sans", sans-serif;
-	font-weight: 400 !important;
-	font-size: 17px;
+	top: -22.5px !important;
+	font-family: "Source Sans Pro", sans-serif;
+	font-size: 15px;
+}
+
+.author.name.big {
+	display: inline-block;
+	position: relative;
+	top: -14px !important;
+	font-family: "Source Sans Pro", sans-serif;
+	font-size: 26px;
+	font-weight: bold;
+	color: rgb(44, 44, 44);
+}
+
+.author.date {
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	top: 20px !important;
+	font-family: "Source Sans Pro", sans-serif;
+	font-size: 15px;
+	color: grey;
+}
+
+.author.bookmark {
+	display: inline-block;
+	position: absolute;
+	right: 225px;
+	top: -0px !important;
+	font-family: "Source Sans Pro", sans-serif;
+	font-size: 20px;
+	color: grey;
+}
+
+.author.createdby {
+	display: inline-block;
+	position: absolute;
+	left: 140px;
+	font-family: "Source Sans Pro", sans-serif;
+	font-size: 16px;
+	color: grey;
+}
+
+.author.description {
+	display: inline-block;
+	position: absolute;
+	top: 45px;
+	left: 140px;
+	font-family: "Source Sans Pro", sans-serif;
+	font-size: 18px;
+	color: grey;
+}
+
+.view.author.big {
+	position: relative;
 }
 
 .view.content {
@@ -86,8 +153,8 @@ body {
 	margin-bottom: 4em;
 	margin-left: 225px;
 	margin-right: 225px;
-	font-family: "IBM Plex Sans", sans-serif;
-	font-size: 22.5px !important;
+	font-family: "Libre Baskerville", serif !important;
+	font-size: 22px !important;
 	font-weight: 100 !important;
 }
 

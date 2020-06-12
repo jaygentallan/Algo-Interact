@@ -21,10 +21,10 @@ const ArticleCard = (props) => {
 				<img class="discuss card-img-top" src={props.image} />
 				<div className="card content">
 					<h3 className="discuss title">{props.title}</h3>
+					<p className="discuss subtitle"> {props.subtitle} </p>
 					<p className="discuss author">
 						By {props.author[0]} {props.author[1]}
 					</p>
-					<p className="discuss subtitle"> {props.subtitle} </p>
 				</div>
 			</Link>
 		</div>

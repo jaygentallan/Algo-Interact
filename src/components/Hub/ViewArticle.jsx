@@ -5,6 +5,7 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as actions from "../../store/actions/article";
+import { BookOutlined } from "@ant-design/icons";
 
 import axios from "axios";
 
@@ -21,10 +22,17 @@ class ViewArticle extends Component {
 	constructor(props) {
 		super(props);
 
+		const created_at = props.data.data.created_at.split("T")[0];
+		const year = created_at.split("-")[0];
+		const month = created_at.split("-")[1];
+		const day = created_at.split("-")[2].replace(/^0+/, "");
+		const date = new Date(year, month, day);
+		const formatted_date = date.toLocaleString("en-us", { month: "long" }) + " " + day + " " + year;
+
 		this.state = {
 			data: props.data.data,
 			content: "",
-			created_at: "",
+			created_at: formatted_date,
 		};
 	}
 
@@ -64,8 +72,8 @@ class ViewArticle extends Component {
 		return (
 			<div>
 				<img className="view cover" src="https://algointeract.s3.amazonaws.com/media/article_pics/default.jpg" />
-				<h1 className="d-flex justify-content-center view title"> {this.state.data.title} </h1>
-				<h1 className="d-flex justify-content-center view subtitle"> {this.state.data.subtitle} </h1>
+				<h1 className="d-flex view title"> {this.state.data.title} </h1>
+				<h1 className="d-flex view subtitle"> {this.state.data.subtitle} </h1>
 				<div class="view author">
 					<img
 						className="circular--landscape author picture"
@@ -73,10 +81,24 @@ class ViewArticle extends Component {
 					/>
 					<h1 className="author name">
 						{this.state.data.first_name} {this.state.data.last_name}
+						<h1 className="author date">{this.state.created_at}</h1>
 					</h1>
+					<BookOutlined className="author bookmark" />
 				</div>
 				<hr className="article line"></hr>
 				<div class="view content" dangerouslySetInnerHTML={this.contentMarkup()} />
+				<hr className="article line"></hr>
+				<div class="view author big">
+					<img
+						className="circular--landscape author picture big"
+						src={this.state.image ? this.state.image : "https://algointeract.s3.amazonaws.com/media/profile_pics/default.png"}
+					/>
+					<h1 className="author createdby">CREATED BY</h1>
+					<h1 className="author name big">
+						{this.state.data.first_name} {this.state.data.last_name}
+					</h1>
+					<h1 className="author description">Student at California State University, East Bay</h1>
+				</div>
 			</div>
 		);
 	}
