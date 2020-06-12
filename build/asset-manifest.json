@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "https://algointeract.s3.amazonaws.com/static/css/main.45a9ab3a.chunk.css",
-    "main.js": "https://algointeract.s3.amazonaws.com/static/js/main.560693f3.chunk.js",
-    "main.js.map": "https://algointeract.s3.amazonaws.com/static/js/main.560693f3.chunk.js.map",
+    "main.css": "https://algointeract.s3.amazonaws.com/static/css/main.f6c9f05e.chunk.css",
+    "main.js": "https://algointeract.s3.amazonaws.com/static/js/main.6411b980.chunk.js",
+    "main.js.map": "https://algointeract.s3.amazonaws.com/static/js/main.6411b980.chunk.js.map",
     "runtime-main.js": "https://algointeract.s3.amazonaws.com/static/js/runtime-main.027384d9.js",
     "runtime-main.js.map": "https://algointeract.s3.amazonaws.com/static/js/runtime-main.027384d9.js.map",
     "static/css/2.2601d92c.chunk.css": "https://algointeract.s3.amazonaws.com/static/css/2.2601d92c.chunk.css",
     "static/js/2.8693bee9.chunk.js": "https://algointeract.s3.amazonaws.com/static/js/2.8693bee9.chunk.js",
     "static/js/2.8693bee9.chunk.js.map": "https://algointeract.s3.amazonaws.com/static/js/2.8693bee9.chunk.js.map",
     "index.html": "https://algointeract.s3.amazonaws.com/index.html",
-    "precache-manifest.16d4f7d93931a8ed3625339db934f672.js": "https://algointeract.s3.amazonaws.com/precache-manifest.16d4f7d93931a8ed3625339db934f672.js",
+    "precache-manifest.4121ce8e092c4e7c15eda55ca48b5962.js": "https://algointeract.s3.amazonaws.com/precache-manifest.4121ce8e092c4e7c15eda55ca48b5962.js",
     "service-worker.js": "https://algointeract.s3.amazonaws.com/service-worker.js",
     "static/css/2.2601d92c.chunk.css.map": "https://algointeract.s3.amazonaws.com/static/css/2.2601d92c.chunk.css.map",
-    "static/css/main.45a9ab3a.chunk.css.map": "https://algointeract.s3.amazonaws.com/static/css/main.45a9ab3a.chunk.css.map",
+    "static/css/main.f6c9f05e.chunk.css.map": "https://algointeract.s3.amazonaws.com/static/css/main.f6c9f05e.chunk.css.map",
     "static/js/2.8693bee9.chunk.js.LICENSE.txt": "https://algointeract.s3.amazonaws.com/static/js/2.8693bee9.chunk.js.LICENSE.txt",
     "static/media/styles.css": "https://algointeract.s3.amazonaws.com/static/media/revicons.2feb69cc.eot"
   },
@@ -20,7 +20,7 @@
     "static/js/runtime-main.027384d9.js",
     "static/css/2.2601d92c.chunk.css",
     "static/js/2.8693bee9.chunk.js",
-    "static/css/main.45a9ab3a.chunk.css",
-    "static/js/main.560693f3.chunk.js"
+    "static/css/main.f6c9f05e.chunk.css",
+    "static/js/main.6411b980.chunk.js"
   ]
 }
