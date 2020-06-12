@@ -62,6 +62,7 @@ class NewArticle extends Component {
 				this.state.content.level.content
 			);
 			this.props.history.push("/hub");
+			window.location.reload();
 		};
 
 		const onFinishFailed = (errorInfo) => {

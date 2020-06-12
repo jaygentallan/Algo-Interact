@@ -84,17 +84,6 @@ body {
 }
 
 .submitButton:hover {
-	border-top-style: solid;
-	border-right-style: solid;
-	border-left-style: solid;
-	border-bottom-style: solid;
-	border-top-right-radius: 4.8px;
-	border-bottom-right-radius: 4.8px;
-	border-top-left-radius: 4.8px;
-	border-bottom-left-radius: 4.8px;
-	border-width: 1.28px;
-	height: 2em !important;
-	width: 10%;
 	border-color: #c34f6b !important;
 	color: white !important;
 	background-color: #c34f6b !important;
@@ -134,17 +123,6 @@ body {
 }
 
 .saveButton:hover {
-	border-top-style: solid;
-	border-right-style: solid;
-	border-left-style: solid;
-	border-bottom-style: solid;
-	border-top-right-radius: 4.8px;
-	border-bottom-right-radius: 4.8px;
-	border-top-left-radius: 4.8px;
-	border-bottom-left-radius: 4.8px;
-	border-width: 1.28px;
-	height: 2em !important;
-	width: 10%;
 	border-color: #21b134 !important;
 	color: white !important;
 	background-color: #21b134 !important;

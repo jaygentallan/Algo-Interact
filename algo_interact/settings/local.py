@@ -19,7 +19,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
 SECURE_FRAME_DENY               = False
 
 
-HOST = "http://localhost:3000"
+HOST = "http://localhost:8000"
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
