@@ -26,13 +26,34 @@ HOST = "http://localhost:8000"
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
+#set S3 as the place to store your files.
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_QUERYSTRING_AUTH = False #This will make sure that the file URL does not have unnecessary parameters like your access key.
+
+
+AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com'
+
+
+#static media settings for aws
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'build/static'),
-    #os.path.join(BASE_DIR, 'media/profile_pics'),
+MEDIA_URL = 'https://algointeract.s3.amazonaws.com/media/'
+STATICFILES_DIRS = [ 
+    os.path.join(BASE_DIR, 'build'), 
 ]
-
-MEDIA_URL = 'https://algointeract.s3.amazonaws.com/'
 MEDIA_ROOT = 'media'
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+
+
+STATICFILES_FINDERS = (
+'django.contrib.staticfiles.finders.FileSystemFinder',
+'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)

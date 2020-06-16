@@ -3,11 +3,12 @@ import "./NewArticle.css";
 import * as actions from "../../store/actions/article";
 import { Editor } from "@tinymce/tinymce-react";
 import { Form, Input, Button } from "antd";
-import { ImportOutlined } from "@ant-design/icons";
+import { CameraTwoTone } from "@ant-design/icons";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import axios from "axios";
+import { set } from "d3";
 
 /*
   This is the default page that opens when users navigate to
@@ -24,14 +25,26 @@ class NewArticle extends Component {
 
 		this.state = {
 			content: "",
+			tempCover: "https://algointeract.s3.amazonaws.com/media/article_pics/default.jpg",
+			cover: null,
 			created_at: "",
 		};
 		this.handleEditorChange = this.handleEditorChange.bind(this);
+		this.handleCoverChange = this.handleCoverChange.bind(this);
 	}
 
 	handleEditorChange = (e) => {
 		this.setState({ content: e });
 		console.log("CONTENT:", this.state.content);
+	};
+
+	handleCoverChange = (e) => {
+		console.log("CHANGING COVER WITH:", URL.createObjectURL(e.target.files[0]));
+		e.preventDefault();
+		this.setState({
+			tempCover: URL.createObjectURL(e.target.files[0]),
+			cover: e.target.files[0],
+		});
 	};
 
 	/*
@@ -40,29 +53,20 @@ class NewArticle extends Component {
 	}
 	*/
 
-	/*
-	onChangeFile = (event) => {
-		event.stopPropagation();
-		event.preventDefault();
-		var file = event.target.files[0];
-		console.log("FILE:", file);
-		this.setState({ file });
-	};
-	*/
-
 	render() {
 		// Calls the article function in article.js
 		const onFinish = (values) => {
+			console.log("COVER:", this.state.cover);
 			this.props.article(
 				this.props.id,
 				this.props.first_name,
 				this.props.last_name,
 				values.title,
 				values.subtitle,
-				this.state.content.level.content
+				this.state.content.level.content,
+				this.state.cover
 			);
 			this.props.history.push("/hub");
-			window.location.reload();
 		};
 
 		const onFinishFailed = (errorInfo) => {
@@ -71,20 +75,26 @@ class NewArticle extends Component {
 
 		return (
 			<div>
-				<img className="cover" src={"https://algointeract.s3.amazonaws.com/media/article_pics/default.jpg"} />
-				{/*
+				<img className="cover" src={this.state.tempCover} />
+				<img className="coverBackground" src={this.state.tempCover} />
+				<div className="cutoff"></div>
 				<div className="uploadButton">
-					<input type="file" ref={(ref) => (this.upload = ref)} style={{ display: "none" }} onChange={this.onChangeFile.bind(this)} />
-					<ImportOutlined onClick={(e) => this.upload.click()} />
+					<input
+						type="file"
+						id="file_input"
+						ref={(ref) => (this.upload = ref)}
+						style={{ display: "none" }}
+						onChange={this.handleCoverChange}
+					/>
+					<CameraTwoTone twoToneColor="#c34f6b" onClick={(e) => this.upload.click()} />
 				</div>
-				*/}
 				<Form name="basic" className="titleInput" initialValues={{ remember: true }} onFinish={onFinish} onFinishFailed={onFinishFailed}>
 					<Form.Item name="title" rules={[{ required: true, message: " " }]}>
 						<textarea rows="2" maxlength="60" className="newArticleTitle" placeholder="Title" />
 					</Form.Item>
 
 					<Form.Item name="subtitle" rules={[{ required: true, message: " " }]}>
-						<textarea className="newArticleSubtitle" placeholder="A short description" />
+						<textarea rows="1" maxlength="50" className="newArticleSubtitle" placeholder="A short description" />
 					</Form.Item>
 
 					<div class="content d-flex justify-content-center">
@@ -96,7 +106,7 @@ class NewArticle extends Component {
 								// eslint-disable-next-line no-restricted-globals
 								height: screen.height * 0.5,
 								// eslint-disable-next-line no-restricted-globals
-								width: screen.width * 0.68,
+								width: screen.width * 0.57,
 								menubar: false,
 								image_caption: true,
 								placeholder: "Tell your story...",
@@ -107,7 +117,7 @@ class NewArticle extends Component {
 									" codesample blockquote | image media table hr | bold italic underline | \
 									alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
 								content_style:
-									"@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap'); figcaption {font-family: 'Libre Baskerville', serif; font-size: 15px} body { font-family: 'Libre Baskerville', serif; font-size: 22px; color: #292929; text-align: justify; }",
+									"@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap'); figcaption {font-family: 'Libre Baskerville', serif; font-size: 15px} body { font-family: 'Libre Baskerville', serif; font-size: 18px; color: #292929; text-align: justify; }",
 							}}
 							onEditorChange={this.handleEditorChange}
 						/>
@@ -136,8 +146,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		article: (user_id, first_name, last_name, title, subtitle, content) =>
-			dispatch(actions.createArticle(user_id, first_name, last_name, title, subtitle, content)),
+		article: (user_id, first_name, last_name, title, subtitle, content, cover) =>
+			dispatch(actions.createArticle(user_id, first_name, last_name, title, subtitle, content, cover)),
 	};
 };
 

@@ -18,7 +18,7 @@ const ArticleCard = (props) => {
 					state: { data: props.data },
 				}}
 			>
-				<img class="discuss card-img-top" src={props.image} />
+				<img class="discuss card-img-top" src={props.cover} />
 				<div className="card content">
 					<h3 className="discuss title">{props.title}</h3>
 					<p className="discuss subtitle"> {props.subtitle} </p>

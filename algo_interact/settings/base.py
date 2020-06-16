@@ -211,8 +211,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 #django_heroku.settings(locals())e
-
-
-import random
-
-RANDOM_NUMBER = random.randint(1,10)

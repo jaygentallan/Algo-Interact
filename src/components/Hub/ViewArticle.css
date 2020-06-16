@@ -13,55 +13,105 @@ body {
 	height: 100%;
 }
 
-.view.cover {
-	position: relative;
+.viewCover {
+	position: absolute;
+	top: 58px;
+	padding-left: 270px;
+	padding-right: 275px;
 	z-index: -1;
-	height: 256px !important;
+	height: 350px !important;
 	width: 100%;
 	object-fit: cover;
-	object-position: 0% 62%;
+	object-position: 0% 50%;
 }
 
-.view.title {
+.viewCoverBackground {
+	z-index: -2;
 	position: absolute;
+	top: 45px;
+	height: 350px !important;
+	object-fit: cover;
+	object-position: 0% 50%;
+	min-width: 95.2%;
+	/* Add the blur effect */
+	filter: blur(10px);
+
+	transform: scale(1.1);
+}
+
+.cutoff {
+	position: absolute;
+	top: 408.5px;
+	height: 40px;
+	width: 100%;
+	background-color: white;
+}
+
+.view.title.short {
+	position: relative;
 	top: 0;
-	left: 0;
-	padding-top: 100px;
-	padding-left: 225px;
+	padding-top: 107px;
+	padding-left: 300px;
+	padding-right: 300px;
 	color: white !important;
+	height: 115px;
+	width: 100%;
+	margin-top: 130px;
+	font-family: "Libre Baskerville", serif !important;
+	font-size: 48px !important;
+	font-weight: 100 !important;
+	text-shadow: 2px 2px 4px #000000;
+}
+
+.view.title.long {
+	position: relative;
+	padding-top: 79px;
+	padding-left: 300px;
+	padding-right: 300px;
+	color: white !important;
+	height: 115px;
 	width: 100%;
 	margin-top: 105px;
 	font-family: "Libre Baskerville", serif !important;
 	font-size: 48px !important;
 	font-weight: 100 !important;
+	text-shadow: 2px 2px 4px #000000;
+}
+
+.longPadding {
+	position: relative;
+	width: 100%;
+	padding-bottom: 17px !important;
 }
 
 .view.subtitle {
-	position: absolute;
-	top: 0;
+	position: relative;
 	left: 0;
-	padding-top: 155px;
-	padding-left: 225px;
+	margin-top: 52.5px;
+	margin-bottom: 0px;
+	padding-left: 300px;
+	padding-right: 300px;
 	width: 100%;
-	max-height: 3em;
+	max-height: 70px;
 	color: white !important;
-	margin-top: 105px;
 	font-family: "Libre Baskerville", serif !important;
 	font-size: 24px !important;
 	font-weight: 100 !important;
+	text-shadow: 2px 2px 4px #000000;
 }
 
 .view.author {
 	position: relative;
-	margin-top: 40px;
-	margin-left: 200px;
+	margin-top: 65px;
+	margin-left: 275px;
+	margin-right: 275px;
 	color: rgb(73, 72, 72);
 	margin-bottom: 55px;
 }
 
 .article.line {
 	margin-top: -40px;
-	width: 71%;
+	width: 64%;
 }
 
 .circular--landscape.author.picture {
@@ -93,6 +143,7 @@ body {
 	top: -22.5px !important;
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: 15px;
+	color: rgb(44, 44, 44);
 }
 
 .author.name.big {
@@ -118,8 +169,9 @@ body {
 .author.bookmark {
 	display: inline-block;
 	position: absolute;
-	right: 225px;
+	right: 0;
 	top: -0px !important;
+	padding-right: 25px;
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: 20px;
 	color: grey;
@@ -151,11 +203,12 @@ body {
 .view.content {
 	margin-top: 2em;
 	margin-bottom: 4em;
-	margin-left: 225px;
-	margin-right: 225px;
+	margin-left: 300px;
+	margin-right: 300px;
 	font-family: "Libre Baskerville", serif !important;
-	font-size: 22px !important;
+	font-size: 18px !important;
 	font-weight: 100 !important;
+	color: rgb(44, 44, 44);
 }
 
 figure.image {

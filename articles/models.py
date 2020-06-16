@@ -9,6 +9,7 @@ class Article(models.Model):
     title = models.CharField(default='', max_length=50)
     subtitle = models.TextField(default='', max_length=100)
     content = models.TextField()
+    cover = models.ImageField(default='media/article_pics/default.jpg', upload_to='media/article_pics')
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):

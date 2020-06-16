@@ -109,7 +109,7 @@ class Hub extends Component {
 							title={item.title}
 							author={[item.first_name, item.last_name]}
 							subtitle={item.subtitle}
-							image="https://algointeract.s3.amazonaws.com/media/article_pics/default.jpg"
+							cover={item.cover}
 						/>
 					))}
 				</Carousel>
@@ -123,7 +123,7 @@ class Hub extends Component {
 				<div class="d-flex pt-3 bd-highlight">
 					<div class="d-flex pt-5 bd-highlight">
 						<div class="d-flex pt-5 bd-highlight">
-							<div className="cover hub">
+							<div className="coverHub">
 								<img src={"https://algointeract.s3.amazonaws.com/static/images/cover_art.png"} />
 							</div>
 							<h5 className="display-3 text-center hub"> Welcome to the Hub! Read other people's articles or share your own </h5>

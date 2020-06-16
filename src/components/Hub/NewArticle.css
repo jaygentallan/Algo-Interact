@@ -26,13 +26,13 @@ body {
 .newArticleTitle::placeholder {
 	font-size: 48px;
 	color: white;
-	position: relative;
-	top: -33px;
+	text-shadow: 2px 2px 4px #000000;
 }
 
 .newArticleSubtitle::placeholder {
 	font-size: 24px;
 	color: white;
+	text-shadow: 2px 2px 4px #000000;
 }
 
 .newArticleTitle,
@@ -40,17 +40,30 @@ body {
 	background-color: transparent;
 	border: none !important;
 	outline: none !important;
-	padding-top: 103px;
-	padding-left: 225px;
-	padding-right: 225px;
+	position: relative;
+	top: 0;
+	padding-top: 100px;
+	padding-left: 300px;
+	padding-right: 300px;
 	color: white !important;
+	height: 170px !important;
 	width: 100%;
-	margin-top: 70px;
+	margin-top: 130px;
 	height: 140px;
 	font-family: "Libre Baskerville", serif !important;
 	font-size: 48px !important;
 	font-weight: 100 !important;
+	text-shadow: 2px 2px 4px #000000;
 	overflow: hidden;
+	resize: none;
+}
+
+.newArticleTitlke:focus::placeholder {
+	font-size: 48px;
+	color: red !important;
+	position: relative;
+	top: -20px;
+	text-shadow: 2px 2px 4px #000000;
 }
 
 .newArticleSubtitle,
@@ -58,26 +71,52 @@ body {
 	background-color: transparent;
 	border: none !important;
 	outline: none !important;
-	margin-top: -20px;
-	margin-bottom: 30px;
-	padding-left: 225px;
-	padding-right: 225px;
+	margin-top: -15px;
+	margin-bottom: 0px;
+	padding-left: 300px;
+	padding-right: 300px;
 	width: 100%;
-	max-height: 3em;
+	max-height: 70px;
 	color: white !important;
 	font-family: "Libre Baskerville", serif !important;
 	font-size: 24px !important;
 	font-weight: 100 !important;
 	overflow: hidden;
+	text-shadow: 2px 2px 4px #000000;
+	resize: none;
 }
 
 .cover {
 	position: absolute;
+	padding-left: 270px;
+	padding-right: 275px;
 	z-index: -1;
-	height: 256px !important;
+	height: 350px !important;
 	width: 100%;
 	object-fit: cover;
-	object-position: 0% 62%;
+	object-position: 0% 50%;
+}
+
+.coverBackground {
+	z-index: -2;
+	position: absolute;
+	top: 45px;
+	height: 350px !important;
+	object-fit: cover;
+	object-position: 0% 50%;
+	min-width: 95.2%;
+	/* Add the blur effect */
+	filter: blur(10px);
+
+	transform: scale(1.1);
+}
+
+.cutoff {
+	position: absolute;
+	top: 408.5px;
+	height: 40px;
+	width: 100%;
+	background-color: white;
 }
 
 .submitButton {
@@ -115,7 +154,7 @@ body {
 .d-flex.justify-content-end.submit {
 	margin-top: 3em;
 	margin-bottom: 5em;
-	margin-right: 6.2em;
+	margin-right: 300px;
 }
 
 .saveButton {
@@ -153,10 +192,11 @@ body {
 
 .uploadButton {
 	position: absolute;
-	top: 40%;
-	right: 0.75em;
+	top: 60px;
+	right: 288px;
 	font-size: 1.25em !important;
 	color: white !important;
+	text-shadow: 2px 2px 4px #464646;
 }
 
 .uploadButton:hover {

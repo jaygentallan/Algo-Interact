@@ -50,7 +50,7 @@ class Home extends Component {
 
 				<div class="d-flex pr-5 bd-highlight">
 					<div class="d-flex bd-highlight">
-						<div className="cover home pt-5">
+						<div className="coverHome pt-5">
 							<img src={"https://algointeract.s3.amazonaws.com/static/images/cover_art.png"} />
 						</div>
 						<h5 className="home display-4 text-center">

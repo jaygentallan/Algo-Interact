@@ -20,6 +20,7 @@ from algo_interact.settings import local as settings
 from django.views.static import serve
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     #re_path('.*', TemplateView.as_view(template_name='index.html')),
     path('admin/', admin.site.urls),

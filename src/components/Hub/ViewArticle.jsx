@@ -32,6 +32,7 @@ class ViewArticle extends Component {
 		this.state = {
 			data: props.data.data,
 			content: "",
+			cover: props.data.data.cover,
 			created_at: formatted_date,
 		};
 	}
@@ -71,8 +72,16 @@ class ViewArticle extends Component {
 	render() {
 		return (
 			<div>
-				<img className="view cover" src="https://algointeract.s3.amazonaws.com/media/article_pics/default.jpg" />
-				<h1 className="d-flex view title"> {this.state.data.title} </h1>
+				<img className="viewCover" src={this.state.cover} />
+				<img className="viewCoverBackground" src={this.state.cover} />
+				<div className="cutoff"></div>
+				{this.state.data.title.length > 32 ? (
+					<div className="longPadding">
+						<h1 className="d-flex view title long">{this.state.data.title}</h1>
+					</div>
+				) : (
+					<h1 className="d-flex view title short"> {this.state.data.title} </h1>
+				)}
 				<h1 className="d-flex view subtitle"> {this.state.data.subtitle} </h1>
 				<div class="view author">
 					<img

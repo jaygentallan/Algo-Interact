@@ -66,31 +66,42 @@ export const createThreadSave = (newArticle) => {
 	};
 };
 
-export const createArticle = (user_id, first_name, last_name, title, subtitle, content) => {
-	const data = { user_id: user_id, first_name: first_name, last_name: last_name, title: title, subtitle: subtitle, content: content };
+export const createArticle = (user_id, first_name, last_name, title, subtitle, content, cover) => {
 	const token = localStorage.getItem("token");
-	console.log("CREATING ARTICLE WITH:", token, user_id, title.toString(), subtitle.toString(), content.toString());
+	var data = new FormData();
+	data.append("user_id", user_id);
+	data.append("first_name", first_name);
+	data.append("last_name", last_name);
+	data.append("title", title);
+	data.append("subtitle", subtitle);
+	data.append("content", content);
+	if (cover) data.append("cover", cover);
+
 	return (dispatch) => {
 		if (DEBUG) {
 			axios
-				.post("http://127.0.0.1:8000/api/articles/", data, { headers: { Authorization: "Token " + token } })
+				.post("http://127.0.0.1:8000/api/articles/", data, {
+					headers: { Authorization: "Token " + token, "content-type": "multipart/form-data" },
+				})
 				.then((res) => {
-					console.log("RES:", res);
+					console.log("SUCCESSFULLY CREATED ARTICLE:", res);
 					dispatch(createArticleSuccess(res));
 				})
 				.catch((err) => {
-					console.log("ERROR:", err);
+					console.log("FAILED CREATING ARTICLE:", err);
 					dispatch(createArticleFailure(err));
 				});
 		} else {
 			axios
-				.post("https://algo-interact.herokuapp.com/api/articles/", data, { headers: { Authorization: "Token " + token } })
+				.post("https://algo-interact.herokuapp.com/api/articles/", data, {
+					headers: { Authorization: "Token " + token, "content-type": "multipart/form-data" },
+				})
 				.then((res) => {
-					console.log("RES:", res);
+					console.log("SUCCESSFUL CREATION OF ARTICLE:", res);
 					dispatch(createArticleSuccess(res));
 				})
 				.catch((err) => {
-					console.log("ERROR:", err);
+					console.log("FAILED CREATING ARTICLE:", err);
 					dispatch(createArticleFailure(err));
 				});
 		}

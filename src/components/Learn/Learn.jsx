@@ -31,7 +31,7 @@ class Learn extends Component {
 				<div class="d-flex pt-3 bd-highlight">
 					<div class="d-flex pt-5 bd-highlight">
 						<div class="d-flex pt-5 bd-highlight">
-							<div className="cover learn">
+							<div className="coverLearn">
 								<img src={"https://algointeract.s3.amazonaws.com/static/images/cover_art.png"} />
 							</div>
 							<h5 className="display-3 text-center learn">Welcome to the Learn page! Use our resources to guide you in your studies</h5>
