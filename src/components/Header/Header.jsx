@@ -150,7 +150,7 @@ class Header extends Component {
 												pathname: "/editprofile",
 											}}
 										>
-											<a className="profile dropdown-item display-4">
+											<a className="headerProfile dropdown-item display-4">
 												{this.state.profile_pic !== null ? (
 													<img className="circular--landscape headerProfile big" src={this.state.profile_pic} />
 												) : (
