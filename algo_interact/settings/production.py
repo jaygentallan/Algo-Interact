@@ -8,10 +8,21 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 DEBUG = False
 
 
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    'https://algointeract.com',
+    'https://algo-interact.herokuapp.com',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+]
+
+
 SECURE_SSL_REDIRECT = True
 
 
-ALLOWED_HOSTS = ['algo-interact.herokuapp.com', 'algointeract.com', 'www.algointeract.com', '127.0.0.1']
+ALLOWED_HOSTS = ['algointeract.com', 'algo-interact.herokuapp.com', 'www.algointeract.com', '127.0.0.1', 'https://algointeract.com', 'https://algo-interact.herokuapp.com']
 
 
 #set S3 as the place to store your files.

@@ -2,7 +2,7 @@
 	"name": "algo_interact_app",
 	"version": "0.1.0",
 	"private": true,
-	"proxy": "https://algo-interact.herokuapp.com",
+	"proxy": "https://algointeract.com",
 	"homepage": "https://algointeract.s3.amazonaws.com",
 	"devDependencies": {
 		"babel-core": "^6.26.3",

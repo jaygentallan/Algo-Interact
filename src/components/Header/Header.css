@@ -229,7 +229,7 @@
 }
 
 .logInUnsuccessful {
-	font-size: 1em;
+	font-size: 18px;
 	position: relative;
 	left: -2.5%;
 	margin-top: 2em;
@@ -239,7 +239,7 @@
 }
 
 .signUpUnsuccessful {
-	font-size: 1.2em;
+	font-size: 18px;
 	position: relative;
 	margin-top: 2em;
 	margin-bottom: 1em;
