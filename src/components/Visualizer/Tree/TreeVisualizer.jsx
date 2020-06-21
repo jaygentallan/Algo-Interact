@@ -3,7 +3,7 @@ import Graph from "./Graph/graph/Graph";
 import TreeView from "react-treeview";
 import ReactTooltip from "react-tooltip";
 import { Dropdown, Form, Button } from "react-bootstrap";
-import HelpButton from "../../HelpButton/HelpButton";
+import HelpButton from "../HelpButton/HelpButton";
 import "./TreeVisualizer.css";
 //import LeftWindow from "../../LeftVdWindow/LeftWindow";
 
@@ -156,10 +156,7 @@ export default class GraphVisualizer extends React.Component {
 					console.log("ADDING ", newNode, " AT SIDE ", side);
 					// Determines if node is to be places on the left or right side of the parent node
 					// Then calculate the position by using a formula.
-					if (
-						(side === "l" || side === "L" || side === "left" || side === "LEFT") &&
-						!data.nodes[i].left
-					) {
+					if ((side === "l" || side === "L" || side === "left" || side === "LEFT") && !data.nodes[i].left) {
 						let x =
 							data.nodes[i].level === 0
 								? data.nodes[i].x * (0.468 + (data.nodes[i].level + 1) * 0.05)
@@ -224,10 +221,7 @@ export default class GraphVisualizer extends React.Component {
 							data: data,
 							algoData: algoData,
 						});
-					} else if (
-						(side === "r" || side === "R" || side === "right" || side === "RIGHT") &&
-						!data.nodes[i].right
-					) {
+					} else if ((side === "r" || side === "R" || side === "right" || side === "RIGHT") && !data.nodes[i].right) {
 						let x =
 							data.nodes[i].level === 0
 								? data.nodes[i].x * (1.47 + (data.nodes[i].level + 1) * 0.05)
@@ -238,12 +232,7 @@ export default class GraphVisualizer extends React.Component {
 								: data.nodes[i].x * (1.6 - (data.nodes[i].level + 1) * 0.04);
 						let y = data.nodes[i].y * 1.5;
 
-						let isRightRight =
-							data.nodes[i].level === 1 && data.nodes[i].isRight
-								? true
-								: data.nodes[i].isRightRight
-								? true
-								: false;
+						let isRightRight = data.nodes[i].level === 1 && data.nodes[i].isRight ? true : data.nodes[i].isRightRight ? true : false;
 
 						data.nodes.push({
 							id: newNode,
@@ -451,19 +440,13 @@ export default class GraphVisualizer extends React.Component {
 
 								// Changes the nodes attribute of the parent to false to indicate the current node being removed
 								if (tree[x][key] !== undefined) {
-									if (
-										"left" in tree[x][key] &&
-										tree[x][key]["left"] === this.state.removeNodeName
-									) {
+									if ("left" in tree[x][key] && tree[x][key]["left"] === this.state.removeNodeName) {
 										for (let y = 0; y < nodes.length; y++) {
 											if (key === nodes[y].id) {
 												nodes[y].left = false;
 											}
 										}
-									} else if (
-										"right" in tree[x][key] &&
-										tree[x][key]["right"] === this.state.removeNodeName
-									) {
+									} else if ("right" in tree[x][key] && tree[x][key]["right"] === this.state.removeNodeName) {
 										for (let y = 0; y < nodes.length; y++) {
 											if (key === nodes[y].id) {
 												nodes[y].right = false;
@@ -475,9 +458,7 @@ export default class GraphVisualizer extends React.Component {
 
 							// Remove node and link
 							nodes = this.state.data.nodes.filter((l) => l.id !== currNode);
-							links = this.state.data.links.filter(
-								(l) => l.source !== currNode && l.target !== currNode
-							);
+							links = this.state.data.links.filter((l) => l.source !== currNode && l.target !== currNode);
 
 							console.log("REMOVED ", currNode, " FROM NODES AND LINKS");
 							console.log("NODES ", nodes, " AND LINKS ", links);
@@ -498,29 +479,13 @@ export default class GraphVisualizer extends React.Component {
 								let key = Object.keys(tree[j])[0];
 
 								if (tree[j][key] !== undefined) {
-									if (
-										"left" in tree[j][key] &&
-										currNode === tree[j][key]["left"]
-									) {
-										console.log(
-											"DELETING ",
-											currNode,
-											" FROM LEFT OF TREE ",
-											tree[j]
-										);
+									if ("left" in tree[j][key] && currNode === tree[j][key]["left"]) {
+										console.log("DELETING ", currNode, " FROM LEFT OF TREE ", tree[j]);
 
 										newNode = currNode;
 										delete tree[j][key]["left"];
-									} else if (
-										"right" in tree[j][key] &&
-										currNode === tree[j][key]["right"]
-									) {
-										console.log(
-											"DELETING ",
-											currNode,
-											" FROM RIGHT OF TREE ",
-											tree[j]
-										);
+									} else if ("right" in tree[j][key] && currNode === tree[j][key]["right"]) {
+										console.log("DELETING ", currNode, " FROM RIGHT OF TREE ", tree[j]);
 
 										newNode = currNode;
 										delete tree[j][key]["right"];
@@ -549,14 +514,7 @@ export default class GraphVisualizer extends React.Component {
 
 							this.setState({ ...(this.state.algoData.tree = tree) });
 
-							console.log(
-								"DELETED ",
-								currNode,
-								" TREE IS NOW SIZE ",
-								tree.length,
-								" AND THE TREE IS ",
-								tree
-							);
+							console.log("DELETED ", currNode, " TREE IS NOW SIZE ", tree.length, " AND THE TREE IS ", tree);
 
 							if (stack.length === 0) loop = false;
 							else {
@@ -587,9 +545,7 @@ export default class GraphVisualizer extends React.Component {
 									}
 									// Remove node and link
 									nodes = this.state.data.nodes.filter((l) => l.id !== prevNode);
-									links = this.state.data.links.filter(
-										(l) => l.source !== prevNode && l.target !== prevNode
-									);
+									links = this.state.data.links.filter((l) => l.source !== prevNode && l.target !== prevNode);
 									console.log("REMOVED ", prevNode, " FROM NODES AND LINKS");
 									// Set node state
 									this.setState({
@@ -604,10 +560,7 @@ export default class GraphVisualizer extends React.Component {
 								if (stack.length === 0) loop = false;
 							}
 							break;
-						} else if (
-							!("left" in tree[i][currNode]) ||
-							!("right" in tree[i][currNode])
-						) {
+						} else if (!("left" in tree[i][currNode]) || !("right" in tree[i][currNode])) {
 							console.log(currNode);
 							if ("right" in tree[i][currNode]) {
 								stack.push([currNode, "right"]);
@@ -668,54 +621,34 @@ export default class GraphVisualizer extends React.Component {
 					}, 1 * (e + 1));
 					setTimeout(() => {
 						// Add link back to left child
-						if (
-							this.state.algoData.stack[e].length === 4 &&
-							this.state.algoData.stack[e][0] !== this.state.algoData.stack[e][3]
-						) {
+						if (this.state.algoData.stack[e].length === 4 && this.state.algoData.stack[e][0] !== this.state.algoData.stack[e][3]) {
 							links = this.state.data.links;
 							links.push({
 								source: this.state.algoData.stack[e][0],
 								target: this.state.algoData.stack[e][3],
 							});
 							this.setState({ ...(this.state.data.links = links) });
-							console.log(
-								"ADDED LINK ",
-								this.state.algoData.stack[e][0],
-								" WITH ",
-								this.state.algoData.stack[e][3]
-							);
+							console.log("ADDED LINK ", this.state.algoData.stack[e][0], " WITH ", this.state.algoData.stack[e][3]);
 						}
 					}, (this.state.algoData.stack.length + 1) * (e + 1));
 				} else {
 					setTimeout(() => {
 						this.state.addNodeName =
-							this.state.algoData.stack[e][0] +
-							"," +
-							this.state.algoData.stack[e][1] +
-							"," +
-							this.state.algoData.stack[e][2];
+							this.state.algoData.stack[e][0] + "," + this.state.algoData.stack[e][1] + "," + this.state.algoData.stack[e][2];
 						this.addNode();
 						console.log("ADDED NODE ", this.state.algoData.stack[e][0]);
 					}, 1 * (e + 1));
 					setTimeout(() => {
 						if (this.state.algoData.stack[e][0] !== this.state.algoData.root) {
 							// Add link back to left child
-							if (
-								this.state.algoData.stack[e].length === 4 &&
-								this.state.algoData.stack[e][0] !== this.state.algoData.stack[e][3]
-							) {
+							if (this.state.algoData.stack[e].length === 4 && this.state.algoData.stack[e][0] !== this.state.algoData.stack[e][3]) {
 								links = this.state.data.links;
 								links.push({
 									source: this.state.algoData.stack[e][0],
 									target: this.state.algoData.stack[e][3],
 								});
 								this.setState({ ...(this.state.data.links = links) });
-								console.log(
-									"ADDED LINK ",
-									this.state.algoData.stack[e][0],
-									" WITH ",
-									this.state.algoData.stack[e][3]
-								);
+								console.log("ADDED LINK ", this.state.algoData.stack[e][0], " WITH ", this.state.algoData.stack[e][3]);
 							}
 						}
 					}, (this.state.algoData.stack.length + 1) * (e + 1));
@@ -736,11 +669,7 @@ export default class GraphVisualizer extends React.Component {
 				console.log("REPLACING KEY ", key, " WITH ", mp[key]);
 				if (key in mp && mp[key] !== undefined) {
 					// Replace tree name from prevNode to sideNode
-					Object.defineProperty(
-						tree[z],
-						mp[key],
-						Object.getOwnPropertyDescriptor(tree[z], key)
-					);
+					Object.defineProperty(tree[z], mp[key], Object.getOwnPropertyDescriptor(tree[z], key));
 
 					// Delete prevNode in tree list
 					delete tree[z][key];
@@ -1351,10 +1280,7 @@ export default class GraphVisualizer extends React.Component {
 									type="text"
 									placeholder="Enter node size"
 									onKeyPress={(e) => {
-										if (e.key === "Enter")
-											this.nodeSizeHandler(
-												document.getElementById("size").value
-											);
+										if (e.key === "Enter") this.nodeSizeHandler(document.getElementById("size").value);
 									}}
 								/>
 							</div>
@@ -1368,10 +1294,7 @@ export default class GraphVisualizer extends React.Component {
 									name="nodeColor"
 									placeholder="Enter node color"
 									onKeyPress={(e) => {
-										if (e.key === "Enter")
-											this.nodeColorHandler(
-												document.getElementById("color").value
-											);
+										if (e.key === "Enter") this.nodeColorHandler(document.getElementById("color").value);
 									}}
 								/>
 							</div>
@@ -1384,10 +1307,7 @@ export default class GraphVisualizer extends React.Component {
 									type="text"
 									placeholder="Enter link size"
 									onKeyPress={(e) => {
-										if (e.key === "Enter")
-											this.linkSizeHandler(
-												document.getElementById("linkSize").value
-											);
+										if (e.key === "Enter") this.linkSizeHandler(document.getElementById("linkSize").value);
 									}}
 								/>
 							</div>
@@ -1401,10 +1321,7 @@ export default class GraphVisualizer extends React.Component {
 									name="linkColor"
 									placeholder="Enter link color"
 									onKeyPress={(e) => {
-										if (e.key === "Enter")
-											this.linkColorHandler(
-												document.getElementById("linkColor").value
-											);
+										if (e.key === "Enter") this.linkColorHandler(document.getElementById("linkColor").value);
 									}}
 								/>
 							</div>
@@ -1464,9 +1381,7 @@ export default class GraphVisualizer extends React.Component {
 									<Button
 										variant="outline-danger"
 										className="algoSelection"
-										onClick={() =>
-											(this.state.algoData.algorithm = "postOrder")
-										}
+										onClick={() => (this.state.algoData.algorithm = "postOrder")}
 									>
 										<h6 class="font-weight-normal">Postorder</h6>
 									</Button>
@@ -1476,9 +1391,7 @@ export default class GraphVisualizer extends React.Component {
 									<Button
 										variant="outline-danger"
 										className="algoSelection"
-										onClick={() =>
-											(this.state.algoData.algorithm = "levelOrder")
-										}
+										onClick={() => (this.state.algoData.algorithm = "levelOrder")}
 									>
 										<h6 class="font-weight-normal">Levelorder</h6>
 									</Button>
@@ -1594,15 +1507,10 @@ export default class GraphVisualizer extends React.Component {
 											<TreeView key={type + "|" + i} nodeLabel={name}>
 												<TreeView key={type + "|" + i} nodeLabel="Children">
 													{children.map((child) => {
-														if (
-															node[name] !== undefined &&
-															child in node[name]
-														) {
+														if (node[name] !== undefined && child in node[name]) {
 															return (
 																<div className="info">
-																	{child.charAt(0).toUpperCase() +
-																		child.slice(1)}
-																	: {node[name][child]}
+																	{child.charAt(0).toUpperCase() + child.slice(1)}: {node[name][child]}
 																</div>
 															);
 														}
@@ -1628,23 +1536,9 @@ export default class GraphVisualizer extends React.Component {
 					</div>
 				</div>
 
-				<ReactTooltip
-					id="buttons"
-					place="right"
-					backgroundColor="#c34f6b"
-					effect="solid"
-					multiline={true}
-					className="extraClass"
-				/>
+				<ReactTooltip id="buttons" place="right" backgroundColor="#c34f6b" effect="solid" multiline={true} className="extraClass" />
 
-				<ReactTooltip
-					id="helpButton"
-					place="right"
-					backgroundColor="#2e8b57"
-					effect="solid"
-					multiline={true}
-					className="extraClass"
-				/>
+				<ReactTooltip id="helpButton" place="right" backgroundColor="#2e8b57" effect="solid" multiline={true} className="extraClass" />
 
 				{
 					// prettier-ignore

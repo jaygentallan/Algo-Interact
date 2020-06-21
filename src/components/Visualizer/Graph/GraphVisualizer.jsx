@@ -3,7 +3,7 @@ import Graph from "./Graph/graph/Graph";
 import TreeView from "react-treeview";
 import ReactTooltip from "react-tooltip";
 import { Dropdown, Form, Button } from "react-bootstrap";
-import HelpButton from "../../HelpButton/HelpButton";
+import HelpButton from "../HelpButton/HelpButton";
 import "./GraphVisualizer.css";
 //import LeftWindow from "../../LeftVdWindow/LeftWindow";
 
@@ -186,10 +186,7 @@ export default class GraphVisualizer extends React.Component {
 				directed_neighbors: directed_neighbors,
 			});
 
-			console.log(
-				"Added to UNDIRECTED_NEIGHBORS: ",
-				this.state.algoData.undirected_neighbors
-			);
+			console.log("Added to UNDIRECTED_NEIGHBORS: ", this.state.algoData.undirected_neighbors);
 			console.log("Added to DIRECTED NEIGHBORS: ", this.state.algoData.directed_neighbors);
 		}
 
@@ -220,15 +217,10 @@ export default class GraphVisualizer extends React.Component {
 		}
 		if (this.state.data.nodes && this.state.data.nodes.length > 1) {
 			const nodes = this.state.data.nodes.filter((l) => l.id !== this.state.removeNodeName);
-			const links = this.state.data.links.filter(
-				(l) =>
-					l.source !== this.state.removeNodeName && l.target !== this.state.removeNodeName
-			);
+			const links = this.state.data.links.filter((l) => l.source !== this.state.removeNodeName && l.target !== this.state.removeNodeName);
 			const data = { nodes, links };
 
-			let neighbors = this.state.config.directed
-				? this.state.algoData.directed_neighbors
-				: this.state.algoData.undirected_neighbors;
+			let neighbors = this.state.config.directed ? this.state.algoData.directed_neighbors : this.state.algoData.undirected_neighbors;
 
 			for (let i = 0; i < neighbors.length; i++) {
 				if (this.state.removeNodeName in neighbors[i]) {
@@ -238,9 +230,7 @@ export default class GraphVisualizer extends React.Component {
 					// First, remove any instances of the node in any of the nodes' neighbors
 					for (let i = 0; i < undirected_neighbors.length; i++) {
 						let key = Object.keys(undirected_neighbors[i])[0];
-						undirected_neighbors[i][key].filter(
-							(l) => l[0] !== this.state.removeNodeName
-						);
+						undirected_neighbors[i][key].filter((l) => l[0] !== this.state.removeNodeName);
 						if (key === this.state.removeNodeName) {
 							undirected_neighbors.splice(i, 1);
 						}
@@ -248,9 +238,7 @@ export default class GraphVisualizer extends React.Component {
 					// Do the same for the directed_neighbors list
 					for (let i = 0; i < directed_neighbors.length; i++) {
 						let key = Object.keys(directed_neighbors[i])[0];
-						directed_neighbors[i][key].filter(
-							(l) => l[0] !== this.state.removeNodeName
-						);
+						directed_neighbors[i][key].filter((l) => l[0] !== this.state.removeNodeName);
 						if (key === this.state.removeNodeName) {
 							directed_neighbors.splice(i, 1);
 						}
@@ -262,14 +250,8 @@ export default class GraphVisualizer extends React.Component {
 						directed_neighbors: directed_neighbors,
 					});
 
-					console.log(
-						"Removed from UNDIRECTED_NEIGHBORS: ",
-						this.state.algoData.undirected_neighbors
-					);
-					console.log(
-						"Removed from DIRECTED NEIGHBORS: ",
-						this.state.algoData.directed_neighbors
-					);
+					console.log("Removed from UNDIRECTED_NEIGHBORS: ", this.state.algoData.undirected_neighbors);
+					console.log("Removed from DIRECTED NEIGHBORS: ", this.state.algoData.directed_neighbors);
 				}
 			}
 
@@ -314,10 +296,7 @@ export default class GraphVisualizer extends React.Component {
 			}
 
 			for (var j = 0; j < this.state.data.links.length; j++) {
-				if (
-					this.state.data.links[j].source === source &&
-					this.state.data.links[j].target === target
-				) {
+				if (this.state.data.links[j].source === source && this.state.data.links[j].target === target) {
 					this.setState({
 						addLink: "",
 						addLinkPlaceholder: "Enter as: source, target, weight",
@@ -451,9 +430,7 @@ export default class GraphVisualizer extends React.Component {
 				return;
 			}
 
-			const links = this.state.data.links.filter(
-				(l) => l.source !== source && l.target !== target
-			);
+			const links = this.state.data.links.filter((l) => l.source !== source && l.target !== target);
 
 			const data = { nodes: this.state.data.nodes, links };
 
@@ -642,9 +619,7 @@ export default class GraphVisualizer extends React.Component {
 			this.state.algoData.showList = true;
 
 			// Uses the appropriate neighbors list if directed is turned on or not
-			var neighbors = this.state.config.directed
-				? this.state.algoData.directed_neighbors
-				: this.state.algoData.undirected_neighbors;
+			var neighbors = this.state.config.directed ? this.state.algoData.directed_neighbors : this.state.algoData.undirected_neighbors;
 
 			// Does a loop through the undirect and directed neighbors list to make sure both are valid nodes
 			for (let i = 0; i < neighbors.length; i++) {
@@ -674,10 +649,7 @@ export default class GraphVisualizer extends React.Component {
 
 				console.log("SHOW LIST ", this.state.algoData.showList);
 
-				while (
-					this.state.algoData.stack !== undefined ||
-					this.state.algoData.stack.length !== 0
-				) {
+				while (this.state.algoData.stack !== undefined || this.state.algoData.stack.length !== 0) {
 					if (this.state.algoData.stack.length === 0) break;
 					const curr = this.state.algoData.stack.pop();
 					let no_neighbors = false;
@@ -728,11 +700,7 @@ export default class GraphVisualizer extends React.Component {
 
 					// For looping through the neighbors array
 					for (let i = 0; i < neighbors.length; i++) {
-						if (
-							curr in neighbors[i] &&
-							neighbors[i][curr] !== null &&
-							neighbors[i][curr].length !== 0
-						) {
+						if (curr in neighbors[i] && neighbors[i][curr] !== null && neighbors[i][curr].length !== 0) {
 							// For looping through the array within the neighbors array, this contains the name and weight of the link
 							for (let j = 0; j < neighbors[i][curr].length; j++) {
 								const newNode = neighbors[i][curr][j][0];
@@ -775,9 +743,7 @@ export default class GraphVisualizer extends React.Component {
 			this.state.algoData.showList = true;
 
 			// Uses the appropriate neighbors list if directed is turned on or not
-			var neighbors = this.state.config.directed
-				? this.state.algoData.directed_neighbors
-				: this.state.algoData.undirected_neighbors;
+			var neighbors = this.state.config.directed ? this.state.algoData.directed_neighbors : this.state.algoData.undirected_neighbors;
 
 			for (let i = 0; i < neighbors.length; i++) {
 				if (startNode in neighbors[i]) {
@@ -810,10 +776,7 @@ export default class GraphVisualizer extends React.Component {
 				var counter = 0;
 				visited[startNode] = startNode;
 
-				while (
-					this.state.algoData.queue !== undefined ||
-					this.state.algoData.queue.length !== 0
-				) {
+				while (this.state.algoData.queue !== undefined || this.state.algoData.queue.length !== 0) {
 					if (this.state.algoData.queue.length === 0) break;
 					const curr = this.state.algoData.queue.shift();
 					let no_neighbors = false;
@@ -857,11 +820,7 @@ export default class GraphVisualizer extends React.Component {
 					if (no_neighbors) continue;
 
 					for (let i = 0; i < neighbors.length; i++) {
-						if (
-							curr in neighbors[i] &&
-							neighbors[i][curr] !== null &&
-							neighbors[i][curr].length !== 0
-						) {
+						if (curr in neighbors[i] && neighbors[i][curr] !== null && neighbors[i][curr].length !== 0) {
 							for (let j = 0; j < neighbors[i][curr].length; j++) {
 								const newNode = neighbors[i][curr][j][0];
 								if (newNode in visited) {
@@ -889,21 +848,13 @@ export default class GraphVisualizer extends React.Component {
 			}
 		} else {
 			console.log("FAIL");
-			console.log(
-				this.state.algoData.startNode,
-				this.state.algoData.endNode,
-				this.state.algoData.algorithm
-			);
+			console.log(this.state.algoData.startNode, this.state.algoData.endNode, this.state.algoData.algorithm);
 		}
 	};
 
 	// looks for the shortest path to get to the target node
 	dijkstraAlgorithm = () => {
-		if (
-			this.state.algoData.startNode !== "" &&
-			this.state.algoData.endNode !== "" &&
-			this.state.config.link.renderLabel
-		) {
+		if (this.state.algoData.startNode !== "" && this.state.algoData.endNode !== "" && this.state.config.link.renderLabel) {
 			const startNode = this.state.algoData.startNode;
 			const endNode = this.state.algoData.endNode;
 			var startNodeIsValid = false;
@@ -912,9 +863,7 @@ export default class GraphVisualizer extends React.Component {
 			this.state.algoData.showList = true;
 
 			// Uses the appropriate neighbors list if directed is turned on or not
-			var neighbors = this.state.config.directed
-				? this.state.algoData.directed_neighbors
-				: this.state.algoData.undirected_neighbors;
+			var neighbors = this.state.config.directed ? this.state.algoData.directed_neighbors : this.state.algoData.undirected_neighbors;
 
 			for (let i = 0; i < neighbors.length; i++) {
 				if (startNode in neighbors[i]) {
@@ -940,9 +889,7 @@ export default class GraphVisualizer extends React.Component {
 
 				let current;
 				let path = [];
-				var neighbors = this.state.directed
-					? this.state.algoData.directed_neighbors
-					: this.state.algoData.undirected_neighbors;
+				var neighbors = this.state.directed ? this.state.algoData.directed_neighbors : this.state.algoData.undirected_neighbors;
 
 				var adjacencyList = {};
 
@@ -975,8 +922,7 @@ export default class GraphVisualizer extends React.Component {
 						break;
 					} else {
 						for (let neighbor in adjacencyList[current]) {
-							let costToNeighbor =
-								costFromStartTo[current] + adjacencyList[current][neighbor];
+							let costToNeighbor = costFromStartTo[current] + adjacencyList[current][neighbor];
 							if (costToNeighbor < costFromStartTo[neighbor]) {
 								costFromStartTo[neighbor] = costToNeighbor;
 								prev[neighbor] = current;
@@ -1029,11 +975,7 @@ export default class GraphVisualizer extends React.Component {
 			}
 		} else {
 			console.log("FAIL");
-			console.log(
-				this.state.algoData.startNode,
-				this.state.algoData.endNode,
-				this.state.algoData.algorithm
-			);
+			console.log(this.state.algoData.startNode, this.state.algoData.endNode, this.state.algoData.algorithm);
 		}
 	};
 
@@ -1341,10 +1283,7 @@ export default class GraphVisualizer extends React.Component {
 									type="text"
 									placeholder="Enter node size"
 									onKeyPress={(e) => {
-										if (e.key === "Enter")
-											this.nodeSizeHandler(
-												document.getElementById("size").value
-											);
+										if (e.key === "Enter") this.nodeSizeHandler(document.getElementById("size").value);
 									}}
 								/>
 							</div>
@@ -1358,10 +1297,7 @@ export default class GraphVisualizer extends React.Component {
 									name="nodeColor"
 									placeholder="Enter node color"
 									onKeyPress={(e) => {
-										if (e.key === "Enter")
-											this.nodeColorHandler(
-												document.getElementById("color").value
-											);
+										if (e.key === "Enter") this.nodeColorHandler(document.getElementById("color").value);
 									}}
 								/>
 							</div>
@@ -1374,10 +1310,7 @@ export default class GraphVisualizer extends React.Component {
 									type="text"
 									placeholder="Enter link size"
 									onKeyPress={(e) => {
-										if (e.key === "Enter")
-											this.linkSizeHandler(
-												document.getElementById("linkSize").value
-											);
+										if (e.key === "Enter") this.linkSizeHandler(document.getElementById("linkSize").value);
 									}}
 								/>
 							</div>
@@ -1391,10 +1324,7 @@ export default class GraphVisualizer extends React.Component {
 									name="linkColor"
 									placeholder="Enter link color"
 									onKeyPress={(e) => {
-										if (e.key === "Enter")
-											this.linkColorHandler(
-												document.getElementById("linkColor").value
-											);
+										if (e.key === "Enter") this.linkColorHandler(document.getElementById("linkColor").value);
 									}}
 								/>
 							</div>
@@ -1645,19 +1575,10 @@ export default class GraphVisualizer extends React.Component {
 											if (name in neighbors[i]) {
 												return (
 													<TreeView key={type + "|" + i} nodeLabel={name}>
-														<TreeView
-															key={type + "|" + i}
-															nodeLabel="neighbors: "
-														>
-															{neighbors[i][name].map(
-																(neighbor, i) => {
-																	return (
-																		<div className="info">
-																			{neighbor[0]}
-																		</div>
-																	);
-																}
-															)}
+														<TreeView key={type + "|" + i} nodeLabel="neighbors: ">
+															{neighbors[i][name].map((neighbor, i) => {
+																return <div className="info">{neighbor[0]}</div>;
+															})}
 														</TreeView>
 													</TreeView>
 												);
@@ -1692,23 +1613,9 @@ export default class GraphVisualizer extends React.Component {
 					</div>
 				</div>
 
-				<ReactTooltip
-					id="buttons"
-					place="right"
-					backgroundColor="#c34f6b"
-					effect="solid"
-					multiline={true}
-					className="extraClass"
-				/>
+				<ReactTooltip id="buttons" place="right" backgroundColor="#c34f6b" effect="solid" multiline={true} className="extraClass" />
 
-				<ReactTooltip
-					id="helpButton"
-					place="right"
-					backgroundColor="#2e8b57"
-					effect="solid"
-					multiline={true}
-					className="extraClass"
-				/>
+				<ReactTooltip id="helpButton" place="right" backgroundColor="#2e8b57" effect="solid" multiline={true} className="extraClass" />
 
 				{/*Presets */}
 				<div class="rightWindow">
@@ -1770,11 +1677,7 @@ export default class GraphVisualizer extends React.Component {
 										d="M15.285.089A.5.5 0 0115.5.5v15a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5V14h-1v1.5a.5.5 0 01-.5.5H1a.5.5 0 01-.5-.5v-6a.5.5 0 01.418-.493l5.582-.93V3.5a.5.5 0 01.324-.468l8-3a.5.5 0 01.46.057zM7.5 3.846V8.5a.5.5 0 01-.418.493l-5.582.93V15h8v-1.5a.5.5 0 01.5-.5h2a.5.5 0 01.5.5V15h2V1.222l-7 2.624z"
 										clip-rule="evenodd"
 									/>
-									<path
-										fill-rule="evenodd"
-										d="M6.5 15.5v-7h1v7h-1z"
-										clip-rule="evenodd"
-									/>
+									<path fill-rule="evenodd" d="M6.5 15.5v-7h1v7h-1z" clip-rule="evenodd" />
 									<path d="M2.5 11h1v1h-1v-1zm2 0h1v1h-1v-1zm-2 2h1v1h-1v-1zm2 0h1v1h-1v-1zm6-10h1v1h-1V3zm2 0h1v1h-1V3zm-4 2h1v1h-1V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm-2 2h1v1h-1V7zm2 0h1v1h-1V7zm-4 0h1v1h-1V7zm0 2h1v1h-1V9zm2 0h1v1h-1V9zm2 0h1v1h-1V9zm-4 2h1v1h-1v-1zm2 0h1v1h-1v-1zm2 0h1v1h-1v-1z" />
 								</svg>
 							</div>
@@ -1783,14 +1686,7 @@ export default class GraphVisualizer extends React.Component {
 				</div>
 				{/*Presets End */}
 
-				<ReactTooltip
-					id="presetButton"
-					place="left"
-					backgroundColor="#c34f6b"
-					effect="solid"
-					multiline={true}
-					className="extraClass"
-				/>
+				<ReactTooltip id="presetButton" place="left" backgroundColor="#c34f6b" effect="solid" multiline={true} className="extraClass" />
 
 				{
 					// prettier-ignore
@@ -1800,12 +1696,7 @@ export default class GraphVisualizer extends React.Component {
 				}
 
 				{/*Entry point for passing data to library to be displayed*/}
-				<Graph
-					id="graph-id"
-					data={this.state.data}
-					config={this.state.config}
-					onRightClickNode={this._onRightClickNode}
-				/>
+				<Graph id="graph-id" data={this.state.data} config={this.state.config} onRightClickNode={this._onRightClickNode} />
 			</div>
 		);
 	}

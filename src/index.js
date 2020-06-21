@@ -5,13 +5,16 @@ import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/js/dist/dropdown";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { createStore, compose, applyMiddleware } from "redux";
+import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
-import reducer from "./store/reducers/auth";
+import authReducer from "./store/reducers/auth";
+import profileReducer from "./store/reducers/profile";
+import articleReducer from "./store/reducers/article";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const reducer = combineReducers({ auth: authReducer, profile: profileReducer, articles: articleReducer });
 
 const store = createStore(reducer, composeEnhancer(applyMiddleware(thunk)));
 

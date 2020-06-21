@@ -7,8 +7,10 @@ import { Button } from "antd";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { LoadingOutlined, FireFilled, StarFilled, ClockCircleFilled, RiseOutlined } from "@ant-design/icons";
+import { DEBUG } from "../../debug";
 
-import axios from "axios";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions/article";
 
 // Login form
 import NormalLoginForm from "../Header/Login";
@@ -22,8 +24,6 @@ import RegistrationForm from "../Header/Signup";
   an algorithm Card is clicked, the user is routed to the Learn
   Page. 
 */
-
-var DEBUG = false;
 
 // This responsive is for the carousel component.
 const responsive = {
@@ -39,7 +39,7 @@ class Hub extends Component {
 		super(props);
 
 		this.state = {
-			discuss: [],
+			articles: props.articles.articles,
 			profile: [],
 			isModalOpen: false,
 			login: true,
@@ -64,34 +64,19 @@ class Hub extends Component {
 	};
 
 	componentDidMount() {
-		this.getArticles();
+		this.props.fetchAllArticles();
 	}
 
-	getArticles() {
-		if (DEBUG) {
-			axios
-				.get("http://127.0.0.1:8000/api/articles/")
-				.then((res) => {
-					console.log("RES:", res);
-					this.setState({ discuss: res.data });
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		} else {
-			axios
-				.get("https://algo-interact.herokuapp.com/api/articles/")
-				.then((res) => {
-					this.setState({ discuss: res.data });
-				})
-				.catch((err) => {
-					console.log(err);
-				});
+	componentDidUpdate(prevProps) {
+		if (prevProps.articles.articles !== this.props.articles.articles) {
+			this.setState({
+				articles: this.props.articles.articles,
+			});
 		}
 	}
 
 	trendingCatalog() {
-		if (this.state.discuss.length === 0) {
+		if (this.state.articles == null || this.state.articles["articles"] === null || this.state.articles.length === 0) {
 			return <LoadingOutlined className="loading" />;
 		} else {
 			return (
@@ -103,13 +88,14 @@ class Hub extends Component {
 					dotListClass="custom-dot-list-style"
 					itemClass="card-deck d-flex pt-1 pl-3 pb-4 bd-highlight"
 				>
-					{this.state.discuss.map((item) => (
+					{this.state.articles.map((article) => (
 						<ArticleCard
-							data={item}
-							title={item.title}
-							author={[item.first_name, item.last_name]}
-							subtitle={item.subtitle}
-							cover={item.cover}
+							id={article.id}
+							user={article.user}
+							title={article.title}
+							author={[article.first_name, article.last_name]}
+							subtitle={article.subtitle}
+							cover={article.cover}
 						/>
 					))}
 				</Carousel>
@@ -248,4 +234,17 @@ class Hub extends Component {
 	}
 }
 
-export default withRouter(Hub);
+const mapStateToProps = (state) => {
+	return {
+		articles: state.articles,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		fetchAllArticles: () => dispatch(actions.fetchAllArticles()),
+		fetchArticle: (id) => dispatch(actions.fetchArticle(id)),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Hub));

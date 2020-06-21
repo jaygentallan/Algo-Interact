@@ -16,8 +16,8 @@ body {
 .viewCover {
 	position: absolute;
 	top: 58px;
-	padding-left: 270px;
-	padding-right: 275px;
+	padding-left: 25vw;
+	padding-right: 25vw;
 	z-index: -1;
 	height: 350px !important;
 	width: 100%;
@@ -32,7 +32,7 @@ body {
 	height: 350px !important;
 	object-fit: cover;
 	object-position: 0% 50%;
-	min-width: 95.2%;
+	width: 95.2%;
 	/* Add the blur effect */
 	filter: blur(10px);
 
@@ -49,31 +49,32 @@ body {
 
 .view.title.short {
 	position: relative;
-	top: 0;
-	padding-top: 107px;
-	padding-left: 300px;
-	padding-right: 300px;
+	top: 6px;
+	padding-top: 125px;
+	padding-left: 27.5vw;
+	padding-right: 27.5vw;
 	color: white !important;
 	height: 115px;
 	width: 100%;
 	margin-top: 130px;
+	margin-bottom: -5px;
 	font-family: "Libre Baskerville", serif !important;
-	font-size: 48px !important;
+	font-size: calc(2vw + 15px);
 	font-weight: 100 !important;
 	text-shadow: 2px 2px 4px #000000;
 }
 
 .view.title.long {
 	position: relative;
-	padding-top: 79px;
-	padding-left: 300px;
-	padding-right: 300px;
+	padding-top: 95px;
+	padding-left: 27.5vw;
+	padding-right: 27.5vw;
 	color: white !important;
 	height: 115px;
 	width: 100%;
-	margin-top: 105px;
+	margin-top: 115px;
 	font-family: "Libre Baskerville", serif !important;
-	font-size: 48px !important;
+	font-size: calc(2vw + 15px);
 	font-weight: 100 !important;
 	text-shadow: 2px 2px 4px #000000;
 }
@@ -87,37 +88,38 @@ body {
 .view.subtitle {
 	position: relative;
 	left: 0;
-	margin-top: 52.5px;
+	margin-top: 65px;
 	margin-bottom: 0px;
-	padding-left: 300px;
-	padding-right: 300px;
+	padding-left: 27.5vw;
+	padding-right: 27.5vw;
 	width: 100%;
 	max-height: 70px;
-	color: white !important;
+	color: rgb(200, 200, 200) !important;
 	font-family: "Libre Baskerville", serif !important;
-	font-size: 24px !important;
+	font-size: calc(0.6vw + 10px);
 	font-weight: 100 !important;
-	text-shadow: 2px 2px 4px #000000;
+	text-shadow: 2px 2px 2px #000000;
 }
 
 .view.author {
 	position: relative;
-	margin-top: 65px;
-	margin-left: 275px;
-	margin-right: 275px;
+	margin-top: 50px;
+	margin-right: 27.5vw;
+	padding-left: 27.5vw;
 	color: rgb(73, 72, 72);
 	margin-bottom: 55px;
+	width: 100%;
 }
 
 .article.line {
 	margin-top: -40px;
-	width: 64%;
+	width: 44%;
 }
 
 .circular--landscape.author.picture {
 	display: inline-block;
 	position: relative;
-	left: -14px !important;
+	left: -40px !important;
 	top: -13px;
 	width: 50px !important;
 	height: 50px;
@@ -127,6 +129,7 @@ body {
 .circular--landscape.author.picture.big {
 	display: inline-block;
 	position: relative;
+	left: -40px !important;
 	width: 100px !important;
 	height: 100px;
 	box-shadow: 0px 5px 5px #bbbbbb !important;
@@ -141,6 +144,7 @@ body {
 	display: inline-block;
 	position: relative;
 	top: -22.5px !important;
+	left: -30px;
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: 15px;
 	color: rgb(44, 44, 44);
@@ -149,9 +153,9 @@ body {
 .author.name.big {
 	display: inline-block;
 	position: relative;
-	top: -14px !important;
+	top: -16px !important;
 	font-family: "Source Sans Pro", sans-serif;
-	font-size: 26px;
+	font-size: calc(0.6vw + 15px);
 	font-weight: bold;
 	color: rgb(44, 44, 44);
 }
@@ -171,7 +175,7 @@ body {
 	position: absolute;
 	right: 0;
 	top: -0px !important;
-	padding-right: 25px;
+	padding-right: 27.5vw;
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: 20px;
 	color: grey;
@@ -180,7 +184,8 @@ body {
 .author.createdby {
 	display: inline-block;
 	position: absolute;
-	left: 140px;
+	padding-left: 27vw;
+	left: 115px;
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: 16px;
 	color: grey;
@@ -189,24 +194,27 @@ body {
 .author.description {
 	display: inline-block;
 	position: absolute;
+	padding-left: 27vw;
+	padding-right: 25vw;
 	top: 45px;
-	left: 140px;
+	left: 115px;
 	font-family: "Source Sans Pro", sans-serif;
-	font-size: 18px;
+	font-size: calc(0.55vw + 10px);
 	color: grey;
 }
 
 .view.author.big {
 	position: relative;
+	margin-bottom: 30px;
 }
 
 .view.content {
 	margin-top: 2em;
 	margin-bottom: 4em;
-	margin-left: 300px;
-	margin-right: 300px;
+	margin-left: 27.5vw;
+	margin-right: 27.5vw;
 	font-family: "Libre Baskerville", serif !important;
-	font-size: 18px !important;
+	font-size: calc(0.6vw + 10px);
 	font-weight: 100 !important;
 	color: rgb(44, 44, 44);
 }
@@ -235,4 +243,33 @@ figure.image figcaption {
 	text-align: center;
 	background-color: red;
 	height: 0px;
+}
+
+.loadingProfilePic {
+	position: relative;
+	top: -10px;
+	margin-left: 30px;
+	margin-right: 20px;
+	font-size: 40px;
+}
+
+.loadingProfilePicBig {
+	position: relative;
+	top: -10px;
+	margin-left: 30px;
+	margin-right: 25px;
+	font-size: 85px;
+}
+
+.viewArticleLoading {
+	position: absolute;
+	top: 58px;
+	z-index: 100;
+	height: 70em !important;
+	width: 100% !important;
+	padding-top: 200px;
+	padding-left: 550px;
+	padding-right: 550px;
+	margin-bottom: 350px;
+	background-color: rgba(200, 200, 200, 0.5);
 }

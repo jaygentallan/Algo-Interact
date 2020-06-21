@@ -342,7 +342,7 @@
 	padding-top: 83px;
 }
 
-.circular--landscape.header.profile {
+.circular--landscape.headerProfile {
 	position: relative;
 	right: 40px;
 	margin-top: 7px;
@@ -350,7 +350,7 @@
 	height: 30px;
 }
 
-.circular--landscape.header.profile.big {
+.circular--landscape.headerProfile.big {
 	position: relative;
 	left: -14px !important;
 	top: -13px;

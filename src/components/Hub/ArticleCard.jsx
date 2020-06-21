@@ -14,8 +14,8 @@ const ArticleCard = (props) => {
 			<Link
 				className="discuss link"
 				to={{
-					pathname: "/hub/viewarticle/" + props.data.id,
-					state: { data: props.data },
+					pathname: "/hub/viewarticle/" + props.id,
+					state: { id: props.id, user: props.user },
 				}}
 			>
 				<img class="discuss card-img-top" src={props.cover} />

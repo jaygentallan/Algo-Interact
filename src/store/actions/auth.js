@@ -1,42 +1,47 @@
-import * as actionTypes from "./actionTypes";
-import axios from "axios";
-import { local } from "d3";
-
-var DEBUG = false;
+import { AUTH_START, AUTH_SUCCESS, AUTH_FAIL, AUTH_LOGOUT } from "./actionTypes";
+import { authLoginAPI, authSignupAPI } from "../api/auth";
+import { fetchCurrUserAPI, createProfileAPI } from "../api/profile";
+import {
+	fetchCurrUserRequest,
+	fetchCurrUserSuccess,
+	fetchCurrUserFailure,
+	createProfileRequest,
+	createProfileSuccess,
+	createProfileFailure,
+	currUserLogout,
+} from "./profile";
+import { dispatch } from "d3";
 
 export const authStart = () => {
 	return {
-		type: actionTypes.AUTH_START,
+		type: AUTH_START,
 	};
 };
 
-export const authSuccess = (token, id, username, first_name, last_name) => {
+export const authSuccess = (token) => {
 	return {
-		type: actionTypes.AUTH_SUCCESS,
+		type: AUTH_SUCCESS,
 		token: token,
-		id: id,
-		username: username,
-		first_name: first_name,
-		last_name: last_name,
 	};
 };
 
 export const authFail = (error) => {
 	return {
-		type: actionTypes.AUTH_FAIL,
+		type: AUTH_FAIL,
 		error: error,
 	};
 };
 
 export const logout = () => {
-	localStorage.removeItem("user");
-	localStorage.removeItem("id");
-	localStorage.removeItem("username");
-	localStorage.removeItem("first_name");
-	localStorage.removeItem("last_name");
+	localStorage.removeItem("token");
+	localStorage.removeItem("user_id");
 	localStorage.removeItem("expirationDate");
+
+	// Remove current user profile data
+	currUserLogout();
+
 	return {
-		type: actionTypes.AUTH_LOGOUT,
+		type: AUTH_LOGOUT,
 	};
 };
 
@@ -49,182 +54,84 @@ export const checkAuthTimeout = (expirationTime) => {
 };
 
 export const authLogin = (username, password) => {
+	const data = { username: username, password: password };
+
 	return (dispatch) => {
 		dispatch(authStart());
 
-		if (DEBUG) {
-			axios
-				.post("http://127.0.0.1:8000/users/rest-auth/login/", {
-					username: username,
-					password: password,
-				})
-				.then((res) => {
-					console.log("RES:", res);
-					const token = res.data.key;
-					const id = res.data.user.id;
-					const username = res.data.user.username;
-					const first_name = res.data.user.first_name;
-					const last_name = res.data.user.last_name;
-					const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-					localStorage.setItem("token", token);
-					localStorage.setItem("id", id);
-					localStorage.setItem("username", username);
-					localStorage.setItem("first_name", first_name);
-					localStorage.setItem("last_name", last_name);
-					localStorage.setItem("expirationDate", expirationDate);
-					dispatch(authSuccess(token, id, username, first_name, last_name));
-					dispatch(checkAuthTimeout(3600));
-				})
-				.catch((err) => {
-					dispatch(authFail(err));
-				});
-		} else {
-			axios
-				.post("https://algo-interact.herokuapp.com/users/rest-auth/login/", {
-					username: username,
-					password: password,
-				})
-				.then((res) => {
-					console.log("RES:", res);
-					const token = res.data.key;
-					const id = res.data.user.id;
-					const username = res.data.user.username;
-					const first_name = res.data.user.first_name;
-					const last_name = res.data.user.last_name;
-					const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-					localStorage.setItem("token", token);
-					localStorage.setItem("id", id);
-					localStorage.setItem("username", username);
-					localStorage.setItem("first_name", first_name);
-					localStorage.setItem("last_name", last_name);
-					localStorage.setItem("expirationDate", expirationDate);
-					dispatch(authSuccess(token, id, username, first_name, last_name));
-					dispatch(checkAuthTimeout(3600));
-				})
-				.catch((err) => {
-					dispatch(authFail(err));
-				});
-		}
+		authLoginAPI(data)
+			.then((response) => {
+				console.log("SUCCESSFULLY LOGGED IN", response);
+				const token = response.data.key;
+				const user = response.data.user.id;
+				const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+
+				localStorage.setItem("token", token);
+				localStorage.setItem("user_id", user);
+				localStorage.setItem("expirationDate", expirationDate);
+				dispatch(authSuccess(token));
+				dispatch(checkAuthTimeout(3600));
+
+				// Fetch current user profile data after successfully logging in
+				dispatch(fetchCurrUserRequest());
+				fetchCurrUserAPI(user)
+					.then((response) => {
+						dispatch(fetchCurrUserSuccess(response.data));
+					})
+					.catch((error) => {
+						dispatch(fetchCurrUserFailure(error));
+					});
+			})
+			.catch((error) => {
+				dispatch(authFail(error));
+			});
 	};
 };
 
 export const authSignup = (username, first_name, last_name, email, password1, password2) => {
-	var token;
-	var id;
+	const data = { username: username, first_name: first_name, last_name: last_name, email: email, password1: password1, password2: password2 };
+
 	return (dispatch) => {
 		dispatch(authStart());
 
-		if (DEBUG) {
-			// Axios Post Request to users/rest-auth/registration/
-			axios
-				.post("http://127.0.0.1:8000/users/rest-auth/registration/", {
-					username: username,
-					first_name: first_name,
-					last_name: last_name,
-					email: email,
-					password1: password1,
-					password2: password2,
-				})
-				.then((res) => {
-					token = res.data.key;
-					id = res.data.user.id;
-					const username = res.data.user.username;
-					const first_name = res.data.user.first_name;
-					const last_name = res.data.user.last_name;
-					const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-					localStorage.setItem("token", token);
-					localStorage.setItem("id", id);
-					localStorage.setItem("username", username);
-					localStorage.setItem("first_name", first_name);
-					localStorage.setItem("last_name", last_name);
-					localStorage.setItem("expirationDate", expirationDate);
-					dispatch(authSuccess(token, id, username, first_name, last_name));
-					dispatch(checkAuthTimeout(3600));
-				})
-				.catch((err) => {
-					dispatch(authFail(err));
-				});
+		authSignupAPI(data)
+			.then((response) => {
+				const token = response.data.key;
+				const user = response.data.user.id;
+				const username = response.data.user.username;
+				const first_name = response.data.user.first_name;
+				const last_name = response.data.user.last_name;
+				const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
 
-			// Axis Post Request to users/profiles/
-			setTimeout(() => {
-				axios
-					.post(
-						"http://127.0.0.1:8000/users/profiles/",
-						{
-							user: id,
-							username: username,
-						},
-						{
-							headers: {
-								Authorization: "Token " + token,
-							},
-						}
-					)
-					.catch((err) => {
-						console.log("ERROR:", err);
-					});
-			}, 100);
-		} else {
-			// Axios Post Request to users/rest-auth/registration/
-			axios
-				.post("https://algointeract.com/users/rest-auth/registration/", {
-					username: username,
-					first_name: first_name,
-					last_name: last_name,
-					email: email,
-					password1: password1,
-					password2: password2,
-				})
-				.then((res) => {
-					token = res.data.key;
-					id = res.data.user.id;
-					const username = res.data.user.username;
-					const first_name = res.data.user.first_name;
-					const last_name = res.data.user.last_name;
-					const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-					localStorage.setItem("token", token);
-					localStorage.setItem("id", id);
-					localStorage.setItem("username", username);
-					localStorage.setItem("first_name", first_name);
-					localStorage.setItem("last_name", last_name);
-					localStorage.setItem("expirationDate", expirationDate);
-					dispatch(authSuccess(token, id, username, first_name, last_name));
-					dispatch(checkAuthTimeout(3600));
-				})
-				.catch((err) => {
-					dispatch(authFail(err));
-				});
+				localStorage.setItem("token", token);
+				localStorage.setItem("user_id", user);
+				localStorage.setItem("expirationDate", expirationDate);
+				dispatch(authSuccess(token));
+				dispatch(checkAuthTimeout(3600));
 
-			// Axis Post Request to users/profiles/
-			setTimeout(() => {
-				axios
-					.post(
-						"https://algointeract.com/users/profiles/",
-						{
-							user: id,
-							username: username,
-						},
-						{
-							headers: {
-								Authorization: "Token " + token,
-							},
-						}
-					)
-					.catch((err) => {
-						console.log("ERROR:", err);
+				// Create current user profile after successfully signing up
+				const profileData = { user: user, username: username, first_name: first_name, last_name: last_name };
+
+				dispatch(createProfileRequest());
+				createProfileAPI(token, profileData)
+					.then((response) => {
+						dispatch(fetchCurrUserSuccess(response.data));
+					})
+					.catch((error) => {
+						dispatch(fetchCurrUserFailure(error));
 					});
-			}, 100);
-		}
+			})
+			.catch((error) => {
+				dispatch(authFail(error));
+			});
 	};
 };
 
 export const authCheckState = () => {
 	return (dispatch) => {
 		const token = localStorage.getItem("token");
-		const id = localStorage.getItem("id");
-		const username = localStorage.getItem("username");
-		const first_name = localStorage.getItem("first_name");
-		const last_name = localStorage.getItem("last_name");
+		const user = localStorage.getItem("user_id");
+
 		if (token === undefined) {
 			dispatch(logout());
 		} else {
@@ -232,8 +139,18 @@ export const authCheckState = () => {
 			if (expirationDate <= new Date()) {
 				dispatch(logout());
 			} else {
-				dispatch(authSuccess(token, id, username, first_name, last_name));
+				dispatch(authSuccess(token));
 				dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
+
+				// Fetch user profile data as page refreshes
+				dispatch(fetchCurrUserRequest());
+				fetchCurrUserAPI(user)
+					.then((response) => {
+						dispatch(fetchCurrUserSuccess(response.data));
+					})
+					.catch((error) => {
+						dispatch(fetchCurrUserFailure(error));
+					});
 			}
 		}
 	};

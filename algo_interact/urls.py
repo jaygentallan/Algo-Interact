@@ -25,8 +25,8 @@ urlpatterns = [
     #re_path('.*', TemplateView.as_view(template_name='index.html')),
     path('admin/', admin.site.urls),
     path('api/articles/', include('articles.urls')),
-    path('api-auth/', include('rest_framework.urls')),
-    path('users/', include('users.urls')),
+    path('api/api-auth/', include('rest_framework.urls')),
+    path('api/users/', include('users.urls')),
 ] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += re_path('.*', TemplateView.as_view(template_name='index.html')),

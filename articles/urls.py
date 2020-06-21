@@ -19,7 +19,8 @@ from django.views.generic import TemplateView
 
 from .views import (
     ArticleViewSet,
-    ArticleDetailView
+    ArticleDetailView,
+    ArticleCreateView
 )
 from rest_framework.routers import SimpleRouter
 
@@ -29,6 +30,7 @@ router.register('', ArticleViewSet, basename='articles')
 
 urlpatterns = [
     path('<int:pk>/', ArticleDetailView.as_view(), name='article-detail'),
+    path('create/', ArticleCreateView.as_view(), name='article-create'),
 ]
 
 urlpatterns += re_path('.*', include(router.urls)),

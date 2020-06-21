@@ -17,7 +17,7 @@ algointeract.crt
 # AWS Keys
 rootkey.csv
 
-# AWS
+# ENVIRONMENTAL VARIABLES
 .env
 
 # staticfiles

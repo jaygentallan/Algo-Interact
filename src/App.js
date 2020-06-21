@@ -6,13 +6,13 @@ import * as actions from "./store/actions/auth";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
 
 // Pages
-import HomePage from "./pages/home";
-import VisualizerPage from "./pages/visualizer";
-import LearnPage from "./pages/learn";
-import HubPage from "./pages/hub";
-import NewArticlePage from "./pages/newArticle";
-import NotFoundPage from "./pages/404";
-import ViewArticlePage from "./pages/viewArticle";
+import HomePage from "./pages/HomePage";
+import VisualizerPage from "./pages/VisualizerPage";
+import LearnPage from "./pages/LearnPage";
+import HubPage from "./pages/HubPage";
+import NewArticlePage from "./pages/NewArticlePage";
+import ViewArticlePage from "./pages/ViewArticlePage";
+import EditProfilePage from "./pages/EditProfilePage";
 
 // Main App class to be rendered by the React DOM
 // in the index.js file.
@@ -31,24 +31,15 @@ class App extends Component {
 					<Route
 						exact
 						path="/visualizer"
-						render={(props) => <VisualizerPage {...props} isAuthenticated={this.props.isAuthenticated} username={this.props.username} />}
+						render={(props) => (
+							<VisualizerPage {...props} isAuthenticated={this.props.isAuthenticated} currUserProfile={this.props.currUserProfile} />
+						)}
 					/>
 					<Route exact path="/learn" render={() => <LearnPage {...this.props} />} />
 					<Route exact path="/hub" render={() => <HubPage {...this.props} />} />
-					<Route
-						exact
-						path="/hub/viewarticle/:id"
-						render={(props) => <ViewArticlePage {...props} isAuthenticated={this.props.isAuthenticated} username={this.props.username} />}
-					/>
-					<Route exact path="/hub/newArticle" render={() => <NewArticlePage {...this.props} />} />
-					{/*
-					<Route exact path="/" component={HomePage} {...this.props} />
-					<Route exact path="/visualizer" component={VisualizerPage} {...this.props} />
-					<Route exact path="/learn" component={LearnPage} {...this.props} />
-					<Route exact path="/discuss" component={DiscussPage} {...this.props} />
-					*/}
-					{/*<Route path="/404" component={NotFoundPage} />
-					<Redirect to="/404" />*/}
+					<Route exact path="/hub/viewarticle/:id" render={() => <ViewArticlePage {...this.props} />} />
+					<Route exact path="/hub/newarticle" render={() => <NewArticlePage {...this.props} />} />
+					<Route exact path="/editprofile" render={() => <EditProfilePage {...this.props} />} />
 				</Switch>
 			</Router>
 		);
@@ -57,11 +48,11 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		isAuthenticated: state.token != null,
-		username: state.username,
-		id: state.id,
-		first_name: state.first_name,
-		last_name: state.last_name,
+		isAuthenticated: state.auth.token != null,
+		currUserProfile: state.profile.currUserProfile === null ? null : state.profile.currUserProfile,
+		userProfile: state.profile.userProfile === null ? null : state.profile.userProfile,
+		articles: state.articles.articles,
+		currArticle: state.articles.currArticle,
 	};
 };
 

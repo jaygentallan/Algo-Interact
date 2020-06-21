@@ -1,0 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap");
+
+body {
+	font-family: "IBM Plex Sans", sans-serif;
+	font-size: 16pt;
+	color: #292929;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+.profile {
+	padding-left: calc(15vw + 50px);
+	padding-right: calc(15vw + 50px);
+}
+
+.userProfile {
+	position: relative;
+	margin-top: 65px;
+	color: rgb(73, 72, 72);
+	margin-bottom: 55px;
+}
+
+.photoBox {
+	position: relative !important;
+}
+
+.userInfo {
+	display: inline-block;
+	padding-left: calc(22vw + 25px);
+}
+
+.profile.line {
+	margin-top: -40px;
+	width: 60.5%;
+}
+
+.circular--landscape.profilePicture {
+	display: inline-block;
+	position: relative;
+	left: 1.5vw;
+	width: 20vw !important;
+	height: 20vw;
+}
+
+.circular--landscape.cameraButton,
+.circular--landscape.cameraButton:hover {
+	display: inline-block;
+	position: absolute;
+	bottom: 2.5vw;
+	left: 18vw;
+	width: 2.5vw !important;
+	height: 2.5vw;
+	background-color: rgba(255, 255, 255, 0.8);
+	border: 2px dashed rgb(148, 148, 148) !important;
+	font-size: 1.5vw;
+	cursor: pointer;
+}
+
+.cameraIcon {
+	position: absolute;
+	top: 0.3vw;
+	left: 0.35vw;
+	font-size: 1.5vw;
+}
+
+.profileName {
+	display: inline-block;
+	position: absolute;
+	top: 4.5vw;
+	padding-left: calc(0.6vw + 20px);
+	font-family: "Source Sans Pro", sans-serif;
+	font-size: calc(3vw + 5px);
+	font-weight: bold;
+	color: rgb(44, 44, 44);
+	width: 50vw;
+}
+
+.profileUserName {
+	display: inline-block;
+	position: absolute;
+	top: 8.5vw;
+	padding-left: calc(0.7vw + 20px);
+	font-family: "Source Sans Pro", sans-serif;
+	font-size: calc(1.65vw + 10px);
+	font-weight: bold;
+	color: grey;
+}
+
+.profileDescription {
+	display: inline-block;
+	position: absolute;
+	top: 11.95vw;
+	padding-left: calc(0.5vw + 20px);
+	height: 100px;
+	width: 35vw !important;
+	font-family: "Source Sans Pro", sans-serif;
+	font-size: calc(1vw + 10px);
+	color: rgb(44, 44, 44);
+}
+
+.loadingProfilePicBig {
+	position: relative;
+	top: -10px;
+	margin-left: 30px;
+	margin-right: 25px;
+	font-size: 85px;
+}
+
+.descriptionText {
+	background-color: transparent;
+	border: 2px dashed rgb(148, 148, 148) !important;
+	outline: none !important;
+	position: absolute;
+	top: 11.6vw;
+	left: calc(24vw + 18px);
+	padding-top: 0px;
+	height: 120px;
+	width: 34vw !important;
+	color: rgb(44, 44, 44);
+	background-color: rgb(238, 238, 238);
+	font-family: "Source Sans Pro", sans-serif;
+	font-size: calc(1vw + 10px);
+	font-weight: 100 !important;
+	overflow: hidden;
+	resize: none;
+}
+
+.editButton,
+.editButton:focus {
+	outline: none !important;
+	border: none;
+	overflow: hidden;
+}
+
+.editDescriptionButton {
+	display: inline-block;
+	border: none !important;
+	position: absolute;
+	bottom: 8vw;
+	right: 1vw;
+	font-size: 25px;
+}

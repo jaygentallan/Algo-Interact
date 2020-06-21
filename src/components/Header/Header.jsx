@@ -3,10 +3,13 @@ import Modal from "react-bootstrap/Modal";
 import { connect } from "react-redux";
 import "./Header.css";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
-import * as actions from "../../store/actions/auth";
 import { CaretDownOutlined, ContainerFilled, HeartFilled, SettingFilled, PoweroffOutlined } from "@ant-design/icons";
+import { DEBUG } from "../../debug";
 
 import axios from "axios";
+
+import { logout } from "../../store/actions/auth";
+import { fetchCurrUser, currUserLogout } from "../../store/actions/profile";
 
 // Login form
 import NormalLoginForm from "./Login";
@@ -19,19 +22,17 @@ import RegistrationForm from "./Signup";
   navigating back to the Home page.
 */
 
-var DEBUG = false;
-
 class Header extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			image: "",
+			username: props.username,
+			profile_pic: props.profile_pic,
 			prompt: null,
 			isModalOpen: false,
 			isAuthenticated: props.isAuthenticated,
 			login: true,
-			getImage: false,
 		};
 
 		this.updateLogin = this.updateLogin;
@@ -40,32 +41,28 @@ class Header extends Component {
 	}
 
 	componentDidMount() {
-		this.getImage();
-	}
-
-	getImage() {
-		if (DEBUG) {
-			axios.get("http://127.0.0.1:8000/users/profiles/").then((res) => {
-				for (let i in res.data) {
-					let user = res.data[i];
-					if (user.username === this.props.username) {
-						console.log("IMAGE:", user.image);
-						this.setState({ image: user.image });
-						return;
-					}
-				}
+		if (this.props.currUserProfile) {
+			this.setState({
+				username: this.props.currUserProfile.username,
+				profile_pic: this.props.currUserProfile.profile_pic,
 			});
 		} else {
-			axios.get("https://algo-interact.herokuapp.com/users/profiles/").then((res) => {
-				for (let i in res.data) {
-					let user = res.data[i];
-					if (user.username === this.props.username) {
-						console.log("IMAGE:", user.image);
-						this.setState({ image: user.image });
-						return;
-					}
-				}
-			});
+			const user = localStorage.getItem("user_id");
+			this.props.fetchCurrUser(user);
+		}
+	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.currUserProfile != null && prevProps.currUserProfile !== this.props.currUserProfile) {
+			if (
+				prevProps.currUserProfile !== this.props.currUserProfile ||
+				prevProps.currUserProfile.username !== this.props.currUserProfile.username
+			) {
+				this.setState({
+					username: this.props.currUserProfile.username,
+					profile_pic: this.props.currUserProfile.profile_pic,
+				});
+			}
 		}
 	}
 
@@ -82,10 +79,6 @@ class Header extends Component {
 	};
 
 	render() {
-		if (this.props.isAuthenticated && !this.state.getImage) {
-			this.getImage();
-			this.setState({ getImage: true });
-		}
 		return (
 			<nav className="navbar navbar-expand navbar-toggleable navbar-dark bg-dark">
 				<div class="navbar-header">
@@ -143,29 +136,29 @@ class Header extends Component {
 										aria-expanded="false"
 									>
 										<div>
-											<img
-												className="circular--landscape header profile"
-												src={
-													this.state.image
-														? this.state.image
-														: "https://algointeract.s3.amazonaws.com/media/profile_pics/default.png"
-												}
-											/>
+											{this.state.profile_pic !== null ? (
+												<img className="circular--landscape headerProfile" src={this.state.profile_pic} />
+											) : (
+												<div></div>
+											)}
 											<CaretDownOutlined className="caret" />
 										</div>
 									</a>
 									<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<a className="profile dropdown-item display-4">
-											<img
-												className="circular--landscape header profile big"
-												src={
-													this.state.image
-														? this.state.image
-														: "https://algointeract.s3.amazonaws.com/media/profile_pics/default.png"
-												}
-											/>
-											<a className="username text">{this.props.username}</a>
-										</a>
+										<Link
+											to={{
+												pathname: "/editprofile",
+											}}
+										>
+											<a className="profile dropdown-item display-4">
+												{this.state.profile_pic !== null ? (
+													<img className="circular--landscape headerProfile big" src={this.state.profile_pic} />
+												) : (
+													<div></div>
+												)}
+												<a className="username text">{this.state.username}</a>
+											</a>
+										</Link>
 										<a className="options dropdown-item display-4" href="#">
 											<ContainerFilled className="options icon" />
 											My Posts
@@ -182,6 +175,7 @@ class Header extends Component {
 											class="options dropdown-item display-4 last"
 											onClick={() => {
 												this.setState({ image: "", getImage: false });
+												this.props.currUserLogout();
 												this.props.logout();
 											}}
 										>
@@ -234,10 +228,18 @@ class Header extends Component {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
 	return {
-		logout: () => dispatch(actions.logout()),
+		articles: state.articles,
 	};
 };
 
-export default connect(null, mapDispatchToProps)(Header);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		currUserLogout: () => dispatch(currUserLogout()),
+		logout: () => dispatch(logout()),
+		fetchCurrUser: (user) => dispatch(fetchCurrUser(user)),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

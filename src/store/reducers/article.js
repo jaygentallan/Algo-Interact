@@ -1,4 +1,7 @@
 import {
+	FETCH_ALL_ARTICLES_REQUEST,
+	FETCH_ALL_ARTICLES_SUCCESS,
+	FETCH_ALL_ARTICLES_FAILURE,
 	FETCH_ARTICLE_REQUEST,
 	FETCH_ARTICLE_SUCCESS,
 	FETCH_ARTICLE_FAILURE,
@@ -10,73 +13,65 @@ import {
 	DELETE_ARTICLE_REQUEST,
 	DELETE_ARTICLE_SUCCESS,
 	DELETE_ARTICLE_FAILURE,
-} from "./actionTypes";
-import { updateObject } from "../utility";
+} from "../actions/actionTypes";
 
 const articleInitialState = {
-	token: "",
-	user_id: null,
-	first_name: null,
-	last_name: null,
-	title: null,
-	subtitle: null,
-	content: null,
-	created: null,
+	articles: null,
+	currArticle: null,
 	error: null,
-	loading: false,
-};
-
-const newArticleInitialState = {
-	newArticleSuccess: false,
-	newArticleLoading: false,
-	newArticleError: null,
 };
 
 const initialState = {
 	...articleInitialState,
-	...newArticleInitialState,
 };
 
-const reducer = (state = initialState, action) => {
+const articleReducer = (state = initialState, action) => {
 	switch (action.type) {
+		case FETCH_ALL_ARTICLES_REQUEST:
+			return {
+				...initialState,
+				error: null,
+			};
+		case FETCH_ALL_ARTICLES_SUCCESS:
+			return {
+				...action,
+				error: null,
+			};
+		case FETCH_ALL_ARTICLES_FAILURE:
+			return {
+				...state,
+				error: action.error,
+			};
 		case FETCH_ARTICLE_REQUEST:
 			return {
 				...initialState,
-				loading: true,
 				error: null,
 			};
 		case FETCH_ARTICLE_SUCCESS:
 			return {
-				...initialState,
-				loading: true,
+				...action,
 				error: null,
 			};
 		case FETCH_ARTICLE_FAILURE:
-			return {};
+			return {
+				...state,
+				error: action.error,
+			};
 		case CREATE_ARTICLE_REQUEST:
 			return {
 				...state,
-				newArticleLoading: true,
-				newArticleError: null,
-				newArticleSuccess: false,
 			};
 		case CREATE_ARTICLE_SUCCESS:
 			return {
 				...state,
-				newArticleLoading: false,
-				newArticleSuccess: true,
-				newArticleError: null,
 			};
 		case CREATE_ARTICLE_FAILURE:
 			return {
 				...state,
-				newArticleLoading: false,
-				newArticleError: action.error,
-				newArticleSuccess: false,
 			};
 		default:
 			return state;
 	}
 };
 
-export default reducer;
+export default articleReducer;

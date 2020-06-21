@@ -24,15 +24,15 @@ body {
 }
 
 .newArticleTitle::placeholder {
-	font-size: 48px;
+	font-size: 40px;
 	color: white;
 	text-shadow: 2px 2px 4px #000000;
 }
 
 .newArticleSubtitle::placeholder {
-	font-size: 24px;
-	color: white;
-	text-shadow: 2px 2px 4px #000000;
+	font-size: 18px;
+	color: rgb(200, 200, 200) !important;
+	text-shadow: 2px 2px 2px #000000;
 }
 
 .newArticleTitle,
@@ -41,29 +41,21 @@ body {
 	border: none !important;
 	outline: none !important;
 	position: relative;
-	top: 0;
-	padding-top: 100px;
-	padding-left: 300px;
-	padding-right: 300px;
+	top: 10px;
+	padding-top: 115px;
+	padding-left: 27.5vw;
+	padding-right: 27.5vw;
 	color: white !important;
 	height: 170px !important;
 	width: 100%;
 	margin-top: 130px;
 	height: 140px;
 	font-family: "Libre Baskerville", serif !important;
-	font-size: 48px !important;
+	font-size: 40px !important;
 	font-weight: 100 !important;
 	text-shadow: 2px 2px 4px #000000;
 	overflow: hidden;
 	resize: none;
-}
-
-.newArticleTitlke:focus::placeholder {
-	font-size: 48px;
-	color: red !important;
-	position: relative;
-	top: -20px;
-	text-shadow: 2px 2px 4px #000000;
 }
 
 .newArticleSubtitle,
@@ -71,25 +63,25 @@ body {
 	background-color: transparent;
 	border: none !important;
 	outline: none !important;
-	margin-top: -15px;
+	margin-top: 3px;
 	margin-bottom: 0px;
-	padding-left: 300px;
-	padding-right: 300px;
+	padding-left: 27.5vw;
+	padding-right: 27.5vw;
 	width: 100%;
 	max-height: 70px;
-	color: white !important;
+	text-shadow: 2px 2px 2px #000000;
+	color: rgb(200, 200, 200) !important;
 	font-family: "Libre Baskerville", serif !important;
-	font-size: 24px !important;
+	font-size: 18px !important;
 	font-weight: 100 !important;
 	overflow: hidden;
-	text-shadow: 2px 2px 4px #000000;
 	resize: none;
 }
 
-.cover {
+.newCover {
 	position: absolute;
-	padding-left: 270px;
-	padding-right: 275px;
+	padding-left: 25vw;
+	padding-right: 25vw;
 	z-index: -1;
 	height: 350px !important;
 	width: 100%;
@@ -97,7 +89,7 @@ body {
 	object-position: 0% 50%;
 }
 
-.coverBackground {
+.newCoverBackground {
 	z-index: -2;
 	position: absolute;
 	top: 45px;
@@ -147,14 +139,14 @@ body {
 }
 
 .submitText {
-	margin-top: 0.1em;
-	font-size: 17.6px;
+	margin-top: 3px;
+	font-size: 15px;
 }
 
 .d-flex.justify-content-end.submit {
 	margin-top: 3em;
 	margin-bottom: 5em;
-	margin-right: 300px;
+	margin-right: 25.5vw;
 }
 
 .saveButton {
@@ -186,14 +178,14 @@ body {
 }
 
 .saveText {
-	margin-top: 0.1em;
-	font-size: 17.6px;
+	margin-top: 3px;
+	font-size: 15px;
 }
 
 .uploadButton {
 	position: absolute;
 	top: 60px;
-	right: 288px;
+	right: 26vw;
 	font-size: 1.25em !important;
 	color: white !important;
 	text-shadow: 2px 2px 4px #464646;
@@ -205,4 +197,17 @@ body {
 
 .content.d-flex.justify-content-center {
 	margin-top: 4%;
+}
+
+.newArticleLoading {
+	position: absolute;
+	top: 58px;
+	z-index: 100;
+	height: 70em !important;
+	width: 100% !important;
+	padding-top: 350px;
+	padding-left: 550px;
+	padding-right: 550px;
+	margin-bottom: 350px;
+	background-color: rgba(200, 200, 200, 0.5);
 }
