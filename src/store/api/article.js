@@ -1,6 +1,8 @@
 import axios from "axios";
 import { ARTICLE_URL, ARTICLE_CREATE_URL, ARTICLE_EDIT_URL, ARTICLE_DELETE_URL } from "./constants";
 
+axios.defaults.withCredentials = true;
+
 export const fetchAllArticlesAPI = () => {
 	return axios.get(ARTICLE_URL);
 };

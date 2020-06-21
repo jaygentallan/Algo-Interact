@@ -1,6 +1,8 @@
 import axios from "axios";
 import { USER_URL, USER_EDIT_URL } from "./constants";
 
+axios.defaults.withCredentials = true;
+
 export const fetchCurrUserAPI = (user) => {
 	return axios.get(USER_URL + user + "/");
 };

@@ -15,9 +15,6 @@ import {
 	DELETE_ARTICLE_FAILURE,
 } from "./actionTypes";
 import { fetchAllArticlesAPI, fetchArticleAPI, createArticleAPI } from "../api/article";
-import axios from "axios";
-
-axios.defaults.withCredentials = true;
 
 export const fetchAllArticlesRequest = () => {
 	return {

@@ -10,6 +10,8 @@ DEBUG = False
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
+    'algointeract.com',
+    'algo-interact.herokuapp.com',
     'https://algointeract.com',
     'https://algo-interact.herokuapp.com',
     'http://localhost:3000',
