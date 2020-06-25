@@ -196,15 +196,15 @@ class NewArticle extends Component {
 					loading: true,
 				});
 				this.props.createDraft(this.state.user, title, subtitle, content, cover);
-				this.props.deleteDraft(this.state.user, this.state.id);
 				if (this.state.isDraft) {
-					setTimeout(() => {
-						this.setState({
-							loading: false,
-						});
-						this.props.history.push("/hub");
-					}, 2000);
+					this.props.deleteDraft(this.state.user, this.state.id);
 				}
+				setTimeout(() => {
+					this.setState({
+						loading: false,
+					});
+					this.props.history.push("/hub");
+				}, 2000);
 			}
 		};
 

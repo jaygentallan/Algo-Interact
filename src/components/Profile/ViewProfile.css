@@ -82,12 +82,12 @@ body {
 	color: rgb(44, 44, 44);
 }
 
-.loadingProfilePicBig {
-	position: relative;
-	top: -10px;
-	margin-left: 30px;
-	margin-right: 25px;
-	font-size: 85px;
+.profileLoadingProfilePicBig {
+	position: absolute;
+	top: 2.5vw;
+	left: 7vw;
+	font-size: 15vw;
+	color: #c34f6b;
 }
 
 .descriptionText {

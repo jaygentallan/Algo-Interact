@@ -54,7 +54,7 @@ class ViewProfile extends Component {
 							<img className="circular--landscape viewProfilePicture" src={this.state.profile_pic} />
 						</div>
 					) : (
-						<LoadingOutlined className="loadingProfilePicBig" />
+						<LoadingOutlined className="profileLoadingProfilePicBig" />
 					)}
 					<div className="viewUserInfo">
 						<h1 className="viewProfileName">
