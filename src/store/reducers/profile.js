@@ -11,6 +11,9 @@ import {
 	UPDATE_PROFILE_REQUEST,
 	UPDATE_PROFILE_SUCCESS,
 	UPDATE_PROFILE_FAILURE,
+	VIEW_PROFILE_REQUEST,
+	VIEW_PROFILE_SUCCESS,
+	VIEW_PROFILE_FAILURE,
 	AUTH_LOGOUT,
 } from "../actions/actionTypes";
 
@@ -81,6 +84,21 @@ const profileReducer = (state = initialState, action) => {
 		case UPDATE_PROFILE_FAILURE:
 			return {
 				...state,
+			};
+		case VIEW_PROFILE_REQUEST:
+			return {
+				...initialState,
+				error: null,
+			};
+		case VIEW_PROFILE_SUCCESS:
+			return {
+				userProfile: action.userProfile,
+				error: null,
+			};
+		case VIEW_PROFILE_FAILURE:
+			return {
+				...state,
+				error: action.error,
 			};
 		case AUTH_LOGOUT:
 			return {

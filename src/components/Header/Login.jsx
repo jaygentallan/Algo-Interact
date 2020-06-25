@@ -17,32 +17,23 @@ class NormalLoginForm extends Component {
 
 		this.state = {
 			prompt: null,
+			isAuthenticated: false,
 			loading: false,
 		};
 	}
 
-	render() {
-		if (this.props.error) {
-			if (this.props.error.message === "Request failed with status code 400") {
-				this.props.updatePrompt(<p>No account exists!</p>);
-			}
-		}
-		const onFinish = (values) => {
-			this.props.onAuth(values.username, values.password);
-			this.setState({ loading: true });
-			setTimeout(() => {
-				if (this.props.isAuthenticated) {
-					this.setState({
-						prompt: <p className="logInSuccessful">Logged in successfully!</p>,
-						loading: false,
-					});
-				} else {
-					this.setState({
-						prompt: <p className="logInUnsuccessful">The username or password is incorrect!</p>,
-						loading: false,
-					});
-				}
-			}, 1000);
+	componentDidMount() {
+		this.setState({
+			isAuthenticated: this.props.isAuthenticated,
+		});
+	}
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.isAuthenticated !== this.props.isAuthenticated) {
+			this.setState({
+				prompt: <p className="logInSuccessful">Logged in successfully!</p>,
+				loading: false,
+			});
 			setTimeout(() => {
 				this.props.updateLogin(true);
 				this.props.updateModal(false);
@@ -50,6 +41,26 @@ class NormalLoginForm extends Component {
 					prompt: null,
 				});
 			}, 2000);
+		} else if (prevProps.loading !== this.props.loading && !this.props.loading) {
+			console.log("LOADING");
+			this.setState({
+				prompt: <p className="logInUnsuccessful">The username or password is incorrect!</p>,
+				loading: true,
+			});
+			setTimeout(() => {
+				this.setState({
+					loading: false,
+					prompt: null,
+				});
+				this.props.updateLogin(true);
+			}, 2000);
+		}
+	}
+
+	render() {
+		const onFinish = (values) => {
+			this.props.onAuth(values.username, values.password);
+			this.setState({ loading: true });
 		};
 
 		return (
@@ -59,7 +70,7 @@ class NormalLoginForm extends Component {
 				</div>
 				{this.state.prompt ? (
 					this.state.prompt
-				) : this.props.loading || this.state.loading ? (
+				) : this.state.loading ? (
 					<Spin indicator={antIcon} className="loading" />
 				) : (
 					<div>
@@ -133,17 +144,10 @@ class NormalLoginForm extends Component {
 
 //const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
 
-const mapStateToProps = (state) => {
-	return {
-		loading: state.loading,
-		error: state.error,
-	};
-};
-
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onAuth: (username, password) => dispatch(actions.authLogin(username, password)),
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NormalLoginForm);
+export default connect(null, mapDispatchToProps)(NormalLoginForm);

@@ -126,6 +126,14 @@
 	text-align: left;
 }
 
+.logInModal {
+	margin-top: 10vh;
+}
+
+.logOutModal {
+	margin-top: 30vh;
+}
+
 .logInButton {
 	border-top-style: solid;
 	border-right-style: solid;
@@ -163,6 +171,17 @@
 .logInText {
 	margin-top: 0.2em;
 	font-size: 16px;
+}
+
+.logOutText {
+	padding-left: 1vw;
+	padding-right: 1vw;
+	font-family: "Source Sans Pro", sans-serif;
+	font-size: 18px;
+	text-align: center;
+	margin-top: 40px;
+	margin-bottom: 30px;
+	color: #6b6c6d;
 }
 
 .signUp {
@@ -220,22 +239,25 @@
 }
 
 .logInSuccessful {
+	padding-left: 1vw;
+	padding-right: 1vw;
+	font-family: "Source Sans Pro", sans-serif;
 	font-size: 18px;
-	position: relative;
-	margin-top: 2em;
-	margin-bottom: 1em;
-	left: 12%;
+	text-align: center;
+	margin-top: 35px;
+	margin-bottom: 30px;
 	color: #6b6c6d;
 }
 
 .logInUnsuccessful {
+	padding-left: 1vw;
+	padding-right: 1vw;
+	font-family: "Source Sans Pro", sans-serif;
 	font-size: 18px;
-	position: relative;
-	left: -2.5%;
-	margin-top: 2em;
-	margin-bottom: 1em;
+	text-align: center;
+	margin-top: 35px;
+	margin-bottom: 30px;
 	color: #6b6c6d;
-	width: 106%;
 }
 
 .signUpUnsuccessful {
@@ -373,6 +395,8 @@
 	font-weight: lighter;
 	margin-top: 2em;
 	margin-bottom: -0.5em;
+	padding-left: 2vw;
+	padding-right: 2vw;
 	font-size: 16px !important;
 }
 

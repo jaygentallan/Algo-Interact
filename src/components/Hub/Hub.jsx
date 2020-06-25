@@ -7,7 +7,6 @@ import { Button } from "antd";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { LoadingOutlined, FireFilled, StarFilled, ClockCircleFilled, RiseOutlined } from "@ant-design/icons";
-import { DEBUG } from "../../debug";
 
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/article";
@@ -43,7 +42,7 @@ class Hub extends Component {
 			profile: [],
 			isModalOpen: false,
 			login: true,
-			prompt: null,
+			prompt: "",
 		};
 
 		this.updateLogin = this.updateLogin;
@@ -68,10 +67,13 @@ class Hub extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (prevProps.articles.articles !== this.props.articles.articles) {
+		if (prevProps.articles.articles !== this.props.articles.articles && this.props.articles.articles) {
 			this.setState({
 				articles: this.props.articles.articles,
 			});
+		}
+		if (prevProps.currUserProfile !== this.props.currUserProfile) {
+			this.props.fetchAllArticles();
 		}
 	}
 
@@ -123,13 +125,35 @@ class Hub extends Component {
 				<div class="buttonHolder">
 					<input
 						type="text"
-						class="searchInput"
+						className="searchInput"
 						name="removeNodeName"
 						placeholder="Search articles or topics"
 						value={this.state.removeNodeName}
 						onChange={this._removeNodeHandleChange}
 						onKeyPress={this._handleRemoveKeyEnter}
 					/>
+
+					{this.props.isAuthenticated ? (
+						<Link to="/hub/drafts">
+							<Button variant="outline-danger" className="draftsButton">
+								<p className="newArticleText"> Drafts </p>
+							</Button>
+						</Link>
+					) : (
+						<Button
+							variant="outline-danger"
+							className="draftsButton"
+							onClick={() => {
+								this.setState({
+									prompt: "You need to log in to view your saved drafts!",
+									isModalOpen: true,
+								});
+							}}
+						>
+							<p className="newArticleText"> Drafts </p>
+						</Button>
+					)}
+
 					{this.props.isAuthenticated ? (
 						<Link to="/hub/newarticle">
 							<Button variant="outline-danger" className="newArticleButton">
@@ -141,7 +165,10 @@ class Hub extends Component {
 							variant="outline-danger"
 							className="newArticleButton"
 							onClick={() => {
-								this.setState({ isModalOpen: true });
+								this.setState({
+									prompt: "You need to log in to create an article!",
+									isModalOpen: true,
+								});
 							}}
 						>
 							<p className="newArticleText"> New + </p>
@@ -160,7 +187,7 @@ class Hub extends Component {
 					<Modal.Body>
 						{this.state.login ? (
 							<NormalLoginForm
-								articlePrompt={"You need to log in to create an article!"}
+								articlePrompt={this.state.prompt}
 								updateLogin={this.updateLogin}
 								updateModal={this.updateModal}
 								updatePrompt={this.updatePrompt}

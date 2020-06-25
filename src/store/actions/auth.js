@@ -1,6 +1,7 @@
 import { AUTH_START, AUTH_SUCCESS, AUTH_FAIL, AUTH_LOGOUT } from "./actionTypes";
 import { authLoginAPI, authSignupAPI } from "../api/auth";
 import { fetchCurrUserAPI, createProfileAPI } from "../api/profile";
+import { createDraftAPI } from "../api/article";
 import {
 	fetchCurrUserRequest,
 	fetchCurrUserSuccess,
@@ -10,7 +11,7 @@ import {
 	createProfileFailure,
 	currUserLogout,
 } from "./profile";
-import { dispatch } from "d3";
+import { dispatch, interpolate } from "d3";
 
 export const authStart = () => {
 	return {
@@ -61,7 +62,7 @@ export const authLogin = (username, password) => {
 
 		authLoginAPI(data)
 			.then((response) => {
-				console.log("SUCCESSFULLY LOGGED IN", response);
+				console.log("SUCCESSFULLY LOGGED IN");
 				const token = response.data.key;
 				const user = response.data.user.id;
 				const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
@@ -83,6 +84,7 @@ export const authLogin = (username, password) => {
 					});
 			})
 			.catch((error) => {
+				console.log("FAILED TO LOG IN");
 				dispatch(authFail(error));
 			});
 	};
@@ -115,10 +117,22 @@ export const authSignup = (username, first_name, last_name, email, password1, pa
 				dispatch(createProfileRequest());
 				createProfileAPI(token, profileData)
 					.then((response) => {
+						console.log("SUCCESSFULLY INITIALIZED USER PROFILE");
 						dispatch(fetchCurrUserSuccess(response.data));
 					})
 					.catch((error) => {
+						console.log("FAILED TO INITIALIZE USER PROFILE");
 						dispatch(fetchCurrUserFailure(error));
+					});
+
+				// Create current user drafts after successfully signing up
+				const draftData = { user: parseInt(user), drafts: [] };
+				createDraftAPI(token, draftData)
+					.then(() => {
+						console.log("SUCCESSFULLY INITIALIZED USER DRAFT");
+					})
+					.catch(() => {
+						console.log("FAILED TO INITIALIZE USER DRAFT");
 					});
 			})
 			.catch((error) => {

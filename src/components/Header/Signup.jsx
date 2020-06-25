@@ -21,20 +21,19 @@ class RegistrationForm extends Component {
 		};
 	}
 
-	render() {
-		const onFinish = (values) => {
-			this.props.onAuth(values.username, values.first_name, values.last_name, values.email, values.password, values.confirm);
-			setTimeout(() => {
-				if (this.props.isAuthenticated) {
-					this.setState({
-						prompt: <p className="logInSuccessful">Signed up successfully!</p>,
-					});
-				} else {
-					this.setState({
-						prompt: <p className="signUpUnsuccessful">Unsuccessful sign up!</p>,
-					});
-				}
-			}, 100);
+	componentDidUpdate(prevProps) {
+		if (prevProps.isAuthenticated !== this.props.isAuthenticated) {
+			if (this.props.isAuthenticated) {
+				this.setState({
+					prompt: <p className="logInSuccessful">Signed up successfully!</p>,
+					loading: false,
+				});
+			} else {
+				this.setState({
+					prompt: <p className="logInUnsuccessful">Unsuccessful sign up!</p>,
+					loading: false,
+				});
+			}
 			setTimeout(() => {
 				this.props.updateLogin(true);
 				this.props.updateModal(false);
@@ -42,8 +41,12 @@ class RegistrationForm extends Component {
 					prompt: null,
 				});
 			}, 2000);
+		}
+	}
 
-			const [form] = Form.useForm();
+	render() {
+		const onFinish = (values) => {
+			this.props.onAuth(values.username, values.first_name, values.last_name, values.email, values.password, values.confirm);
 		};
 		return (
 			<div>

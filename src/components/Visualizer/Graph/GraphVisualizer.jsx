@@ -1615,7 +1615,14 @@ export default class GraphVisualizer extends React.Component {
 
 				<ReactTooltip id="buttons" place="right" backgroundColor="#c34f6b" effect="solid" multiline={true} className="extraClass" />
 
-				<ReactTooltip id="helpButton" place="right" backgroundColor="#2e8b57" effect="solid" multiline={true} className="extraClass" />
+				<ReactTooltip
+					id="helpButton"
+					place="right"
+					backgroundColor="rgb(46, 185, 106)"
+					effect="solid"
+					multiline={true}
+					className="extraClass"
+				/>
 
 				{/*Presets */}
 				<div class="rightWindow">

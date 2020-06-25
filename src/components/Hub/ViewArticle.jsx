@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import "./ViewArticle.css";
-import { Editor } from "@tinymce/tinymce-react";
-import { Form, Input, Button, Checkbox } from "antd";
-import { withRouter } from "react-router-dom";
-import { LoadingOutlined, BookOutlined } from "@ant-design/icons";
+import Modal from "react-bootstrap/Modal";
+import { withRouter, Link } from "react-router-dom";
+import { Button } from "antd";
+import { LoadingOutlined, BookOutlined, FormOutlined, DeleteOutlined } from "@ant-design/icons";
 
 import { connect } from "react-redux";
-import { fetchArticle } from "../../store/actions/article";
-import { fetchUser } from "../../store/actions/profile";
+import { fetchArticle, deleteArticle } from "../../store/actions/article";
+import { fetchUser, fetchCurrUser } from "../../store/actions/profile";
 
 import ReactLoading from "react-loading";
 
@@ -25,8 +25,12 @@ class ViewArticle extends Component {
 		super(props);
 
 		this.state = {
+			id: null,
+			currUser: null,
+			user: null,
 			title: "",
 			subtitle: "",
+			username: "",
 			first_name: "",
 			last_name: "",
 			description: "",
@@ -35,14 +39,25 @@ class ViewArticle extends Component {
 			cover: "",
 			profile_pic: "",
 			created_at: "",
+			isModalOpen: false,
+			deleting: false,
+			deletingDone: false,
 		};
+
+		this.updateModal = this.updateModal;
 	}
 
 	contentMarkup() {
 		return { __html: this.state.content };
 	}
 
+	deleteArticle() {
+		this.props.deleteArticle(this.state.id);
+	}
+
 	componentDidMount() {
+		const user = localStorage.getItem("user_id");
+		this.props.fetchCurrUser(user);
 		this.props.fetchArticle(this.props.id);
 		this.props.fetchUser(this.props.user);
 	}
@@ -57,6 +72,7 @@ class ViewArticle extends Component {
 			const formatted_date = date.toLocaleString("en-us", { month: "long" }) + " " + day + " " + year;
 
 			this.setState({
+				id: this.props.currArticle.id,
 				title: this.props.currArticle.title,
 				subtitle: this.props.currArticle.subtitle,
 				content: this.props.currArticle.content,
@@ -66,11 +82,29 @@ class ViewArticle extends Component {
 		}
 		if (this.props.userProfile != null && prevProps.userProfile !== this.props.userProfile) {
 			this.setState({
+				user: this.props.userProfile.user,
+				username: this.props.userProfile.username,
 				first_name: this.props.userProfile.first_name,
 				last_name: this.props.userProfile.last_name,
 				description: this.props.userProfile.description,
 				profile_pic: this.props.userProfile.profile_pic,
 			});
+		}
+		if (this.props.currUserProfile != null && prevProps.currUserProfile !== this.props.currUserProfile) {
+			if (prevProps.currUserProfile !== this.props.currUserProfile || prevProps.currUserProfile.user !== this.props.currUserProfile.user) {
+				this.setState({
+					currUser: this.props.currUserProfile.user,
+				});
+			}
+		}
+		if (this.props.articles != null && prevProps.articles !== this.props.articles) {
+			this.setState({
+				deleting: false,
+				deletingDone: true,
+			});
+			setTimeout(() => {
+				this.props.history.push("/hub");
+			}, 2000);
 		}
 	}
 
@@ -82,8 +116,8 @@ class ViewArticle extends Component {
 				) : (
 					<div></div>
 				)}
-				<img className="viewCover" src={this.state.cover} />
-				<img className="viewCoverBackground" src={this.state.cover} />
+				{this.state.cover ? <img className="viewCover" src={this.state.cover} /> : <div />}
+				{this.state.cover ? <img className="viewCoverBackground" src={this.state.cover} /> : <div />}
 				<div className="cutoff"></div>
 				{this.state.title.length > 32 ? (
 					<div className="longPadding">
@@ -95,31 +129,134 @@ class ViewArticle extends Component {
 				<h1 className="d-flex view subtitle"> {this.state.subtitle} </h1>
 				<div class="view author">
 					{this.state.profile_pic ? (
-						<img className="circular--landscape author picture" src={this.state.profile_pic} />
+						<Link
+							to={{
+								pathname: "/viewprofile/" + this.state.username,
+								state: { username: this.state.username },
+							}}
+						>
+							<img className="circular--landscape author picture" src={this.state.profile_pic} />
+						</Link>
 					) : (
 						<LoadingOutlined className="loadingProfilePic" />
 					)}
-					<h1 className="author name">
-						{this.state.first_name} {this.state.last_name}
-						<h1 className="author date">{this.state.created_at}</h1>
-					</h1>
-					<BookOutlined className="author bookmark" />
+
+					<Link
+						to={{
+							pathname: "/viewprofile/" + this.state.username,
+							state: { username: this.state.username },
+						}}
+					>
+						<h1 className="author name">
+							{this.state.first_name} {this.state.last_name}
+							<h1 className="author date">{this.state.created_at}</h1>
+						</h1>
+					</Link>
+
+					{this.state.user ? (
+						this.state.user === this.state.currUser ? (
+							<div className="editButton">
+								<Link
+									to={{
+										pathname: "/hub/editarticle",
+										state: {
+											id: this.state.id,
+											title: this.state.title,
+											subtitle: this.state.subtitle,
+											content: this.state.content,
+											cover: this.state.cover,
+											isEdit: true,
+										},
+									}}
+								>
+									<FormOutlined className="author edit" />
+								</Link>
+								<DeleteOutlined
+									className="author delete"
+									onClick={() => {
+										this.setState({ isModalOpen: true });
+									}}
+								/>
+							</div>
+						) : (
+							<BookOutlined className="author bookmark" />
+						)
+					) : (
+						<div />
+					)}
 				</div>
 				<hr className="article line"></hr>
 				<div class="view content" dangerouslySetInnerHTML={this.contentMarkup()} />
 				<hr className="article line"></hr>
 				<div class="view author big">
 					{this.state.profile_pic ? (
-						<img className="circular--landscape author picture big" src={this.state.profile_pic} />
+						<div className="imageLink">
+							<Link
+								to={{
+									pathname: "/viewprofile/" + this.state.username,
+									state: { username: this.state.username },
+								}}
+							>
+								<img className="circular--landscape author picture big" src={this.state.profile_pic} />
+							</Link>
+						</div>
 					) : (
 						<LoadingOutlined className="loadingProfilePicBig" />
 					)}
 					<h1 className="author createdby">CREATED BY</h1>
-					<h1 className="author name big">
-						{this.state.first_name} {this.state.last_name}
-					</h1>
+					<Link
+						to={{
+							pathname: "/viewprofile/" + this.state.username,
+							state: { username: this.state.username },
+						}}
+					>
+						<h1 className="author name big">
+							{this.state.first_name} {this.state.last_name}
+						</h1>
+					</Link>
 					<h1 className="author description">{this.state.description}</h1>
 				</div>
+
+				<Modal
+					className="confirmationModal"
+					show={this.state.isModalOpen}
+					onHide={() => {
+						this.setState({ isModalOpen: false });
+					}}
+					size="sm"
+				>
+					<Modal.Body>
+						{this.state.deleting ? (
+							<LoadingOutlined className="deleteLoading" />
+						) : this.state.deletingDone ? (
+							<h1 className="deleteDoneText"> Successfully deleted article "{this.state.title}"!</h1>
+						) : (
+							<div>
+								<h1 className="confirmationText"> Are you sure you want to delete article "{this.state.title}"?</h1>
+								<div class="d-flex justify-content-center mb-3">
+									<Button
+										variant="outline-danger"
+										className="cancelButton"
+										onClick={() => {
+											this.setState({ isModalOpen: false });
+										}}
+									>
+										<p className="cancelText"> Cancel </p>
+									</Button>
+									<Button
+										variant="outline-danger"
+										className="deleteButton"
+										onClick={() => {
+											this.deleteArticle();
+										}}
+									>
+										<p className="deleteText"> Delete </p>
+									</Button>
+								</div>
+							</div>
+						)}
+					</Modal.Body>
+				</Modal>
 			</div>
 		);
 	}
@@ -128,7 +265,9 @@ class ViewArticle extends Component {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		fetchArticle: (id) => dispatch(fetchArticle(id)),
+		deleteArticle: (id) => dispatch(deleteArticle(id)),
 		fetchUser: (user) => dispatch(fetchUser(user)),
+		fetchCurrUser: (user) => dispatch(fetchCurrUser(user)),
 	};
 };
 

@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import "./EditProfile.css";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Button } from "antd";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { LoadingOutlined, EditFilled, CheckOutlined, CameraFilled } from "@ant-design/icons";
 
-import { fetchCurrUser, updateProfile } from "../../store/actions/profile";
+import { fetchCurrUser, editProfile } from "../../store/actions/profile";
 
 class EditProfile extends Component {
 	constructor(props) {
-		console.log("EDIT PROFILE PROPS:", props);
 		super(props);
 
 		this.state = {
@@ -34,14 +33,13 @@ class EditProfile extends Component {
 	};
 
 	_handlePictureChange = (e) => {
-		console.log("CHANGING PROFILE WITH:", e.target.files[0]);
 		e.preventDefault();
 		this.setState({
 			profile_pic: URL.createObjectURL(e.target.files[0]),
 			new_profile_pic: e.target.files[0],
 		});
-		// Calls updateProfile in redux store to update values.
-		this.props.updateProfile(this.state.user, null, e.target.files[0]);
+		// Calls editProfile in redux store to update values.
+		this.props.editProfile(this.state.user, null, e.target.files[0]);
 	};
 
 	componentDidMount() {
@@ -63,6 +61,7 @@ class EditProfile extends Component {
 
 	// Refreshes the state once the redux store has finished loading.
 	componentDidUpdate(prevProps) {
+		// If user is not signed in, go back to homepage
 		if (!this.props.isAuthenticated) {
 			this.props.history.push("/");
 		}
@@ -92,7 +91,7 @@ class EditProfile extends Component {
 		const onSaveDescription = () => {
 			this.setState({ editDescription: false });
 			if (this.state.description !== this.state.newDescription) {
-				this.props.updateProfile(this.state.user, this.state.newDescription, null);
+				this.props.editProfile(this.state.user, this.state.newDescription, null);
 			}
 		};
 
@@ -114,16 +113,20 @@ class EditProfile extends Component {
 							</div>
 						</div>
 					) : (
-						<LoadingOutlined className="loadingProfilePicBig" />
+						<LoadingOutlined className="profileLoadingProfilePicBig" />
 					)}
 					<div className="userInfo">
-						<h1 className="profileName">
+						<h1 className="editProfileName">
 							{this.state.first_name} {this.state.last_name}
 						</h1>
-						<h1 className="profileUserName"> {this.state.username}</h1>
+						<h1 className="editProfileUsername"> {this.state.username}</h1>
 						{!this.state.editDescription ? (
 							<div>
-								<h1 className="profileDescription">{this.state.description}</h1>
+								{this.state.description ? (
+									<h1 className="editProfileDescription">{this.state.description}</h1>
+								) : (
+									<h1 className="editProfileDescriptionEmpty"> Edit your bio </h1>
+								)}
 								<EditFilled
 									className="editDescriptionButton"
 									onClick={() => {
@@ -137,7 +140,7 @@ class EditProfile extends Component {
 									<textarea
 										rows="3"
 										maxLength="130"
-										className="descriptionText"
+										className="editDescriptionText"
 										value={this.state.description}
 										defaultValue={this.state.description}
 										onChange={this._handleDescriptionChange}
@@ -160,7 +163,7 @@ class EditProfile extends Component {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		fetchCurrUser: (user) => dispatch(fetchCurrUser(user)),
-		updateProfile: (user, description, profile_pic) => dispatch(updateProfile(user, description, profile_pic)),
+		editProfile: (user, description, profile_pic) => dispatch(editProfile(user, description, profile_pic)),
 	};
 };
 

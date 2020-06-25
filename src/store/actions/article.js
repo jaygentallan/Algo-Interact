@@ -8,13 +8,32 @@ import {
 	CREATE_ARTICLE_REQUEST,
 	CREATE_ARTICLE_SUCCESS,
 	CREATE_ARTICLE_FAILURE,
-	CREATE_ARTICLE_SAVE,
-	CREATE_ARTICLE_TOGGLE,
+	EDIT_ARTICLE_REQUEST,
+	EDIT_ARTICLE_SUCCESS,
+	EDIT_ARTICLE_FAILURE,
 	DELETE_ARTICLE_REQUEST,
 	DELETE_ARTICLE_SUCCESS,
 	DELETE_ARTICLE_FAILURE,
+	FETCH_DRAFTS_REQUEST,
+	FETCH_DRAFTS_SUCCESS,
+	FETCH_DRAFTS_FAILURE,
+	CREATE_DRAFT_REQUEST,
+	CREATE_DRAFT_SUCCESS,
+	CREATE_DRAFT_FAILURE,
+	DELETE_DRAFT_REQUEST,
+	DELETE_DRAFT_SUCCESS,
+	DELETE_DRAFT_FAILURE,
 } from "./actionTypes";
-import { fetchAllArticlesAPI, fetchArticleAPI, createArticleAPI } from "../api/article";
+import {
+	fetchAllArticlesAPI,
+	fetchArticleAPI,
+	createArticleAPI,
+	editArticleAPI,
+	deleteArticleAPI,
+	fetchDraftsAPI,
+	createDraftAPI,
+	deleteDraftAPI,
+} from "../api/article";
 
 export const fetchAllArticlesRequest = () => {
 	return {
@@ -75,11 +94,11 @@ export const fetchArticle = (id) => (dispatch) => {
 
 	fetchArticleAPI(id)
 		.then((response) => {
-			console.log("SUCCESSFULLY FETCHED ARTICLE WITH ID", id);
+			console.log("SUCCESSFULLY FETCHED ARTICLE");
 			dispatch(fetchArticleSuccess(response.data));
 		})
 		.catch((error) => {
-			console.log("FAILURE TO FETCH ARTICLES");
+			console.log("FAILURE TO FETCH ARTICLE");
 			dispatch(fetchArticleFailure(error));
 		});
 };
@@ -105,9 +124,7 @@ export const createArticleFailure = (error) => {
 };
 
 export const createArticle = (user, first_name, last_name, title, subtitle, content, cover) => (dispatch) => {
-	console.log(user, first_name, last_name, title, subtitle, content, cover);
 	const token = localStorage.getItem("token");
-	console.log("ARTICLE COVER:", typeof cover);
 	var data = new FormData();
 	data.append("user", user);
 	data.append("first_name", first_name);
@@ -122,6 +139,7 @@ export const createArticle = (user, first_name, last_name, title, subtitle, cont
 	createArticleAPI(token, data)
 		.then((response) => {
 			console.log("SUCCESSFULLY CREATED ARTICLE");
+
 			fetchAllArticlesAPI()
 				.then((response) => {
 					console.log("SUCCESSFULLY FETCHED ARTICLES");
@@ -135,5 +153,233 @@ export const createArticle = (user, first_name, last_name, title, subtitle, cont
 		})
 		.catch((error) => {
 			dispatch(createArticleFailure(error));
+		});
+};
+
+export const editArticleRequest = () => {
+	return {
+		type: EDIT_ARTICLE_REQUEST,
+	};
+};
+
+export const editArticleSuccess = (newArticle) => {
+	return {
+		type: EDIT_ARTICLE_SUCCESS,
+		newArticle,
+	};
+};
+
+export const editArticleFailure = (error) => {
+	return {
+		type: EDIT_ARTICLE_FAILURE,
+		error: error,
+	};
+};
+
+export const editArticle = (id, title, subtitle, content, cover) => (dispatch) => {
+	dispatch(editArticleRequest());
+	const token = localStorage.getItem("token");
+	var data = new FormData();
+	if (title) data.append("title", title);
+	if (subtitle) data.append("subtitle", subtitle);
+	if (content) data.append("content", content);
+	if (cover) data.append("cover", cover);
+
+	editArticleAPI(token, id, data)
+		.then((response) => {
+			console.log("SUCCESSFULLY UPDATED ARTICLE", response);
+
+			fetchAllArticlesAPI()
+				.then((response) => {
+					console.log("SUCCESSFULLY FETCHED ARTICLES");
+					dispatch(fetchAllArticlesSuccess(response.data));
+				})
+				.catch((error) => {
+					console.log("FAILURE TO FETCH ARTICLES");
+					dispatch(fetchAllArticlesFailure(error));
+				});
+
+			dispatch(editArticleSuccess(response.data));
+		})
+		.catch((error) => {
+			console.log("FAILURE TO UPDATE ARTICLE");
+			dispatch(editArticleFailure(error));
+		});
+};
+
+export const deleteArticleRequest = () => {
+	return {
+		type: DELETE_ARTICLE_REQUEST,
+	};
+};
+
+export const deleteArticleSuccess = () => {
+	return {
+		type: DELETE_ARTICLE_SUCCESS,
+	};
+};
+
+export const deleteArticleFailure = (error) => {
+	return {
+		type: DELETE_ARTICLE_FAILURE,
+		error,
+	};
+};
+
+export const deleteArticle = (id) => (dispatch) => {
+	const token = localStorage.getItem("token");
+	dispatch(deleteArticleRequest());
+
+	deleteArticleAPI(token, id)
+		.then((response) => {
+			console.log("SUCCESSFULLY DELETED ARTICLE");
+
+			fetchAllArticlesAPI()
+				.then((response) => {
+					console.log("SUCCESSFULLY FETCHED ARTICLES");
+					dispatch(fetchAllArticlesSuccess(response.data));
+				})
+				.catch((error) => {
+					console.log("FAILURE TO FETCH ARTICLES");
+					dispatch(fetchAllArticlesFailure(error));
+				});
+
+			dispatch(deleteArticleSuccess(response));
+		})
+		.catch((error) => {
+			console.log("FAILED TO DELETE ARTICLE");
+			dispatch(deleteArticleFailure(error));
+		});
+};
+
+export const fetchDraftsRequest = () => {
+	return {
+		type: FETCH_DRAFTS_REQUEST,
+	};
+};
+
+export const fetchDraftsSuccess = (drafts) => {
+	return {
+		type: FETCH_DRAFTS_SUCCESS,
+		drafts,
+	};
+};
+
+export const fetchDraftsFailure = (error) => {
+	return {
+		type: FETCH_DRAFTS_FAILURE,
+		error,
+	};
+};
+
+export const fetchDrafts = (user) => (dispatch) => {
+	dispatch(fetchDraftsRequest());
+
+	fetchDraftsAPI(user)
+		.then((response) => {
+			console.log("SUCCESSFULLY FETCHED DRAFTS");
+			dispatch(fetchDraftsSuccess(response.data));
+		})
+		.catch((error) => {
+			console.log("FAILURE TO FETCH DRAFTS");
+			dispatch(fetchDraftsFailure(error));
+		});
+};
+
+export const createDraftRequest = () => {
+	return {
+		type: CREATE_DRAFT_REQUEST,
+	};
+};
+
+export const createDraftSuccess = (drafts) => {
+	return {
+		type: CREATE_DRAFT_SUCCESS,
+		drafts,
+	};
+};
+
+export const createDraftFailure = (error) => {
+	return {
+		type: CREATE_DRAFT_FAILURE,
+		error,
+	};
+};
+
+export const createDraft = (user, title, subtitle, content, cover) => (dispatch) => {
+	const token = localStorage.getItem("token");
+	var data = new FormData();
+	data.append("user", user);
+	data.append("title", title);
+	data.append("subtitle", subtitle);
+	data.append("content", content);
+	if (cover) data.append("cover", cover);
+
+	dispatch(createDraftRequest());
+
+	createDraftAPI(token, data)
+		.then((response) => {
+			console.log("SUCCESSFULLY CREATED DRAFT");
+
+			fetchDraftsAPI(user)
+				.then((response) => {
+					console.log("SUCCESSFULLY FETCHED DRAFTS");
+					dispatch(fetchDraftsSuccess(response.data));
+				})
+				.catch((error) => {
+					console.log("FAILED TO CATCH DRAFTS");
+					dispatch(fetchDraftsFailure(error));
+				});
+
+			dispatch(createDraftSuccess(response));
+		})
+		.catch((error) => {
+			console.log("FAILED TO CREATE DRAFT");
+			dispatch(createDraftFailure(error));
+		});
+};
+
+export const deleteDraftRequest = () => {
+	return {
+		type: DELETE_DRAFT_REQUEST,
+	};
+};
+
+export const deleteDraftSuccess = () => {
+	return {
+		type: DELETE_DRAFT_SUCCESS,
+	};
+};
+
+export const deleteDraftFailure = (error) => {
+	return {
+		type: DELETE_DRAFT_FAILURE,
+		error,
+	};
+};
+
+export const deleteDraft = (user, id) => (dispatch) => {
+	const token = localStorage.getItem("token");
+	dispatch(deleteDraftRequest());
+
+	deleteDraftAPI(token, id)
+		.then((response) => {
+			console.log("SUCCESSFULLY DELETED DRAFT");
+
+			fetchDraftsAPI(user)
+				.then((response) => {
+					console.log("SUCCESSFULLY FETCHED DRAFTS");
+					dispatch(fetchDraftsSuccess(response.data));
+				})
+				.catch((error) => {
+					console.log("FAILED TO CATCH DRAFTS");
+					dispatch(fetchDraftsFailure(error));
+				});
+
+			dispatch(deleteDraftSuccess(response));
+		})
+		.catch((error) => {
+			console.log("FAILED TO DELETE DRAFT");
+			dispatch(deleteDraftFailure(error));
 		});
 };

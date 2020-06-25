@@ -1,7 +1,6 @@
 import React from "react";
 import "./ArticleCard.css";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
-import { withRouter } from "react-router-dom";
 
 /*  This component represents the Cards to be used
     in the home page. The stretched-link makes it 

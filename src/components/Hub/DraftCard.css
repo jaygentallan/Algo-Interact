@@ -1,0 +1,72 @@
+.draft.card.border {
+	height: 170px;
+	max-width: 20vw;
+	border-color: transparent !important;
+	border-width: 0 !important;
+	border-radius: 20px; /* Larger number results in more curved corners of card */
+	box-shadow: 0px 5px 15px #bbbbbb !important;
+	margin-bottom: 24px;
+	margin-left: 12.5px;
+	margin-right: 12.5px;
+	display: inline-block;
+	text-align: left !important;
+}
+
+.draft.card.border:hover {
+	box-shadow: 0px 15px 30px #bbbbbb !important;
+}
+
+.draft.card-img-top,
+.draft.card-img-top:hover {
+	background-color: transparent !important;
+	height: 176px;
+	object-fit: cover;
+	border-color: transparent !important;
+	border-width: 0 !important;
+	border-radius: 20px; /* Larger number results in more curved corners of card */
+	border-top-right-radius: 20px !important;
+	border-top-left-radius: 20px !important;
+	background-color: #ffa291;
+}
+
+.draft.title {
+	position: relative;
+	top: 10px;
+	padding-left: 15px;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	font-weight: 700;
+	font-size: 22px;
+	align-content: center;
+	color: white;
+	text-shadow: 2px 2px 4px #000000;
+}
+
+.draft.subtitle {
+	position: relative;
+	left: 0px;
+	padding-left: 15px;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	font-weight: 300;
+	font-size: 16px;
+	color: white;
+	text-shadow: 2px 2px 4px #000000;
+}
+
+.draft.created_at {
+	position: absolute;
+	bottom: -7.5px;
+	padding-left: 15px;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	font-weight: 300;
+	font-size: 16px;
+	color: white;
+	text-shadow: 2px 2px 4px #000000;
+}
+
+.draft.link {
+	color: white;
+}
+
+.draft.link:hover {
+	color: white;
+}

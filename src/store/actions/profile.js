@@ -11,9 +11,12 @@ import {
 	UPDATE_PROFILE_REQUEST,
 	UPDATE_PROFILE_SUCCESS,
 	UPDATE_PROFILE_FAILURE,
+	VIEW_PROFILE_REQUEST,
+	VIEW_PROFILE_SUCCESS,
+	VIEW_PROFILE_FAILURE,
 	CURR_USER_LOGOUT,
 } from "./actionTypes";
-import { fetchCurrUserAPI, fetchUserAPI, createProfileAPI, updateProfileAPI } from "../api/profile";
+import { fetchCurrUserAPI, fetchUserAPI, createProfileAPI, editProfileAPI, viewProfileAPI } from "../api/profile";
 
 export const fetchCurrUserRequest = () => {
 	return {
@@ -119,34 +122,34 @@ export const createProfile = (user, username, first_name, last_name) => (dispatc
 		});
 };
 
-export const updateProfileRequest = () => {
+export const editProfileRequest = () => {
 	return {
-		type: CREATE_PROFILE_REQUEST,
+		type: UPDATE_PROFILE_REQUEST,
 	};
 };
 
-export const updateProfileSuccess = (newUserProfile) => {
+export const editProfileSuccess = (newUserProfile) => {
 	return {
-		type: CREATE_PROFILE_SUCCESS,
+		type: UPDATE_PROFILE_SUCCESS,
 		newUserProfile,
 	};
 };
 
-export const updateProfileFailure = (error) => {
+export const editProfileFailure = (error) => {
 	return {
-		type: CREATE_PROFILE_FAILURE,
+		type: UPDATE_PROFILE_FAILURE,
 		error: error,
 	};
 };
 
-export const updateProfile = (user, description, profile_pic) => (dispatch) => {
-	dispatch(updateProfileRequest());
+export const editProfile = (user, description, profile_pic) => (dispatch) => {
+	dispatch(editProfileRequest());
 	const token = localStorage.getItem("token");
 	var data = new FormData();
 	if (description) data.append("description", description);
 	if (profile_pic) data.append("profile_pic", profile_pic);
 
-	updateProfileAPI(token, user, data)
+	editProfileAPI(token, user, data)
 		.then((response) => {
 			console.log("SUCCESSFULLY UPDATED PROFILE");
 			fetchCurrUserAPI(user)
@@ -159,11 +162,45 @@ export const updateProfile = (user, description, profile_pic) => (dispatch) => {
 					dispatch(fetchCurrUserFailure(err));
 				});
 
-			dispatch(updateProfileSuccess(response.data));
+			dispatch(editProfileSuccess(response.data));
 		})
 		.catch((error) => {
 			console.log("FAILURE TO UPDATE PROFILE");
-			dispatch(updateProfileFailure(error));
+			dispatch(editProfileFailure(error));
+		});
+};
+
+export const viewProfileRequest = () => {
+	return {
+		type: VIEW_PROFILE_REQUEST,
+	};
+};
+
+export const viewProfileSuccess = (userProfile) => {
+	return {
+		type: VIEW_PROFILE_SUCCESS,
+		userProfile,
+	};
+};
+
+export const viewProfileFailure = (error) => {
+	return {
+		type: VIEW_PROFILE_FAILURE,
+		error: error,
+	};
+};
+
+export const viewProfile = (username) => (dispatch) => {
+	dispatch(viewProfileRequest());
+
+	viewProfileAPI(username)
+		.then((response) => {
+			console.log("SUCCESSFULLY FETCHED USER WITH USERNAME", username);
+			dispatch(viewProfileSuccess(response.data));
+		})
+		.catch((error) => {
+			console.log("FAILURE TO FETCH USER WITH USERNAME", username);
+			dispatch(viewProfileFailure(error));
 		});
 };
 

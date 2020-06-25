@@ -20,17 +20,27 @@ from django.views.generic import TemplateView
 from .views import (
     ArticleViewSet,
     ArticleDetailView,
-    ArticleCreateView
+    ArticleCreateView,
+    ArticleDeleteView,
+    ArticleEditViewSet,
+    DraftViewSet,
+    DraftDetailView,
+    DraftDeleteView,
 )
 from rest_framework.routers import SimpleRouter
 
 
 router = SimpleRouter()
-router.register('', ArticleViewSet, basename='articles')
+router.register(r'drafts', DraftViewSet, basename='drafts')
+router.register(r'edit', ArticleEditViewSet, basename='article-edit')
+router.register(r'', ArticleViewSet, basename='articles')
 
 urlpatterns = [
-    path('<int:pk>/', ArticleDetailView.as_view(), name='article-detail'),
     path('create/', ArticleCreateView.as_view(), name='article-create'),
+    path('<int:pk>/', ArticleDetailView.as_view(), name='article-detail'),
+    path('delete/<int:pk>/', ArticleDeleteView.as_view(), name='article-delete'),
+    path('drafts/<int:user>/', DraftDetailView.as_view(), name='draft-detail'),
+    path('drafts/delete/<int:pk>/', DraftDeleteView.as_view(), name='draft-delete'),
+    path('', include(router.urls)),
 ]
-
 urlpatterns += re_path('.*', include(router.urls)),

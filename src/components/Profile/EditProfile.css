@@ -51,7 +51,7 @@ body {
 .circular--landscape.cameraButton:hover {
 	display: inline-block;
 	position: absolute;
-	bottom: 2.5vw;
+	bottom: 2.7vw;
 	left: 18vw;
 	width: 2.5vw !important;
 	height: 2.5vw;
@@ -68,11 +68,11 @@ body {
 	font-size: 1.5vw;
 }
 
-.profileName {
+.editProfileName {
 	display: inline-block;
 	position: absolute;
 	top: 4.5vw;
-	padding-left: calc(0.6vw + 20px);
+	padding-left: calc(0.8vw + 20px);
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: calc(3vw + 5px);
 	font-weight: bold;
@@ -80,22 +80,22 @@ body {
 	width: 50vw;
 }
 
-.profileUserName {
+.editProfileUsername {
 	display: inline-block;
 	position: absolute;
 	top: 8.5vw;
-	padding-left: calc(0.7vw + 20px);
+	padding-left: calc(0.6vw + 20px);
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: calc(1.65vw + 10px);
 	font-weight: bold;
-	color: grey;
+	color: rgb(190, 190, 190);
 }
 
-.profileDescription {
+.editProfileDescription {
 	display: inline-block;
 	position: absolute;
 	top: 11.95vw;
-	padding-left: calc(0.5vw + 20px);
+	padding-left: calc(0.6vw + 20px);
 	height: 100px;
 	width: 35vw !important;
 	font-family: "Source Sans Pro", sans-serif;
@@ -103,21 +103,33 @@ body {
 	color: rgb(44, 44, 44);
 }
 
-.loadingProfilePicBig {
-	position: relative;
-	top: -10px;
-	margin-left: 30px;
-	margin-right: 25px;
-	font-size: 85px;
+.editProfileDescriptionEmpty {
+	display: inline-block;
+	position: absolute;
+	top: 11.95vw;
+	padding-left: calc(0.6vw + 20px);
+	height: 100px;
+	width: 35vw !important;
+	font-family: "Source Sans Pro", sans-serif;
+	font-size: calc(1vw + 10px);
+	color: rgb(167, 167, 167);
 }
 
-.descriptionText {
+.profileLoadingProfilePicBig {
+	position: absolute;
+	top: 2.5vw;
+	left: 7vw;
+	font-size: 15vw;
+	color: #c34f6b;
+}
+
+.editDescriptionText {
 	background-color: transparent;
 	border: 2px dashed rgb(148, 148, 148) !important;
 	outline: none !important;
 	position: absolute;
 	top: 11.6vw;
-	left: calc(24vw + 18px);
+	left: calc(24.1vw + 18px);
 	padding-top: 0px;
 	height: 120px;
 	width: 34vw !important;

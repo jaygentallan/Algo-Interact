@@ -8,16 +8,28 @@ import {
 	CREATE_ARTICLE_REQUEST,
 	CREATE_ARTICLE_SUCCESS,
 	CREATE_ARTICLE_FAILURE,
-	CREATE_ARTICLE_SAVE,
-	CREATE_ARTICLE_TOGGLE,
+	EDIT_ARTICLE_REQUEST,
+	EDIT_ARTICLE_SUCCESS,
+	EDIT_ARTICLE_FAILURE,
 	DELETE_ARTICLE_REQUEST,
 	DELETE_ARTICLE_SUCCESS,
 	DELETE_ARTICLE_FAILURE,
+	FETCH_DRAFTS_REQUEST,
+	FETCH_DRAFTS_SUCCESS,
+	FETCH_DRAFTS_FAILURE,
+	CREATE_DRAFT_REQUEST,
+	CREATE_DRAFT_SUCCESS,
+	CREATE_DRAFT_FAILURE,
+	DELETE_DRAFT_REQUEST,
+	DELETE_DRAFT_SUCCESS,
+	DELETE_DRAFT_FAILURE,
+	AUTH_LOGOUT,
 } from "../actions/actionTypes";
 
 const articleInitialState = {
 	articles: null,
 	currArticle: null,
+	drafts: null,
 	error: null,
 };
 
@@ -68,6 +80,75 @@ const articleReducer = (state = initialState, action) => {
 		case CREATE_ARTICLE_FAILURE:
 			return {
 				...state,
+			};
+		case EDIT_ARTICLE_REQUEST:
+			return {
+				...state,
+			};
+		case EDIT_ARTICLE_SUCCESS:
+			return {
+				...state,
+			};
+		case EDIT_ARTICLE_FAILURE:
+			return {
+				...state,
+			};
+		case DELETE_ARTICLE_REQUEST:
+			return {
+				...state,
+			};
+		case DELETE_ARTICLE_SUCCESS:
+			return {
+				...state,
+			};
+		case DELETE_ARTICLE_FAILURE:
+			return {
+				...state,
+			};
+		case FETCH_DRAFTS_REQUEST:
+			return {
+				...initialState,
+				error: null,
+			};
+		case FETCH_DRAFTS_SUCCESS:
+			return {
+				...state,
+				...action,
+				error: null,
+			};
+		case FETCH_DRAFTS_FAILURE:
+			return {
+				...state,
+				error: action.error,
+			};
+		case CREATE_DRAFT_REQUEST:
+			return {
+				...state,
+			};
+		case CREATE_DRAFT_SUCCESS:
+			return {
+				...state,
+			};
+		case CREATE_DRAFT_FAILURE:
+			return {
+				...state,
+			};
+		case DELETE_DRAFT_REQUEST:
+			return {
+				...state,
+			};
+		case DELETE_DRAFT_SUCCESS:
+			return {
+				...state,
+			};
+		case DELETE_DRAFT_FAILURE:
+			return {
+				...state,
+			};
+		case AUTH_LOGOUT:
+			return {
+				drafts: null,
+				error: null,
 			};
 		default:
 			return state;

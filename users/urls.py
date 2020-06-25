@@ -5,12 +5,13 @@ from django.views.generic import TemplateView
 from rest_framework.routers import SimpleRouter
 from rest_framework_jwt.views import obtain_jwt_token
 from . import views
-from .views import CreateUserView, RegistrationView, ProfileViewSet, EditProfileViewSet
+from .views import CreateUserView, RegistrationView, ProfileViewSet, EditProfileViewSet, ViewProfileViewSet
 
 
 router = SimpleRouter()
 router.register(r'', ProfileViewSet, basename="profiles")
-router.register(r'edit', EditProfileViewSet, basename="profile-detail")
+router.register(r'edit', EditProfileViewSet, basename="edit-profile")
+router.register(r'view', ViewProfileViewSet, basename="view-profile")
 
 urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')),
@@ -18,3 +19,4 @@ urlpatterns = [
     path('', include(router.urls)),
     #re_path(r'(?P<user_id>\d+)$', ProfileDetailView.as_view(), name='profile_detail'),
 ]
+urlpatterns += re_path('.*', include(router.urls)),

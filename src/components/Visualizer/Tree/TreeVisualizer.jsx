@@ -1535,18 +1535,21 @@ export default class GraphVisualizer extends React.Component {
 						/>
 					</div>
 				</div>
-
 				<ReactTooltip id="buttons" place="right" backgroundColor="#c34f6b" effect="solid" multiline={true} className="extraClass" />
-
-				<ReactTooltip id="helpButton" place="right" backgroundColor="#2e8b57" effect="solid" multiline={true} className="extraClass" />
-
+				<ReactTooltip
+					id="helpButton"
+					place="right"
+					backgroundColor="rgb(46, 185, 106)"
+					effect="solid"
+					multiline={true}
+					className="extraClass"
+				/>
 				{
 					// prettier-ignore
 					this.state.algoData.showList
             ? <div className="listDisplay font-weight-light"> <p class="traversalList">{listItems}</p> </div>
             : <div></div>
 				}
-
 				<Graph
 					//Entry point for passing data to library to be displayed
 					id="graph-id"

@@ -31,8 +31,10 @@ class Header extends Component {
 			profile_pic: props.profile_pic,
 			prompt: null,
 			isModalOpen: false,
-			isAuthenticated: props.isAuthenticated,
+			isLogOutModalOpen: false,
+			isAuthenticated: false,
 			login: true,
+			loading: true,
 		};
 
 		this.updateLogin = this.updateLogin;
@@ -41,6 +43,9 @@ class Header extends Component {
 	}
 
 	componentDidMount() {
+		this.setState({
+			isAuthenticated: this.props.isAuthenticated,
+		});
 		if (this.props.currUserProfile) {
 			this.setState({
 				username: this.props.currUserProfile.username,
@@ -53,6 +58,31 @@ class Header extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
+		if (prevProps.isAuthenticated !== this.props.isAuthenticated) {
+			this.setState({
+				isAuthenticated: this.props.isAuthenticated,
+			});
+		}
+		if (prevProps.isAuthenticated !== this.props.isAuthenticated && !this.props.isAuthenticated) {
+			this.setState({
+				isLogOutModalOpen: true,
+			});
+			setTimeout(() => {
+				this.setState({
+					isLogOutModalOpen: false,
+				});
+			}, 2000);
+		}
+		if (prevProps.loading !== this.props.loading && !this.props.loading) {
+			this.setState({
+				loading: false,
+			});
+			setTimeout(() => {
+				this.setState({
+					loading: true,
+				});
+			}, 2000);
+		}
 		if (this.props.currUserProfile != null && prevProps.currUserProfile !== this.props.currUserProfile) {
 			if (
 				prevProps.currUserProfile !== this.props.currUserProfile ||
@@ -159,15 +189,15 @@ class Header extends Component {
 												<a className="username text">{this.state.username}</a>
 											</a>
 										</Link>
-										<a className="options dropdown-item display-4" href="#">
+										<a className="options dropdown-item display-4" href="">
 											<ContainerFilled className="options icon" />
 											My Posts
 										</a>
-										<a className="options dropdown-item display-4" href="#">
+										<a className="options dropdown-item display-4" href="">
 											<HeartFilled className="options icon" />
 											Favorites
 										</a>
-										<a className="options dropdown-item display-4" href="#">
+										<a className="options dropdown-item display-4" href="">
 											<SettingFilled className="options icon" />
 											Settings
 										</a>
@@ -198,10 +228,13 @@ class Header extends Component {
 					</ul>
 				</div>
 				<Modal
-					class="center"
+					className="logInModal"
 					show={this.state.isModalOpen}
 					onHide={() => {
-						this.setState({ isModalOpen: false });
+						this.setState({
+							login: true,
+							isModalOpen: false,
+						});
 					}}
 					size="sm"
 				>
@@ -211,16 +244,33 @@ class Header extends Component {
 								updateLogin={this.updateLogin}
 								updateModal={this.updateModal}
 								updatePrompt={this.updatePrompt}
-								isAuthenticated={this.props.isAuthenticated}
+								isAuthenticated={this.state.isAuthenticated}
+								loading={this.state.loading}
 							/>
 						) : (
 							<RegistrationForm
 								updateLogin={this.updateLogin}
 								updateModal={this.updateModal}
 								updatePrompt={this.updatePrompt}
-								isAuthenticated={this.props.isAuthenticated}
+								isAuthenticated={this.state.isAuthenticated}
+								loading={this.state.loading}
 							/>
 						)}
+					</Modal.Body>
+				</Modal>
+
+				<Modal
+					className="logOutModal"
+					show={this.state.isLogOutModalOpen}
+					onHide={() => {
+						this.setState({ isLogOutModalOpen: false });
+					}}
+					size="sm"
+				>
+					<Modal.Body>
+						<div class="d-flex justify-content-center mb-3">
+							<h1 className="logOutText">You have been logged out</h1>
+						</div>
 					</Modal.Body>
 				</Modal>
 			</nav>
