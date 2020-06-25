@@ -71,7 +71,7 @@ class NormalLoginForm extends Component {
 				{this.state.prompt ? (
 					this.state.prompt
 				) : this.state.loading ? (
-					<Spin indicator={antIcon} className="loading" />
+					<LoadingOutlined className="loginLoading" />
 				) : (
 					<div>
 						{this.props.articlePrompt ? (

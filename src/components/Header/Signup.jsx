@@ -18,6 +18,7 @@ class RegistrationForm extends Component {
 
 		this.state = {
 			prompt: null,
+			loading: false,
 		};
 	}
 
@@ -55,8 +56,8 @@ class RegistrationForm extends Component {
 				</div>
 				{this.state.prompt ? (
 					this.state.prompt
-				) : this.props.loading ? (
-					<Spin indicator={antIcon} />
+				) : this.state.loading ? (
+					<LoadingOutlined className="loginLoading" />
 				) : (
 					<Form
 						form={this.form}

@@ -138,7 +138,7 @@ class ViewArticle extends Component {
 							<img className="circular--landscape author picture" src={this.state.profile_pic} />
 						</Link>
 					) : (
-						<LoadingOutlined className="loadingProfilePic" />
+						<div />
 					)}
 
 					<Link
@@ -201,7 +201,7 @@ class ViewArticle extends Component {
 							</Link>
 						</div>
 					) : (
-						<LoadingOutlined className="loadingProfilePicBig" />
+						<div />
 					)}
 					<h1 className="author createdby">CREATED BY</h1>
 					<Link

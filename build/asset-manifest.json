@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "https://algointeract.s3.amazonaws.com/static/css/main.3855382f.chunk.css",
-    "main.js": "https://algointeract.s3.amazonaws.com/static/js/main.d029da52.chunk.js",
-    "main.js.map": "https://algointeract.s3.amazonaws.com/static/js/main.d029da52.chunk.js.map",
+    "main.css": "https://algointeract.s3.amazonaws.com/static/css/main.b2f2699a.chunk.css",
+    "main.js": "https://algointeract.s3.amazonaws.com/static/js/main.bb242d1d.chunk.js",
+    "main.js.map": "https://algointeract.s3.amazonaws.com/static/js/main.bb242d1d.chunk.js.map",
     "runtime-main.js": "https://algointeract.s3.amazonaws.com/static/js/runtime-main.027384d9.js",
     "runtime-main.js.map": "https://algointeract.s3.amazonaws.com/static/js/runtime-main.027384d9.js.map",
     "static/css/2.2601d92c.chunk.css": "https://algointeract.s3.amazonaws.com/static/css/2.2601d92c.chunk.css",
-    "static/js/2.f0b8e252.chunk.js": "https://algointeract.s3.amazonaws.com/static/js/2.f0b8e252.chunk.js",
-    "static/js/2.f0b8e252.chunk.js.map": "https://algointeract.s3.amazonaws.com/static/js/2.f0b8e252.chunk.js.map",
+    "static/js/2.4b2c285f.chunk.js": "https://algointeract.s3.amazonaws.com/static/js/2.4b2c285f.chunk.js",
+    "static/js/2.4b2c285f.chunk.js.map": "https://algointeract.s3.amazonaws.com/static/js/2.4b2c285f.chunk.js.map",
     "index.html": "https://algointeract.s3.amazonaws.com/index.html",
-    "precache-manifest.1a538293a5205794130166345e0e16a5.js": "https://algointeract.s3.amazonaws.com/precache-manifest.1a538293a5205794130166345e0e16a5.js",
+    "precache-manifest.5de45a68023103679c067200f25ee7b6.js": "https://algointeract.s3.amazonaws.com/precache-manifest.5de45a68023103679c067200f25ee7b6.js",
     "service-worker.js": "https://algointeract.s3.amazonaws.com/service-worker.js",
     "static/css/2.2601d92c.chunk.css.map": "https://algointeract.s3.amazonaws.com/static/css/2.2601d92c.chunk.css.map",
-    "static/css/main.3855382f.chunk.css.map": "https://algointeract.s3.amazonaws.com/static/css/main.3855382f.chunk.css.map",
-    "static/js/2.f0b8e252.chunk.js.LICENSE.txt": "https://algointeract.s3.amazonaws.com/static/js/2.f0b8e252.chunk.js.LICENSE.txt",
+    "static/css/main.b2f2699a.chunk.css.map": "https://algointeract.s3.amazonaws.com/static/css/main.b2f2699a.chunk.css.map",
+    "static/js/2.4b2c285f.chunk.js.LICENSE.txt": "https://algointeract.s3.amazonaws.com/static/js/2.4b2c285f.chunk.js.LICENSE.txt",
     "static/media/styles.css": "https://algointeract.s3.amazonaws.com/static/media/revicons.2feb69cc.eot"
   },
   "entrypoints": [
     "static/js/runtime-main.027384d9.js",
     "static/css/2.2601d92c.chunk.css",
-    "static/js/2.f0b8e252.chunk.js",
-    "static/css/main.3855382f.chunk.css",
-    "static/js/main.d029da52.chunk.js"
+    "static/js/2.4b2c285f.chunk.js",
+    "static/css/main.b2f2699a.chunk.css",
+    "static/js/main.bb242d1d.chunk.js"
   ]
 }
