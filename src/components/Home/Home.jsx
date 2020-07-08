@@ -3,7 +3,7 @@ import Footer from "../Footer/Footer";
 import Card from "./HomeCard";
 import "./Home.css";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
-import { ApartmentOutlined, DeploymentUnitOutlined } from "@ant-design/icons";
+import { RightOutlined } from "@ant-design/icons";
 
 /* ScrollRotate:
     This package rotates the logo on the main
@@ -17,14 +17,6 @@ import { ScrollRotate } from "react-scroll-rotate";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-// This responsive is for the carousel component.
-const responsive = {
-	desktop: {
-		breakpoint: { max: 3000, min: 1024 },
-		items: 3,
-	},
-};
-
 /*
   This is the default page that opens when users navigate to
   our website. There are Card components within the Learn Page, 
@@ -36,112 +28,113 @@ const responsive = {
 
 class Home extends Component {
 	render() {
+		let background = "https://algointeract.s3.amazonaws.com/static/images/background.png";
+
 		return (
 			<div class="box">
-				<div class="row">
-					<img
-						src={"https://algointeract.s3.amazonaws.com/static/images/project_logo3.png"}
-						width={300}
-						height={300}
-						alt="logo"
-						class="pt-5"
-					/>
-				</div>
+				{<img src={background} className="background" /> ? (
+					<div>
+						<img src={background} className="background" />
+						<img
+							src={"https://algointeract.s3.amazonaws.com/static/images/project_logo3.png"}
+							width={200}
+							height={200}
+							className="algointeractLogo"
+						/>
 
-				<div class="d-flex pr-5 bd-highlight">
-					<div class="d-flex bd-highlight">
-						<div className="coverHome pt-5">
-							<img src={"https://algointeract.s3.amazonaws.com/static/images/cover_art.png"} />
+						<div className="firstBox">
+							<div className="titleText1">A Hub for Students </div>
+							<div className="titleText2">
+								Algo-Interact is a Computer Science Hub for students who are eager to learn and contribute.
+							</div>
 						</div>
-						<h5 className="home display-4 text-center">
-							Algo-Interact is a Computer Science Hub for students who are eager to learn and contribute
-							<br></br>
-						</h5>
-					</div>
-				</div>
-				<div class="pb-5 bd-highlight">
-					<div class="pb-5 bd-highlight">
-						<h5 className="description display-3">Join the Algo-Interact community now!</h5>
-					</div>
-				</div>
 
-				<hr></hr>
-				{/** All the cards in the Data Structures and Algorithms
-				 *    sections go to the Visualizer page when clicked.
-				 *    Our intent is that for each respective structure,
-				 *    a default one will be rendered.
-				 */}
-				<div class="d-flex p-2 bd-highlight">
-					<div class="pl-5">
-						<h2 className="home label">
-							<ApartmentOutlined className="label icon" />
-							Data Structures
-						</h2>
-					</div>
-				</div>
-				<Carousel
-					responsive={responsive}
-					containerClass="carousel-container"
-					removeArrowOnDeviceType={["tablet", "mobile"]}
-					deviceType={this.props.deviceType}
-					dotListClass="custom-dot-list-style"
-					itemClass="card-deck d-flex pb-3 pl-5 pr-5 bd-highlight"
-				>
-					<Card
-						title="Graph"
-						subtitle="Visualizer"
-						image="https://algointeract.s3.amazonaws.com/static/images/graphpicture.png"
-						link="/visualizer/"
-						dataStructure="Graph"
-					/>
-					<Card
-						title="Tree"
-						subtitle="Visualizer"
-						image="https://algointeract.s3.amazonaws.com/static/images/tree.png"
-						link="/visualizer/"
-						dataStructure="Tree"
-					/>
+						<div className="secondBox">
+							<div className="visualizerBox">
+								<div className="visualizerText1"> Visualizer </div>
+								<div className="visualizerText2">
+									A visualizer that helps give you a better understanding of data structures and algorithms. Features over 3 data
+									structures and several algorithms, with more to come in the future.
+								</div>
+								<Link className="home link" to="/visualizer">
+									<div className="visualizerLink">
+										View Visualizer <RightOutlined className="linkArrow" />
+									</div>
+								</Link>
+							</div>
 
-					<Card
-						title="Linked List"
-						subtitle="Visualizer"
-						image="https://algointeract.s3.amazonaws.com/static/images/linkedlist.png"
-						link="/visualizer/"
-						dataStructure="LinkedList"
-					/>
-				</Carousel>
-				<hr></hr>
-				<div class="d-flex pl-2 bd-highlight">
-					<div class="pl-5 pt-3 pb-2">
-						<h2 className="home label">
-							<DeploymentUnitOutlined className="label icon" />
-							Algorithms
-						</h2>
+							<div className="learnBox">
+								<div className="learnText1"> Learn </div>
+								<div className="learnText2">
+									Algo-Interact aims to help students understand Computer Science in general, and thus features several tutorials
+									that give more information about CS topics, with more to come in the future.
+								</div>
+								<Link className="home link" to="/learn">
+									<div className="visualizerLink">
+										Learn Now <RightOutlined className="linkArrow" />
+									</div>
+								</Link>
+							</div>
+						</div>
+
+						<div className="thirdBox">
+							<div className="hubText1"> The Hub </div>
+							<div className="hubText2">
+								The central hub for all community-based features of Algo-Interact. Students are able to learn and contribute to the
+								community through articles, forums, and projects.
+							</div>
+
+							<div className="hubTitleBox">
+								<div className="hubTitle">Articles</div>
+								<div className="hubTitle">Forums</div>
+								<div className="hubTitle">Projects</div>
+							</div>
+
+							<div className="articleBox">
+								<div className="articleText1"> Write Articles </div>
+								<div className="articleText2">
+									Create your own article or read other people's articles, Algo-Interact encourages students to share valuable
+									knowledge with the community.
+								</div>
+								<Link className="home link" to="/hub">
+									<div className="visualizerLink">
+										View Articles <RightOutlined className="linkArrow" />
+									</div>
+								</Link>
+							</div>
+
+							<div className="forumBox">
+								<div className="forumText1"> Ask Forum Questions </div>
+								<div className="forumText2">
+									Got a question to ask? Want to answer questions to help out others? The forum allows students to easily ask and
+									answer questions in the community.
+								</div>
+								<Link className="home link" to="/hub">
+									<div className="visualizerLink">
+										View Forums <RightOutlined className="linkArrow" />
+									</div>
+								</Link>
+							</div>
+
+							<div className="projectBox">
+								<div className="projectText1"> Join Open-Source Projects </div>
+								<div className="projectText2">
+									Want to add a project to your resume or GitHub? Join community-made open-source projects or start your own and
+									invite people from the community!
+								</div>
+								<Link className="home link" to="/hub">
+									<div className="visualizerLink">
+										View Projects <RightOutlined className="linkArrow" />
+									</div>
+								</Link>
+							</div>
+
+							<div className="joinNow"> Welcome to Algo-Interact </div>
+						</div>
 					</div>
-				</div>
-				<Carousel
-					responsive={responsive}
-					containerClass="carousel-container"
-					removeArrowOnDeviceType={["tablet", "mobile"]}
-					deviceType={this.props.deviceType}
-					dotListClass="custom-dot-list-style"
-					itemClass="card-deck d-flex pb-5 pl-5 pr-5 bd-highlight"
-				>
-					<Card
-						title="Graph Search"
-						subtitle="Algorithms"
-						image="https://algointeract.s3.amazonaws.com/static/images/graphsearch.png"
-						link="/learn"
-					/>
-					<Card
-						title="Tree Traversal"
-						subtitle="Algorithms"
-						link="/learn"
-						image="https://algointeract.s3.amazonaws.com/static/images/treetraversal.png"
-					/>
-				</Carousel>
-				<div class="container p-5"></div>
-				<div class="container p-5"></div>
+				) : (
+					<div />
+				)}
 			</div>
 		);
 	}

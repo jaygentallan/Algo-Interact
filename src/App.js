@@ -58,6 +58,7 @@ const mapStateToProps = (state) => {
 		userProfile: state.profile.userProfile === null ? null : state.profile.userProfile,
 		articles: state.articles.articles,
 		currArticle: state.articles.currArticle,
+		articleStatus: state.articles.articleStatus,
 		drafts: state.articles.drafts,
 		loading: state.auth.loading != null ? state.auth.loading : true,
 	};

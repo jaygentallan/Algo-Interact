@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sanchez&display=swap");
+
 html,
 body {
 	height: 100%;
@@ -18,80 +23,225 @@ body {
 	flex: 1 1 auto;
 }
 
-.home.display-4.text-center {
-	margin-top: 2%;
-	padding-left: 15%;
-	padding-right: 10%;
-	font-size: 45px !important;
+.background {
+	position: relative;
+	z-index: -1;
 }
 
-.description.display-3 {
-	color: #b9b9b9;
-	font-size: 24px;
-	font-style: italic;
-	text-align: center !important;
+.algointeractLogo {
+	position: absolute;
+	top: 65px;
+	left: 15vw;
+	width: 17vw;
 }
 
-.card.border.border-danger {
-	border-color: #c34f6b !important;
-	border-radius: 20px;
-	border-width: 0.8em;
+.firstBox {
+	position: absolute;
+	top: calc(2vw + 55px);
+	left: 34vw;
 }
 
-hr {
-	opacity: 0.8;
-	border-radius: 5px;
+.titleText1 {
+	color: white;
+	font-size: 5vw;
+	font-family: "Playfair Display", serif;
+}
+
+.titleText2 {
+	color: rgb(78, 78, 78);
+	width: 50vw;
+	padding-top: 10px;
+	line-height: 2.5vw;
+	font-size: 1.8vw;
+	font-family: "Sanchez", serif;
+}
+
+.secondBox {
+	position: absolute;
+	top: calc(30vw + 70px);
+	left: 6vw;
+}
+
+.visualizerBox {
+	display: inline-block;
+	padding-top: 0px !important;
+}
+
+.visualizerText1 {
+	color: #c34f6b;
+	font-size: 1.8vw;
+	font-family: "Playfair Display", serif;
+}
+
+.visualizerText2 {
+	color: rgb(78, 78, 78);
+	width: 25vw;
+	line-height: 2.5vw;
+	font-size: 1.2vw;
+	font-family: "Sanchez", serif;
+	text-align: justify;
+}
+
+.learnBox {
+	display: inline-block;
+	padding-left: 5vw;
+	padding-top: 0px !important;
+}
+
+.learnText1 {
+	color: #c34f6b;
+	font-size: 1.8vw;
+	font-family: "Playfair Display", serif;
+}
+
+.learnText2 {
+	color: rgb(78, 78, 78);
+	width: 25vw;
+	line-height: 2.5vw;
+	font-size: 1.2vw;
+	font-weight: 100 !important;
+	font-family: "Sanchez", serif;
+	text-align: justify;
+}
+
+.thirdBox {
+	position: absolute;
+	top: calc(63vw + 40px);
 	width: 100%;
+	text-align: center;
 }
 
-img {
-	display: block;
-	max-width: 100%;
-	height: auto;
+.hubTitleBox {
+	position: relative;
+	margin-top: 14vw;
+	margin-bottom: 6vw;
 }
 
-.linkHome {
-	color: #212529;
+.hubTitle {
+	display: inline-block;
+	width: 17.5vw;
+	color: white;
+	font-size: 1.8vw;
+	font-family: "Playfair Display", serif;
+}
+
+.hubText1 {
+	color: #c34f6b;
+	font-size: 3vw;
+	font-family: "Playfair Display", serif;
+}
+
+.hubText2 {
+	color: rgb(78, 78, 78);
+	line-height: 2.5vw;
+	font-size: 1.2vw;
+	font-weight: 100 !important;
+	font-family: "Sanchez", serif;
+	padding-left: 24vw;
+	padding-right: 24vw;
+}
+
+.articleBox {
+	display: inline-block;
+	text-align: left;
+}
+
+.articleText1 {
+	color: #c34f6b;
+	font-size: 1.8vw;
+	font-family: "Playfair Display", serif;
+	text-align: left;
+}
+
+.articleText2 {
+	color: rgb(78, 78, 78);
+	width: 25vw;
+	line-height: 2.5vw;
+	font-size: 1.2vw;
+	font-weight: 100 !important;
+	font-family: "Sanchez", serif;
+	text-align: justify;
+}
+
+.forumBox {
+	display: inline-block;
+	padding-left: 5vw;
+	text-align: left;
+}
+
+.forumText1 {
+	color: #c34f6b;
+	font-size: 1.8vw;
+	font-family: "Playfair Display", serif;
+	text-align: left;
+}
+
+.forumText2 {
+	color: rgb(78, 78, 78);
+	width: 25vw;
+	line-height: 2.5vw;
+	font-size: 1.2vw;
+	font-weight: 100 !important;
+	font-family: "Sanchez", serif;
+	text-align: justify;
+}
+
+.projectBox {
+	display: inline-block;
+	padding-left: 5vw;
+	text-align: left;
+}
+
+.projectText1 {
+	color: #c34f6b;
+	font-size: 1.8vw;
+	font-family: "Playfair Display", serif;
+	text-align: left;
+}
+
+.projectText2 {
+	color: rgb(78, 78, 78);
+	width: 25vw;
+	line-height: 2.5vw;
+	font-size: 1.2vw;
+	font-weight: 100 !important;
+	font-family: "Sanchez", serif;
+	text-align: justify;
+}
+
+.visualizerLink {
+	color: #c34f6b;
+	width: 11vw;
+	line-height: 2.5vw;
+	font-size: 1.2vw;
+	font-family: "Sanchez", serif;
+}
+
+.visualizerLink:hover {
+	color: rgb(238, 59, 104) !important;
+}
+
+.linkArrow {
+	position: relative;
+	left: 2px;
+	bottom: 4px;
+	color: rgb(78, 78, 78);
+	font-size: 1vw;
+	font-family: "Sanchez", serif;
+	color: #c34f6b;
+}
+
+.linkArrow:hover {
+	color: rgb(238, 59, 104) !important;
+}
+
+.home.link:hover {
 	text-decoration: none !important;
 }
 
-.linkHome:hover {
+.joinNow {
+	margin-top: 4vw;
 	color: #c34f6b;
-}
-
-a.try,
-a.try:hover {
-	padding-bottom: 1px;
-	border-bottom: 3px solid #c34f6b;
-	border-radius: 2px 2px 2px 2px;
-	line-height: 10px;
-	outline: none;
-	text-decoration: none;
-	color: inherit;
-	-webkit-tap-highlight-color: white;
-}
-
-.home.label {
-	padding-bottom: 0.4em !important;
-	border-bottom: 3px solid #c34f6b;
-	border-radius: 2px 2px 2px 2px;
-	line-height: 10px;
-	font-size: 25px !important;
-}
-
-.label.icon {
-	height: 15px;
-	margin-right: 8px;
-	border-bottom: none !important;
-	color: #c34f6b;
-}
-
-.coverHome.pt-5 img {
-	position: absolute;
-	width: 100%;
-	max-height: 280px;
-	margin-top: -100px;
-	padding-left: 30px;
-	padding-right: 30px;
-	object-fit: fill !important;
+	font-size: 4vw;
+	font-family: "Playfair Display", serif;
 }

@@ -23,29 +23,28 @@ import {
 	DELETE_DRAFT_REQUEST,
 	DELETE_DRAFT_SUCCESS,
 	DELETE_DRAFT_FAILURE,
+	CLEAR_ARTICLE_STATUS,
 	AUTH_LOGOUT,
 } from "../actions/actionTypes";
 
-const articleInitialState = {
+const initialState = {
 	articles: null,
 	currArticle: null,
+	articleStatus: { postStatus: false, deleteStatus: false, editStatus: false, createDraftStatus: false, deleteDraftStatus: false },
 	drafts: null,
 	error: null,
-};
-
-const initialState = {
-	...articleInitialState,
 };
 
 const articleReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case FETCH_ALL_ARTICLES_REQUEST:
 			return {
-				...initialState,
+				...state,
 				error: null,
 			};
 		case FETCH_ALL_ARTICLES_SUCCESS:
 			return {
+				...state,
 				...action,
 				error: null,
 			};
@@ -76,6 +75,7 @@ const articleReducer = (state = initialState, action) => {
 		case CREATE_ARTICLE_SUCCESS:
 			return {
 				...state,
+				articleStatus: { ...action.articleStatus },
 			};
 		case CREATE_ARTICLE_FAILURE:
 			return {
@@ -88,6 +88,7 @@ const articleReducer = (state = initialState, action) => {
 		case EDIT_ARTICLE_SUCCESS:
 			return {
 				...state,
+				articleStatus: { ...action.articleStatus },
 			};
 		case EDIT_ARTICLE_FAILURE:
 			return {
@@ -100,6 +101,7 @@ const articleReducer = (state = initialState, action) => {
 		case DELETE_ARTICLE_SUCCESS:
 			return {
 				...state,
+				articleStatus: { ...action.articleStatus },
 			};
 		case DELETE_ARTICLE_FAILURE:
 			return {
@@ -107,7 +109,7 @@ const articleReducer = (state = initialState, action) => {
 			};
 		case FETCH_DRAFTS_REQUEST:
 			return {
-				...initialState,
+				...state,
 				error: null,
 			};
 		case FETCH_DRAFTS_SUCCESS:
@@ -128,6 +130,7 @@ const articleReducer = (state = initialState, action) => {
 		case CREATE_DRAFT_SUCCESS:
 			return {
 				...state,
+				articleStatus: { ...action.articleStatus },
 			};
 		case CREATE_DRAFT_FAILURE:
 			return {
@@ -140,13 +143,22 @@ const articleReducer = (state = initialState, action) => {
 		case DELETE_DRAFT_SUCCESS:
 			return {
 				...state,
+				articleStatus: { ...action.articleStatus },
 			};
 		case DELETE_DRAFT_FAILURE:
 			return {
 				...state,
 			};
+		case CLEAR_ARTICLE_STATUS:
+			return {
+				...state,
+				articleStatus: { postStatus: false, deleteStatus: false, editStatus: false, createDraftStatus: false, deleteDraftStatus: false },
+			};
 		case AUTH_LOGOUT:
 			return {
+				articles: null,
+				currArticle: null,
+				articleStatus: null,
 				drafts: null,
 				error: null,
 			};

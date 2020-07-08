@@ -40,7 +40,7 @@ class NormalLoginForm extends Component {
 				this.setState({
 					prompt: null,
 				});
-			}, 2000);
+			}, 1000);
 		} else if (prevProps.loading !== this.props.loading && !this.props.loading) {
 			console.log("LOADING");
 			this.setState({
@@ -53,7 +53,7 @@ class NormalLoginForm extends Component {
 					prompt: null,
 				});
 				this.props.updateLogin(true);
-			}, 2000);
+			}, 1000);
 		}
 	}
 

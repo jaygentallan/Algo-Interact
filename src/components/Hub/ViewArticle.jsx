@@ -3,7 +3,7 @@ import "./ViewArticle.css";
 import Modal from "react-bootstrap/Modal";
 import { withRouter, Link } from "react-router-dom";
 import { Button } from "antd";
-import { LoadingOutlined, BookOutlined, FormOutlined, DeleteOutlined } from "@ant-design/icons";
+import { LoadingOutlined, BookOutlined, FormOutlined, DeleteOutlined, CheckCircleOutlined } from "@ant-design/icons";
 
 import { connect } from "react-redux";
 import { fetchArticle, deleteArticle } from "../../store/actions/article";
@@ -38,10 +38,11 @@ class ViewArticle extends Component {
 			created_at: "",
 			cover: "",
 			profile_pic: "",
-			created_at: "",
-			isModalOpen: false,
-			deleting: false,
-			deletingDone: false,
+			loading: false,
+			statusModal: false,
+			message: "",
+			deleteStatus: false,
+			deleted: false,
 		};
 
 		this.updateModal = this.updateModal;
@@ -97,14 +98,30 @@ class ViewArticle extends Component {
 				});
 			}
 		}
-		if (this.props.articles != null && prevProps.articles !== this.props.articles) {
-			this.setState({
-				deleting: false,
-				deletingDone: true,
-			});
-			setTimeout(() => {
-				this.props.history.push("/hub");
-			}, 2000);
+		if (this.props.articleStatus && prevProps.articleStatus !== this.props.articleStatus) {
+			if (this.props.articleStatus.deleteStatus) {
+				this.setState({
+					loading: true,
+					deleteStatus: this.props.articleStatus.deleteStatus,
+				});
+			}
+			if (this.state.deleteStatus && !this.props.articleStatus.deleteStatus) {
+				this.setState({
+					loading: false,
+					statusModal: true,
+					deleted: true,
+					message: "Successfully deleted article!",
+				});
+
+				setTimeout(() => {
+					this.setState({
+						statusModal: false,
+						deleted: false,
+						message: "",
+					});
+					this.props.history.push("/hub");
+				}, 1500);
+			}
 		}
 	}
 
@@ -112,7 +129,7 @@ class ViewArticle extends Component {
 		return (
 			<div>
 				{this.state.content === null || this.state.profile_pic === null ? (
-					<ReactLoading className="viewArticleLoading" type="spinningBubbles" height={50} width={50} />
+					<ReactLoading className="viewArticleLoading" type="spinningBubbles" color="#c34f6b" height={50} width={50} />
 				) : (
 					<div></div>
 				)}
@@ -174,7 +191,7 @@ class ViewArticle extends Component {
 								<DeleteOutlined
 									className="author delete"
 									onClick={() => {
-										this.setState({ isModalOpen: true });
+										this.setState({ statusModal: true });
 									}}
 								/>
 							</div>
@@ -218,27 +235,30 @@ class ViewArticle extends Component {
 				</div>
 
 				<Modal
-					className="confirmationModal"
-					show={this.state.isModalOpen}
+					className="statusModal"
+					show={this.state.statusModal}
 					onHide={() => {
-						this.setState({ isModalOpen: false });
+						this.setState({ statusModal: false });
 					}}
 					size="sm"
 				>
 					<Modal.Body>
-						{this.state.deleting ? (
+						{this.state.loading ? (
 							<LoadingOutlined className="deleteLoading" />
-						) : this.state.deletingDone ? (
-							<h1 className="deleteDoneText"> Successfully deleted article "{this.state.title}"!</h1>
+						) : this.state.deleted ? (
+							<div>
+								<CheckCircleOutlined className="deleteIcon" />
+								<h1 className="deleteDoneText"> {this.state.message} </h1>
+							</div>
 						) : (
 							<div>
 								<h1 className="confirmationText"> Are you sure you want to delete article "{this.state.title}"?</h1>
-								<div class="d-flex justify-content-center mb-3">
+								<div class="d-flex justify-content-center mb-4">
 									<Button
 										variant="outline-danger"
 										className="cancelButton"
 										onClick={() => {
-											this.setState({ isModalOpen: false });
+											this.setState({ statusModal: false });
 										}}
 									>
 										<p className="cancelText"> Cancel </p>

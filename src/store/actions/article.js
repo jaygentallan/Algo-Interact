@@ -23,6 +23,7 @@ import {
 	DELETE_DRAFT_REQUEST,
 	DELETE_DRAFT_SUCCESS,
 	DELETE_DRAFT_FAILURE,
+	CLEAR_ARTICLE_STATUS,
 } from "./actionTypes";
 import {
 	fetchAllArticlesAPI,
@@ -34,6 +35,7 @@ import {
 	createDraftAPI,
 	deleteDraftAPI,
 } from "../api/article";
+import { dispatch } from "d3";
 
 export const fetchAllArticlesRequest = () => {
 	return {
@@ -112,6 +114,7 @@ export const createArticleRequest = () => {
 export const createArticleSuccess = (newArticle) => {
 	return {
 		type: CREATE_ARTICLE_SUCCESS,
+		articleStatus: { postStatus: true, editStatus: false, deleteStatus: false, createDraftStatus: false, deleteDraftStatus: false },
 		newArticle,
 	};
 };
@@ -150,6 +153,10 @@ export const createArticle = (user, first_name, last_name, title, subtitle, cont
 					dispatch(fetchAllArticlesFailure(error));
 				});
 			dispatch(createArticleSuccess(response));
+
+			setTimeout(() => {
+				dispatch(clearArticleStatus());
+			}, 2000);
 		})
 		.catch((error) => {
 			dispatch(createArticleFailure(error));
@@ -165,6 +172,7 @@ export const editArticleRequest = () => {
 export const editArticleSuccess = (newArticle) => {
 	return {
 		type: EDIT_ARTICLE_SUCCESS,
+		articleStatus: { postStatus: false, editStatus: true, deleteStatus: false, createDraftStatus: false, deleteDraftStatus: false },
 		newArticle,
 	};
 };
@@ -200,6 +208,10 @@ export const editArticle = (id, title, subtitle, content, cover) => (dispatch) =
 				});
 
 			dispatch(editArticleSuccess(response.data));
+
+			setTimeout(() => {
+				dispatch(clearArticleStatus());
+			}, 2000);
 		})
 		.catch((error) => {
 			console.log("FAILURE TO UPDATE ARTICLE");
@@ -216,6 +228,7 @@ export const deleteArticleRequest = () => {
 export const deleteArticleSuccess = () => {
 	return {
 		type: DELETE_ARTICLE_SUCCESS,
+		articleStatus: { postStatus: false, editStatus: false, deleteStatus: true, createDraftStatus: false, deleteDraftStatus: false },
 	};
 };
 
@@ -245,11 +258,21 @@ export const deleteArticle = (id) => (dispatch) => {
 				});
 
 			dispatch(deleteArticleSuccess(response));
+
+			setTimeout(() => {
+				dispatch(clearArticleStatus());
+			}, 2000);
 		})
 		.catch((error) => {
 			console.log("FAILED TO DELETE ARTICLE");
 			dispatch(deleteArticleFailure(error));
 		});
+};
+
+export const clearArticleStatus = () => {
+	return {
+		type: CLEAR_ARTICLE_STATUS,
+	};
 };
 
 export const fetchDraftsRequest = () => {
@@ -296,6 +319,7 @@ export const createDraftSuccess = (drafts) => {
 	return {
 		type: CREATE_DRAFT_SUCCESS,
 		drafts,
+		articleStatus: { postStatus: false, editStatus: false, deleteStatus: false, createDraftStatus: true, deleteDraftStatus: false },
 	};
 };
 
@@ -332,6 +356,10 @@ export const createDraft = (user, title, subtitle, content, cover) => (dispatch)
 				});
 
 			dispatch(createDraftSuccess(response));
+
+			setTimeout(() => {
+				dispatch(clearArticleStatus());
+			}, 2000);
 		})
 		.catch((error) => {
 			console.log("FAILED TO CREATE DRAFT");
@@ -348,6 +376,7 @@ export const deleteDraftRequest = () => {
 export const deleteDraftSuccess = () => {
 	return {
 		type: DELETE_DRAFT_SUCCESS,
+		articleStatus: { postStatus: false, editStatus: false, deleteStatus: false, createDraftStatus: false, deleteDraftStatus: true },
 	};
 };
 
@@ -377,6 +406,10 @@ export const deleteDraft = (user, id) => (dispatch) => {
 				});
 
 			dispatch(deleteDraftSuccess(response));
+
+			setTimeout(() => {
+				dispatch(clearArticleStatus());
+			}, 2000);
 		})
 		.catch((error) => {
 			console.log("FAILED TO DELETE DRAFT");

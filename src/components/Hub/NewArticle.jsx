@@ -3,13 +3,13 @@ import Modal from "react-bootstrap/Modal";
 import "./NewArticle.css";
 import { Editor } from "@tinymce/tinymce-react";
 import { Form, Input, Button } from "antd";
-import { CameraTwoTone } from "@ant-design/icons";
+import { CameraTwoTone, CheckCircleOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import ReactLoading from "react-loading";
 
-import { createArticle, editArticle, createDraft, deleteDraft } from "../../store/actions/article";
+import { createArticle, editArticle, clearArticleStatus, createDraft, deleteDraft } from "../../store/actions/article";
 import { fetchCurrUser } from "../../store/actions/profile";
 
 /*
@@ -41,8 +41,14 @@ class NewArticle extends Component {
 			defaultData: null,
 			isDraft: false,
 			isEdit: false,
-			draftsModal: false,
-			noUpdatesModal: false,
+			statusModal: false,
+			postStatus: false,
+			editStatus: false,
+			createDraftStatus: false,
+			deleteDraftStatus: false,
+			postDraftStatus: false,
+			noUpdates: false,
+			message: "",
 		};
 
 		this._handleEditorChange = this._handleEditorChange.bind(this);
@@ -102,9 +108,91 @@ class NewArticle extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (prevProps.articles.articles !== this.props.articles.articles) {
-			this.setState({ loading: false });
-			this.props.history.push("/hub");
+		if (this.props.articleStatus && prevProps.articleStatus !== this.props.articleStatus) {
+			if (this.props.articleStatus.postStatus) {
+				this.setState({
+					postStatus: this.props.articleStatus.postStatus,
+				});
+			}
+			if (this.props.articleStatus.editStatus) {
+				this.setState({
+					editStatus: this.props.articleStatus.editStatus,
+				});
+			}
+			if (this.props.articleStatus.createDraftStatus) {
+				this.setState({
+					createDraftStatus: this.props.articleStatus.createDraftStatus,
+				});
+			}
+			if (this.props.articleStatus.deleteDraftStatus) {
+				this.setState({
+					deleteDraftStatus: this.props.articleStatus.deleteDraftStatus,
+				});
+			}
+			if (this.state.postStatus && !this.props.articleStatus.postStatus) {
+				this.setState({
+					loading: false,
+					statusModal: true,
+					message: "Successfully posted article!",
+				});
+
+				setTimeout(() => {
+					this.setState({
+						statusModal: false,
+						message: "",
+					});
+					this.props.history.push("/hub");
+				}, 1500);
+			}
+
+			if (this.state.editStatus && !this.props.articleStatus.editStatus) {
+				this.setState({
+					loading: false,
+					statusModal: true,
+					message: "Successfully edited article!",
+				});
+
+				setTimeout(() => {
+					this.setState({
+						statusModal: false,
+						message: "",
+					});
+					window.history.back();
+				}, 1500);
+			}
+
+			if (this.state.createDraftStatus && !this.props.articleStatus.createDraftStatus) {
+				this.setState({
+					loading: false,
+					statusModal: true,
+					message: "Successfully saved draft!",
+				});
+
+				setTimeout(() => {
+					this.setState({
+						statusModal: false,
+						message: "",
+					});
+					this.props.history.push("/hub/drafts");
+				}, 1500);
+			}
+
+			if (this.state.deleteDraftStatus && !this.props.articleStatus.deleteDraftStatus && !this.state.postDraftStatus) {
+				this.setState({
+					loading: false,
+					statusModal: true,
+					message: "Successfully deleted draft!",
+				});
+
+				setTimeout(() => {
+					this.setState({
+						statusModal: false,
+						postDraftStatus: false,
+						message: "",
+					});
+					this.props.history.push("/hub/drafts");
+				}, 1500);
+			}
 		}
 		if (this.props.currUserProfile != null && prevProps.currUserProfile !== this.props.currUserProfile) {
 			if (
@@ -151,6 +239,9 @@ class NewArticle extends Component {
 				this.state.content,
 				this.state.cover
 			);
+			this.setState({
+				postDraftStatus: true,
+			});
 			this.props.deleteDraft(this.state.user, this.state.defaultData.id);
 		};
 
@@ -184,27 +275,28 @@ class NewArticle extends Component {
 				cover === this.state.defaultData.cover
 			) {
 				this.setState({
-					noUpdatesModal: true,
+					statusModal: true,
+					noUpdates: true,
+					message: "No updates detected!",
 				});
 				setTimeout(() => {
 					this.setState({
-						noUpdatesModal: false,
+						statusModal: false,
+						noUpdates: false,
+						message: "",
 					});
-				}, 2000);
+				}, 1500);
 			} else {
 				this.setState({
 					loading: true,
+				});
+				this.setState({
+					postDraftStatus: true,
 				});
 				this.props.createDraft(this.state.user, title, subtitle, content, cover);
 				if (this.state.isDraft) {
 					this.props.deleteDraft(this.state.user, this.state.id);
 				}
-				setTimeout(() => {
-					this.setState({
-						loading: false,
-					});
-					this.props.history.push("/hub");
-				}, 2000);
 			}
 		};
 
@@ -228,13 +320,15 @@ class NewArticle extends Component {
 
 			if (!title && !subtitle && !content && !cover) {
 				this.setState({
-					noUpdatesModal: true,
+					statusModal: true,
+					message: "No updates detected!",
 				});
 				setTimeout(() => {
 					this.setState({
-						noUpdatesModal: false,
+						statusModal: false,
+						message: "",
 					});
-				}, 2000);
+				}, 1500);
 			} else {
 				this.setState({ loading: true });
 				this.props.editArticle(this.state.id, title, subtitle, content, cover);
@@ -244,15 +338,11 @@ class NewArticle extends Component {
 		const onDelete = () => {
 			this.setState({ loading: true });
 			this.props.deleteDraft(this.state.user, this.state.defaultData.id);
-			setTimeout(() => {
-				this.setState({ loading: false });
-				this.props.history.push("/hub/drafts");
-			}, 2000);
 		};
 
 		return (
 			<div>
-				{this.state.loading ? <ReactLoading className="newArticleLoading" type="spinningBubbles" height={50} width={50} /> : <div></div>}
+				{this.state.loading ? <ReactLoading className="newArticleLoading" type="spinningBubbles" color="#c34f6b" /> : <div></div>}
 				<img className="newCover" src={this.state.tempCover} />
 				<img className="newCoverBackground" src={this.state.tempCover} />
 				<div className="cutoff"></div>
@@ -321,15 +411,26 @@ class NewArticle extends Component {
 					<Form.Item>
 						<div class="d-flex justify-content-end submit">
 							{this.state.isEdit ? (
-								<Button
-									variant="outline-danger"
-									className="newArticleSubmitButton"
-									onClick={() => {
-										onEdit();
-									}}
-								>
-									<p className="submitText"> Save </p>
-								</Button>
+								<div>
+									<Button
+										variant="outline-danger"
+										className="newArticleSaveButton"
+										onClick={() => {
+											this.props.history.push("/hub");
+										}}
+									>
+										<p className="saveText"> Cancel </p>
+									</Button>
+									<Button
+										variant="outline-danger"
+										className="newArticleSubmitButton"
+										onClick={() => {
+											onEdit();
+										}}
+									>
+										<p className="submitText"> Save </p>
+									</Button>
+								</div>
 							) : this.state.isDraft ? (
 								<div>
 									<Button
@@ -375,31 +476,19 @@ class NewArticle extends Component {
 				</Form>
 
 				<Modal
-					className="noUpdatesModal"
-					show={this.state.noUpdatesModal}
+					className="statusModal"
+					show={this.state.statusModal}
 					onHide={() => {
-						this.setState({ noUpdatesModal: false });
+						this.setState({ statusModal: false });
 					}}
 					size="sm"
 				>
 					<Modal.Body>
-						<div class="d-flex justify-content-center mb-3">
-							<h1 className="noUpdatesText">There are no detected updates!</h1>
-						</div>
-					</Modal.Body>
-				</Modal>
-
-				<Modal
-					className="noUpdatesModal"
-					show={this.state.draftsModal}
-					onHide={() => {
-						this.setState({ draftsModal: false });
-					}}
-					size="sm"
-				>
-					<Modal.Body>
-						<div class="d-flex justify-content-center mb-3">
-							<h1 className="noUpdatesText">Successfully saved to drafts!</h1>
+						<div>
+							{!this.state.noUpdates ? <CheckCircleOutlined className="checkMark" /> : <div />}
+							<div class="d-flex justify-content-center mb-2">
+								<h1 className="noUpdatesText"> {this.state.message} </h1>
+							</div>
 						</div>
 					</Modal.Body>
 				</Modal>
@@ -416,12 +505,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
+		fetchCurrUser: (user) => dispatch(fetchCurrUser(user)),
 		createArticle: (user, first_name, last_name, title, subtitle, content, cover) =>
 			dispatch(createArticle(user, first_name, last_name, title, subtitle, content, cover)),
-		createDraft: (user, title, subtitle, content, cover) => dispatch(createDraft(user, title, subtitle, content, cover)),
 		editArticle: (id, title, subtitle, content, cover) => dispatch(editArticle(id, title, subtitle, content, cover)),
+		clearArticleStatus: () => dispatch(clearArticleStatus()),
+		createDraft: (user, title, subtitle, content, cover) => dispatch(createDraft(user, title, subtitle, content, cover)),
 		deleteDraft: (user, id) => dispatch(deleteDraft(user, id)),
-		fetchCurrUser: (user) => dispatch(fetchCurrUser(user)),
 	};
 };
 
