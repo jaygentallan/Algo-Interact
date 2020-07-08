@@ -43,7 +43,7 @@ class Home extends Component {
 						/>
 
 						<div className="firstBox">
-							<div className="titleText1">A Hub for Students </div>
+							<div className="titleText1">A Hub for CS Students </div>
 							<div className="titleText2">
 								Algo-Interact is a Computer Science Hub for students who are eager to learn and contribute.
 							</div>
@@ -129,7 +129,7 @@ class Home extends Component {
 								</Link>
 							</div>
 
-							<div className="joinNow"> Welcome to Algo-Interact </div>
+							<div className="joinNow"> Learn & Contribute Now </div>
 						</div>
 					</div>
 				) : (

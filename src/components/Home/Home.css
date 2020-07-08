@@ -58,7 +58,7 @@ body {
 
 .secondBox {
 	position: absolute;
-	top: calc(30vw + 70px);
+	top: calc(22vw + 80px);
 	left: 6vw;
 }
 
@@ -106,15 +106,15 @@ body {
 
 .thirdBox {
 	position: absolute;
-	top: calc(63vw + 40px);
+	top: calc(46vw + 60px);
 	width: 100%;
 	text-align: center;
 }
 
 .hubTitleBox {
 	position: relative;
-	margin-top: 14vw;
-	margin-bottom: 6vw;
+	margin-top: 14.2vw;
+	margin-bottom: 6.5vw;
 }
 
 .hubTitle {
@@ -133,7 +133,7 @@ body {
 
 .hubText2 {
 	color: rgb(78, 78, 78);
-	line-height: 2.5vw;
+	line-height: 2vw;
 	font-size: 1.2vw;
 	font-weight: 100 !important;
 	font-family: "Sanchez", serif;
@@ -240,8 +240,8 @@ body {
 }
 
 .joinNow {
-	margin-top: 4vw;
-	color: #c34f6b;
-	font-size: 4vw;
+	margin-top: 5.8vw;
+	color: white;
+	font-size: 3vw;
 	font-family: "Playfair Display", serif;
 }

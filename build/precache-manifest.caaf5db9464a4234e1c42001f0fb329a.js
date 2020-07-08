@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "022266c3b4ea6ea6e2ebedc1a6f75b59",
+    "revision": "e20806b57e0350d190c49b5c665286f7",
     "url": "https://algointeract.s3.amazonaws.com/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://algointeract.s3.amazonaws.com/static/css/2.2601d92c.chunk.css"
   },
   {
-    "revision": "b929ee9d600c78bd2379",
-    "url": "https://algointeract.s3.amazonaws.com/static/css/main.d962fbca.chunk.css"
+    "revision": "d4c65d216dec7ba069d4",
+    "url": "https://algointeract.s3.amazonaws.com/static/css/main.1271d376.chunk.css"
   },
   {
     "revision": "7e85365d36e1d2d9cad3",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://algointeract.s3.amazonaws.com/static/js/2.5f549d40.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b929ee9d600c78bd2379",
-    "url": "https://algointeract.s3.amazonaws.com/static/js/main.3c3552c0.chunk.js"
+    "revision": "d4c65d216dec7ba069d4",
+    "url": "https://algointeract.s3.amazonaws.com/static/js/main.60a0252b.chunk.js"
   },
   {
     "revision": "e9045123de17374996b9",
