@@ -22,7 +22,7 @@ class DraftCard extends Component {
 		this.convertURLToObjectURL(this.props.cover);
 		const created_at = this.props.created_at.split("T")[0];
 		const year = created_at.split("-")[0];
-		const month = created_at.split("-")[1];
+		const month = created_at.split("-")[1] - 1;
 		const day = created_at.split("-")[2].replace(/^0+/, "");
 		const date = new Date(year, month, day);
 		const formatted_date = date.toLocaleString("en-us", { month: "long" }) + " " + day + " " + year;

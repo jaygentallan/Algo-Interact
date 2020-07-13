@@ -8,10 +8,11 @@ body {
 	height: 100%;
 }
 
-.box {
+.homePageBox {
 	display: flex;
 	flex-flow: column;
 	height: 100%;
+	background-color: #f5f5f5;
 }
 
 .box .row {
@@ -25,7 +26,8 @@ body {
 
 .background {
 	position: relative;
-	z-index: -1;
+	z-index: 0;
+	max-width: 100%;
 }
 
 .algointeractLogo {
@@ -33,17 +35,18 @@ body {
 	top: 65px;
 	left: 15vw;
 	width: 17vw;
+	height: 17vw;
 }
 
 .firstBox {
 	position: absolute;
-	top: calc(2vw + 55px);
+	top: calc(3.5vw + 50px);
 	left: 34vw;
 }
 
 .titleText1 {
 	color: white;
-	font-size: 5vw;
+	font-size: 4.3vw;
 	font-family: "Playfair Display", serif;
 }
 
@@ -64,57 +67,75 @@ body {
 
 .visualizerBox {
 	display: inline-block;
-	padding-top: 0px !important;
+	padding-top: 1vw;
+	padding-bottom: 1vw;
+	padding-left: 2vw;
+	padding-right: 2vw;
+	border: 1.2px solid rgb(205, 205, 205);
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0px 5px 10px rgb(200, 200, 200) !important;
 }
 
 .visualizerText1 {
 	color: #c34f6b;
 	font-size: 1.8vw;
 	font-family: "Playfair Display", serif;
+	padding-bottom: 5px;
 }
 
 .visualizerText2 {
 	color: rgb(78, 78, 78);
 	width: 25vw;
-	line-height: 2.5vw;
+	line-height: 2vw;
 	font-size: 1.2vw;
 	font-family: "Sanchez", serif;
 	text-align: justify;
+	padding-bottom: 5px;
 }
 
 .learnBox {
 	display: inline-block;
-	padding-left: 5vw;
-	padding-top: 0px !important;
+	margin-left: 2vw;
+	padding-top: 1vw;
+	padding-bottom: 1vw;
+	padding-left: 2vw;
+	padding-right: 2vw;
+	border: 1.2px solid rgb(205, 205, 205);
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0px 5px 10px rgb(200, 200, 200) !important;
 }
 
 .learnText1 {
 	color: #c34f6b;
 	font-size: 1.8vw;
 	font-family: "Playfair Display", serif;
+	padding-bottom: 5px;
 }
 
 .learnText2 {
 	color: rgb(78, 78, 78);
 	width: 25vw;
-	line-height: 2.5vw;
+	line-height: 2vw;
 	font-size: 1.2vw;
 	font-weight: 100 !important;
 	font-family: "Sanchez", serif;
 	text-align: justify;
+	padding-bottom: 5px;
 }
 
 .thirdBox {
 	position: absolute;
-	top: calc(46vw + 60px);
+	top: calc(46.5vw + 60px);
 	width: 100%;
 	text-align: center;
 }
 
 .hubTitleBox {
 	position: relative;
-	margin-top: 14.2vw;
-	margin-bottom: 6.5vw;
+	margin-top: 13.7vw;
+	margin-bottom: 6vw;
 }
 
 .hubTitle {
@@ -129,6 +150,7 @@ body {
 	color: #c34f6b;
 	font-size: 3vw;
 	font-family: "Playfair Display", serif;
+	padding-bottom: 5px;
 }
 
 .hubText2 {
@@ -144,6 +166,14 @@ body {
 .articleBox {
 	display: inline-block;
 	text-align: left;
+	padding-top: 1vw;
+	padding-bottom: 1vw;
+	padding-left: 2vw;
+	padding-right: 2vw;
+	border: 1.2px solid rgb(205, 205, 205);
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0px 5px 10px rgb(200, 200, 200) !important;
 }
 
 .articleText1 {
@@ -151,22 +181,32 @@ body {
 	font-size: 1.8vw;
 	font-family: "Playfair Display", serif;
 	text-align: left;
+	padding-bottom: 5px;
 }
 
 .articleText2 {
 	color: rgb(78, 78, 78);
 	width: 25vw;
-	line-height: 2.5vw;
+	line-height: 2vw;
 	font-size: 1.2vw;
 	font-weight: 100 !important;
 	font-family: "Sanchez", serif;
 	text-align: justify;
+	padding-bottom: 5px;
 }
 
 .forumBox {
 	display: inline-block;
-	padding-left: 5vw;
+	margin-left: 2vw;
 	text-align: left;
+	padding-top: 1vw;
+	padding-bottom: 1vw;
+	padding-left: 2vw;
+	padding-right: 2vw;
+	border: 1.2px solid rgb(205, 205, 205);
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0px 5px 10px rgb(200, 200, 200) !important;
 }
 
 .forumText1 {
@@ -174,22 +214,32 @@ body {
 	font-size: 1.8vw;
 	font-family: "Playfair Display", serif;
 	text-align: left;
+	padding-bottom: 5px;
 }
 
 .forumText2 {
 	color: rgb(78, 78, 78);
 	width: 25vw;
-	line-height: 2.5vw;
+	line-height: 2vw;
 	font-size: 1.2vw;
 	font-weight: 100 !important;
 	font-family: "Sanchez", serif;
 	text-align: justify;
+	padding-bottom: 5px;
 }
 
 .projectBox {
 	display: inline-block;
-	padding-left: 5vw;
+	margin-left: 2vw;
 	text-align: left;
+	padding-top: 1vw;
+	padding-bottom: 1vw;
+	padding-left: 2vw;
+	padding-right: 2vw;
+	border: 1.2px solid rgb(205, 205, 205);
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0px 5px 10px rgb(200, 200, 200) !important;
 }
 
 .projectText1 {
@@ -197,16 +247,18 @@ body {
 	font-size: 1.8vw;
 	font-family: "Playfair Display", serif;
 	text-align: left;
+	padding-bottom: 5px;
 }
 
 .projectText2 {
 	color: rgb(78, 78, 78);
 	width: 25vw;
-	line-height: 2.5vw;
+	line-height: 2vw;
 	font-size: 1.2vw;
 	font-weight: 100 !important;
 	font-family: "Sanchez", serif;
 	text-align: justify;
+	padding-bottom: 5px;
 }
 
 .visualizerLink {
@@ -225,7 +277,6 @@ body {
 	position: relative;
 	left: 2px;
 	bottom: 4px;
-	color: rgb(78, 78, 78);
 	font-size: 1vw;
 	font-family: "Sanchez", serif;
 	color: #c34f6b;
@@ -235,12 +286,17 @@ body {
 	color: rgb(238, 59, 104) !important;
 }
 
-.home.link:hover {
+.homeLink {
+	color: #c34f6b;
+}
+
+.homeLink:hover {
 	text-decoration: none !important;
+	color: rgb(238, 59, 104) !important;
 }
 
 .joinNow {
-	margin-top: 5.8vw;
+	margin-top: 5.3vw;
 	color: white;
 	font-size: 3vw;
 	font-family: "Playfair Display", serif;

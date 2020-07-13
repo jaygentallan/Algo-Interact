@@ -3,93 +3,59 @@ body {
 	height: 100%;
 }
 
-.box {
+.learnPageBox {
 	display: flex;
 	flex-flow: column;
 	height: 100%;
+	background-color: #f5f5f5;
 }
 
-.box .row.welcome {
-	flex: 0 1 auto;
-}
-
-.box .row.content {
-	flex: 1 1 auto;
-}
-
-.display-3.text-center.learn {
-	color: #212529;
-	font-size: 40px;
-	padding-left: 280px;
-	padding-right: 280px;
-}
-.card.border.border-danger {
-	border-color: #c34f6b !important;
-	border-radius: 20px;
-	border-width: 0.8em;
-}
-
-hr {
-	margin-bottom: 2% !important;
-	opacity: 0.8;
-	border-radius: 5px;
-	width: 100%;
-}
-
-img {
-	display: block;
-	max-width: 100%;
-	height: auto;
-}
-
-a.try,
-a.try:hover {
-	padding-bottom: 1px;
-	border-bottom: 3px solid #c34f6b;
-	border-radius: 2px 2px 2px 2px;
-	line-height: 10px;
-	outline: none;
-	text-decoration: none;
-	color: inherit;
-	-webkit-tap-highlight-color: white;
-}
-
-.d-flex.pt-5.bd-highlight {
+.learnContainer {
+	text-align: center;
+	width: 71%;
 	margin: auto;
+	padding-top: 2.5vw;
+	border: 1.2px solid rgb(215, 215, 215);
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0px 0px 10px #dddddd !important;
+	line-height: 0px;
 }
 
-.description.display-3 {
-	color: #b9b9b9;
-	font-size: 24px;
-	font-style: italic;
-	text-align: center !important;
+.dataStructuresLabel {
+	margin-top: 30px;
+	margin-bottom: 10px;
+	margin-left: calc(14.5vw + 17px);
+	width: calc(8vw + 125px);
 }
 
-.card-deck.d-flex.pt-4.pb-5.pl-5.pr-5.bd-highlight {
-	margin-right: -4em;
+.dataStructuresText {
+	display: inline-block;
+	position: relative;
+	top: 5px;
+	font-size: calc(0.8vw + 15px);
 }
 
-.learn.label {
-	padding-bottom: 5px;
-	border-bottom: 3px solid #c34f6b;
-	border-radius: 2px 2px 2px 2px;
-	line-height: 10px;
-	font-size: 25px !important;
+.algorithmsLabel {
+	margin-top: 30px;
+	margin-bottom: 10px;
+	margin-left: calc(14.5vw + 17px);
+	width: calc(4vw + 125px);
 }
 
-.label.icon {
+.algorithmsText {
+	display: inline-block;
+	position: relative;
+	top: 5px;
+	font-size: calc(0.8vw + 15px);
+}
+
+.labelIcon {
+	display: inline-block;
 	height: 15px;
+	padding-left: 7px;
 	margin-right: 8px;
 	border-bottom: none !important;
 	color: #c34f6b;
-}
-
-.coverLearn img {
-	position: absolute;
-	top: 100px;
-	padding-left: 90px;
-	padding-right: 90px;
-	width: 100%;
-	max-height: 250px !important;
-	object-fit: fill !important;
+	font-size: calc(1vw + 10px);
 }

@@ -31,7 +31,7 @@ class Home extends Component {
 		let background = "https://algointeract.s3.amazonaws.com/static/images/background.png";
 
 		return (
-			<div class="box">
+			<div class="homePageBox">
 				{<img src={background} className="background" /> ? (
 					<div>
 						<img src={background} className="background" />
@@ -43,7 +43,7 @@ class Home extends Component {
 						/>
 
 						<div className="firstBox">
-							<div className="titleText1">A Hub for CS Students </div>
+							<div className="titleText1">The Hub for Everything CS. </div>
 							<div className="titleText2">
 								Algo-Interact is a Computer Science Hub for students who are eager to learn and contribute.
 							</div>
@@ -56,11 +56,11 @@ class Home extends Component {
 									A visualizer that helps give you a better understanding of data structures and algorithms. Features over 3 data
 									structures and several algorithms, with more to come in the future.
 								</div>
-								<Link className="home link" to="/visualizer">
-									<div className="visualizerLink">
+								<div className="visualizerLink">
+									<Link className="homeLink" to="/visualizer">
 										View Visualizer <RightOutlined className="linkArrow" />
-									</div>
-								</Link>
+									</Link>
+								</div>
 							</div>
 
 							<div className="learnBox">
@@ -69,11 +69,11 @@ class Home extends Component {
 									Algo-Interact aims to help students understand Computer Science in general, and thus features several tutorials
 									that give more information about CS topics, with more to come in the future.
 								</div>
-								<Link className="home link" to="/learn">
-									<div className="visualizerLink">
-										Learn Now <RightOutlined className="linkArrow" />
-									</div>
-								</Link>
+								<div className="visualizerLink">
+									<Link className="homeLink" to="/learn">
+										Start Learning <RightOutlined className="linkArrow" />
+									</Link>
+								</div>
 							</div>
 						</div>
 
@@ -96,11 +96,11 @@ class Home extends Component {
 									Create your own article or read other people's articles, Algo-Interact encourages students to share valuable
 									knowledge with the community.
 								</div>
-								<Link className="home link" to="/hub">
-									<div className="visualizerLink">
+								<div className="visualizerLink">
+									<Link className="homeLink" to="/hub">
 										View Articles <RightOutlined className="linkArrow" />
-									</div>
-								</Link>
+									</Link>
+								</div>
 							</div>
 
 							<div className="forumBox">
@@ -109,11 +109,11 @@ class Home extends Component {
 									Got a question to ask? Want to answer questions to help out others? The forum allows students to easily ask and
 									answer questions in the community.
 								</div>
-								<Link className="home link" to="/hub">
-									<div className="visualizerLink">
+								<div className="visualizerLink">
+									<Link className="homeLink" to="/hub">
 										View Forums <RightOutlined className="linkArrow" />
-									</div>
-								</Link>
+									</Link>
+								</div>
 							</div>
 
 							<div className="projectBox">
@@ -122,11 +122,11 @@ class Home extends Component {
 									Want to add a project to your resume or GitHub? Join community-made open-source projects or start your own and
 									invite people from the community!
 								</div>
-								<Link className="home link" to="/hub">
-									<div className="visualizerLink">
+								<div className="visualizerLink">
+									<Link className="homeLink" to="/hub">
 										View Projects <RightOutlined className="linkArrow" />
-									</div>
-								</Link>
+									</Link>
+								</div>
 							</div>
 
 							<div className="joinNow"> Learn & Contribute Now </div>

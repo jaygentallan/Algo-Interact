@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import Carousel from "react-multi-carousel";
 import Modal from "react-bootstrap/Modal";
 import ArticleCard from "./ArticleCard";
 import "./Hub.css";
 import { Button } from "antd";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-import { LoadingOutlined, FireFilled, StarFilled, ClockCircleFilled, RiseOutlined } from "@ant-design/icons";
+import { LoadingOutlined, FireFilled, StarFilled, ClockCircleFilled, RiseOutlined, ReadFilled } from "@ant-design/icons";
 
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/article";
@@ -14,24 +13,6 @@ import * as actions from "../../store/actions/article";
 // Login form
 import NormalLoginForm from "../Header/Login";
 import RegistrationForm from "../Header/Signup";
-
-/*
-  This is the default page that opens when users navigate to
-  our website. There are Card components within the Learn Page, 
-  and when clicked, the Data Structures route to the Visualizer 
-  page and opens up the corresponding data structure tab. When 
-  an algorithm Card is clicked, the user is routed to the Learn
-  Page. 
-*/
-
-// This responsive is for the carousel component.
-const responsive = {
-	desktop: {
-		breakpoint: { max: 3000, min: 1024 },
-		items: 3,
-		slidesToSlide: 2,
-	},
-};
 
 class Hub extends Component {
 	constructor(props) {
@@ -82,14 +63,7 @@ class Hub extends Component {
 			return <LoadingOutlined className="loading" />;
 		} else {
 			return (
-				<Carousel
-					responsive={responsive}
-					containerClass="carousel-container"
-					removeArrowOnDeviceType={["tablet", "mobile"]}
-					deviceType={this.props.deviceType}
-					dotListClass="custom-dot-list-style"
-					itemClass="card-deck d-flex pt-1 pl-3 pb-4 bd-highlight"
-				>
+				<div className="articleContainer">
 					{this.state.articles.map((article) => (
 						<ArticleCard
 							id={article.id}
@@ -100,81 +74,82 @@ class Hub extends Component {
 							cover={article.cover}
 						/>
 					))}
-				</Carousel>
+				</div>
 			);
 		}
 	}
 
 	render() {
 		return (
-			<div>
-				<div class="d-flex pt-3 bd-highlight">
-					<div class="d-flex pt-5 bd-highlight">
-						<div class="d-flex pt-5 bd-highlight">
-							<div className="coverHub">
-								<img src={"https://algointeract.s3.amazonaws.com/static/images/cover_art.png"} />
-							</div>
-							<h5 className="display-3 text-center hub"> Welcome to the Hub! Read other people's articles or share your own </h5>
+			<div className="hubBox">
+				<h2 className="articleLabel">
+					<ReadFilled className="label icon" />
+					Articles
+				</h2>
+
+				{/* This is the trending catalog carousel */}
+				<div className="firstContainer">
+					{this.trendingCatalog()}
+					<div className="articleSideContainer">
+						<div class="articleButtonHolder">
+							{this.props.isAuthenticated ? (
+								<Link to="/hub/drafts">
+									<Button variant="outline-danger" className="draftsButton">
+										<p className="newArticleText"> Drafts </p>
+									</Button>
+								</Link>
+							) : (
+								<Button
+									variant="outline-danger"
+									className="draftsButton"
+									onClick={() => {
+										this.setState({
+											prompt: "You need to log in to view your saved drafts!",
+											isModalOpen: true,
+										});
+									}}
+								>
+									<p className="newArticleText"> Drafts </p>
+								</Button>
+							)}
+
+							{this.props.isAuthenticated ? (
+								<Link to="/hub/newarticle">
+									<Button variant="outline-danger" className="newArticleButton">
+										<p className="newArticleText"> New </p>
+									</Button>
+								</Link>
+							) : (
+								<Button
+									variant="outline-danger"
+									className="newArticleButton"
+									onClick={() => {
+										this.setState({
+											prompt: "You need to log in to create an article!",
+											isModalOpen: true,
+										});
+									}}
+								>
+									<p className="newArticleText"> New </p>
+								</Button>
+							)}
+						</div>
+
+						<div className="articleSearchHolder">
+							<input
+								type="text"
+								className="searchInput"
+								name="removeNodeName"
+								placeholder="Search articles or topics"
+								value={this.state.removeNodeName}
+								onChange={this._removeNodeHandleChange}
+								onKeyPress={this._handleRemoveKeyEnter}
+							/>
 						</div>
 					</div>
 				</div>
-				<div class="pb-5 bd-highlight">
-					<h5 className="description display-3"> Share your story now! </h5>
-				</div>
 
-				<div class="buttonHolder">
-					<input
-						type="text"
-						className="searchInput"
-						name="removeNodeName"
-						placeholder="Search articles or topics"
-						value={this.state.removeNodeName}
-						onChange={this._removeNodeHandleChange}
-						onKeyPress={this._handleRemoveKeyEnter}
-					/>
-
-					{this.props.isAuthenticated ? (
-						<Link to="/hub/drafts">
-							<Button variant="outline-danger" className="draftsButton">
-								<p className="newArticleText"> Drafts </p>
-							</Button>
-						</Link>
-					) : (
-						<Button
-							variant="outline-danger"
-							className="draftsButton"
-							onClick={() => {
-								this.setState({
-									prompt: "You need to log in to view your saved drafts!",
-									isModalOpen: true,
-								});
-							}}
-						>
-							<p className="newArticleText"> Drafts </p>
-						</Button>
-					)}
-
-					{this.props.isAuthenticated ? (
-						<Link to="/hub/newarticle">
-							<Button variant="outline-danger" className="newArticleButton">
-								<p className="newArticleText"> New + </p>
-							</Button>
-						</Link>
-					) : (
-						<Button
-							variant="outline-danger"
-							className="newArticleButton"
-							onClick={() => {
-								this.setState({
-									prompt: "You need to log in to create an article!",
-									isModalOpen: true,
-								});
-							}}
-						>
-							<p className="newArticleText"> New + </p>
-						</Button>
-					)}
-				</div>
+				<div class="pb-5"></div>
 
 				<Modal
 					class="center"
@@ -203,59 +178,6 @@ class Hub extends Component {
 						)}
 					</Modal.Body>
 				</Modal>
-
-				<hr className="discuss"></hr>
-
-				<div class="d-flex pl-2 bd-highlight">
-					<div class="pl-5 pb-2">
-						<h2 className="category label">
-							<RiseOutlined className="label icon" />
-							Trending
-						</h2>
-						<Button variant="outline-danger" className="moreButton">
-							<p className="moreButtonText"> More </p>
-						</Button>
-					</div>
-				</div>
-
-				{/* This is the trending catalog carousel */}
-				{this.trendingCatalog()}
-
-				<hr className="discuss"></hr>
-
-				<div class="d-flex pl-2 bd-highlight">
-					<div class="pl-5 pb-2">
-						<h2 className="category label">
-							<StarFilled className="label icon" />
-							Most Popular
-						</h2>
-						<Button variant="outline-danger" className="moreButton">
-							<p className="moreButtonText"> More </p>
-						</Button>
-					</div>
-				</div>
-
-				{/* This is the trending catalog carousel */}
-				{this.trendingCatalog()}
-
-				<hr className="discuss"></hr>
-
-				<div class="d-flex pl-2 bd-highlight">
-					<div class="pl-5 pb-2">
-						<h2 className="category label">
-							<ClockCircleFilled className="label icon" />
-							Most Recent
-						</h2>
-						<Button variant="outline-danger" className="moreButton">
-							<p className="moreButtonText"> More </p>
-						</Button>
-					</div>
-				</div>
-
-				{/* This is the trending catalog carousel */}
-				{this.trendingCatalog()}
-
-				<div class="pb-5"></div>
 			</div>
 		);
 	}

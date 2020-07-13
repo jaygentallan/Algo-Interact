@@ -1,23 +1,15 @@
-.btn.btn-outline-danger.showModal {
-	color: #c34f6b;
-	border-color: #c34f6b !important; /* Sets all card border colors to match header and footer color */
-	border-bottom-left-radius: 18px; /* Larger number results in more curved corners of card */
-	border-bottom-right-radius: 18px; /* Larger number results in more curved corners of card */
-	border-bottom-width: 0;
-	border-left-width: 0;
-	border-right-width: 0;
-}
-
-.btn.btn-outline-danger.showModal:hover {
-	background-color: #c34f6b;
-}
-
 .learn.card.border {
-	margin-top: -1em;
+	height: calc(11vw + 30px);
+	min-width: calc(180px);
+	width: calc(17vw + 40px);
 	border-color: transparent !important;
 	border-width: 0 !important;
 	border-radius: 20px; /* Larger number results in more curved corners of card */
 	box-shadow: 0px 5px 15px #bbbbbb !important;
+	margin-left: 1.5vw;
+	margin-right: 1.5vw;
+	display: inline-block;
+	text-align: left !important;
 }
 
 .card.border:hover {
@@ -25,25 +17,28 @@
 	cursor: pointer;
 }
 
-.title.pt-4.learn {
-	color: white;
+.learnTitle {
+	position: relative;
+	bottom: calc(1vw + 22px);
+	padding-left: 15px;
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 	font-weight: 700;
-	font-size: 26px;
+	font-size: calc(1.1vw + 8.5px);
 	align-content: center;
-	position: absolute;
-	left: 5.5%;
-	bottom: 2%;
+	color: white;
+	text-shadow: 2px 2px 4px #000000;
 }
 
-.subtitle.learn {
+.learnSubtitle {
+	position: relative;
+	bottom: calc(2.2vw + 48.5px);
+	padding-left: 15px;
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-	font-weight: 300;
-	font-size: 16px;
-	position: absolute;
-	left: 6%;
-	bottom: 10%;
+	font-weight: 700;
+	font-size: calc(0.5vw + 10px);
+	align-content: center;
 	color: white;
+	text-shadow: 2px 2px 4px #000000;
 }
 
 .card-img-top-learn {
@@ -52,18 +47,4 @@
 	border-top-right-radius: 20px !important;
 	border-top-left-radius: 20px !important;
 	background-color: #ffa291;
-}
-
-button .container h5 {
-	font-size: 17px;
-	font-weight: 380;
-	position: relative;
-	justify-content: center;
-	color: #303030;
-}
-
-.modal {
-	border-color: #c34f6b !important; /* Sets all card border colors to match header and footer color */
-	border-radius: 20px; /* Larger number results in more curved corners of card */
-	border-width: 0.8em;
 }

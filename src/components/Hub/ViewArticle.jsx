@@ -67,7 +67,7 @@ class ViewArticle extends Component {
 		if (this.props.currArticle != null && prevProps.currArticle !== this.props.currArticle) {
 			const created_at = this.props.currArticle.created_at.split("T")[0];
 			const year = created_at.split("-")[0];
-			const month = created_at.split("-")[1];
+			const month = created_at.split("-")[1] - 1;
 			const day = created_at.split("-")[2].replace(/^0+/, "");
 			const date = new Date(year, month, day);
 			const formatted_date = date.toLocaleString("en-us", { month: "long" }) + " " + day + " " + year;
