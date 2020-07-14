@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "https://algointeract.s3.amazonaws.com/static/css/main.37185840.chunk.css",
-    "main.js": "https://algointeract.s3.amazonaws.com/static/js/main.0b7a86ab.chunk.js",
-    "main.js.map": "https://algointeract.s3.amazonaws.com/static/js/main.0b7a86ab.chunk.js.map",
+    "main.js": "https://algointeract.s3.amazonaws.com/static/js/main.f7175235.chunk.js",
+    "main.js.map": "https://algointeract.s3.amazonaws.com/static/js/main.f7175235.chunk.js.map",
     "runtime-main.js": "https://algointeract.s3.amazonaws.com/static/js/runtime-main.027384d9.js",
     "runtime-main.js.map": "https://algointeract.s3.amazonaws.com/static/js/runtime-main.027384d9.js.map",
     "static/css/2.2601d92c.chunk.css": "https://algointeract.s3.amazonaws.com/static/css/2.2601d92c.chunk.css",
     "static/js/2.52970304.chunk.js": "https://algointeract.s3.amazonaws.com/static/js/2.52970304.chunk.js",
     "static/js/2.52970304.chunk.js.map": "https://algointeract.s3.amazonaws.com/static/js/2.52970304.chunk.js.map",
     "index.html": "https://algointeract.s3.amazonaws.com/index.html",
-    "precache-manifest.1d48bf7f388b4f65d3361c6c8a1bd62e.js": "https://algointeract.s3.amazonaws.com/precache-manifest.1d48bf7f388b4f65d3361c6c8a1bd62e.js",
+    "precache-manifest.b074a83e89f719e2d1ae09febe30bb69.js": "https://algointeract.s3.amazonaws.com/precache-manifest.b074a83e89f719e2d1ae09febe30bb69.js",
     "service-worker.js": "https://algointeract.s3.amazonaws.com/service-worker.js",
     "static/css/2.2601d92c.chunk.css.map": "https://algointeract.s3.amazonaws.com/static/css/2.2601d92c.chunk.css.map",
     "static/css/main.37185840.chunk.css.map": "https://algointeract.s3.amazonaws.com/static/css/main.37185840.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.2601d92c.chunk.css",
     "static/js/2.52970304.chunk.js",
     "static/css/main.37185840.chunk.css",
-    "static/js/main.0b7a86ab.chunk.js"
+    "static/js/main.f7175235.chunk.js"
   ]
 }
