@@ -31,7 +31,7 @@ const LearnCard = (props) => {
 					//state: { id: props.id, user: props.user },
 				}}
 			>
-				<img class="card-img-top" src={process.env.PUBLIC_URL + "static/images/" + props.name + ".png"} />
+				<img class="card-img-top" src={process.env.PUBLIC_URL + "/static/images/" + props.name + ".png"} />
 				<h3 className="learnTitle">{props.title}</h3>
 				<p className="learnSubtitle"> {props.subtitle} </p>
 			</Link>
