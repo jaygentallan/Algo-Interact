@@ -1,11 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+
 a.footer.nav-link {
 	color: white;
 	text-decoration: none;
+	font-family: "Source Sans Pro", sans-serif;
 	font-size: 16px;
 	font-weight: 500;
-	padding-top: 0.6em;
-	padding-right: 1em;
-	padding-left: 1em;
+	padding-right: 1vw;
+	padding-left: 1vw;
 	padding-bottom: 0.6em;
 }
 
@@ -29,6 +31,7 @@ a.footer.nav-link:hover {
 }
 
 .container.text-center {
+	font-family: "Source Sans Pro", sans-serif;
 	font-size: 16px;
 	color: white;
 	position: relative;
@@ -48,7 +51,7 @@ a.footer.nav-link:hover {
 h1.title {
 	color: white;
 	font-weight: lighter !important;
-	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+	font-family: "Source Sans Pro", sans-serif;
 	font-size: 42px;
 }
 
@@ -56,13 +59,13 @@ h1.hello {
 	font-style: italic;
 	text-align: center;
 	font-weight: lighter !important;
-	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+	font-family: "Source Sans Pro", sans-serif;
 	font-size: 36px;
 }
 
 h4.name {
 	padding-top: 1em;
-	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif !important;
+	font-family: "Source Sans Pro", sans-serif;
 }
 
 p.description {

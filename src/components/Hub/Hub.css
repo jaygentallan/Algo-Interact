@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+
 html,
 body {
 	height: 100%;
+	font-family: "Source Sans Pro", sans-serif;
 }
 
 .hubBox {
@@ -107,8 +110,9 @@ hr.discuss {
 
 .articleLabel {
 	display: inline-block;
+	font-family: "Source Sans Pro", sans-serif;
 	font-size: calc(0.8vw + 15px);
-	margin-left: calc(5.5vw + 17px);
+	margin-left: calc(10vw + 17px);
 	margin-top: 2.5vw;
 	margin-bottom: 13px;
 }
@@ -133,13 +137,13 @@ hr.discuss {
 	display: inline-block;
 	bottom: calc(6.8vw + 30px);
 	text-align: center;
-	height: calc(27vw + 100px);
+	height: calc(27vw + 63px);
 	min-width: calc(20vw + 350px);
-	width: 72%;
-	margin-left: 3vw;
-	padding-top: 2.5vw;
-	padding-left: 1.5vw;
-	padding-right: 1.5vw;
+	width: 65%;
+	margin-left: 8.5vw;
+	padding-top: 1.5vw;
+	padding-left: calc(0.1vw + 0px);
+	padding-right: 1vw;
 	border: 1.2px solid rgb(215, 215, 215);
 	background-color: white;
 	border-radius: 5px;
@@ -151,13 +155,13 @@ hr.discuss {
 	position: absolute;
 	display: inline-block;
 	text-align: left;
-	height: calc(27vw + 100px);
+	height: calc(27vw + 63px);
 	min-width: calc(5vw + 100px);
-	width: 20%;
-	margin-left: 2vw;
+	width: 16%;
+	margin-left: 1vw;
 	padding-top: 1.5vw;
-	padding-left: 1.5vw;
-	padding-right: 1.5vw;
+	padding-left: 1vw;
+	padding-right: 1vw;
 	border: 1.2px solid rgb(215, 215, 215);
 	background-color: white;
 	border-radius: 5px;
@@ -168,7 +172,6 @@ hr.discuss {
 .articleButtonHolder {
 	width: 100%;
 	text-align: center;
-	margin-top: 5px;
 }
 
 .draftsButton {
@@ -180,19 +183,20 @@ hr.discuss {
 	border-bottom-right-radius: 4.8px;
 	border-top-left-radius: 4.8px;
 	border-bottom-left-radius: 4.8px;
-	border-width: 1.28px;
-	height: 32px;
-	width: 7.5vw;
+	border-width: 1px;
+	height: 1.8vw;
+	width: 6vw;
 	margin-right: 0.7vw;
 	border-color: rgb(46, 185, 106);
-	background-color: rgb(46, 185, 106);
-	color: white !important;
+	background-color: white;
+	color: rgb(46, 185, 106);
 }
 
 .draftsButton:hover,
 .draftsButton:focus {
-	border-color: #16d469;
-	background-color: #16d469;
+	border-color: rgb(46, 185, 106);
+	background-color: rgb(46, 185, 106);
+	color: white;
 	outline: none;
 }
 
@@ -205,18 +209,19 @@ hr.discuss {
 	border-bottom-right-radius: 4.8px;
 	border-top-left-radius: 4.8px;
 	border-bottom-left-radius: 4.8px;
-	border-width: 1.28px;
-	height: 32px;
-	width: 7.5vw;
-	margin-left: 0.7vw;
-	border-color: #c34f6b !important;
-	color: white !important;
-	background-color: #c34f6b !important;
+	border-width: 1px;
+	height: 1.8vw;
+	width: 6vw;
+	margin-left: 0.75vw;
+	border-color: #c34f6b;
+	color: #c34f6b;
+	background-color: white;
 }
 
 .newArticleButton:hover {
-	border-color: rgb(238, 59, 104) !important;
-	background-color: rgb(238, 59, 104) !important;
+	border-color: #c34f6b;
+	background-color: #c34f6b;
+	color: white;
 }
 
 .newArticleButton:focus {
@@ -224,21 +229,23 @@ hr.discuss {
 }
 
 .newArticleText {
-	margin-top: 13px;
-	font-size: 15px !important;
+	margin: auto;
+	font-size: calc(0.6vw + 4px);
 }
 
 .articleSearchHolder {
 	width: 100%;
-	padding-top: 1.8vw;
+	padding-top: 1vw;
 	padding-bottom: 2vw;
 }
 
 .searchInput {
-	border-width: 1.28px;
-	font-size: 15px;
-	padding-top: 8px;
-	height: 32px;
+	border-width: 0.07vw;
+	border-radius: 0.3vw;
+	border-color: #c34f6b;
+	color: #5f5f5f;
+	font-size: calc(0.6vw + 4px);
+	height: 1.8vw;
 	width: 100%;
 }
 
@@ -247,7 +254,7 @@ hr.discuss {
 }
 
 ::placeholder {
-	font-size: 15px;
+	font-size: calc(0.6vw + 3px);
 	font-weight: 300;
 }
 

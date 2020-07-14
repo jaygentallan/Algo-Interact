@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./ViewArticle.css";
 import Modal from "react-bootstrap/Modal";
+import Footer from "../../components/Footer/Footer";
 import { withRouter, Link } from "react-router-dom";
 import { Button } from "antd";
 import { LoadingOutlined, BookOutlined, FormOutlined, DeleteOutlined, CheckCircleOutlined } from "@ant-design/icons";
@@ -128,7 +129,7 @@ class ViewArticle extends Component {
 	render() {
 		return (
 			<div>
-				{this.state.content === null || this.state.profile_pic === null ? (
+				{this.state.cover === null || this.state.content === null || this.state.profile_pic === null ? (
 					<ReactLoading className="viewArticleLoading" type="spinningBubbles" color="#c34f6b" height={50} width={50} />
 				) : (
 					<div></div>
@@ -233,6 +234,8 @@ class ViewArticle extends Component {
 					</Link>
 					<h1 className="author description">{this.state.description}</h1>
 				</div>
+
+				<Footer />
 
 				<Modal
 					className="statusModal"

@@ -17,24 +17,12 @@ class Learn extends Component {
 					<h2 className="dataStructuresText"> Data Structures </h2>
 				</div>
 				<div className="learnContainer">
-					<LearnCard
-						title="Arrays and Strings"
-						subtitle="Learn About"
-						image="https://algointeract.s3.amazonaws.com/static/images/array.png"
-					/>
-					<LearnCard
-						title="Stacks and Queues"
-						subtitle="Learn About"
-						image="https://algointeract.s3.amazonaws.com/static/images/stackandqueue.png"
-					/>
-					<LearnCard title="Hash Tables" subtitle="Learn About" image="https://algointeract.s3.amazonaws.com/static/images/hashtable.png" />
-					<LearnCard
-						title="Linked Lists"
-						subtitle="Learn About"
-						image="https://algointeract.s3.amazonaws.com/static/images/linkedlist.png"
-					/>
-					<LearnCard title="Trees" subtitle="Learn About" image="https://algointeract.s3.amazonaws.com/static/images/tree.png" />
-					<LearnCard title="Graphs" subtitle="Learn About" image="https://algointeract.s3.amazonaws.com/static/images/graphpicture.png" />
+					<LearnCard title="Arrays and Strings" subtitle="Learn About" name="arrays-and-strings" />
+					<LearnCard title="Stacks and Queues" subtitle="Learn About" name="stacks-and-queues" />
+					<LearnCard title="Hash Tables" subtitle="Learn About" name="hash-tables" />
+					<LearnCard title="Linked Lists" subtitle="Learn About" name="linked-lists" />
+					<LearnCard title="Trees" subtitle="Learn About" name="trees" />
+					<LearnCard title="Graphs" subtitle="Learn About" name="graphs" />
 				</div>
 
 				<div className="algorithmsLabel">
@@ -42,16 +30,8 @@ class Learn extends Component {
 					<h2 className="algorithmsText"> Algorithms </h2>
 				</div>
 				<div className="learnContainer mb-5">
-					<LearnCard
-						title="Graph Algorithms"
-						subtitle="Learn About"
-						image="https://algointeract.s3.amazonaws.com/static/images/graphsearch.png"
-					/>
-					<LearnCard
-						title="Tree Traversal"
-						subtitle="Learn About"
-						image="https://algointeract.s3.amazonaws.com/static/images/treetraversal.png"
-					/>
+					<LearnCard title="Graph Algorithms" subtitle="Learn About" name="graph-algorithms" />
+					<LearnCard title="Tree Traversals" subtitle="Learn About" name="tree-traversals" />
 				</div>
 			</div>
 		);

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+
 .Header {
 	margin: 10px;
 	margin-bottom: 20px;
@@ -7,6 +9,7 @@
 }
 
 .nav-link.header {
+	font-family: "Source Sans Pro", sans-serif;
 	font-size: 16px;
 	font-weight: 500;
 	color: white !important;
@@ -171,6 +174,7 @@
 .logInText {
 	margin-top: 0.2em;
 	font-size: 16px;
+	font-family: "Source Sans Pro", sans-serif;
 }
 
 .logOutText {
@@ -226,8 +230,11 @@
 
 .logInLogo img {
 	position: relative;
-	padding: 0.7em;
-	width: 13em;
+	padding-top: 0.8vw;
+	padding-bottom: 0.8vw;
+	padding-left: 0.5vw;
+	padding-right: 0.5vw;
+	width: 13.7vw;
 }
 
 .loginInput {
@@ -299,6 +306,7 @@
 	text-align: center !important;
 	background-color: #c34f6b !important;
 	color: rgb(255, 223, 223) !important;
+	font-family: "Source Sans Pro", sans-serif;
 	font-size: 1em !important;
 	margin-top: -5px;
 	padding-top: 0.6em !important;
@@ -357,6 +365,7 @@
 }
 
 .username.text {
+	font-family: "Source Sans Pro", sans-serif;
 	font-size: 16px;
 	left: 0;
 	width: 100%;

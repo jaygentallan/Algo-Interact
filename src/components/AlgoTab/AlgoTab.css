@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+
 /*Algo tabs*/
 .nav {
 	justify-content: center;
@@ -11,6 +13,7 @@ nav.nav-tabs {
 /*Individual Tabs*/
 .nav-tabs .nav-item {
 	color: #c34f6b;
+	font-family: "Source Sans Pro", sans-serif;
 	font-size: 16px;
 	font-weight: bold;
 	margin-left: 2%;

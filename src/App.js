@@ -7,14 +7,19 @@ import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-ro
 
 // Pages
 import HomePage from "./pages/HomePage";
+
 import VisualizerPage from "./pages/VisualizerPage";
-import LearnPage from "./pages/LearnPage";
-import HubPage from "./pages/HubPage";
-import NewArticlePage from "./pages/NewArticlePage";
-import ViewArticlePage from "./pages/ViewArticlePage";
-import EditProfilePage from "./pages/EditProfilePage";
-import ViewProfilePage from "./pages/ViewProfilePage";
-import ViewDraftPage from "./pages/ViewDraftPage";
+
+import LearnPage from "./pages/Learn/LearnPage";
+import LearnMorePage from "./pages/Learn/LearnMorePage";
+
+import HubPage from "./pages/Hub/HubPage";
+import NewArticlePage from "./pages/Hub/Article/NewArticlePage";
+import ViewArticlePage from "./pages/Hub/Article/ViewArticlePage";
+import EditProfilePage from "./pages/Profile/EditProfilePage";
+
+import ViewProfilePage from "./pages/Profile/ViewProfilePage";
+import ViewDraftPage from "./pages/Hub/Article/ViewDraftPage";
 
 // Main App class to be rendered by the React DOM
 // in the index.js file.
@@ -30,6 +35,7 @@ class App extends Component {
 			<Router>
 				<Switch>
 					<Route exact path="/" render={() => <HomePage {...this.props} />} />
+
 					<Route
 						exact
 						path="/visualizer"
@@ -37,7 +43,17 @@ class App extends Component {
 							<VisualizerPage {...props} isAuthenticated={this.props.isAuthenticated} currUserProfile={this.props.currUserProfile} />
 						)}
 					/>
+
 					<Route exact path="/learn" render={() => <LearnPage {...this.props} />} />
+					<Route exact path="/learn/arrays-and-strings" render={(props) => <LearnMorePage {...this.props} name={"arrays-and-strings"} />} />
+					<Route exact path="/learn/stacks-and-queues" render={(props) => <LearnMorePage {...this.props} name={"stacks-and-queues"} />} />
+					<Route exact path="/learn/hash-tables" render={(props) => <LearnMorePage {...this.props} name={"hash-tables"} />} />
+					<Route exact path="/learn/linked-lists" render={(props) => <LearnMorePage {...this.props} name={"linked-lists"} />} />
+					<Route exact path="/learn/trees" render={(props) => <LearnMorePage {...this.props} name={"trees"} />} />
+					<Route exact path="/learn/graphs" render={(props) => <LearnMorePage {...this.props} name={"graphs"} />} />
+					<Route exact path="/learn/graph-algorithms" render={(props) => <LearnMorePage {...this.props} name={"graph-algorithms"} />} />
+					<Route exact path="/learn/tree-traversals" render={(props) => <LearnMorePage {...this.props} name={"tree-traversals"} />} />
+
 					<Route exact path="/hub" render={() => <HubPage {...this.props} />} />
 					<Route exact path="/hub/viewarticle/:id" render={() => <ViewArticlePage {...this.props} />} />
 					<Route exact path="/hub/newarticle" render={(props) => <NewArticlePage {...this.props} draftData={props} />} />

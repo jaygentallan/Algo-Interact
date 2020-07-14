@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
+import { Link } from "react-router-dom";
 
 import "./LearnCard.css";
 import { TabContent } from "react-bootstrap";
@@ -23,9 +24,17 @@ const LearnCard = (props) => {
 
 	return (
 		<div className="learn card border" onClick={showModal}>
-			<img class="card-img-top" src={props.image} />
-			<h3 className="learnTitle">{props.title}</h3>
-			<p className="learnSubtitle"> {props.subtitle} </p>
+			<Link
+				className="learn link"
+				to={{
+					pathname: "/learn/" + props.name,
+					//state: { id: props.id, user: props.user },
+				}}
+			>
+				<img class="card-img-top" src={process.env.PUBLIC_URL + "static/images/" + props.name + ".png"} />
+				<h3 className="learnTitle">{props.title}</h3>
+				<p className="learnSubtitle"> {props.subtitle} </p>
+			</Link>
 		</div>
 	);
 };

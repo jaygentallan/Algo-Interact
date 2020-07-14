@@ -1,1 +1,1 @@
-export var DEBUG = false;
+export var DEBUG = true;

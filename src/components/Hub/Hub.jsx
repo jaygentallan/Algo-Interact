@@ -140,7 +140,7 @@ class Hub extends Component {
 								type="text"
 								className="searchInput"
 								name="removeNodeName"
-								placeholder="Search articles or topics"
+								placeholder="Search articles or topics..."
 								value={this.state.removeNodeName}
 								onChange={this._removeNodeHandleChange}
 								onKeyPress={this._handleRemoveKeyEnter}

@@ -17,6 +17,14 @@
 	cursor: pointer;
 }
 
+.card-img-top-learn {
+	border-color: transparent !important;
+	border-width: 0 !important;
+	border-top-right-radius: 20px !important;
+	border-top-left-radius: 20px !important;
+	background-color: #ffa291;
+}
+
 .learnTitle {
 	position: relative;
 	bottom: calc(1vw + 22px);
@@ -41,10 +49,11 @@
 	text-shadow: 2px 2px 4px #000000;
 }
 
-.card-img-top-learn {
-	border-color: transparent !important;
-	border-width: 0 !important;
-	border-top-right-radius: 20px !important;
-	border-top-left-radius: 20px !important;
-	background-color: #ffa291;
+.learn.link {
+	color: white;
+}
+
+.learn.link:hover {
+	color: white;
+	text-decoration: none;
 }
