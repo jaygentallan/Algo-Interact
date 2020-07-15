@@ -1,35 +1,35 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap");
 
-body {
-	font-family: "IBM Plex Sans", sans-serif;
-	font-size: 16pt;
-	color: #292929;
-}
-
 html,
 body {
 	height: 100%;
 }
 
-.box {
-	display: flex;
-	flex-flow: column;
-	height: 100%;
+.newArticleBox {
+	z-index: 1;
+	position: absolute;
+	top: -1vw;
+	width: 100%;
+	min-width: 650px;
+	background-color: #f5f5f5;
 }
 
 .titleInput {
+	z-index: 1;
 	text-align: center;
 	margin-bottom: 80px;
 }
 
 .newArticleTitle::placeholder {
+	z-index: 1;
 	font-size: calc(2vw + 15px);
 	color: white;
 	text-shadow: 2px 2px 4px #000000;
 }
 
 .newArticleSubtitle::placeholder {
+	z-index: 1;
 	font-size: calc(0.6vw + 10px);
 	color: rgb(200, 200, 200) !important;
 	text-shadow: 2px 2px 2px #000000;
@@ -37,11 +37,12 @@ body {
 
 .newArticleTitle,
 .newArticleTitle:focus {
+	z-index: 1;
 	background-color: transparent;
 	border: none !important;
 	outline: none !important;
 	position: relative;
-	top: 10px;
+	top: 73px;
 	padding-top: 105px;
 	padding-left: 27.5vw;
 	padding-right: 27.5vw;
@@ -60,10 +61,12 @@ body {
 
 .newArticleSubtitle,
 .newArticleSubtitle:focus {
+	z-index: 1;
+	position: relative;
+	top: 60px;
 	background-color: transparent;
 	border: none !important;
 	outline: none !important;
-	margin-top: 4.5px;
 	margin-bottom: 0px;
 	padding-left: 27.5vw;
 	padding-right: 27.5vw;
@@ -80,35 +83,39 @@ body {
 
 .newCover {
 	position: absolute;
-	padding-left: 25vw;
-	padding-right: 25vw;
+	top: 58px;
+	margin-left: 25vw;
+	margin-right: 25vw;
 	z-index: -1;
 	height: 350px !important;
-	width: 100%;
+	width: 49.5%;
+	min-width: 400px !important;
 	object-fit: cover;
 	object-position: 0% 50%;
 }
 
 .newCoverBackground {
-	z-index: -2;
+	z-index: -3;
 	position: absolute;
 	top: 45px;
 	height: 350px !important;
 	object-fit: cover;
 	object-position: 0% 50%;
-	min-width: 95.2%;
+	width: 95.2%;
+	min-width: 515px;
 	/* Add the blur effect */
 	filter: blur(10px);
 
 	transform: scale(1.1);
 }
 
-.cutoff {
+.newArticleCutoff {
+	z-index: 0;
 	position: absolute;
-	top: 408.5px;
+	top: 408.4px;
 	height: 40px;
 	width: 100%;
-	background-color: white;
+	background-color: #f5f5f5;
 }
 
 .newArticleSubmitButton {
@@ -143,9 +150,9 @@ body {
 }
 
 .d-flex.justify-content-end.submit {
-	margin-top: 3em;
-	margin-bottom: 5em;
-	margin-right: 25.5vw;
+	padding-top: 20px;
+	padding-bottom: 0px;
+	padding-right: 0vw;
 }
 
 .newArticleSaveButton {
@@ -209,7 +216,7 @@ body {
 
 .uploadButton {
 	position: absolute;
-	top: 60px;
+	top: 78px;
 	right: 26vw;
 	font-size: 1.25em !important;
 	color: white !important;
@@ -220,8 +227,28 @@ body {
 	cursor: pointer;
 }
 
-.content.d-flex.justify-content-center {
-	margin-top: 4%;
+.newArticleContentContainer {
+	position: relative;
+	top: 60px;
+	z-index: 1;
+	width: 49.6%;
+	min-width: 400px;
+	text-align: left;
+	margin-left: 25vw !important;
+	margin-right: 25vw !important;
+	padding: 1.5vw;
+	padding-bottom: 20px;
+	margin-bottom: 8vw;
+	border: 1.2px solid rgb(215, 215, 215);
+	border-top: none !important;
+	background-color: white;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	box-shadow: 0px 0px 10px #dddddd !important;
+}
+
+.editor {
+	min-width: 400px !important;
 }
 
 .newArticleLoading {

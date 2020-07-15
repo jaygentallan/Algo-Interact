@@ -6,14 +6,6 @@ import Footer from "../../components/Footer/Footer";
 // React function that returns what is displayed to the
 // user when it is called using the Router in the App.js file.
 const LearnMorePage = (props) => {
-	var name = props.name;
-
-	/*
-	if (props.location.state) {
-		name = props.location.state.name;
-	}
-	*/
-
 	const scrollToTop = () => {
 		window.scrollTo(0, 0);
 	};

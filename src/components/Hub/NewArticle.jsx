@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
+import Footer from "../../components/Footer/Footer";
 import "./NewArticle.css";
 import { Editor } from "@tinymce/tinymce-react";
 import { Form, Input, Button } from "antd";
@@ -341,11 +342,11 @@ class NewArticle extends Component {
 		};
 
 		return (
-			<div>
+			<div className="newArticleBox">
 				{this.state.loading ? <ReactLoading className="newArticleLoading" type="spinningBubbles" color="#c34f6b" /> : <div></div>}
 				<img className="newCover" src={this.state.tempCover} />
 				<img className="newCoverBackground" src={this.state.tempCover} />
-				<div className="cutoff"></div>
+				<div className="newArticleCutoff"></div>
 				<div className="uploadButton">
 					<input
 						type="file"
@@ -381,99 +382,102 @@ class NewArticle extends Component {
 						/>
 					</Form.Item>
 
-					<div class="content d-flex justify-content-center">
-						<Editor
-							apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
-							selector="textarea"
-							onChange={this._handleEditorChange}
-							value={this.state.defaultData ? this.state.defaultData.content : ""}
-							init={{
-								branding: false,
-								// eslint-disable-next-line no-restricted-globals
-								height: screen.height * 0.5,
-								// eslint-disable-next-line no-restricted-globals
-								width: screen.width * 0.46,
-								menubar: false,
-								image_caption: true,
-								placeholder: "Tell your story...",
-								plugins: "lists advlist codesample autosave save quickbars image media table hr",
-								quickbars_selection_toolbar: "bold italic link | h1 h2 p | codesample blockquote",
-								quickbars_insert_toolbar: "",
-								toolbar:
-									" codesample blockquote | image media table hr | bold italic underline | \
+					<div className="newArticleContentContainer">
+						<div className="editor">
+							<Editor
+								apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
+								selector="textarea"
+								onChange={this._handleEditorChange}
+								value={this.state.defaultData ? this.state.defaultData.content : ""}
+								init={{
+									branding: false,
+									// eslint-disable-next-line no-restricted-globals
+									height: screen.height * 0.5,
+									// eslint-disable-next-line no-restricted-globals
+									menubar: false,
+									image_caption: true,
+									placeholder: "Tell your story...",
+									plugins: "lists advlist codesample autosave save quickbars image media table hr",
+									quickbars_selection_toolbar: "bold italic link | h1 h2 p | codesample blockquote",
+									quickbars_insert_toolbar: "",
+									toolbar:
+										" codesample blockquote | image media table hr | bold italic underline | \
 									alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
-								content_style:
-									"@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap'); figcaption {font-family: 'Libre Baskerville', serif; font-size: 15px} body { font-family: 'Libre Baskerville', serif; font-size: 18px; color: #292929; text-align: justify; }",
-							}}
-							onEditorChange={this._handleEditorChange}
-						/>
-					</div>
-					<Form.Item>
-						<div class="d-flex justify-content-end submit">
-							{this.state.isEdit ? (
-								<div>
-									<Button
-										variant="outline-danger"
-										className="newArticleSaveButton"
-										onClick={() => {
-											this.props.history.push("/hub");
-										}}
-									>
-										<p className="saveText"> Cancel </p>
-									</Button>
-									<Button
-										variant="outline-danger"
-										className="newArticleSubmitButton"
-										onClick={() => {
-											onEdit();
-										}}
-									>
-										<p className="submitText"> Save </p>
-									</Button>
-								</div>
-							) : this.state.isDraft ? (
-								<div>
-									<Button
-										variant="outline-danger"
-										className="newArticleDeleteButton"
-										onClick={() => {
-											onDelete();
-										}}
-									>
-										<p className="saveText"> Delete </p>
-									</Button>
-									<Button
-										variant="outline-danger"
-										className="newArticleSaveButton"
-										onClick={() => {
-											onSave();
-										}}
-									>
-										<p className="saveText"> Save </p>
-									</Button>
-									<Button variant="outline-danger" className="newArticleSubmitButton" htmlType="submit">
-										<p className="submitText"> Submit </p>
-									</Button>
-								</div>
-							) : (
-								<div>
-									<Button
-										variant="outline-danger"
-										className="newArticleSaveButton"
-										onClick={() => {
-											onSave();
-										}}
-									>
-										<p className="saveText"> Save </p>
-									</Button>
-									<Button variant="outline-danger" className="newArticleSubmitButton" htmlType="submit">
-										<p className="submitText"> Submit </p>
-									</Button>
-								</div>
-							)}
+									content_style:
+										"@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap'); figcaption {font-family: 'Libre Baskerville', serif; font-size: 15px} body { font-family: 'Libre Baskerville', serif; font-size: 18px; color: #292929; text-align: justify; }",
+								}}
+								onEditorChange={this._handleEditorChange}
+							/>
 						</div>
-					</Form.Item>
+						<Form.Item>
+							<div class="d-flex justify-content-end submit">
+								{this.state.isEdit ? (
+									<div>
+										<Button
+											variant="outline-danger"
+											className="newArticleSaveButton"
+											onClick={() => {
+												this.props.history.push("/hub");
+											}}
+										>
+											<p className="saveText"> Cancel </p>
+										</Button>
+										<Button
+											variant="outline-danger"
+											className="newArticleSubmitButton"
+											onClick={() => {
+												onEdit();
+											}}
+										>
+											<p className="submitText"> Save </p>
+										</Button>
+									</div>
+								) : this.state.isDraft ? (
+									<div>
+										<Button
+											variant="outline-danger"
+											className="newArticleDeleteButton"
+											onClick={() => {
+												onDelete();
+											}}
+										>
+											<p className="saveText"> Delete </p>
+										</Button>
+										<Button
+											variant="outline-danger"
+											className="newArticleSaveButton"
+											onClick={() => {
+												onSave();
+											}}
+										>
+											<p className="saveText"> Save </p>
+										</Button>
+										<Button variant="outline-danger" className="newArticleSubmitButton" htmlType="submit">
+											<p className="submitText"> Submit </p>
+										</Button>
+									</div>
+								) : (
+									<div>
+										<Button
+											variant="outline-danger"
+											className="newArticleSaveButton"
+											onClick={() => {
+												onSave();
+											}}
+										>
+											<p className="saveText"> Save </p>
+										</Button>
+										<Button variant="outline-danger" className="newArticleSubmitButton" htmlType="submit">
+											<p className="submitText"> Submit </p>
+										</Button>
+									</div>
+								)}
+							</div>
+						</Form.Item>
+					</div>
 				</Form>
+
+				<Footer />
 
 				<Modal
 					className="statusModal"

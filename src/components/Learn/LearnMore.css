@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+
 html,
 body {
 	height: 100%;
@@ -5,88 +8,122 @@ body {
 
 .learnMorePageBox {
 	height: 100%;
+	min-width: 650px;
+	background-color: #f5f5f5;
+}
+
+.learnMoreContainer {
+	position: relative;
+	text-align: center;
+	margin-left: 4.5vw;
+	margin-right: 4.5vw;
+	padding-top: 1vw;
+}
+
+.learnMoreCardContainer {
+	text-align: center;
+	width: calc(85% + 30px);
+	margin: auto;
+	margin-bottom: 1vw;
+	padding-top: 1vw;
+	border: 1.2px solid rgb(215, 215, 215);
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0px 0px 10px #dddddd !important;
+	line-height: 0px;
+}
+
+.learnMidContainer {
+	padding-bottom: 3vw;
 }
 
 .leftTabContainer {
 	display: inline-block;
+	position: relative;
 	text-align: left;
-	min-width: calc(5vw + 100px);
-	width: 18%;
-	margin-left: 2vw;
-	padding-top: 2.5vw;
+	min-width: calc(5vw + 60px);
+	width: 16%;
+	padding-top: calc(1.6vw + 10px);
 	padding-left: 1.5vw;
 	padding-right: 1.5vw;
 	border: 1.2px solid rgb(215, 215, 215);
 	background-color: white;
 	border-radius: 5px;
 	box-shadow: 0px 0px 10px #dddddd !important;
-	line-height: 0px;
 }
 
-.learnMoreContainer {
+.learnContentContainer {
 	display: inline-block;
-	text-align: center;
-	width: 56%;
-	margin: auto;
-	margin-left: 2vw;
-	padding-top: 2.5vw;
+	position: relative;
+	min-width: calc(50% + 40px);
+	margin-left: 1vw;
+	padding-top: 15px;
 	border: 1.2px solid rgb(215, 215, 215);
 	background-color: white;
 	border-radius: 5px;
 	box-shadow: 0px 0px 10px #dddddd !important;
-	line-height: 0px;
 }
 
 .rightTabContainer {
+	position: relative;
 	display: inline-block;
 	text-align: left;
-	min-width: calc(5vw + 100px);
-	width: 18%;
-	margin-left: 2vw;
-	padding-top: 2.5vw;
+	min-width: calc(5vw + 60px);
+	width: 16%;
+	margin-left: 1vw;
+	padding-top: calc(1.6vw + 10px);
 	padding-left: 1.5vw;
 	padding-right: 1.5vw;
 	border: 1.2px solid rgb(215, 215, 215);
 	background-color: white;
 	border-radius: 5px;
 	box-shadow: 0px 0px 10px #dddddd !important;
-	line-height: 0px;
 }
 
-.dataStructuresLabel {
-	margin-top: 30px;
-	margin-bottom: 10px;
-	margin-left: calc(14.5vw + 17px);
-	width: calc(8vw + 125px);
-}
-
-.dataStructuresText {
+.topicIcon {
 	display: inline-block;
 	position: relative;
-	top: 5px;
-	font-size: calc(0.8vw + 15px);
-}
-
-.algorithmsLabel {
-	margin-top: 30px;
-	margin-bottom: 10px;
-	margin-left: calc(14.5vw + 17px);
-	width: calc(4vw + 125px);
-}
-
-.algorithmsText {
-	display: inline-block;
-	position: relative;
-	top: 5px;
-	font-size: calc(0.8vw + 15px);
-}
-
-.labelIcon {
-	display: inline-block;
-	height: 15px;
-	padding-left: 7px;
-	margin-right: 8px;
-	border-bottom: none !important;
+	top: calc(-0.3vw + -24px);
+	margin-right: 2px;
+	font-size: calc(0.6vw + 8px);
 	color: #c34f6b;
-	font-size: calc(1vw + 10px);
+}
+
+.topicLabel {
+	display: inline-block;
+	position: relative;
+	top: -25px;
+	font-family: "Source Sans Pro", sans-serif;
+	font-size: calc(0.75vw + 6px);
+	color: rgb(50, 50, 50);
+}
+
+.learnLabel {
+	position: relative;
+	text-align: left;
+	margin-left: 0;
+	margin-top: 0vw;
+	margin-bottom: 10px;
+	margin-left: 0;
+	padding-left: 2vw;
+	width: 100%;
+}
+
+.learnText {
+	top: 5px;
+	font-family: "Libre Baskerville", serif !important;
+	font-size: calc(2.1vw + 10px);
+	color: rgb(50, 50, 50);
+}
+
+.learnMoreLine {
+	width: 45vw;
+	margin-bottom: 29.75vw;
+}
+
+.learnMoreTabLine {
+	position: relative;
+	top: -2vw;
+	width: 12vw;
+	margin-bottom: 30vw;
 }

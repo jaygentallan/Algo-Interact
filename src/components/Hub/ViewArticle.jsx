@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Footer from "../../components/Footer/Footer";
 import { withRouter, Link } from "react-router-dom";
 import { Button } from "antd";
-import { LoadingOutlined, BookOutlined, FormOutlined, DeleteOutlined, CheckCircleOutlined } from "@ant-design/icons";
+import { LoadingOutlined, BookOutlined, FormOutlined, DeleteOutlined, CheckCircleOutlined, TagFilled } from "@ant-design/icons";
 
 import { connect } from "react-redux";
 import { fetchArticle, deleteArticle } from "../../store/actions/article";
@@ -128,7 +128,7 @@ class ViewArticle extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="viewArticleBox">
 				{this.state.cover === null || this.state.content === null || this.state.profile_pic === null ? (
 					<ReactLoading className="viewArticleLoading" type="spinningBubbles" color="#c34f6b" height={50} width={50} />
 				) : (
@@ -145,95 +145,105 @@ class ViewArticle extends Component {
 					<h1 className="d-flex view title short"> {this.state.title} </h1>
 				)}
 				<h1 className="d-flex view subtitle"> {this.state.subtitle} </h1>
-				<div class="view author">
-					{this.state.profile_pic ? (
-						<Link
-							to={{
-								pathname: "/viewprofile/" + this.state.username,
-								state: { username: this.state.username },
-							}}
-						>
-							<img className="circular--landscape author picture" src={this.state.profile_pic} />
-						</Link>
-					) : (
-						<div />
-					)}
 
-					<Link
-						to={{
-							pathname: "/viewprofile/" + this.state.username,
-							state: { username: this.state.username },
-						}}
-					>
-						<h1 className="author name">
-							{this.state.first_name} {this.state.last_name}
-							<h1 className="author date">{this.state.created_at}</h1>
-						</h1>
-					</Link>
-
-					{this.state.user ? (
-						this.state.user === this.state.currUser ? (
-							<div className="editButton">
-								<Link
-									to={{
-										pathname: "/hub/editarticle",
-										state: {
-											id: this.state.id,
-											title: this.state.title,
-											subtitle: this.state.subtitle,
-											content: this.state.content,
-											cover: this.state.cover,
-											isEdit: true,
-										},
-									}}
-								>
-									<FormOutlined className="author edit" />
-								</Link>
-								<DeleteOutlined
-									className="author delete"
-									onClick={() => {
-										this.setState({ statusModal: true });
-									}}
-								/>
-							</div>
-						) : (
-							<BookOutlined className="author bookmark" />
-						)
-					) : (
-						<div />
-					)}
-				</div>
-				<hr className="article line"></hr>
-				<div class="view content" dangerouslySetInnerHTML={this.contentMarkup()} />
-				<hr className="article line"></hr>
-				<div class="view author big">
-					{this.state.profile_pic ? (
-						<div className="imageLink">
+				<div className="articleContentContainer">
+					<div class="view author">
+						{this.state.profile_pic ? (
 							<Link
 								to={{
 									pathname: "/viewprofile/" + this.state.username,
 									state: { username: this.state.username },
 								}}
 							>
-								<img className="circular--landscape author picture big" src={this.state.profile_pic} />
+								<img className="circular--landscape author picture" src={this.state.profile_pic} />
 							</Link>
-						</div>
-					) : (
-						<div />
-					)}
-					<h1 className="author createdby">CREATED BY</h1>
-					<Link
-						to={{
-							pathname: "/viewprofile/" + this.state.username,
-							state: { username: this.state.username },
-						}}
-					>
-						<h1 className="author name big">
-							{this.state.first_name} {this.state.last_name}
-						</h1>
-					</Link>
-					<h1 className="author description">{this.state.description}</h1>
+						) : (
+							<div />
+						)}
+						<Link
+							to={{
+								pathname: "/viewprofile/" + this.state.username,
+								state: { username: this.state.username },
+							}}
+						>
+							<h1 className="author name">
+								{this.state.first_name} {this.state.last_name}
+								<h1 className="author date">{this.state.created_at}</h1>
+							</h1>
+						</Link>
+						{this.state.user ? (
+							this.state.user === this.state.currUser ? (
+								<div className="editButtonContainer">
+									<Link
+										to={{
+											pathname: "/hub/editarticle",
+											state: {
+												id: this.state.id,
+												title: this.state.title,
+												subtitle: this.state.subtitle,
+												content: this.state.content,
+												cover: this.state.cover,
+												isEdit: true,
+											},
+										}}
+									>
+										<FormOutlined className="author edit" />
+									</Link>
+									<DeleteOutlined
+										className="author delete"
+										onClick={() => {
+											this.setState({ statusModal: true });
+										}}
+									/>
+								</div>
+							) : (
+								<div className="optionsButtonContainer">
+									<BookOutlined className="author bookmark" />
+								</div>
+							)
+						) : (
+							<div />
+						)}
+					</div>
+					<hr className="article line"></hr>
+					<div class="view content" dangerouslySetInnerHTML={this.contentMarkup()} />
+					<hr className="article line"></hr>
+					<div class="view author big">
+						{this.state.profile_pic ? (
+							<div className="imageLink">
+								<Link
+									to={{
+										pathname: "/viewprofile/" + this.state.username,
+										state: { username: this.state.username },
+									}}
+								>
+									<img className="circular--landscape author picture big" src={this.state.profile_pic} />
+								</Link>
+							</div>
+						) : (
+							<div />
+						)}
+						<h1 className="author createdby">CREATED BY</h1>
+						<Link
+							to={{
+								pathname: "/viewprofile/" + this.state.username,
+								state: { username: this.state.username },
+							}}
+						>
+							<div className="author name big">
+								{this.state.first_name} {this.state.last_name}
+							</div>
+						</Link>
+						<h1 className="author description">{this.state.description}</h1>
+					</div>
 				</div>
+
+				<h2 className="similarArticleLabel">
+					<TagFilled className="similarArticleIcon" />
+					Similar Articles
+				</h2>
+
+				<div className="similarArticleContainer"></div>
 
 				<Footer />
 

@@ -10,6 +10,7 @@ body {
 	display: flex;
 	flex-flow: column;
 	height: 100%;
+	min-width: 650px;
 	background-color: #f5f5f5;
 }
 
@@ -111,7 +112,7 @@ hr.discuss {
 .articleLabel {
 	display: inline-block;
 	font-family: "Source Sans Pro", sans-serif;
-	font-size: calc(0.8vw + 15px);
+	font-size: calc(0.6vw + 15px);
 	margin-left: calc(10vw + 17px);
 	margin-top: 2.5vw;
 	margin-bottom: 13px;
@@ -159,7 +160,7 @@ hr.discuss {
 	min-width: calc(5vw + 100px);
 	width: 16%;
 	margin-left: 1vw;
-	padding-top: 1.5vw;
+	padding-top: 1vw;
 	padding-left: 1vw;
 	padding-right: 1vw;
 	border: 1.2px solid rgb(215, 215, 215);
@@ -179,24 +180,20 @@ hr.discuss {
 	border-right-style: solid;
 	border-left-style: solid;
 	border-bottom-style: solid;
-	border-top-right-radius: 4.8px;
-	border-bottom-right-radius: 4.8px;
-	border-top-left-radius: 4.8px;
-	border-bottom-left-radius: 4.8px;
-	border-width: 1px;
+	border-radius: 0.3vw;
+	border-width: 1.3px;
 	height: 1.8vw;
 	width: 6vw;
 	margin-right: 0.7vw;
 	border-color: rgb(46, 185, 106);
-	background-color: white;
-	color: rgb(46, 185, 106);
+	background-color: rgb(46, 185, 106);
+	color: white !important;
 }
 
 .draftsButton:hover,
 .draftsButton:focus {
-	border-color: rgb(46, 185, 106);
-	background-color: rgb(46, 185, 106);
-	color: white;
+	border-color: #16d469;
+	background-color: #16d469;
 	outline: none;
 }
 
@@ -205,23 +202,19 @@ hr.discuss {
 	border-right-style: solid;
 	border-left-style: solid;
 	border-bottom-style: solid;
-	border-top-right-radius: 4.8px;
-	border-bottom-right-radius: 4.8px;
-	border-top-left-radius: 4.8px;
-	border-bottom-left-radius: 4.8px;
+	border-radius: 0.3vw;
 	border-width: 1px;
 	height: 1.8vw;
 	width: 6vw;
 	margin-left: 0.75vw;
-	border-color: #c34f6b;
-	color: #c34f6b;
-	background-color: white;
+	border-color: #c34f6b !important;
+	color: white !important;
+	background-color: #c34f6b !important;
 }
 
 .newArticleButton:hover {
-	border-color: #c34f6b;
-	background-color: #c34f6b;
-	color: white;
+	border-color: rgb(238, 59, 104) !important;
+	background-color: rgb(238, 59, 104) !important;
 }
 
 .newArticleButton:focus {
@@ -242,7 +235,7 @@ hr.discuss {
 .searchInput {
 	border-width: 0.07vw;
 	border-radius: 0.3vw;
-	border-color: #c34f6b;
+	border-color: #bbbbbb;
 	color: #5f5f5f;
 	font-size: calc(0.6vw + 4px);
 	height: 1.8vw;

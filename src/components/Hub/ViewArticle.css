@@ -2,37 +2,42 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap");
 
-body {
-	font-family: "IBM Plex Sans", sans-serif;
-	font-size: 16pt;
-	color: #292929;
-}
-
 html,
 body {
 	height: 100%;
 }
 
+.viewArticleBox {
+	z-index: 1;
+	position: absolute;
+	top: -1vw;
+	width: 100%;
+	min-width: 650px;
+	background-color: #f5f5f5;
+}
+
 .viewCover {
 	position: absolute;
 	top: 58px;
-	padding-left: 25vw;
-	padding-right: 25vw;
-	z-index: -1;
+	margin-left: 25vw;
+	margin-right: 25vw;
+	z-index: 0;
 	height: 350px !important;
-	width: 100%;
+	width: 49.5%;
+	min-width: 400px !important;
 	object-fit: cover;
 	object-position: 0% 50%;
 }
 
 .viewCoverBackground {
-	z-index: -2;
+	z-index: -3;
 	position: absolute;
 	top: 45px;
 	height: 350px !important;
 	object-fit: cover;
 	object-position: 0% 50%;
 	width: 95.2%;
+	min-width: 615px;
 	/* Add the blur effect */
 	filter: blur(10px);
 
@@ -40,17 +45,18 @@ body {
 }
 
 .cutoff {
+	z-index: -2;
 	position: absolute;
 	top: 408.5px;
 	height: 40px;
 	width: 100%;
-	background-color: white;
+	background-color: #f5f5f5;
 }
 
 .view.title.short {
 	position: relative;
 	top: 6px;
-	padding-top: 125px;
+	padding-top: 180px;
 	padding-left: 27.5vw;
 	padding-right: 27.5vw;
 	color: white !important;
@@ -66,7 +72,8 @@ body {
 
 .view.title.long {
 	position: relative;
-	padding-top: 95px;
+	padding-top: 150px;
+	padding-bottom: 20px;
 	padding-left: 27.5vw;
 	padding-right: 27.5vw;
 	color: white !important;
@@ -101,26 +108,47 @@ body {
 	text-shadow: 2px 2px 2px #000000;
 }
 
-.view.author {
+.articleContentContainer {
 	position: relative;
-	margin-top: 55px;
-	margin-right: 27.5vw;
-	padding-left: 27.5vw;
-	color: rgb(73, 72, 72);
-	margin-bottom: 55px;
+	top: 13px;
+	z-index: -2;
+	min-width: 400px;
+	text-align: left;
+	margin-left: 25vw !important;
+	margin-right: 25vw !important;
+	margin-bottom: 50px;
+	border: 1.2px solid rgb(215, 215, 215);
+	border-top: none !important;
+	background-color: white;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	box-shadow: 0px 0px 10px #dddddd !important;
+}
+
+.view.author {
+	color: rgb(50, 50, 50);
+	height: 65px;
 	width: 100%;
+	padding-top: 29px;
+}
+
+.view.author.big {
+	position: relative;
+	height: 130px;
+	padding-left: 30px;
+	padding-top: 15px;
+	margin-bottom: 20px;
 }
 
 .article.line {
-	margin-top: -40px;
-	width: 45vw;
+	width: 92%;
 }
 
 .circular--landscape.author.picture {
 	display: inline-block;
 	position: relative;
-	left: -40px !important;
 	top: -13px;
+	left: 0px;
 	width: 50px !important;
 	height: 50px;
 	box-shadow: 0px 5px 5px #bbbbbb !important;
@@ -129,6 +157,7 @@ body {
 .circular--landscape.author.picture.big {
 	display: inline-block;
 	position: relative;
+	top: 0px;
 	left: -40px !important;
 	width: 100px !important;
 	height: 100px;
@@ -144,22 +173,24 @@ body {
 	display: inline-block;
 	position: relative;
 	top: -22.5px !important;
-	left: -30px;
+	left: 10px;
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: 15px;
-	color: rgb(44, 44, 44);
+	color: rgb(50, 50, 50);
 }
 
 .author.name.big {
-	display: inline-block;
 	position: absolute;
-	padding-left: 27vw;
-	left: 116px;
-	top: 17px !important;
+	top: 28px !important;
+	left: 0px;
+	padding-left: calc(0.5vw + 130px);
+	padding-right: 4vw;
+	width: 100%;
+	text-align: left;
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: calc(0.6vw + 15px);
 	font-weight: bold;
-	color: rgb(44, 44, 44);
+	color: rgb(50, 50, 50);
 }
 
 .author.date {
@@ -173,23 +204,32 @@ body {
 	color: grey;
 }
 
+.optionsButtonContainer {
+	position: absolute;
+	top: 40px;
+	right: 0px;
+}
+
 .author.bookmark {
 	display: inline-block;
 	position: absolute;
 	right: 0;
-	top: -0px !important;
-	padding-right: 27.5vw;
+	padding-right: 2.5vw;
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: 20px;
 	color: grey;
 }
 
+.editButtonContainer {
+	position: absolute;
+	top: 35px;
+	right: 0px;
+}
+
 .author.edit {
 	display: inline-block;
-	position: absolute;
-	right: 35px;
-	top: -0px !important;
-	margin-right: 27.5vw;
+	position: relative;
+	padding-right: 1vw;
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: 20px;
 	color: grey;
@@ -197,10 +237,8 @@ body {
 
 .author.delete {
 	display: inline-block;
-	position: absolute;
-	right: 0px;
-	top: -0px !important;
-	padding-right: 27.5vw;
+	position: relative;
+	padding-right: 2.5vw;
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: 20px;
 	color: grey;
@@ -209,8 +247,9 @@ body {
 .author.createdby {
 	display: inline-block;
 	position: absolute;
-	padding-left: 27vw;
-	left: 116px;
+	left: 0;
+	padding-left: calc(0.5vw + 130px);
+	width: 100%;
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: 16px;
 	color: grey;
@@ -219,29 +258,25 @@ body {
 .author.description {
 	display: inline-block;
 	position: absolute;
-	padding-left: 27vw;
-	padding-right: 27vw;
-	top: 45px;
-	left: 115px;
+	top: 58px;
+	left: 0px;
+	padding-left: calc(0.5vw + 130px);
+	padding-right: 4vw;
+	width: 100%;
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: calc(0.55vw + 10px);
 	color: grey;
 }
 
-.view.author.big {
-	position: relative;
-	margin-bottom: 38px;
-}
-
 .view.content {
-	margin-top: 2em;
-	margin-bottom: 4em;
-	margin-left: 27.5vw;
-	margin-right: 27.5vw;
+	padding-top: calc(2vw + 10px);
+	padding-bottom: calc(0.9vw + 10px);
+	padding-left: 2.5vw;
+	padding-right: 2.5vw;
 	font-family: "Libre Baskerville", serif !important;
 	font-size: calc(0.6vw + 10px);
 	font-weight: 100 !important;
-	color: rgb(44, 44, 44);
+	color: rgb(50, 50, 50);
 }
 
 figure.image {
@@ -418,4 +453,39 @@ figure.image figcaption {
 	margin: auto;
 	width: 100%;
 	color: #c34f6b;
+}
+
+.similarArticleIcon {
+	display: inline-block;
+	position: relative;
+	top: -5px;
+	height: 15px;
+	margin-right: 8px;
+	border-bottom: none !important;
+	color: #c34f6b;
+	font-size: calc(0.8vw + 10px);
+}
+
+.similarArticleLabel {
+	display: inline-block;
+	font-family: "Source Sans Pro", sans-serif;
+	font-size: calc(0.6vw + 15px);
+	margin-left: calc(25vw + 20px);
+	margin-bottom: 0.1vw;
+}
+
+.similarArticleContainer {
+	position: relative;
+	top: 10px;
+	z-index: -2;
+	height: 200px;
+	min-width: 400px;
+	text-align: left;
+	margin-left: 25vw !important;
+	margin-right: 25vw !important;
+	margin-bottom: 50px;
+	border: 1.2px solid rgb(215, 215, 215);
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0px 0px 10px #dddddd !important;
 }

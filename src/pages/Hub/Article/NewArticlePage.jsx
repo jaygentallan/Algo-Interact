@@ -34,7 +34,6 @@ const NewArticlePage = (props) => {
 			{scrollToTop()}
 			<Header {...props} />
 			<NewArticle {...props} title={title} subtitle={subtitle} content={content} cover={cover} />
-			<Footer />
 		</div>
 	);
 };

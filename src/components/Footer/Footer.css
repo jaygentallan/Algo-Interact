@@ -20,6 +20,7 @@ a.footer.nav-link:hover {
 	background-color: #c34f6b !important;
 	height: 55px;
 	width: 100%;
+	min-width: 650px;
 }
 
 #sticky-footer-visualizer {

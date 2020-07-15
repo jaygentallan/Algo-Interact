@@ -1,4 +1,6 @@
-.learn.card.border {
+.learnCard {
+	display: inline-block;
+	min-height: 125px;
 	height: calc(11vw + 30px);
 	min-width: calc(180px);
 	width: calc(17vw + 40px);
@@ -12,16 +14,37 @@
 	text-align: left !important;
 }
 
-.card.border:hover {
+.learnCard:hover {
 	box-shadow: 0px 15px 30px #bbbbbb !important;
 	cursor: pointer;
 }
 
-.card-img-top-learn {
+.learnCardSmall {
+	display: inline-block;
+	height: calc(6vw + 30px);
+	width: calc(10vw + 10px);
 	border-color: transparent !important;
 	border-width: 0 !important;
-	border-top-right-radius: 20px !important;
-	border-top-left-radius: 20px !important;
+	border-radius: 20px; /* Larger number results in more curved corners of card */
+	box-shadow: 0px 5px 15px #bbbbbb !important;
+	margin-bottom: 1vw;
+	margin-left: 0.5vw;
+	margin-right: 0.5vw;
+	display: inline-block;
+	text-align: left !important;
+}
+
+.learnCard:hover {
+	box-shadow: 0px 15px 30px #bbbbbb !important;
+	cursor: pointer;
+}
+
+.learnCardImage {
+	height: 100%;
+	width: 100%;
+	border-color: transparent !important;
+	border-width: 0 !important;
+	border-radius: 20px;
 	background-color: #ffa291;
 }
 
@@ -32,6 +55,18 @@
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 	font-weight: 700;
 	font-size: calc(1.1vw + 8.5px);
+	align-content: center;
+	color: white;
+	text-shadow: 2px 2px 4px #000000;
+}
+
+.learnTitleSmall {
+	position: relative;
+	bottom: calc(0.3vw + 22px);
+	padding-left: 0.6vw;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	font-weight: 700;
+	font-size: calc(1vw);
 	align-content: center;
 	color: white;
 	text-shadow: 2px 2px 4px #000000;

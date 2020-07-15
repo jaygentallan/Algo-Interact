@@ -20,6 +20,9 @@
 }
 
 .navbar.navbar-expand.navbar-dark.bg-dark {
+	min-width: 650px;
+	width: 100%;
+	z-index: 100;
 	background-color: #c34f6b !important;
 }
 

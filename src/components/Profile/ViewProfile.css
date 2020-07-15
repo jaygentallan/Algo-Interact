@@ -21,7 +21,7 @@ body {
 .viewUserProfile {
 	position: relative;
 	margin-top: 65px;
-	color: rgb(73, 72, 72);
+	color: rgb(50, 50, 50);
 	margin-bottom: 55px;
 }
 
@@ -55,7 +55,7 @@ body {
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: calc(3vw + 5px);
 	font-weight: bold;
-	color: rgb(44, 44, 44);
+	color: rgb(50, 50, 50);
 	width: 50vw;
 }
 
@@ -79,7 +79,7 @@ body {
 	width: 35vw !important;
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: calc(1vw + 10px);
-	color: rgb(44, 44, 44);
+	color: rgb(50, 50, 50);
 }
 
 .profileLoadingProfilePicBig {
@@ -100,7 +100,7 @@ body {
 	padding-top: 0px;
 	height: 120px;
 	width: 34vw !important;
-	color: rgb(44, 44, 44);
+	color: rgb(50, 50, 50);
 	background-color: rgb(238, 238, 238);
 	font-family: "Source Sans Pro", sans-serif;
 	font-size: calc(1vw + 10px);

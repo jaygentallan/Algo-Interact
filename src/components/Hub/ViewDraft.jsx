@@ -3,7 +3,7 @@ import DraftCard from "./DraftCard";
 import "./ViewDraft.css";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { SnippetsOutlined, LoadingOutlined } from "@ant-design/icons";
+import { SnippetsFilled, LoadingOutlined } from "@ant-design/icons";
 
 import { fetchDrafts } from "../../store/actions/article";
 
@@ -46,7 +46,7 @@ class ViewDraft extends Component {
 		return (
 			<div>
 				<div className="draftLabel">
-					<SnippetsOutlined className="draftIcon" />
+					<SnippetsFilled className="draftIcon" />
 					<h2 className="draftText"> Your Drafts </h2>
 				</div>
 				<div className="draftContainer">
