@@ -14,9 +14,9 @@ import {
 	DELETE_ARTICLE_REQUEST,
 	DELETE_ARTICLE_SUCCESS,
 	DELETE_ARTICLE_FAILURE,
-	FETCH_DRAFTS_REQUEST,
-	FETCH_DRAFTS_SUCCESS,
-	FETCH_DRAFTS_FAILURE,
+	FETCH_ALL_DRAFTS_REQUEST,
+	FETCH_ALL_DRAFTS_SUCCESS,
+	FETCH_ALL_DRAFTS_FAILURE,
 	CREATE_DRAFT_REQUEST,
 	CREATE_DRAFT_SUCCESS,
 	CREATE_DRAFT_FAILURE,
@@ -107,18 +107,18 @@ const articleReducer = (state = initialState, action) => {
 			return {
 				...state,
 			};
-		case FETCH_DRAFTS_REQUEST:
+		case FETCH_ALL_DRAFTS_REQUEST:
 			return {
 				...state,
 				error: null,
 			};
-		case FETCH_DRAFTS_SUCCESS:
+		case FETCH_ALL_DRAFTS_SUCCESS:
 			return {
 				...state,
 				...action,
 				error: null,
 			};
-		case FETCH_DRAFTS_FAILURE:
+		case FETCH_ALL_DRAFTS_FAILURE:
 			return {
 				...state,
 				error: action.error,

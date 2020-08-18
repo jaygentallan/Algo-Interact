@@ -23,7 +23,7 @@ body {
 	margin-right: 25vw;
 	z-index: 0;
 	height: 350px !important;
-	width: 49.5%;
+	width: 50%;
 	min-width: 400px !important;
 	object-fit: cover;
 	object-position: 0% 50%;
@@ -112,6 +112,7 @@ body {
 	position: relative;
 	top: 13px;
 	z-index: -2;
+	width: 50%;
 	min-width: 400px;
 	text-align: left;
 	margin-left: 25vw !important;
@@ -216,7 +217,7 @@ body {
 	right: 0;
 	padding-right: 2.5vw;
 	font-family: "Source Sans Pro", sans-serif;
-	font-size: 20px;
+	font-size: calc(0.6vw + 6px);
 	color: grey;
 }
 
@@ -231,7 +232,7 @@ body {
 	position: relative;
 	padding-right: 1vw;
 	font-family: "Source Sans Pro", sans-serif;
-	font-size: 20px;
+	font-size: calc(0.6vw + 6px);
 	color: grey;
 }
 
@@ -240,7 +241,7 @@ body {
 	position: relative;
 	padding-right: 2.5vw;
 	font-family: "Source Sans Pro", sans-serif;
-	font-size: 20px;
+	font-size: calc(0.6vw + 6px);
 	color: grey;
 }
 
@@ -479,6 +480,7 @@ figure.image figcaption {
 	top: 10px;
 	z-index: -2;
 	height: 200px;
+	width: 50%;
 	min-width: 400px;
 	text-align: left;
 	margin-left: 25vw !important;

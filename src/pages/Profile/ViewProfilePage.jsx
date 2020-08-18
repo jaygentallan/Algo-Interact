@@ -13,6 +13,9 @@ const ViewProfilePage = (props) => {
 		username = props.match.params.username;
 	}
 
+	console.log("PROPS:", props);
+	console.log("USERNAME:", username);
+
 	const scrollToTop = () => {
 		window.scrollTo(0, 0);
 	};

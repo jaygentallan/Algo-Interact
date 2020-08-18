@@ -16,3 +16,15 @@ export const ARTICLE_EDIT_URL = ARTICLE_URL + "edit/";
 export const ARTICLE_DELETE_URL = ARTICLE_URL + "delete/";
 export const DRAFT_URL = ARTICLE_URL + "drafts/";
 export const DRAFT_DELETE_URL = DRAFT_URL + "delete/";
+
+// Learn Topics URLs
+export const LEARN_URL = API_URL + "learn/";
+export const TOPIC_URL = LEARN_URL + "topics/";
+export const TOPIC_TABS_URL = TOPIC_URL + "tabs/";
+export const TOPIC_VIEW_URL = TOPIC_URL + "view/";
+export const TOPIC_CREATE_URL = TOPIC_URL + "create/";
+export const TOPIC_EDIT_URL = TOPIC_URL + "edit/";
+export const TOPIC_DELETE_URL = TOPIC_URL + "delete/";
+export const REVIEW_URL = LEARN_URL + "reviews/";
+export const REVIEW_CREATE_URL = REVIEW_URL + "create/";
+export const REVIEW_DELETE_URL = REVIEW_URL + "delete/";

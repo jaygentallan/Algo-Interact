@@ -12,9 +12,10 @@ import thunk from "redux-thunk";
 import authReducer from "./store/reducers/auth";
 import profileReducer from "./store/reducers/profile";
 import articleReducer from "./store/reducers/article";
+import learnReducer from "./store/reducers/learn";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const reducer = combineReducers({ auth: authReducer, profile: profileReducer, articles: articleReducer });
+const reducer = combineReducers({ auth: authReducer, profile: profileReducer, articles: articleReducer, learn: learnReducer });
 
 const store = createStore(reducer, composeEnhancer(applyMiddleware(thunk)));
 

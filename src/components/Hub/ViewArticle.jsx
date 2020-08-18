@@ -46,15 +46,7 @@ class ViewArticle extends Component {
 			deleted: false,
 		};
 
-		this.updateModal = this.updateModal;
-	}
-
-	contentMarkup() {
-		return { __html: this.state.content };
-	}
-
-	deleteArticle() {
-		this.props.deleteArticle(this.state.id);
+		this._updateModal = this._updateModal;
 	}
 
 	componentDidMount() {
@@ -124,6 +116,14 @@ class ViewArticle extends Component {
 				}, 1500);
 			}
 		}
+	}
+
+	_contentMarkup() {
+		return { __html: this.state.content };
+	}
+
+	_deleteArticle() {
+		this.props.deleteArticle(this.state.id);
 	}
 
 	render() {
@@ -206,7 +206,7 @@ class ViewArticle extends Component {
 						)}
 					</div>
 					<hr className="article line"></hr>
-					<div class="view content" dangerouslySetInnerHTML={this.contentMarkup()} />
+					<div class="view content" dangerouslySetInnerHTML={this._contentMarkup()} />
 					<hr className="article line"></hr>
 					<div class="view author big">
 						{this.state.profile_pic ? (
@@ -280,7 +280,7 @@ class ViewArticle extends Component {
 										variant="outline-danger"
 										className="deleteButton"
 										onClick={() => {
-											this.deleteArticle();
+											this._deleteArticle();
 										}}
 									>
 										<p className="deleteText"> Delete </p>

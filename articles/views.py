@@ -34,7 +34,7 @@ class ArticleCreateView(generics.CreateAPIView):
     permissions = [AllowAny]
 
 
-# API View for deleting a article
+# API View for deleting an article
 class ArticleDeleteView(views.APIView):
     model = Article
     serializer_class = ArticleSerializer
@@ -57,6 +57,7 @@ class ArticleDeleteView(views.APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+# API View for editing an article
 class ArticleEditViewSet(viewsets.ViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer

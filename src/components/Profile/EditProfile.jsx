@@ -26,22 +26,6 @@ class EditProfile extends Component {
 		this._handlePictureChange = this._handlePictureChange.bind(this);
 	}
 
-	_handleDescriptionChange = (e) => {
-		if (e.target.value.length !== 0) {
-			this.setState({ newDescription: e.target.value });
-		}
-	};
-
-	_handlePictureChange = (e) => {
-		e.preventDefault();
-		this.setState({
-			profile_pic: URL.createObjectURL(e.target.files[0]),
-			new_profile_pic: e.target.files[0],
-		});
-		// Calls editProfile in redux store to update values.
-		this.props.editProfile(this.state.user, null, e.target.files[0]);
-	};
-
 	componentDidMount() {
 		if (this.props.currUserProfile) {
 			this.setState({
@@ -86,6 +70,22 @@ class EditProfile extends Component {
 			}
 		}
 	}
+
+	_handleDescriptionChange = (e) => {
+		if (e.target.value.length !== 0) {
+			this.setState({ newDescription: e.target.value });
+		}
+	};
+
+	_handlePictureChange = (e) => {
+		e.preventDefault();
+		this.setState({
+			profile_pic: URL.createObjectURL(e.target.files[0]),
+			new_profile_pic: e.target.files[0],
+		});
+		// Calls editProfile in redux store to update values.
+		this.props.editProfile(this.state.user, null, e.target.files[0]);
+	};
 
 	render() {
 		const onSaveDescription = () => {

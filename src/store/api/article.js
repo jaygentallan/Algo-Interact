@@ -7,8 +7,8 @@ export const fetchAllArticlesAPI = () => {
 	return axios.get(ARTICLE_URL);
 };
 
-export const fetchArticleAPI = (user) => {
-	return axios.get(ARTICLE_URL + user + "/");
+export const fetchArticleAPI = (id) => {
+	return axios.get(ARTICLE_URL + id + "/");
 };
 
 export const createArticleAPI = (token, data) => {
@@ -23,7 +23,7 @@ export const deleteArticleAPI = (token, id) => {
 	return axios.delete(ARTICLE_DELETE_URL + id + "/", { headers: { Authorization: "Token " + token } });
 };
 
-export const fetchDraftsAPI = (user) => {
+export const fetchAllDraftsAPI = (user) => {
 	return axios.get(DRAFT_URL + user + "/");
 };
 

@@ -35,8 +35,8 @@ class NormalLoginForm extends Component {
 				loading: false,
 			});
 			setTimeout(() => {
-				this.props.updateLogin(true);
-				this.props.updateModal(false);
+				this.props._updateLogin(true);
+				this.props._updateModal(false);
 				this.setState({
 					prompt: null,
 				});
@@ -52,7 +52,7 @@ class NormalLoginForm extends Component {
 					loading: false,
 					prompt: null,
 				});
-				this.props.updateLogin(true);
+				this.props._updateLogin(true);
 			}, 1000);
 		}
 	}
@@ -127,7 +127,7 @@ class NormalLoginForm extends Component {
 									<div
 										className="signUpTwo"
 										onClick={() => {
-											this.props.updateLogin(false);
+											this.props._updateLogin(false);
 										}}
 									>
 										Sign Up

@@ -14,9 +14,9 @@ import {
 	DELETE_ARTICLE_REQUEST,
 	DELETE_ARTICLE_SUCCESS,
 	DELETE_ARTICLE_FAILURE,
-	FETCH_DRAFTS_REQUEST,
-	FETCH_DRAFTS_SUCCESS,
-	FETCH_DRAFTS_FAILURE,
+	FETCH_ALL_DRAFTS_REQUEST,
+	FETCH_ALL_DRAFTS_SUCCESS,
+	FETCH_ALL_DRAFTS_FAILURE,
 	CREATE_DRAFT_REQUEST,
 	CREATE_DRAFT_SUCCESS,
 	CREATE_DRAFT_FAILURE,
@@ -31,7 +31,7 @@ import {
 	createArticleAPI,
 	editArticleAPI,
 	deleteArticleAPI,
-	fetchDraftsAPI,
+	fetchAllDraftsAPI,
 	createDraftAPI,
 	deleteDraftAPI,
 } from "../api/article";
@@ -275,37 +275,37 @@ export const clearArticleStatus = () => {
 	};
 };
 
-export const fetchDraftsRequest = () => {
+export const fetchAllDraftsRequest = () => {
 	return {
-		type: FETCH_DRAFTS_REQUEST,
+		type: FETCH_ALL_DRAFTS_REQUEST,
 	};
 };
 
-export const fetchDraftsSuccess = (drafts) => {
+export const fetchAllDraftsSuccess = (drafts) => {
 	return {
-		type: FETCH_DRAFTS_SUCCESS,
+		type: FETCH_ALL_DRAFTS_SUCCESS,
 		drafts,
 	};
 };
 
-export const fetchDraftsFailure = (error) => {
+export const fetchAllDraftsFailure = (error) => {
 	return {
-		type: FETCH_DRAFTS_FAILURE,
+		type: FETCH_ALL_DRAFTS_FAILURE,
 		error,
 	};
 };
 
-export const fetchDrafts = (user) => (dispatch) => {
-	dispatch(fetchDraftsRequest());
+export const fetchAllDrafts = (user) => (dispatch) => {
+	dispatch(fetchAllDraftsRequest());
 
-	fetchDraftsAPI(user)
+	fetchAllDraftsAPI(user)
 		.then((response) => {
 			console.log("SUCCESSFULLY FETCHED DRAFTS");
-			dispatch(fetchDraftsSuccess(response.data));
+			dispatch(fetchAllDraftsSuccess(response.data));
 		})
 		.catch((error) => {
 			console.log("FAILURE TO FETCH DRAFTS");
-			dispatch(fetchDraftsFailure(error));
+			dispatch(fetchAllDraftsFailure(error));
 		});
 };
 
@@ -345,14 +345,14 @@ export const createDraft = (user, title, subtitle, content, cover) => (dispatch)
 		.then((response) => {
 			console.log("SUCCESSFULLY CREATED DRAFT");
 
-			fetchDraftsAPI(user)
+			fetchAllDraftsAPI(user)
 				.then((response) => {
 					console.log("SUCCESSFULLY FETCHED DRAFTS");
-					dispatch(fetchDraftsSuccess(response.data));
+					dispatch(fetchAllDraftsSuccess(response.data));
 				})
 				.catch((error) => {
 					console.log("FAILED TO CATCH DRAFTS");
-					dispatch(fetchDraftsFailure(error));
+					dispatch(fetchAllDraftsFailure(error));
 				});
 
 			dispatch(createDraftSuccess(response));
@@ -395,14 +395,14 @@ export const deleteDraft = (user, id) => (dispatch) => {
 		.then((response) => {
 			console.log("SUCCESSFULLY DELETED DRAFT");
 
-			fetchDraftsAPI(user)
+			fetchAllDraftsAPI(user)
 				.then((response) => {
 					console.log("SUCCESSFULLY FETCHED DRAFTS");
-					dispatch(fetchDraftsSuccess(response.data));
+					dispatch(fetchAllDraftsSuccess(response.data));
 				})
 				.catch((error) => {
 					console.log("FAILED TO CATCH DRAFTS");
-					dispatch(fetchDraftsFailure(error));
+					dispatch(fetchAllDraftsFailure(error));
 				});
 
 			dispatch(deleteDraftSuccess(response));

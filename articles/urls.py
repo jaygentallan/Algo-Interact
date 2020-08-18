@@ -39,6 +39,7 @@ urlpatterns = [
     path('create/', ArticleCreateView.as_view(), name='article-create'),
     path('<int:pk>/', ArticleDetailView.as_view(), name='article-detail'),
     path('delete/<int:pk>/', ArticleDeleteView.as_view(), name='article-delete'),
+
     path('drafts/<int:user>/', DraftDetailView.as_view(), name='draft-detail'),
     path('drafts/delete/<int:pk>/', DraftDeleteView.as_view(), name='draft-delete'),
     path('', include(router.urls)),

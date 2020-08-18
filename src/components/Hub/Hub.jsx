@@ -26,22 +26,10 @@ class Hub extends Component {
 			prompt: "",
 		};
 
-		this.updateLogin = this.updateLogin;
-		this.updateModal = this.updateModal;
-		this.updatePrompt = this.updatePrompt;
+		this._updateLogin = this._updateLogin;
+		this._updateModal = this._updateModal;
+		this._updatePrompt = this._updatePrompt;
 	}
-
-	updateLogin = (bool) => {
-		this.setState({ login: bool });
-	};
-
-	updateModal = (bool) => {
-		this.setState({ isModalOpen: bool });
-	};
-
-	updatePrompt = (string) => {
-		this.setState({ prompt: string });
-	};
 
 	componentDidMount() {
 		this.props.fetchAllArticles();
@@ -57,6 +45,18 @@ class Hub extends Component {
 			this.props.fetchAllArticles();
 		}
 	}
+
+	_updateLogin = (bool) => {
+		this.setState({ login: bool });
+	};
+
+	_updateModal = (bool) => {
+		this.setState({ isModalOpen: bool });
+	};
+
+	_updatePrompt = (string) => {
+		this.setState({ prompt: string });
+	};
 
 	trendingCatalog() {
 		if (this.state.articles == null || this.state.articles["articles"] === null || this.state.articles.length === 0) {
@@ -163,16 +163,16 @@ class Hub extends Component {
 						{this.state.login ? (
 							<NormalLoginForm
 								articlePrompt={this.state.prompt}
-								updateLogin={this.updateLogin}
-								updateModal={this.updateModal}
-								updatePrompt={this.updatePrompt}
+								_updateLogin={this._updateLogin}
+								_updateModal={this._updateModal}
+								_updatePrompt={this._updatePrompt}
 								isAuthenticated={this.props.isAuthenticated}
 							/>
 						) : (
 							<RegistrationForm
-								updateLogin={this.updateLogin}
-								updateModal={this.updateModal}
-								updatePrompt={this.updatePrompt}
+								_updateLogin={this._updateLogin}
+								_updateModal={this._updateModal}
+								_updatePrompt={this._updatePrompt}
 								isAuthenticated={this.props.isAuthenticated}
 							/>
 						)}

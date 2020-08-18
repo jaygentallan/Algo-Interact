@@ -56,34 +56,6 @@ class NewArticle extends Component {
 		this._handleCoverChange = this._handleCoverChange.bind(this);
 	}
 
-	_handleEditorChange = (e) => {
-		this.setState({ content: e });
-	};
-
-	_handleTitleChange = (e) => {
-		if (e.target.value.length !== 0) {
-			this.setState({
-				title: e.target.value,
-			});
-		}
-	};
-
-	_handleSubtitleChange = (e) => {
-		if (e.target.value.length !== 0) {
-			this.setState({
-				subtitle: e.target.value,
-			});
-		}
-	};
-
-	_handleCoverChange = (e) => {
-		e.preventDefault();
-		this.setState({
-			tempCover: URL.createObjectURL(e.target.files[0]),
-			cover: e.target.files[0],
-		});
-	};
-
 	componentDidMount() {
 		const user = localStorage.getItem("user_id");
 		this.props.fetchCurrUser(user);
@@ -209,6 +181,34 @@ class NewArticle extends Component {
 			}
 		}
 	}
+
+	_handleEditorChange = (e) => {
+		this.setState({ content: e });
+	};
+
+	_handleTitleChange = (e) => {
+		if (e.target.value.length !== 0) {
+			this.setState({
+				title: e.target.value,
+			});
+		}
+	};
+
+	_handleSubtitleChange = (e) => {
+		if (e.target.value.length !== 0) {
+			this.setState({
+				subtitle: e.target.value,
+			});
+		}
+	};
+
+	_handleCoverChange = (e) => {
+		e.preventDefault();
+		this.setState({
+			tempCover: URL.createObjectURL(e.target.files[0]),
+			cover: e.target.files[0],
+		});
+	};
 
 	render() {
 		// Calls the article function in article.js
@@ -388,6 +388,7 @@ class NewArticle extends Component {
 								apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
 								selector="textarea"
 								onChange={this._handleEditorChange}
+								onEditorChange={this._handleEditorChange}
 								value={this.state.defaultData ? this.state.defaultData.content : ""}
 								init={{
 									branding: false,
@@ -406,7 +407,6 @@ class NewArticle extends Component {
 									content_style:
 										"@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap'); figcaption {font-family: 'Libre Baskerville', serif; font-size: 15px} body { font-family: 'Libre Baskerville', serif; font-size: 18px; color: #292929; text-align: justify; }",
 								}}
-								onEditorChange={this._handleEditorChange}
 							/>
 						</div>
 						<Form.Item>

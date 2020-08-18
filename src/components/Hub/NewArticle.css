@@ -145,8 +145,8 @@ body {
 }
 
 .submitText {
-	margin-top: 3px;
-	font-size: 15px;
+	margin: auto;
+	font-size: calc(0.6vw + 4px);
 }
 
 .d-flex.justify-content-end.submit {
@@ -210,8 +210,8 @@ body {
 }
 
 .saveText {
-	margin-top: 3px;
-	font-size: 15px;
+	margin: auto;
+	font-size: calc(0.6vw + 4px);
 }
 
 .uploadButton {

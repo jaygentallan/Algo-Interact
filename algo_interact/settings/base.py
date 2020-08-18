@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'articles.apps.ArticlesConfig',
     'posts.apps.PostsConfig',
+    'learn.apps.LearnConfig',
 ]
 
 

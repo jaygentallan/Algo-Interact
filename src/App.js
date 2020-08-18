@@ -45,14 +45,38 @@ class App extends Component {
 					/>
 
 					<Route exact path="/learn" render={() => <LearnPage {...this.props} />} />
-					<Route exact path="/learn/arrays-and-strings" render={(props) => <LearnMorePage {...this.props} name={"arrays-and-strings"} />} />
-					<Route exact path="/learn/stacks-and-queues" render={(props) => <LearnMorePage {...this.props} name={"stacks-and-queues"} />} />
-					<Route exact path="/learn/hash-tables" render={(props) => <LearnMorePage {...this.props} name={"hash-tables"} />} />
-					<Route exact path="/learn/linked-lists" render={(props) => <LearnMorePage {...this.props} name={"linked-lists"} />} />
-					<Route exact path="/learn/trees" render={(props) => <LearnMorePage {...this.props} name={"trees"} />} />
-					<Route exact path="/learn/graphs" render={(props) => <LearnMorePage {...this.props} name={"graphs"} />} />
-					<Route exact path="/learn/graph-algorithms" render={(props) => <LearnMorePage {...this.props} name={"graph-algorithms"} />} />
-					<Route exact path="/learn/tree-traversals" render={(props) => <LearnMorePage {...this.props} name={"tree-traversals"} />} />
+					<Route
+						exact
+						path="/learn/arrays-and-strings"
+						render={(props) => <LearnMorePage {...this.props} title_id={"arrays-and-strings-introduction"} />}
+					/>
+					<Route
+						exact
+						path="/learn/stacks-and-queues"
+						render={(props) => <LearnMorePage {...this.props} title_id={"stacks-and-queues-introduction"} />}
+					/>
+					<Route
+						exact
+						path="/learn/hash-tables"
+						render={(props) => <LearnMorePage {...this.props} title_id={"hash-tables-introduction"} />}
+					/>
+					<Route
+						exact
+						path="/learn/linked-lists"
+						render={(props) => <LearnMorePage {...this.props} title_id={"linked-lists-introduction"} />}
+					/>
+					<Route exact path="/learn/trees" render={(props) => <LearnMorePage {...this.props} title_id={"trees-introduction"} />} />
+					<Route exact path="/learn/graphs" render={(props) => <LearnMorePage {...this.props} title_id={"graphs-introduction"} />} />
+					<Route
+						exact
+						path="/learn/graph-algorithms"
+						render={(props) => <LearnMorePage {...this.props} title_id={"graph-algorithms-introduction"} />}
+					/>
+					<Route
+						exact
+						path="/learn/tree-traversals"
+						render={(props) => <LearnMorePage {...this.props} title_id={"tree-traversals-introduction"} />}
+					/>
 
 					<Route exact path="/hub" render={() => <HubPage {...this.props} />} />
 					<Route exact path="/hub/viewarticle/:id" render={() => <ViewArticlePage {...this.props} />} />
@@ -76,6 +100,9 @@ const mapStateToProps = (state) => {
 		currArticle: state.articles.currArticle,
 		articleStatus: state.articles.articleStatus,
 		drafts: state.articles.drafts,
+		topics: state.learn.topics,
+		currTopic: state.learn.currTopic,
+		learnError: state.learn.error,
 		loading: state.auth.loading != null ? state.auth.loading : true,
 	};
 };

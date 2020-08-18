@@ -36,8 +36,8 @@ class RegistrationForm extends Component {
 				});
 			}
 			setTimeout(() => {
-				this.props.updateLogin(true);
-				this.props.updateModal(false);
+				this.props._updateLogin(true);
+				this.props._updateModal(false);
 				this.setState({
 					prompt: null,
 				});
@@ -169,7 +169,7 @@ class RegistrationForm extends Component {
 								<div
 									className="signUpTwo"
 									onClick={() => {
-										this.props.updateLogin(true);
+										this.props._updateLogin(true);
 									}}
 								>
 									Log In

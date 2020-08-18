@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { SnippetsFilled, LoadingOutlined } from "@ant-design/icons";
 
-import { fetchDrafts } from "../../store/actions/article";
+import { fetchAllDrafts } from "../../store/actions/article";
 
 class ViewDraft extends Component {
 	constructor(props) {
@@ -20,7 +20,7 @@ class ViewDraft extends Component {
 
 	componentDidMount() {
 		const user = localStorage.getItem("user_id");
-		this.props.fetchDrafts(user);
+		this.props.fetchAllDrafts(user);
 	}
 
 	componentDidUpdate(prevProps) {
@@ -75,7 +75,7 @@ class ViewDraft extends Component {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		fetchDrafts: (id) => dispatch(fetchDrafts(id)),
+		fetchAllDrafts: (id) => dispatch(fetchAllDrafts(id)),
 	};
 };
 

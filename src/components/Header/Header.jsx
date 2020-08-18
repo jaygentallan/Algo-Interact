@@ -37,9 +37,9 @@ class Header extends Component {
 			loading: true,
 		};
 
-		this.updateLogin = this.updateLogin;
-		this.updateModal = this.updateModal;
-		this.updatePrompt = this.updatePrompt;
+		this._updateLogin = this._updateLogin;
+		this._updateModal = this._updateModal;
+		this._updatePrompt = this._updatePrompt;
 	}
 
 	componentDidMount() {
@@ -96,15 +96,15 @@ class Header extends Component {
 		}
 	}
 
-	updateLogin = (bool) => {
+	_updateLogin = (bool) => {
 		this.setState({ login: bool });
 	};
 
-	updateModal = (bool) => {
+	_updateModal = (bool) => {
 		this.setState({ isModalOpen: bool });
 	};
 
-	updatePrompt = (string) => {
+	_updatePrompt = (string) => {
 		this.setState({ prompt: string });
 	};
 
@@ -241,17 +241,17 @@ class Header extends Component {
 					<Modal.Body>
 						{this.state.login ? (
 							<NormalLoginForm
-								updateLogin={this.updateLogin}
-								updateModal={this.updateModal}
-								updatePrompt={this.updatePrompt}
+								_updateLogin={this._updateLogin}
+								_updateModal={this._updateModal}
+								_updatePrompt={this._updatePrompt}
 								isAuthenticated={this.state.isAuthenticated}
 								loading={this.state.loading}
 							/>
 						) : (
 							<RegistrationForm
-								updateLogin={this.updateLogin}
-								updateModal={this.updateModal}
-								updatePrompt={this.updatePrompt}
+								_updateLogin={this._updateLogin}
+								_updateModal={this._updateModal}
+								_updatePrompt={this._updatePrompt}
 								isAuthenticated={this.state.isAuthenticated}
 								loading={this.state.loading}
 							/>
