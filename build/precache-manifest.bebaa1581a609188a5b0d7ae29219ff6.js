@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2ed444ab89bbe5b5936d6be77aa487a2",
+    "revision": "1ff212035c72f1a2d4d0b5a0c9d22163",
     "url": "https://algointeract.s3.amazonaws.com/index.html"
   },
   {
