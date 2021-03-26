@@ -11,6 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
+# Change algo_interact.settings.production to algo_interact.settings.local if in DEBUG
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'algo_interact.settings.production')
 
 application = get_wsgi_application()

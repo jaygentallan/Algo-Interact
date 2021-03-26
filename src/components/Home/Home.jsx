@@ -14,7 +14,7 @@ import { ScrollRotate } from "react-scroll-rotate";
 // The carousel:
 // https://www.npmjs.com/package/react-multi-carousel
 // npm install react-multi-carousel
-import Carousel from "react-multi-carousel";
+//import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 /*

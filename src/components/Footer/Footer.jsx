@@ -226,7 +226,7 @@ const Footer = (props) => {
 									</div>
 									<div class="col-8">
 										<h4 className="name">Jay Ivan Gentallan</h4>
-										<p className="description">"I like to play the guitar and drink Monster Energy."</p>
+										<p className="description">"I like to play guitar and compete in coding comptetitons!"</p>
 
 										<div class="row pl-2">
 											<a class="mr-3" href="https://github.com/jaygentallan" target="_blank">
@@ -235,7 +235,7 @@ const Footer = (props) => {
 											<a class="mr-3" href="https://www.linkedin.com/in/jay-ivan-gentallan-846729163/" target="_blank">
 												<i class="uil uil-linkedin-alt"></i>
 											</a>
-											<a class="mr-3" href="http://jaygentallan.com" target="_blank">
+											<a class="mr-3" href="http://jaygentallan.me" target="_blank">
 												<i class="uil uil-window"></i>
 											</a>
 										</div>

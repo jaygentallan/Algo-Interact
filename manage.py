@@ -5,6 +5,7 @@ import sys
 
 
 def main():
+    # Change algo_interact.settings.production to algo_interact.settings.local if in DEBUG
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'algo_interact.settings.production')
     try:
         from django.core.management import execute_from_command_line
