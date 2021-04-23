@@ -232,12 +232,12 @@
 }
 
 .logInLogo img {
-	position: relative;
+	position: absolute;
 	padding-top: 0.5vw;
 	padding-bottom: 0.8vw;
 	padding-left: 0.5vw;
 	padding-right: 0.5vw;
-	width: 6.8vw;
+	width: 100%;
 }
 
 .loginInput {

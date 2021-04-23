@@ -1414,7 +1414,8 @@ export default class GraphVisualizer extends React.Component {
 
 								<h5 class="font-weight-light h6 mb-3"> Algorithms: </h5>
 
-								<div className="pt-1">
+								<div className="algorithmsButtonHolder">
+								<div className="pt-2">
 									<Button
 										variant="outline-danger"
 										className="algoSelection"
@@ -1450,8 +1451,9 @@ export default class GraphVisualizer extends React.Component {
 									variant="outline-success"
 									onClick={() => this.startAlgorithm()} //Should call selected algorithm
 								>
-									Start Algorithm
+										Start Algorithm
 								</Button>
+							</div>
 							</div>
 						</Dropdown.Menu>
 					</Dropdown>

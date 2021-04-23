@@ -126,6 +126,7 @@ h1.name.text-center {
 	border-bottom-left-radius: 0.3em;
 	border-width: 0.08em;
 	height: 2.3em !important;
+	width: 100% !important;
 	border-color: #c34f6b !important;
 	padding: 0.6em !important;
 	font-size: 1.1em !important;
@@ -142,7 +143,6 @@ h1.name.text-center {
 	border-bottom-left-radius: 0.3em;
 	border-width: 0.08em;
 	height: 2.3em !important;
-	width: 14.1em;
 	border-color: #c34f6b !important;
 	padding: 0.6em !important;
 	font-size: 1.1em !important;
@@ -319,6 +319,11 @@ div.form-check {
 	bottom: 0.15em;
 }
 
+.algorithmsButtonHolder {
+	margin-top: 0.5vh;
+	width: 100%;
+}
+
 .submit.mt-2.font-weight-normal {
 	text-align: center;
 	font: inherit;
@@ -328,7 +333,7 @@ div.form-check {
 	cursor: pointer;
 	font-size: 16px;
 	font-weight: bold;
-	width: 83%;
+	width: 100% !important;
 }
 
 div.box .tLog {
