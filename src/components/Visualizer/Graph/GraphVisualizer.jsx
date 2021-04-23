@@ -277,21 +277,23 @@ export default class GraphVisualizer extends React.Component {
 			weight = parseInt(weight);
 			var sourceExists, targetExists;
 			sourceExists = targetExists = false;
+			var data = this.state.data;
 
-			for (var i = 0; i < this.state.data.nodes.length; i++) {
-				if (this.state.data.nodes[i].id === source) {
+			for (var i = 0; i < data.nodes.length; i++) {
+				if (data.nodes[i].id === source) {
 					sourceExists = true;
 				}
-				if (this.state.data.nodes[i].id === target) {
+				if (data.nodes[i].id === target) {
 					targetExists = true;
 				}
 			}
 
-			if (!sourceExists || !targetExists || !weight) {
+			if (!sourceExists || !targetExists || weight === null) {
 				this.setState({
 					addLink: "",
 					addLinkPlaceholder: "Enter as: source, target, weight",
 				});
+
 				return;
 			}
 
@@ -305,8 +307,9 @@ export default class GraphVisualizer extends React.Component {
 				}
 			}
 
+
 			// Push to the links list in the data state
-			this.state.data.links.push({
+			data.links.push({
 				source: source,
 				target: target,
 				label: weight,
@@ -387,8 +390,11 @@ export default class GraphVisualizer extends React.Component {
 			var algoData = this.state.algoData;
 			algoData.undirected_neighbors = undirected_neighbors;
 			algoData.directed_neighbors = directed_neighbors;
+			
+			console.log("DATA: " + data);
 
 			this.setState({
+				data: data,
 				algoData: algoData,
 			});
 
@@ -1406,7 +1412,7 @@ export default class GraphVisualizer extends React.Component {
 									/>
 								</div>
 
-								<h5 class="font-weight-light h6"> Algorithms: </h5>
+								<h5 class="font-weight-light h6 mb-3"> Algorithms: </h5>
 
 								<div className="pt-1">
 									<Button

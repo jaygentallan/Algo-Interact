@@ -1355,7 +1355,7 @@ export default class GraphVisualizer extends React.Component {
 						</Dropdown.Toggle>
 						<Dropdown.Menu>
 							<div id="node" class="input-group mb-3 pt-3">
-								<h5 class="font-weight-light h6"> Algorithms: </h5>
+								<h5 class="font-weight-light h6 mb-3"> Algorithms: </h5>
 
 								<div className="pt-1">
 									<Button
